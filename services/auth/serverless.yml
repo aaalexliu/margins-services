@@ -1,5 +1,8 @@
 service: margins-me-auth
 
+app: margins-me
+org: alexliusq
+
 custom:
   # Our stage is based on what is passed in when running serverless
   # commands. Or fallsback to what we have set in the provider section.
@@ -16,7 +19,7 @@ resources:
       Type: AWS::Cognito::UserPool
       Properties:
         # Generate a name based on the stage
-        UserPool: ${self:custom.stage}-user-pool
+        UserPoolName: ${self:custom.stage}-user-pool
         # Set email as an alias
         UsernameAttributes:
           - email
@@ -60,7 +63,7 @@ resources:
             Fn::GetAtt: [CognitoAuthRole, Arn]
 
     CognitoAuthRole:
-      Type: AWS::IAM:Role
+      Type: AWS::IAM::Role
       Properties:
         Path: /
         AssumeRolePolicyDocument:
@@ -92,7 +95,7 @@ resources:
                 # folder inside our S3 bucket
                 - Effect: 'Allow'
                   Action:
-                    - 's3:*'
+                    - 's3:*Object'
                   Resource:
                     - Fn::Join:
                       - ''

@@ -59,7 +59,7 @@
     "CognitoUserPool": {
       "Type": "AWS::Cognito::UserPool",
       "Properties": {
-        "UserPool": "dev-user-pool",
+        "UserPoolName": "dev-user-pool",
         "UsernameAttributes": [
           "email"
         ],
@@ -118,7 +118,7 @@
       }
     },
     "CognitoAuthRole": {
-      "Type": "AWS::IAM:Role",
+      "Type": "AWS::IAM::Role",
       "Properties": {
         "Path": "/",
         "AssumeRolePolicyDocument": {
@@ -161,7 +161,7 @@
                 {
                   "Effect": "Allow",
                   "Action": [
-                    "s3:*"
+                    "s3:*Object"
                   ],
                   "Resource": [
                     {

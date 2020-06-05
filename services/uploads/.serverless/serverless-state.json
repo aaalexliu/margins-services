@@ -246,11 +246,16 @@
       }
     },
     "serviceFilename": "serverless.yml",
+    "app": "margins-me",
+    "org": "alexliusq",
     "layers": {},
-    "isDashboardMonitoringPreconfigured": false
+    "isDashboardMonitoringPreconfigured": true,
+    "isDashboardAppPreconfigured": true,
+    "appUid": "X9z5t03NRWlK0fsZqs",
+    "orgUid": "GNsjMb9p09m1BjlS50"
   },
   "package": {
-    "artifactDirectoryName": "serverless/margins-me-uploads/dev/1591334801279-2020-06-05T05:26:41.279Z",
+    "artifactDirectoryName": "serverless/margins-me-uploads/dev/1591340879640-2020-06-05T07:07:59.640Z",
     "artifact": ""
   }
 }
