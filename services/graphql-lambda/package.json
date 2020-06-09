@@ -10,7 +10,8 @@
     "sam": ". ./.env && scripts/build && scripts/generate-cache && scripts/bundle && scripts/sam",
     "test": ". ./.env && scripts/build && scripts/generate-cache && scripts/bundle && scripts/test",
     "deploy": "scripts/serverless",
-    "create-env": "cat .db-env .aws-env > .env"
+    "create-env": "cat .db-env .aws-env > .env",
+    "create-example-db": ". ./.env && scripts/create-example-db"
 
   },
   "dependencies": {
