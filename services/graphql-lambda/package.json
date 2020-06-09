@@ -9,7 +9,9 @@
     "build": ". ./.env && scripts/build && scripts/generate-cache && scripts/bundle",
     "sam": ". ./.env && scripts/build && scripts/generate-cache && scripts/bundle && scripts/sam",
     "test": ". ./.env && scripts/build && scripts/generate-cache && scripts/bundle && scripts/test",
-    "deploy": "scripts/serverless"
+    "deploy": "scripts/serverless",
+    "create-env": "cat .db-env .aws-env > .env"
+
   },
   "dependencies": {
     "aws-serverless-express": "^3.3.5",
