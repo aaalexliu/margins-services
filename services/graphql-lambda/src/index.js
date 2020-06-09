@@ -43,7 +43,7 @@ const app = combineMiddlewares([
   // console.log(schemas),
   postgraphile(process.env.DATABASE_URL, schemas, {
     ...options,
-    readCache: `${__dirname}/postgraphile.cache`,
+    // readCache: `${__dirname}/postgraphile.cache`,
   }),
 ]);
 
