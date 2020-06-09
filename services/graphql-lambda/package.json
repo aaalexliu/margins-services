@@ -1,0 +1,34 @@
+{
+  "scripts": {
+    "webpack": "webpack",
+    "phase1": ". ./.env && scripts/build",
+    "phase2": ". ./.env && scripts/generate-cache",
+    "phase2-debug": ". ./.env && scripts/generate-cache-test",
+    "phase3": ". ./.env && scripts/bundle",
+    "phase4": ". ./.env && scripts/test",
+    "build": ". ./.env && scripts/build && scripts/generate-cache && scripts/bundle",
+    "sam": ". ./.env && scripts/build && scripts/generate-cache && scripts/bundle && scripts/sam",
+    "test": ". ./.env && scripts/build && scripts/generate-cache && scripts/bundle && scripts/test",
+    "deploy": "scripts/serverless"
+  },
+  "dependencies": {
+    "aws-serverless-express": "^3.3.5",
+    "cors": "^2.8.5",
+    "pg": "^8.2.1",
+    "postgraphile": "^4.4.0-beta.9",
+    "postgraphile-plugin-connection-filter": "^2.0.0"
+  },
+  "devDependencies": {
+    "@graphile-contrib/pg-simplify-inflector": "^6.0.0",
+    "aws-sdk": "^2.689.0",
+    "copy-webpack-plugin": "^6.0.2",
+    "file-loader": "^6.0.0",
+    "serverless-bundle": "^1.7.0",
+    "serverless-content-encoding": "^1.1.0",
+    "serverless-dotenv-plugin": "^2.4.2",
+    "serverless-sam": "^0.2.0",
+    "webpack": "4.43.0",
+    "webpack-cli": "3.3.11"
+  },
+  "peerDependencies": {}
+}
