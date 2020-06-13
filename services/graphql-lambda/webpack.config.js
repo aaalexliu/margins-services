@@ -45,14 +45,14 @@ module.exports = {
       `${__dirname}/src/express-lib-view.js`
     ),
 
-    new CopyPlugin({
-      patterns: [
-        { from: 'dist/postgraphile.cache', to: 'src/'},
-      ],
-      options: {
-        concurrency: 100,
-      },
-    }),
+    // new CopyPlugin({
+    //   patterns: [
+    //     { from: 'dist/postgraphile.cache', to: 'src/'},
+    //   ],
+    //   options: {
+    //     concurrency: 100,
+    //   },
+    // }),
   ],
   node: {
     __dirname: false, // just output `__dirname`

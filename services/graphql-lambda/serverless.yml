@@ -1,6 +1,6 @@
 service: ${env:AWS_SERVICE_NAME}
 
-app: postgraphile-lambda-test
+app: margins-me
 org: alexliusq
 
 
@@ -9,6 +9,7 @@ plugins:
   - serverless-sam
   - serverless-dotenv-plugin
   - serverless-webpack
+  - serverless-domain-manager
 
 custom:
   contentEncoding:
@@ -19,9 +20,21 @@ custom:
   #   linting: true
   #   packager: yarn
   webpack:
-      webpackConfig: 'webpack.config.js'
-      packager: 'yarn'
-      keepOutputDirectory: true
+    webpackConfig: 'webpack.config.js'
+    packager: 'yarn'
+    keepOutputDirectory: true
+  domains:
+    prod: api.margins.me
+    staging: staging-api.margins.me
+    dev: dev-api.margins.me
+  customDomain:
+    domainName: ${self:custom.domains.${self:provider.stage}}
+    basePath: ''
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+    certificateName: '*.margins.me'
+    apiType: http
+    endpointType: regional
 
 package:
   individually: true
