@@ -49,7 +49,7 @@ module "cognito-user-pool" {
     {
       name = "test1"
       generate_secret = false
-      explicit_auth_flows = ["ADMIN_USER_PASSWORD_AUTH"]
+      explicit_auth_flows = ["ALLOW_ADMIN_USER_PASSWORD_AUTH", "ALLOW_REFRESH_TOKEN_AUTH"]
     }
   ]
 
@@ -68,5 +68,104 @@ module "cognito-user-pool" {
   tags = {
     Environment = "test"
     Terraform = true
+  }
+}
+
+resource "aws_cognito_identity_pool" "main" {
+  identity_pool_name               = "identity pool"
+  allow_unauthenticated_identities = true
+
+  # supported_login_providers = {
+  #   "graph.facebook.com" = "7346241598935555"
+  # }
+}
+
+resource "aws_iam_role" "authenticated" {
+  name = "cognito_authenticated"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "cognito-identity.amazonaws.com"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "cognito-identity.amazonaws.com:aud": "${aws_cognito_identity_pool.main.id}"
+        },
+        "ForAnyValue:StringLike": {
+          "cognito-identity.amazonaws.com:amr": "authenticated"
+        }
+      }
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy" "authenticated" {
+  name = "authenticated_policy"
+  role = "${aws_iam_role.authenticated.id}"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "mobileanalytics:PutEvents",
+        "cognito-sync:*",
+        "cognito-identity:*"
+      ],
+      "Resource": [
+        "*"
+      ],
+      {
+      "Effect": "Allow",
+      "Action": [
+        "s3:*"
+      ],
+      "Resource": [
+        "arn:aws:s3:::YOUR_S3_UPLOADS_BUCKET_NAME/private/${cognito-identity.amazonaws.com:sub}/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "execute-api:Invoke"
+      ],
+      "Resource": [
+        "arn:aws:execute-api:YOUR_API_GATEWAY_REGION:*:YOUR_API_GATEWAY_ID/*/*/*"
+      ]
+    }
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_cognito_identity_pool_roles_attachment" "main" {
+  identity_pool_id = "${aws_cognito_identity_pool.main.id}"
+
+  role_mapping {
+    identity_provider         = "graph.facebook.com"
+    ambiguous_role_resolution = "AuthenticatedRole"
+    type                      = "Rules"
+
+    mapping_rule {
+      claim      = "isAdmin"
+      match_type = "Equals"
+      role_arn   = "${aws_iam_role.authenticated.arn}"
+      value      = "paid"
+    }
+  }
+
+  roles = {
+    "authenticated" = "${aws_iam_role.authenticated.arn}"
   }
 }
