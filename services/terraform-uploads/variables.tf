@@ -34,11 +34,11 @@ variable "bucket_prefix" {
   default     = null
 }
 
-variable "acl" {
-  description = "(Optional) The canned ACL to apply. Defaults to 'private'."
-  type        = string
-  default     = "private"
-}
+# variable "acl" {
+#   description = "(Optional) The canned ACL to apply. Defaults to 'private'."
+#   type        = string
+#   default     = "private"
+# }
 
 variable "policy" {
   description = "(Optional) A valid bucket policy JSON document. Note that if the policy document is not specific enough (but still valid), Terraform may view the policy as constantly changing in a terraform plan. In this case, please make sure you use the verbose/specific version of the policy. For more information about building AWS IAM policy documents with Terraform, see the AWS IAM Policy Document Guide."

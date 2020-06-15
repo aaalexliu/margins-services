@@ -10,7 +10,7 @@ provider "aws" {
 
 resource "aws_s3_bucket" "this" {
   bucket_prefix = var.bucket_prefix
-  acl = "public-read-write"
+  # acl = "public-read-write"
 
   cors_rule {
     allowed_headers = ["*"]

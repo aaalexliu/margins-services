@@ -1,7 +1,4 @@
 
-provider "aws" {
-  region = "us-east-1"
-}
 
 module "cognito-user-pool" {
   source  = "lgallard/cognito-user-pool/aws"
