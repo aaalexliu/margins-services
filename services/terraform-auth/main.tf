@@ -1,11 +1,10 @@
 
-
 module "cognito-user-pool" {
   source  = "lgallard/cognito-user-pool/aws"
   version = "0.4.0"
   # insert the 24 required variables here
 
-  user_pool_name = "margins-me-user-pool"
+  user_pool_name = var.user_pool_name
   alias_attributes = ["email"]
   auto_verified_attributes = ["email"]
 
@@ -19,8 +18,8 @@ module "cognito-user-pool" {
   }
 
   email_configuration = {
-    email_sending_account = "DEVELOPER"
-    source_arn = "arn:aws:ses:us-east-1:516851544810:identity/hello@margins.me"
+    email_sending_account = "COGNITO_DEFAULT"
+    source_arn = var.email_configuration_source_arn
   }
 
   # additional prices apply, so screw it
@@ -42,13 +41,7 @@ module "cognito-user-pool" {
     },
   ]
 
-  clients = [
-    {
-      name = "test1"
-      generate_secret = false
-      explicit_auth_flows = ["ALLOW_ADMIN_USER_PASSWORD_AUTH", "ALLOW_REFRESH_TOKEN_AUTH"]
-    }
-  ]
+  clients = var.clients
 
   user_groups = [
     {
@@ -62,10 +55,7 @@ module "cognito-user-pool" {
     },
   ]
 
-  tags = {
-    Environment = "test"
-    Terraform = true
-  }
+  tags = var.tags
 }
 
 resource "aws_cognito_identity_pool" "main" {
