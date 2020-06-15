@@ -55,48 +55,44 @@ module "cognito-user-pool" {
     },
   ]
 
-  tags = var.tags
+  tags = var.cognito_user_pool_tags
 }
 
 resource "aws_cognito_identity_pool" "main" {
   identity_pool_name               = "identity pool"
   allow_unauthenticated_identities = true
+}
 
-  # supported_login_providers = {
-  #   "graph.facebook.com" = "7346241598935555"
-  # }
+
+data "aws_iam_policy_document" "authenticated" {
+  statement {
+
+    actions = ["sts:AssumeRoleWithWebIdentity"]
+
+    principals {
+      type = "Federated"
+      identifiers = ["cognito-identity.amazonaws.com"]
+    }
+    
+    condition {
+      test = "StringEquals"
+      variable = "cognito-identity.amazonaws.com:aud"
+      values = [
+        "&{aws_cognito_identity_pool.main.id}"
+      ]
+    }
+  }
 }
 
 resource "aws_iam_role" "authenticated" {
   name = "cognito_authenticated"
 
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Federated": "cognito-identity.amazonaws.com"
-      },
-      "Action": "sts:AssumeRoleWithWebIdentity",
-      "Condition": {
-        "StringEquals": {
-          "cognito-identity.amazonaws.com:aud": "${aws_cognito_identity_pool.main.id}"
-        },
-        "ForAnyValue:StringLike": {
-          "cognito-identity.amazonaws.com:amr": "authenticated"
-        }
-      }
-    }
-  ]
-}
-EOF
+  assume_role_policy = data.aws_iam_policy_document.authenticated.json
 }
 
 resource "aws_iam_role_policy" "authenticated" {
   name = "authenticated_policy"
-  role = "${aws_iam_role.authenticated.id}"
+  role = aws_iam_role.authenticated.id
 
   policy = <<EOF
 {
@@ -115,44 +111,44 @@ resource "aws_iam_role_policy" "authenticated" {
       {
       "Effect": "Allow",
       "Action": [
-        "s3:*"
+        "s3:*Object"
       ],
       "Resource": [
-        "arn:aws:s3:::YOUR_S3_UPLOADS_BUCKET_NAME/private/${cognito-identity.amazonaws.com:sub}/*"
+        "${var.s3_bucket_arn}/private/$${cognito-identity.amazonaws.com:sub}/*"
       ]
     },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "execute-api:Invoke"
-      ],
-      "Resource": [
-        "arn:aws:execute-api:YOUR_API_GATEWAY_REGION:*:YOUR_API_GATEWAY_ID/*/*/*"
-      ]
-    }
+    # {
+    #   "Effect": "Allow",
+    #   "Action": [
+    #     "execute-api:Invoke"
+    #   ],
+    #   "Resource": [
+    #     "arn:aws:execute-api:YOUR_API_GATEWAY_REGION:*:YOUR_API_GATEWAY_ID/*/*/*"
+    #   ]
+    # }
     }
   ]
 }
 EOF
 }
 
-resource "aws_cognito_identity_pool_roles_attachment" "main" {
-  identity_pool_id = "${aws_cognito_identity_pool.main.id}"
+# resource "aws_cognito_identity_pool_roles_attachment" "main" {
+#   identity_pool_id = "${aws_cognito_identity_pool.main.id}"
 
-  role_mapping {
-    identity_provider         = "graph.facebook.com"
-    ambiguous_role_resolution = "AuthenticatedRole"
-    type                      = "Rules"
+#   role_mapping {
+#     identity_provider         = "graph.facebook.com"
+#     ambiguous_role_resolution = "AuthenticatedRole"
+#     type                      = "Rules"
 
-    mapping_rule {
-      claim      = "isAdmin"
-      match_type = "Equals"
-      role_arn   = "${aws_iam_role.authenticated.arn}"
-      value      = "paid"
-    }
-  }
+#     mapping_rule {
+#       claim      = "isAdmin"
+#       match_type = "Equals"
+#       role_arn   = "${aws_iam_role.authenticated.arn}"
+#       value      = "paid"
+#     }
+#   }
 
-  roles = {
-    "authenticated" = "${aws_iam_role.authenticated.arn}"
-  }
-}
+#   roles = {
+#     "authenticated" = "${aws_iam_role.authenticated.arn}"
+#   }
+# }
