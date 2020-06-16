@@ -25,6 +25,8 @@ module "aws_cognito_auth" {
   }
 
   s3_bucket_arn = "${module.aws_s3_uploads.this_s3_bucket_arn}"
+
+  api_gateway_arn =
 }
 
 output "s3_bucket_id" {

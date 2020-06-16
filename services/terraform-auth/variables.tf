@@ -30,3 +30,24 @@ variable "cognito_user_pool_tags" {
     Terraform = bool 
   })
 }
+
+data "aws_iam_policy_document" "authenticated_role_policy" {
+  statement {
+    actions = [
+      "mobileanalytics:PutEvents",
+      "cognito-sync:*",
+      "cognito-identity:*"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    actions = ["s3:*Object"]
+    resources = ["${var.s3_bucket_arn}/private/$${cognito-identity.amazonaws.com:sub}/*"]
+  }
+
+  statement {
+    actions = ["execute-api:Invoke"]
+    resources = [var.api_gateway_arn]
+  }
+}

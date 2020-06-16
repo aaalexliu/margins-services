@@ -64,9 +64,8 @@ resource "aws_cognito_identity_pool" "main" {
 }
 
 
-data "aws_iam_policy_document" "authenticated" {
+data "aws_iam_policy_document" "authenticated_role" {
   statement {
-
     actions = ["sts:AssumeRoleWithWebIdentity"]
 
     principals {
@@ -87,49 +86,35 @@ data "aws_iam_policy_document" "authenticated" {
 resource "aws_iam_role" "authenticated" {
   name = "cognito_authenticated"
 
-  assume_role_policy = data.aws_iam_policy_document.authenticated.json
+  assume_role_policy = data.aws_iam_policy_document.authenticated_role.json
 }
 
-resource "aws_iam_role_policy" "authenticated" {
+data "aws_iam_policy_document" "authenticated_role_policy" {
+  statement {
+    actions = [
+      "mobileanalytics:PutEvents",
+      "cognito-sync:*",
+      "cognito-identity:*"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    actions = ["s3:*Object"]
+    resources = ["${var.s3_bucket_arn}/private/$${cognito-identity.amazonaws.com:sub}/*"]
+  }
+
+  statement {
+    actions = ["execute-api:Invoke"]
+    resources = [var.api_gateway_arn]
+  }
+}
+
+resource "aws_iam_role_policy" "authenticated_role_policy" {
   name = "authenticated_policy"
   role = aws_iam_role.authenticated.id
 
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "mobileanalytics:PutEvents",
-        "cognito-sync:*",
-        "cognito-identity:*"
-      ],
-      "Resource": [
-        "*"
-      ],
-      {
-      "Effect": "Allow",
-      "Action": [
-        "s3:*Object"
-      ],
-      "Resource": [
-        "${var.s3_bucket_arn}/private/$${cognito-identity.amazonaws.com:sub}/*"
-      ]
-    },
-    # {
-    #   "Effect": "Allow",
-    #   "Action": [
-    #     "execute-api:Invoke"
-    #   ],
-    #   "Resource": [
-    #     "arn:aws:execute-api:YOUR_API_GATEWAY_REGION:*:YOUR_API_GATEWAY_ID/*/*/*"
-    #   ]
-    # }
-    }
-  ]
-}
-EOF
+  policy = data.aws_iam_policy_document.authenticated_role_policy.json
 }
 
 # resource "aws_cognito_identity_pool_roles_attachment" "main" {
