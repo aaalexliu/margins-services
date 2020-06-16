@@ -1,6 +1,9 @@
 provider "aws" {
+  profile = "default"
   region = "us-east-1"
+  version = "~> 2.0"
 }
+
 
 module "aws_s3_uploads" {
   source = "./terraform-uploads/"

@@ -34,5 +34,4 @@ variable "cognito_user_pool_tags" {
 variable "api_gateway_id" {
   description = "API Gateway ARN"
   type = string
-
 }
