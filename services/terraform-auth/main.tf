@@ -89,6 +89,8 @@ resource "aws_iam_role" "authenticated" {
   assume_role_policy = data.aws_iam_policy_document.authenticated_role.json
 }
 
+data "aws_canonical_user_id" "current" {}
+
 data "aws_iam_policy_document" "authenticated_role_policy" {
   statement {
     actions = [
@@ -106,7 +108,9 @@ data "aws_iam_policy_document" "authenticated_role_policy" {
 
   statement {
     actions = ["execute-api:Invoke"]
-    resources = [var.api_gateway_arn]
+    resources = [
+      "arn:aws:execute-api:us-east-1:${data.aws_canonical_user_id.current.id}:${var.api_gateway_id}/*"
+    ]
   }
 }
 
