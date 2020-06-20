@@ -10,9 +10,23 @@ provider:
     name: serverless-margins-me
     serverSideEncryption: AES256
 
+custom:
+  domains:
+    prod: api.margins.me
+    staging: staging-api.margins.me
+    dev: dev-api.margins.me
+  customDomain:
+    domainName: ${self:custom.domains.${self:provider.stage}}
+    basePath: ''
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+    certificateName: '*.margins.me'
+    apiType: http
+    endpoinType: regional
+
 resources:
   Resources:
-    MarginsMe-HttpApiGateway:
+    MarginsMeHttpApiGateway:
       Type: AWS::ApiGatewayV2::Api
       Properties:
         Name: MarginsMe-HttpApiGateway
@@ -22,6 +36,6 @@ resources:
   Outputs:
     httpApiId:
       Value:
-        Ref: MarginsMe-HttpApiGateway
+        Ref: MarginsMeHttpApiGateway
       Export:
         Name: MarginsMe-HttpApiGateway
