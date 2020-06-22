@@ -19,6 +19,12 @@ module "aws_cognito_auth" {
       name = "test1"
       generate_secret = false
       explicit_auth_flows = ["ALLOW_ADMIN_USER_PASSWORD_AUTH", "ALLOW_REFRESH_TOKEN_AUTH"]
+      
+      allowed_oauth_flows_user_pool_client = true
+      allowed_oauth_flows = ["code", "implicit"]
+      allowed_oauth_scopes = ["phone", "email", "openid", "profile", "aws.cognito.signin.user.admin"]
+      callback_urls = ["https://localhost:3000"]
+      supported_identity_providers = ["COGNITO"]
     }
   ]
   cognito_user_pool_tags = {

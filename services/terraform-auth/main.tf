@@ -106,12 +106,13 @@ data "aws_iam_policy_document" "authenticated_role_policy" {
     resources = ["${var.s3_bucket_arn}/private/$${cognito-identity.amazonaws.com:sub}/*"]
   }
 
-  statement {
-    actions = ["execute-api:Invoke"]
-    resources = [
-      "arn:aws:execute-api:us-east-1:${data.aws_caller_identity.current.account_id}:${var.api_gateway_id}/*"
-    ]
-  }
+  # Only needed for REST APIs
+  # statement {
+  #   actions = ["execute-api:Invoke"]
+  #   resources = [
+  #     "arn:aws:execute-api:us-east-1:${data.aws_caller_identity.current.account_id}:${var.api_gateway_id}/*"
+  #   ]
+  # }
 }
 
 output "aws_iam_authenticated_role_policy" {
