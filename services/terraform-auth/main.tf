@@ -5,8 +5,12 @@ module "cognito-user-pool" {
   # insert the 24 required variables here
 
   user_pool_name = var.user_pool_name
-  alias_attributes = ["email"]
+  username_attributes = ["email"]
   auto_verified_attributes = ["email"]
+
+  admin_create_user_config = {
+    allow_admin_create_user_only = false
+  }
 
   password_policy = {
     minimum_length = 8
@@ -56,6 +60,24 @@ module "cognito-user-pool" {
   ]
 
   tags = var.cognito_user_pool_tags
+}
+
+resource "aws_acm_certificate" "cert" {
+  domain_name = "auth.margins.me"
+  validation_method = "DNS"
+
+  tags = {
+    Environment = "test"
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_cognito_user_pool_domain" "main"   {
+  domain = "auth.margins.me"
+  certificate_arn = "${}"
 }
 
 resource "aws_cognito_identity_pool" "main" {
