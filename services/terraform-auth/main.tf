@@ -62,22 +62,15 @@ module "cognito-user-pool" {
   tags = var.cognito_user_pool_tags
 }
 
-resource "aws_acm_certificate" "cert" {
-  domain_name = "auth.margins.me"
-  validation_method = "DNS"
-
-  tags = {
-    Environment = "test"
-  }
-
-  lifecycle {
-    create_before_destroy = true
-  }
+data "aws_acm_certificate" "subdomains" {
+  domain = "*.margins.me"
+  statuses = ["ISSUED"]
 }
 
 resource "aws_cognito_user_pool_domain" "main"   {
   domain = "auth.margins.me"
-  certificate_arn = "${}"
+  certificate_arn = "${data.aws_acm_certificate.subdomains.arn}"
+  user_pool_id = "${module.cognito-user-pool.id}"
 }
 
 resource "aws_cognito_identity_pool" "main" {
