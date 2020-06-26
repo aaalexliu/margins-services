@@ -69,8 +69,8 @@ data "aws_acm_certificate" "subdomains" {
 
 resource "aws_cognito_user_pool_domain" "main"   {
   domain = "auth.margins.me"
-  certificate_arn = "${data.aws_acm_certificate.subdomains.arn}"
-  user_pool_id = "${module.cognito-user-pool.id}"
+  certificate_arn = data.aws_acm_certificate.subdomains.arn
+  user_pool_id = module.cognito-user-pool.id
 }
 
 resource "aws_cognito_identity_pool" "main" {
