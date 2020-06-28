@@ -39,10 +39,10 @@ EOF
 }
 
 resource "aws_s3_bucket_object" "test" {
-  for_each = fileset("${path.module}/test, "**")
+  for_each = fileset("${path.module}/test", "**")
   bucket = aws_s3_bucket.www.bucket
   key = each.value
-  source = "${path.module}/${each.value}"
+  source = "${path.module}/test/${each.value}"
 }
 
 # resource "aws_s3_bucket_object" "prod" {
@@ -84,9 +84,9 @@ resource "aws_cloudfront_distribution" "www_distribution" {
     }
 
     // Here we're using our S3 bucket's URL!
-    domain_name = "${aws_s3_bucket.www.website_endpoint}"
+    domain_name = aws_s3_bucket.www.website_endpoint
     // This can be any name to identify this origin.
-    origin_id   = "${var.www_domain_name}"
+    origin_id   = var.www_domain_name
   }
 
   enabled             = true
@@ -127,7 +127,7 @@ resource "aws_cloudfront_distribution" "www_distribution" {
 
   // Here's where our certificate is loaded in!
   viewer_certificate {
-    acm_certificate_arn = "${aws_acm_certificate.certificate.arn}"
+    acm_certificate_arn = aws_acm_certificate.certificate.arn
     ssl_support_method  = "sni-only"
   }
 }
