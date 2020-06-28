@@ -39,7 +39,7 @@ EOF
 }
 
 resource "aws_s3_bucket_object" "test" {
-  for_each = fileset(path.module, "test/*")
+  for_each = fileset("${path.module}/test, "**")
   bucket = aws_s3_bucket.www.bucket
   key = each.value
   source = "${path.module}/${each.value}"
