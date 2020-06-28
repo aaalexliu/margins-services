@@ -106,7 +106,7 @@ resource "aws_cloudfront_distribution" "www_distribution" {
   }
   // Using the cheapest price class
   // options include: PriceClass_All, PriceClass_200, PriceClass_100
-  price_class = PriceClass_100
+  price_class = "PriceClass_100"
 
   // Here we're ensuring we can hit this distribution using www.runatlantis.io
   // rather than the domain name CloudFront gives us.
@@ -122,5 +122,24 @@ resource "aws_cloudfront_distribution" "www_distribution" {
   viewer_certificate {
     acm_certificate_arn = "${aws_acm_certificate.certificate.arn}"
     ssl_support_method  = "sni-only"
+  }
+}
+
+// We want AWS to host our zone so its nameservers can point to our CloudFront
+// distribution.
+data "aws_route53_zone" "root" {
+  name = var.root_domain_name
+}
+
+// This Route53 record will point at our CloudFront distribution.
+resource "aws_route53_record" "www" {
+  zone_id = data.aws_route53_zone.root.zone_id
+  name    = var.www_domain_name
+  type    = "A"
+
+  alias = {
+    name                   = "${aws_cloudfront_distribution.www_distribution.domain_name}"
+    zone_id                = "${aws_cloudfront_distribution.www_distribution.hosted_zone_id}"
+    evaluate_target_health = false
   }
 }
