@@ -80,9 +80,9 @@ data "aws_route53_zone" "root" {
   name = "margins.me"
 }
 
-data "aws_cloudfront_distribution" "auth" {
-  id = split("/", aws_cognito_user_pool_domain.main.cloudfront_distribution_arn)[1]
-}
+# data "aws_cloudfront_distribution" "auth" {
+#   id = split("/", aws_cognito_user_pool_domain.main.cloudfront_distribution_arn)[1]
+# }
 
 // This Route53 record will point at our Cognito Auth Domain
 resource "aws_route53_record" "auth" {
@@ -91,8 +91,9 @@ resource "aws_route53_record" "auth" {
   type    = "A"
 
   alias {
-    name                   = data.aws_cloudfront_distribution.auth.domain_name
-    zone_id                = data.aws_cloudfront_distribution.auth.hosted_zone_id
+    # name                   = data.aws_cloudfront_distribution.auth.domain_name
+    name = aws_cognito_user_pool_domain.main.cloudfront_distribution_arn
+    zone_id                = "Z2FDTNDATAQYW2"
     evaluate_target_health = false
   }
 }
