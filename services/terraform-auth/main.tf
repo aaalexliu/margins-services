@@ -73,6 +73,30 @@ resource "aws_cognito_user_pool_domain" "main"   {
   user_pool_id = module.cognito-user-pool.id
 }
 
+
+// We want AWS to host our zone so its nameservers can point to our CloudFront
+// distribution.
+data "aws_route53_zone" "root" {
+  name = "margins.me"
+}
+
+data "aws_cloudfront_distribution" "auth" {
+  id = aws_cognito_user_pool_domain.main.cloudfront_distribution_arn
+}
+
+// This Route53 record will point at our Cognito Auth Domain
+resource "aws_route53_record" "auth" {
+  zone_id = data.aws_route53_zone.root.zone_id
+  name    = "auth.margins.me"
+  type    = "A"
+
+  alias {
+    name                   = data.aws_cloudfront_distribution.auth.domain_name
+    zone_id                = data.aws_cloudfront_distribution.auth.hosted_zone_id
+    evaluate_target_health = false
+  }
+}
+
 resource "aws_cognito_identity_pool" "main" {
   identity_pool_name               = "identity pool"
   allow_unauthenticated_identities = true

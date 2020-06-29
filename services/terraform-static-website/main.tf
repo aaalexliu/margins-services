@@ -231,13 +231,13 @@ resource "aws_cloudfront_distribution" "root_distribution" {
 }
 
 resource "aws_route53_record" "root" {
-  zone_id = data.aws_route53_zone.zone.zone_id
+  zone_id = data.aws_route53_zone.root.zone_id
 
   // NOTE: name is blank here.
   name = ""
   type = "A"
 
-  alias = {
+  alias {
     name                   = aws_cloudfront_distribution.root_distribution.domain_name
     zone_id                = aws_cloudfront_distribution.root_distribution.hosted_zone_id
     evaluate_target_health = false
