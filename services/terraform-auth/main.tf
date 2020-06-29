@@ -81,7 +81,7 @@ data "aws_route53_zone" "root" {
 }
 
 data "aws_cloudfront_distribution" "auth" {
-  id = aws_cognito_user_pool_domain.main.cloudfront_distribution_arn
+  id = split("/", aws_cognito_user_pool_domain.main.cloudfront_distribution_arn)[1]
 }
 
 // This Route53 record will point at our Cognito Auth Domain
