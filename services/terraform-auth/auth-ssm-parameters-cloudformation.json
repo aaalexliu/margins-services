@@ -1,0 +1,19 @@
+{
+  "Resources": {
+    "UserPoolArn": {
+      "Type": "AWS::SSM::Parameter",
+      "Properties": {
+        "Name": "user-pool-arn",
+        "Type": "String",
+        "Value": "${module.cognito-user-pool.arn}"
+      }
+    },
+    "UserPoolClientArn": {
+      "Type": "AWS::SSM::Parameter",
+      "Properties": {
+        "Name": "user-pool-client-arn",
+        "Type": "String",
+        "Value": "${module.cognito-user-pool.client_ids[0]}"
+      }
+    }
+}

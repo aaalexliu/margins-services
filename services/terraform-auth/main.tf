@@ -186,3 +186,28 @@ resource "aws_iam_role_policy" "authenticated_role_policy" {
 #     "authenticated" = "${aws_iam_role.authenticated.arn}"
 #   }
 # }
+
+resource "aws_cloudformation_stack" "auth-ssm-parameters" {
+  name = "auth-ssm-parameters"
+
+  template_body = <<STACK
+  "Resources": {
+    "UserPoolArn": {
+      "Type": "AWS::SSM::Parameter",
+      "Properties": {
+        "Name": "user-pool-arn",
+        "Type": "String",
+        "Value": "${module.cognito-user-pool.arn}"
+      }
+    },
+    "UserPoolClientArn": {
+      "Type": "AWS::SSM::Parameter",
+      "Properties": {
+        "Name": "user-pool-client-arn",
+        "Type": "String",
+        "Value": "${module.cognito-user-pool.client_ids[0]}"
+      }
+    }
+  }
+  STACK
+}
