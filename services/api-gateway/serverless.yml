@@ -9,47 +9,25 @@ provider:
   deploymentBucket:
     name: serverless-margins-me
     serverSideEncryption: AES256
-  httpApi:
-    authorizers:
-      apiAuthorizer:
-        identitySource: $request.header.Authorizer
-        issuerUrl:
-          Fn::Join:
-          - ''
-          - - 'https://cognito-idp.us-east-1.amazonaws.com/'
-            - ${ssm:/margins.me/dev/auth/user-pool-arn}
-        audience: ${ssm:/margins.me/dev/auth/user-pool-client-arn}
 
-
-plugins:
-  - serverless-domain-manager
-
-custom:
-  domains:
-    prod: api.margins.me
-    staging: staging-api.margins.me
-    dev: dev-api.margins.me
-  customDomain:
-    domainName: ${self:custom.domains.${self:provider.stage}}
-    basePath: ''
-    stage: ${self:provider.stage}
-    createRoute53Record: true
-    certificateName: '*.margins.me'
-    apiType: http
-    endpointType: regional
 
 resources:
   Resources:
-    MarginsMeHttpApiGateway:
+    HttpApi:
       Type: AWS::ApiGatewayV2::Api
       Properties:
         Name: MarginsMe-HttpApiGateway
         Description: Lambda Proxy
         ProtocolType: HTTP
-
-  Outputs:
-    httpApiId:
+    HttpApiId:
+      Type: AWS::SSM::Parameter
+      Name: margins-me-http-api
       Value:
-        Ref: MarginsMeHttpApiGateway
-      Export:
-        Name: MarginsMe-HttpApiGateway
+        Ref: HttpApi
+
+  # Outputs:
+  #   httpApiId:
+  #     Value:
+  #       Ref: HttpApi
+  #     Export:
+  #       Name: MarginsMe-HttpApiGateway
