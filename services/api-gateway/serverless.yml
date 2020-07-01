@@ -21,9 +21,11 @@ resources:
         ProtocolType: HTTP
     HttpApiId:
       Type: AWS::SSM::Parameter
-      Name: margins-me-http-api
-      Value:
-        Ref: HttpApi
+      Properties:
+        Name: margins-me-http-api
+        Type: String
+        Value:
+          Ref: HttpApi
 
   # Outputs:
   #   httpApiId:
