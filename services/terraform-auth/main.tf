@@ -200,6 +200,14 @@ resource "aws_cloudformation_stack" "auth-ssm-parameters" {
         "Value": "${module.cognito-user-pool.arn}"
       }
     },
+    "UserPoolId": {
+      "Type": "AWS::SSM::Parameter",
+      "Properties": {
+        "Name": "/margins.me/dev/auth/user-pool-id",
+        "Type": "String",
+        "Value": "${module.cognito-user-pool.id}"
+      }
+    },
     "UserPoolClientArn": {
       "Type": "AWS::SSM::Parameter",
       "Properties": {

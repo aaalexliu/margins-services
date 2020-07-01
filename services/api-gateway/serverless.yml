@@ -22,7 +22,7 @@ resources:
     HttpApiId:
       Type: AWS::SSM::Parameter
       Properties:
-        Name: margins-me-http-api
+        Name: /margins.me/dev/api-gateway/id
         Type: String
         Value:
           Ref: HttpApi
