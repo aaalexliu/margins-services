@@ -195,7 +195,7 @@ resource "aws_cloudformation_stack" "auth-ssm-parameters" {
     "UserPoolArn": {
       "Type": "AWS::SSM::Parameter",
       "Properties": {
-        "Name": "user-pool-arn",
+        "Name": "/margins.me/dev/auth/user-pool-arn",
         "Type": "String",
         "Value": "${module.cognito-user-pool.arn}"
       }
@@ -203,7 +203,7 @@ resource "aws_cloudformation_stack" "auth-ssm-parameters" {
     "UserPoolClientArn": {
       "Type": "AWS::SSM::Parameter",
       "Properties": {
-        "Name": "user-pool-client-arn",
+        "Name": "/margins.me/dev/auth/user-pool-client-arn",
         "Type": "String",
         "Value": "${module.cognito-user-pool.client_ids[0]}"
       }
