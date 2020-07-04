@@ -39,6 +39,17 @@ resource "aws_apigatewayv2_domain_name" "api" {
   }
 }
 
+resource "aws_apigatewayv2_stage" "default" {
+  api_id = aws_apigatewayv2_api.http-api.id
+  name = "$default"
+}
+
+resource "aws_apigatewayv2_api_mapping" "api" {
+  api_id = aws_apigatewayv2_api.http-api.id
+  domain_name = aws_apigatewayv2_domain_name.api.id
+  stage = aws_apigatewayv2_stage.default.id
+}
+
 resource "aws_cloudformation_stack" "api-ssm-parameters" {
   name = "api-ssm-parameters"
 
