@@ -52,7 +52,7 @@ resource "aws_cloudformation_stack" "api-ssm-parameters" {
           Value: "${aws_apigatewayv2_api.http-api.id}"
       ApiAuthorizerId:
         Type: AWS::SSM::Parameter
-        Properties
+        Properties:
           Name: /margins.me/dev/api/authorizer-id
           Type: String
           Value: "${aws_apigatewayv2_authorizer.jwt.id}"
