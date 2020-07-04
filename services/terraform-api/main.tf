@@ -19,8 +19,8 @@ resource "aws_apigatewayv2_authorizer" "jwt" {
   name = "cognito-jwt-authorizer"
 
   jwt_configuration {
-    audience = ["${data.aws_ssm_parameter.audience}"]
-    issuer = data.aws_ssm_parameter.issuer_endpoint
+    audience = ["${data.aws_ssm_parameter.audience.value}"]
+    issuer = "https://${data.aws_ssm_parameter.issuer_endpoint.value}"
   }
 }
 
@@ -33,7 +33,7 @@ resource "aws_apigatewayv2_domain_name" "api" {
   domain_name = "api.margins.me"
 
   domain_name_configuration {
-    certificate_arn = data.aws_acm_certificate.subdomains
+    certificate_arn = data.aws_acm_certificate.subdomains.arn
     endpoint_type = "REGIONAL"
     security_policy = "TLS_1_2"
   }
@@ -49,6 +49,12 @@ resource "aws_cloudformation_stack" "api-ssm-parameters" {
         Properties:
           Name: /margins.me/dev/api/api-id
           Type: String
-          Value: "${aws_apigatewayv2_api.id}"
+          Value: "${aws_apigatewayv2_api.http-api.id}"
+      ApiAuthorizerId:
+        Type: AWS::SSM::Parameter
+        Properties
+          Name: /margins.me/dev/api/authorizer-id
+          Type: String
+          Value: "${aws_apigatewayv2_authorizer.jwt.id}"
   STACK
 }
