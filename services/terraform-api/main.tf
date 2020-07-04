@@ -20,7 +20,7 @@ resource "aws_apigatewayv2_authorizer" "jwt" {
 
   jwt_configuration {
     audience = ["${data.aws_ssm_parameter.audience}"]
-    issuer = 
+    issuer = data.aws_ssm_parameter.issuer_endpoint
   }
 }
 
@@ -39,3 +39,16 @@ resource "aws_apigatewayv2_domain_name" "api" {
   }
 }
 
+resource "aws_cloudformation_stack" "api-ssm-parameters" {
+  name = "api-ssm-parameters"
+
+  template_body = <<STACK
+    Resources:
+      HttpApiId:
+        Type: AWS::SSM::Parameter
+        Properties:
+          Name: /margins.me/dev/api/api-id
+          Type: String
+          Value: "${aws_apigatewayv2_api.id}"
+  STACK
+}
