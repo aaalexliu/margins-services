@@ -42,12 +42,29 @@ resource "aws_apigatewayv2_domain_name" "api" {
 resource "aws_apigatewayv2_stage" "default" {
   api_id = aws_apigatewayv2_api.http-api.id
   name = "$default"
+  auto_deploy = true
 }
 
 resource "aws_apigatewayv2_api_mapping" "api" {
   api_id = aws_apigatewayv2_api.http-api.id
   domain_name = aws_apigatewayv2_domain_name.api.id
   stage = aws_apigatewayv2_stage.default.id
+}
+
+data "aws_route53_zone" "api" {
+  name = "api.margins.me."
+}
+
+resource "aws_route53_record" "A" {
+  zone_id = data.aws_route53_zone.api.zone_id
+  name = aws_apigatewayv2_domain_name.api.domain_name
+  type = "A"
+
+  alias {
+    evaluate_target_health = true
+    name = aws_apigatewayv2_domain_name.api.domain_name_configuration[0].target_domain_name
+    zone_id = aws_apigatewayv2_domain_name.api.domain_name_configuration[0].hosted_zone_id
+  }
 }
 
 resource "aws_cloudformation_stack" "api-ssm-parameters" {
