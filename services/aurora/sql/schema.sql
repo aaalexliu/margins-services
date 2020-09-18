@@ -53,73 +53,73 @@ CREATE TABLE margins_private.account (
   "email_verified" boolean
 );
 
-CREATE TABLE "account_publication" (
+CREATE TABLE margins_private.account_publication (
   "account_id" uuid,
   "publication_id" int,
   PRIMARY KEY ("account_id", "publication_id")
 );
 
-CREATE TABLE "account_annotation" (
+CREATE TABLE margins_private.account_annotation (
   "account_id" uuid,
   "annotation_id" int,
   PRIMARY KEY ("account_id", "annotation_id")
 );
 
-CREATE TABLE "tag" (
+CREATE TABLE margins_private.tag (
   "tag_id" serial PRIMARY KEY,
   "tag_name" text
 );
 
-CREATE TABLE "account_tag_annotation" (
+CREATE TABLE margins_private.account_tag_annotation (
   "account_id" uuid,
   "tag_id" int,
   "annotation_id" int,
   PRIMARY KEY ("account_id", "tag_id", "annotation_id")
 );
 
-ALTER TABLE "book"
+ALTER TABLE margins_private.book
   ADD FOREIGN KEY ("publication_id") REFERENCES "publication" ("publication_id");
 
-ALTER TABLE "annotation"
+ALTER TABLE margins_private.annotation
   ADD FOREIGN KEY ("publication_id") REFERENCES "publication" ("publication_id");
 
-ALTER TABLE "publication_author"
+ALTER TABLE margins_private.publication_author
   ADD FOREIGN KEY ("publication_id") REFERENCES "publication" ("publication_id");
 
-ALTER TABLE "publication_author"
+ALTER TABLE margins_private.publication_author
   ADD FOREIGN KEY ("author_id") REFERENCES "author" ("author_id");
 
-ALTER TABLE "account_publication"
+ALTER TABLE margins_private.account_publication
   ADD FOREIGN KEY ("account_id") REFERENCES "account" ("account_id");
 
-ALTER TABLE "account_publication"
+ALTER TABLE margins_private.account_publication
   ADD FOREIGN KEY ("publication_id") REFERENCES "publication" ("publication_id");
 
-ALTER TABLE "account_annotation"
+ALTER TABLE margins_private.account_annotation
   ADD FOREIGN KEY ("account_id") REFERENCES "account" ("account_id");
 
-ALTER TABLE "account_annotation"
+ALTER TABLE margins_private.account_annotation
   ADD FOREIGN KEY ("annotation_id") REFERENCES "annotation" ("annotation_id");
 
-ALTER TABLE "account_tag_annotation"
+ALTER TABLE margins_private.account_tag_annotation
   ADD FOREIGN KEY ("account_id") REFERENCES "account" ("account_id");
 
-ALTER TABLE "account_tag_annotation"
+ALTER TABLE margins_private.account_tag_annotation
   ADD FOREIGN KEY ("tag_id") REFERENCES "tag" ("tag_id");
 
-ALTER TABLE "account_tag_annotation"
+ALTER TABLE margins_private.account_tag_annotation
   ADD FOREIGN KEY ("annotation_id") REFERENCES "annotation" ("annotation_id");
 
-ALTER TABLE "account_tag_annotation"
+ALTER TABLE margins_private.account_tag_annotation
   ADD FOREIGN KEY ("account_id") REFERENCES "account_tag_annotation" ("tag_id");
 
-CREATE INDEX ON "book" ("publication_id");
+CREATE INDEX ON margins_private.book ("publication_id");
 
-CREATE INDEX ON "annotation" ("publication_id");
+CREATE INDEX ON margins_private.annotation ("publication_id");
 
-CREATE INDEX ON "publication_author" ("author_id");
+CREATE INDEX ON margins_private.publication_author ("author_id");
 
-CREATE INDEX ON "account_tag_annotation" ("annotation_id", "tag_id");
+CREATE INDEX ON margins_private.account_tag_annotation ("annotation_id", "tag_id");
 
 -- FUNCTIONS
 
