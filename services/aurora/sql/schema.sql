@@ -7,7 +7,7 @@ CREATE TABLE "publication" (
 CREATE TABLE "book" (
   "publication_id" int,
   "title" text NOT NULL,
-  "isbn" char(13) NOT NULL,
+  "isbn" char(13) UNIQUE NOT NULL,
   "image_url" text,
   "language_code" char(3),
   "publisher" text,
