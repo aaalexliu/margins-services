@@ -1,5 +1,7 @@
 CREATE TABLE "publication" (
   "publication_id" SERIAL PRIMARY KEY
+  "created_at" timestamp
+  "last_modified" timestamp DEFAULT now()
 );
 
 CREATE TABLE "book" (
@@ -25,6 +27,8 @@ CREATE TABLE "annotation" (
   "note" text,
   "statusline" text UNIQUE,
   "page" int
+  "created_at" timestamp
+  "last_modified" timestamp DEFAULT now()
 );
 
 CREATE TABLE "author" (
@@ -42,8 +46,8 @@ CREATE TABLE "publication_author" (
 CREATE TABLE "user" (
   "user_id" uuid PRIMARY KEY,
   "email" text,
-  "last_modified" datetime,
-  "created" datetime,
+  "last_modified" timestamp,
+  "created_at" timestamp,
   "status" text,
   "email_verified" boolean
 );
