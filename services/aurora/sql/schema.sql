@@ -7,7 +7,7 @@ CREATE TABLE margins_private.publication (
 );
 
 CREATE TABLE margins_private.book (
-  "publication_id" int,
+  "publication_id" int REFERENCES publication(publication_id),
   "title" text NOT NULL,
   "isbn" char(13) UNIQUE NOT NULL,
   "image_url" text,
@@ -18,9 +18,11 @@ CREATE TABLE margins_private.book (
   "type" text
 );
 
-CREATE TABLE margins_private.book (
+CREATE INDEX margins_private.book_publication_id_index ON margins_private.book(publication_id);
+
+CREATE TABLE margins_private.annotation (
   "annotation_id" serial PRIMARY KEY,
-  "publication_id" int,
+  "publication_id" int REFERENCES publication(publication_id),
   "location_begin" int,
   "location_end" int,
   "time" timestamp,
@@ -32,6 +34,8 @@ CREATE TABLE margins_private.book (
   "last_modified" timestamp DEFAULT now()
 );
 
+CREATE INDEX margins_private.annotation_publication_id_index ON margins_private.annotation(publication_id);
+
 CREATE TABLE margins_private.author (
   "author_id" serial PRIMARY KEY,
   "first_name" text,
@@ -39,10 +43,13 @@ CREATE TABLE margins_private.author (
 );
 
 CREATE TABLE margins_private.publication_author (
-  "publication_id" int,
-  "author_id" int,
+  "publication_id" int REFERENCES publication(publication_id),
+  "author_id" int REFERENCES author(author_id),
   PRIMARY KEY ("publication_id", "author_id")
 );
+
+CREATE INDEX margins_private.publication_author_author_id_index ON margins_private.publication_author(author_id);
+-- primary index order is publication_id first so to search author order doesn't match
 
 CREATE TABLE margins_private.account (
   "account_id" uuid PRIMARY KEY,
@@ -54,73 +61,36 @@ CREATE TABLE margins_private.account (
 );
 
 CREATE TABLE margins_private.account_publication (
-  "account_id" uuid,
-  "publication_id" int,
+  "account_id" uuid REFERENCES account(account_id),
+  "publication_id" int REFERENCES publication(publication_id),
   PRIMARY KEY ("account_id", "publication_id")
 );
 
 CREATE TABLE margins_private.account_annotation (
-  "account_id" uuid,
-  "annotation_id" int,
+  "account_id" uuid REFERENCES account(account_id),
+  "annotation_id" int REFERENCES annotation(annotation_id),
   PRIMARY KEY ("account_id", "annotation_id")
 );
 
 CREATE TABLE margins_private.tag (
   "tag_id" serial PRIMARY KEY,
-  "tag_name" text
+  "name" text
 );
 
 CREATE TABLE margins_private.account_tag_annotation (
-  "account_id" uuid,
-  "tag_id" int,
-  "annotation_id" int,
+  "account_id" uuid REFERENCES account(account_id),
+  "tag_id" int REFERENCES tag(tag_id),
+  "annotation_id" int REFERENCES annotation(annotation_id),
   PRIMARY KEY ("account_id", "tag_id", "annotation_id")
 );
 
-ALTER TABLE margins_private.book
-  ADD FOREIGN KEY ("publication_id") REFERENCES "publication" ("publication_id");
-
-ALTER TABLE margins_private.annotation
-  ADD FOREIGN KEY ("publication_id") REFERENCES "publication" ("publication_id");
-
-ALTER TABLE margins_private.publication_author
-  ADD FOREIGN KEY ("publication_id") REFERENCES "publication" ("publication_id");
-
-ALTER TABLE margins_private.publication_author
-  ADD FOREIGN KEY ("author_id") REFERENCES "author" ("author_id");
-
-ALTER TABLE margins_private.account_publication
-  ADD FOREIGN KEY ("account_id") REFERENCES "account" ("account_id");
-
-ALTER TABLE margins_private.account_publication
-  ADD FOREIGN KEY ("publication_id") REFERENCES "publication" ("publication_id");
-
-ALTER TABLE margins_private.account_annotation
-  ADD FOREIGN KEY ("account_id") REFERENCES "account" ("account_id");
-
-ALTER TABLE margins_private.account_annotation
-  ADD FOREIGN KEY ("annotation_id") REFERENCES "annotation" ("annotation_id");
-
-ALTER TABLE margins_private.account_tag_annotation
-  ADD FOREIGN KEY ("account_id") REFERENCES "account" ("account_id");
-
-ALTER TABLE margins_private.account_tag_annotation
-  ADD FOREIGN KEY ("tag_id") REFERENCES "tag" ("tag_id");
-
-ALTER TABLE margins_private.account_tag_annotation
-  ADD FOREIGN KEY ("annotation_id") REFERENCES "annotation" ("annotation_id");
-
-ALTER TABLE margins_private.account_tag_annotation
-  ADD FOREIGN KEY ("account_id") REFERENCES "account_tag_annotation" ("tag_id");
-
-CREATE INDEX ON margins_private.book ("publication_id");
-
-CREATE INDEX ON margins_private.annotation ("publication_id");
-
-CREATE INDEX ON margins_private.publication_author ("author_id");
-
-CREATE INDEX ON margins_private.account_tag_annotation ("annotation_id", "tag_id");
+CREATE INDEX margins_private.account_tag_annotation_annotation_index ON margins_private.account_tag_annotation(annotation_id);
+-- Primary key order is annotation_id last so to optimize for annotation_id create an index
 
 -- FUNCTIONS
 
-CREATE FUNCTION 
+CREATE FUNCTION margins_private.account_full_name(account margins_private.account) returns text as $$
+  SELECT account.first_name || ' ' || account.last_name
+  -- SELECT concat(account.first_name, ' ', account.last_name)
+$$ language sql stable;
+
