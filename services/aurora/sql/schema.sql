@@ -2,8 +2,6 @@ CREATE SCHEMA margins_private;
 
 CREATE TABLE margins_private.publication (
   "publication_id" serial PRIMARY KEY,
-  "created_at" timestamp,
-  "last_modified" timestamp DEFAULT now()
 );
 
 CREATE TABLE margins_private.book (
@@ -30,7 +28,8 @@ CREATE TABLE margins_private.annotation (
   "highlight_color" text,
   "note" text,
   "statusline" text UNIQUE,
-  "page" int "created_at" timestamp,
+  "page" int,
+  "created_at" timestamp DEFAULT now(),
   "last_modified" timestamp DEFAULT now()
 );
 
@@ -63,6 +62,8 @@ CREATE TABLE margins_private.account (
 CREATE TABLE margins_private.account_publication (
   "account_id" uuid REFERENCES account(account_id),
   "publication_id" int REFERENCES publication(publication_id),
+  "created_at" timestamp DEFAULT now(),
+  "last_modified" timestamp DEFAULT now()
   PRIMARY KEY ("account_id", "publication_id")
 );
 
@@ -86,6 +87,10 @@ CREATE TABLE margins_private.account_tag_annotation (
 
 CREATE INDEX margins_private.account_tag_annotation_annotation_index ON margins_private.account_tag_annotation(annotation_id);
 -- Primary key order is annotation_id last so to optimize for annotation_id create an index
+
+-- VIEWS
+
+ 
 
 -- FUNCTIONS
 
