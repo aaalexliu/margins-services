@@ -1,13 +1,16 @@
-const http = require("http");
+const express = require("express");
 const { postgraphile } = require("postgraphile");
+const PgManyToManyPlugin = require("@graphile-contrib/pg-many-to-many");
 
-http
-  .createServer(
-    postgraphile(process.env.DATABASE_URL, "margins_private", {
-      watchPg: true,
-      graphiql: true,
-      enhanceGraphiql: true,
-    })
-  )
-  .listen(process.env.PORT);
+const app = express();
 
+app.use(
+  postgraphile(process.env.DATABASE_URL, "margins_private", {
+    watchPg: true,
+    graphiql: true,
+    enhanceGraphiql: true,
+    appendPlugins: [PgManyToManyPlugin],
+  })
+);
+
+app.listen(5000);
