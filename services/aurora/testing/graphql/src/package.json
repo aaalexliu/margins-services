@@ -1,0 +1,19 @@
+{
+  "name": "postgraphile-as-library",
+  "version": "1.0.0",
+  "description": "Postgraphile as a library in a dockerized Node.js application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "postgraphile"
+  ],
+  "author": "Alex Liu",
+  "license": "ISC",
+  "dependencies": {
+    "postgraphile": "^4.9.0",
+    "postgraphile-plugin-connection-filter": "^2.0.0"
+  }
+}
