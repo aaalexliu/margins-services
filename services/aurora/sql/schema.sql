@@ -1,9 +1,9 @@
-CREATE SCHEMA margins_private;
+CREATE SCHEMA IF NOT EXISTS margins_private;
 
 SET SCHEMA 'margins_private';
 
 CREATE TABLE publication (
-  "publication_id" serial PRIMARY KEY,
+  "publication_id" serial PRIMARY KEY
 );
 
 CREATE TABLE book (
@@ -65,7 +65,7 @@ CREATE TABLE account_publication (
   "account_id" uuid REFERENCES account(account_id),
   "publication_id" int REFERENCES publication(publication_id),
   "created_at" timestamp DEFAULT now(),
-  "last_modified" timestamp DEFAULT now()
+  "last_modified" timestamp DEFAULT now(),
   PRIMARY KEY ("account_id", "publication_id")
 );
 
@@ -81,12 +81,11 @@ CREATE TABLE tag (
 );
 
 CREATE TABLE annotation_tag (
-  "annnotation_id" int REFERENCES annotation(annotation_id),
+  "annotation_id" int REFERENCES annotation(annotation_id),
   "tag_id" int REFERENCES tag(tag_id),
   PRIMARY KEY ("annotation_id", "tag_id")
 );
 
-CREATE INDEX account_tag_annotation_annotation_index ON account_tag_annotation(annotation_id);
 -- Primary key order is annotation_id last so to optimize for annotation_id create an index
 
 -- VIEWS
