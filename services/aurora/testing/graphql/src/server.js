@@ -5,12 +5,18 @@ const PgManyToManyPlugin = require("@graphile-contrib/pg-many-to-many");
 const app = express();
 
 app.use(
-  postgraphile(process.env.DATABASE_URL, "margins_private", {
+  postgraphile(process.env.DATABASE_URL, "public", {
     watchPg: true,
     graphiql: true,
     enhanceGraphiql: true,
     appendPlugins: [PgManyToManyPlugin],
+    ignoreRBAC: false,
+    ignoreIndexes: false,
+    showErrorStack: "json",
+    extendedErrors: ["hint", "detail", "errcode"],
   })
 );
 
-app.listen(5000);
+app.listen(8080);
+
+console.log('yolo');

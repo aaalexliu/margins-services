@@ -1,9 +1,9 @@
-CREATE SCHEMA margins_private;
+-- CREATE SCHEMA IF NOT EXISTS margins_private;
 
-SET SCHEMA 'margins_private';
+-- SET SCHEMA 'margins_private';
 
 CREATE TABLE publication (
-  "publication_id" serial PRIMARY KEY,
+  "publication_id" serial PRIMARY KEY
 );
 
 CREATE TABLE book (
@@ -65,7 +65,7 @@ CREATE TABLE account_publication (
   "account_id" uuid REFERENCES account(account_id),
   "publication_id" int REFERENCES publication(publication_id),
   "created_at" timestamp DEFAULT now(),
-  "last_modified" timestamp DEFAULT now()
+  "last_modified" timestamp DEFAULT now(),
   PRIMARY KEY ("account_id", "publication_id")
 );
 
@@ -81,12 +81,11 @@ CREATE TABLE tag (
 );
 
 CREATE TABLE annotation_tag (
-  "annnotation_id" int REFERENCES annotation(annotation_id),
+  "annotation_id" int REFERENCES annotation(annotation_id),
   "tag_id" int REFERENCES tag(tag_id),
   PRIMARY KEY ("annotation_id", "tag_id")
 );
 
-CREATE INDEX account_tag_annotation_annotation_index ON account_tag_annotation(annotation_id);
 -- Primary key order is annotation_id last so to optimize for annotation_id create an index
 
 -- VIEWS
@@ -98,7 +97,7 @@ CREATE VIEW account_tag_annotation AS
 CREATE VIEW full_annotation_tag AS
   SELECT a.location_begin, a.location_end, a.recorded_at, a.highlight, a.highlight_color,
   a.note, a.statusline, a.page, a.last_modified, json_agg(tag.name) AS all_tags FROM annotation AS a
-    INNER JOIN annotation_tag ON annotation.annotation_id = annotation_tag.annotation_id
+    INNER JOIN annotation_tag ON a.annotation_id = annotation_tag.annotation_id
     INNER JOIN tag ON account_tag.tag_id = tag.tag_id
   GROUP BY tag.tag_id;
 

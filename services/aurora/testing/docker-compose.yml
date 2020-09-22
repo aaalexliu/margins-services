@@ -10,10 +10,8 @@ services:
       - db:/var/lib/postgresql/data
     env_file:
       - ./.env
-    networks:
-      - network
     ports:
-      - 5432:5432
+      - 8000:5432
 
   graphql:
     container_name: margins-testing-graphql
@@ -25,13 +23,9 @@ services:
       - ./.env
     depends_on:
       - db
-    networks:
-      - network
     ports:
-      - 5433:5433
+      - 8001:8080
 
-networks:
-  network:
 
 volumes:
   db:
