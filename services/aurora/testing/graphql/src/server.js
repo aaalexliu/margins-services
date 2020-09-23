@@ -18,5 +18,3 @@ app.use(
 );
 
 app.listen(8080);
-
-console.log('yolo');

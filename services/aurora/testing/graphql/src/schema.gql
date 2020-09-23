@@ -1,0 +1,3568 @@
+"""The root query type which gives access points into the data universe."""
+type Query implements Node {
+  """
+  Exposes the root query type nested one level down. This is helpful for Relay 1 which can only query top level fields if they are in a particular form.
+  """
+  query: Query!
+
+  """
+  The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`.
+  """
+  nodeId: ID!
+
+  """Fetches an object given its globally unique `ID`."""
+  node(
+    """The globally unique `ID`."""
+    nodeId: ID!
+  ): Node
+
+  """Reads and enables pagination through a set of `Account`."""
+  allAccounts(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Account`."""
+    orderBy: [AccountsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: AccountCondition
+  ): AccountsConnection
+
+  """Reads and enables pagination through a set of `AccountAnnotation`."""
+  allAccountAnnotations(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `AccountAnnotation`."""
+    orderBy: [AccountAnnotationsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: AccountAnnotationCondition
+  ): AccountAnnotationsConnection
+
+  """Reads and enables pagination through a set of `AccountPublication`."""
+  allAccountPublications(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `AccountPublication`."""
+    orderBy: [AccountPublicationsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: AccountPublicationCondition
+  ): AccountPublicationsConnection
+
+  """Reads and enables pagination through a set of `AccountTagAnnotation`."""
+  allAccountTagAnnotations(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `AccountTagAnnotation`."""
+    orderBy: [AccountTagAnnotationsOrderBy!] = [NATURAL]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: AccountTagAnnotationCondition
+  ): AccountTagAnnotationsConnection
+
+  """Reads and enables pagination through a set of `Annotation`."""
+  allAnnotations(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Annotation`."""
+    orderBy: [AnnotationsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: AnnotationCondition
+  ): AnnotationsConnection
+
+  """Reads and enables pagination through a set of `AnnotationTag`."""
+  allAnnotationTags(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `AnnotationTag`."""
+    orderBy: [AnnotationTagsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: AnnotationTagCondition
+  ): AnnotationTagsConnection
+
+  """Reads and enables pagination through a set of `Author`."""
+  allAuthors(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Author`."""
+    orderBy: [AuthorsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: AuthorCondition
+  ): AuthorsConnection
+
+  """Reads and enables pagination through a set of `Book`."""
+  allBooks(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Book`."""
+    orderBy: [BooksOrderBy!] = [NATURAL]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: BookCondition
+  ): BooksConnection
+
+  """Reads and enables pagination through a set of `Publication`."""
+  allPublications(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Publication`."""
+    orderBy: [PublicationsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: PublicationCondition
+  ): PublicationsConnection
+
+  """Reads and enables pagination through a set of `PublicationAuthor`."""
+  allPublicationAuthors(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `PublicationAuthor`."""
+    orderBy: [PublicationAuthorsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: PublicationAuthorCondition
+  ): PublicationAuthorsConnection
+
+  """Reads and enables pagination through a set of `Tag`."""
+  allTags(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Tag`."""
+    orderBy: [TagsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: TagCondition
+  ): TagsConnection
+  accountByAccountId(accountId: UUID!): Account
+  accountAnnotationByAccountIdAndAnnotationId(accountId: UUID!, annotationId: Int!): AccountAnnotation
+  accountPublicationByAccountIdAndPublicationId(accountId: UUID!, publicationId: Int!): AccountPublication
+  annotationByAnnotationId(annotationId: Int!): Annotation
+  annotationByStatusline(statusline: String!): Annotation
+  annotationTagByAnnotationIdAndTagId(annotationId: Int!, tagId: Int!): AnnotationTag
+  authorByAuthorId(authorId: Int!): Author
+  bookByIsbn(isbn: String!): Book
+  publicationByPublicationId(publicationId: Int!): Publication
+  publicationAuthorByPublicationIdAndAuthorId(publicationId: Int!, authorId: Int!): PublicationAuthor
+  tagByTagId(tagId: Int!): Tag
+
+  """Reads a single `Account` using its globally unique `ID`."""
+  account(
+    """The globally unique `ID` to be used in selecting a single `Account`."""
+    nodeId: ID!
+  ): Account
+
+  """Reads a single `AccountAnnotation` using its globally unique `ID`."""
+  accountAnnotation(
+    """
+    The globally unique `ID` to be used in selecting a single `AccountAnnotation`.
+    """
+    nodeId: ID!
+  ): AccountAnnotation
+
+  """Reads a single `AccountPublication` using its globally unique `ID`."""
+  accountPublication(
+    """
+    The globally unique `ID` to be used in selecting a single `AccountPublication`.
+    """
+    nodeId: ID!
+  ): AccountPublication
+
+  """Reads a single `Annotation` using its globally unique `ID`."""
+  annotation(
+    """
+    The globally unique `ID` to be used in selecting a single `Annotation`.
+    """
+    nodeId: ID!
+  ): Annotation
+
+  """Reads a single `AnnotationTag` using its globally unique `ID`."""
+  annotationTag(
+    """
+    The globally unique `ID` to be used in selecting a single `AnnotationTag`.
+    """
+    nodeId: ID!
+  ): AnnotationTag
+
+  """Reads a single `Author` using its globally unique `ID`."""
+  author(
+    """The globally unique `ID` to be used in selecting a single `Author`."""
+    nodeId: ID!
+  ): Author
+
+  """Reads a single `Publication` using its globally unique `ID`."""
+  publication(
+    """
+    The globally unique `ID` to be used in selecting a single `Publication`.
+    """
+    nodeId: ID!
+  ): Publication
+
+  """Reads a single `PublicationAuthor` using its globally unique `ID`."""
+  publicationAuthor(
+    """
+    The globally unique `ID` to be used in selecting a single `PublicationAuthor`.
+    """
+    nodeId: ID!
+  ): PublicationAuthor
+
+  """Reads a single `Tag` using its globally unique `ID`."""
+  tag(
+    """The globally unique `ID` to be used in selecting a single `Tag`."""
+    nodeId: ID!
+  ): Tag
+}
+
+"""An object with a globally unique `ID`."""
+interface Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+}
+
+"""A connection to a list of `Account` values."""
+type AccountsConnection {
+  """A list of `Account` objects."""
+  nodes: [Account]!
+
+  """
+  A list of edges which contains the `Account` and cursor to aid in pagination.
+  """
+  edges: [AccountsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Account` you could get from the connection."""
+  totalCount: Int!
+}
+
+type Account implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  accountId: UUID!
+  email: String
+  lastModified: Datetime
+  createdAt: Datetime
+  status: String
+  emailVerified: Boolean
+
+  """Reads and enables pagination through a set of `AccountPublication`."""
+  accountPublicationsByAccountId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `AccountPublication`."""
+    orderBy: [AccountPublicationsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: AccountPublicationCondition
+  ): AccountPublicationsConnection!
+
+  """Reads and enables pagination through a set of `AccountAnnotation`."""
+  accountAnnotationsByAccountId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `AccountAnnotation`."""
+    orderBy: [AccountAnnotationsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: AccountAnnotationCondition
+  ): AccountAnnotationsConnection!
+}
+
+"""
+A universally unique identifier as defined by [RFC 4122](https://tools.ietf.org/html/rfc4122).
+"""
+scalar UUID
+
+"""
+A point in time as described by the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone.
+"""
+scalar Datetime
+
+"""A connection to a list of `AccountPublication` values."""
+type AccountPublicationsConnection {
+  """A list of `AccountPublication` objects."""
+  nodes: [AccountPublication]!
+
+  """
+  A list of edges which contains the `AccountPublication` and cursor to aid in pagination.
+  """
+  edges: [AccountPublicationsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `AccountPublication` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+type AccountPublication implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  accountId: UUID!
+  publicationId: Int!
+  createdAt: Datetime
+  lastModified: Datetime
+
+  """Reads a single `Account` that is related to this `AccountPublication`."""
+  accountByAccountId: Account
+
+  """
+  Reads a single `Publication` that is related to this `AccountPublication`.
+  """
+  publicationByPublicationId: Publication
+}
+
+type Publication implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  publicationId: Int!
+
+  """Reads and enables pagination through a set of `Book`."""
+  booksByPublicationId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Book`."""
+    orderBy: [BooksOrderBy!] = [NATURAL]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: BookCondition
+  ): BooksConnection!
+
+  """Reads and enables pagination through a set of `Annotation`."""
+  annotationsByPublicationId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Annotation`."""
+    orderBy: [AnnotationsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: AnnotationCondition
+  ): AnnotationsConnection!
+
+  """Reads and enables pagination through a set of `PublicationAuthor`."""
+  publicationAuthorsByPublicationId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `PublicationAuthor`."""
+    orderBy: [PublicationAuthorsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: PublicationAuthorCondition
+  ): PublicationAuthorsConnection!
+
+  """Reads and enables pagination through a set of `AccountPublication`."""
+  accountPublicationsByPublicationId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `AccountPublication`."""
+    orderBy: [AccountPublicationsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: AccountPublicationCondition
+  ): AccountPublicationsConnection!
+}
+
+"""A connection to a list of `Book` values."""
+type BooksConnection {
+  """A list of `Book` objects."""
+  nodes: [Book]!
+
+  """
+  A list of edges which contains the `Book` and cursor to aid in pagination.
+  """
+  edges: [BooksEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Book` you could get from the connection."""
+  totalCount: Int!
+}
+
+type Book {
+  publicationId: Int
+  title: String!
+  isbn: String!
+  imageUrl: String
+  languageCode: String
+  publisher: String
+  publicationDate: Date
+  description: String
+  type: String
+
+  """Reads a single `Publication` that is related to this `Book`."""
+  publicationByPublicationId: Publication
+}
+
+"""The day, does not include a time."""
+scalar Date
+
+"""A `Book` edge in the connection."""
+type BooksEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Book` at the end of the edge."""
+  node: Book
+}
+
+"""A location in a connection that can be used for resuming pagination."""
+scalar Cursor
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: Cursor
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: Cursor
+}
+
+"""Methods to use when ordering `Book`."""
+enum BooksOrderBy {
+  NATURAL
+  PUBLICATION_ID_ASC
+  PUBLICATION_ID_DESC
+  TITLE_ASC
+  TITLE_DESC
+  ISBN_ASC
+  ISBN_DESC
+  IMAGE_URL_ASC
+  IMAGE_URL_DESC
+  LANGUAGE_CODE_ASC
+  LANGUAGE_CODE_DESC
+  PUBLISHER_ASC
+  PUBLISHER_DESC
+  PUBLICATION_DATE_ASC
+  PUBLICATION_DATE_DESC
+  DESCRIPTION_ASC
+  DESCRIPTION_DESC
+  TYPE_ASC
+  TYPE_DESC
+}
+
+"""
+A condition to be used against `Book` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input BookCondition {
+  """Checks for equality with the object’s `publicationId` field."""
+  publicationId: Int
+
+  """Checks for equality with the object’s `title` field."""
+  title: String
+
+  """Checks for equality with the object’s `isbn` field."""
+  isbn: String
+
+  """Checks for equality with the object’s `imageUrl` field."""
+  imageUrl: String
+
+  """Checks for equality with the object’s `languageCode` field."""
+  languageCode: String
+
+  """Checks for equality with the object’s `publisher` field."""
+  publisher: String
+
+  """Checks for equality with the object’s `publicationDate` field."""
+  publicationDate: Date
+
+  """Checks for equality with the object’s `description` field."""
+  description: String
+
+  """Checks for equality with the object’s `type` field."""
+  type: String
+}
+
+"""A connection to a list of `Annotation` values."""
+type AnnotationsConnection {
+  """A list of `Annotation` objects."""
+  nodes: [Annotation]!
+
+  """
+  A list of edges which contains the `Annotation` and cursor to aid in pagination.
+  """
+  edges: [AnnotationsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Annotation` you could get from the connection."""
+  totalCount: Int!
+}
+
+type Annotation implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  annotationId: Int!
+  publicationId: Int
+  locationBegin: Int
+  locationEnd: Int
+  recordedAt: Datetime
+  highlight: String
+  highlightColor: String
+  note: String
+  statusline: String
+  page: Int
+  createdAt: Datetime
+  lastModified: Datetime
+
+  """Reads a single `Publication` that is related to this `Annotation`."""
+  publicationByPublicationId: Publication
+
+  """Reads and enables pagination through a set of `AccountAnnotation`."""
+  accountAnnotationsByAnnotationId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `AccountAnnotation`."""
+    orderBy: [AccountAnnotationsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: AccountAnnotationCondition
+  ): AccountAnnotationsConnection!
+
+  """Reads and enables pagination through a set of `AnnotationTag`."""
+  annotationTagsByAnnotationId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `AnnotationTag`."""
+    orderBy: [AnnotationTagsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: AnnotationTagCondition
+  ): AnnotationTagsConnection!
+}
+
+"""A connection to a list of `AccountAnnotation` values."""
+type AccountAnnotationsConnection {
+  """A list of `AccountAnnotation` objects."""
+  nodes: [AccountAnnotation]!
+
+  """
+  A list of edges which contains the `AccountAnnotation` and cursor to aid in pagination.
+  """
+  edges: [AccountAnnotationsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `AccountAnnotation` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+type AccountAnnotation implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  accountId: UUID!
+  annotationId: Int!
+
+  """Reads a single `Account` that is related to this `AccountAnnotation`."""
+  accountByAccountId: Account
+
+  """
+  Reads a single `Annotation` that is related to this `AccountAnnotation`.
+  """
+  annotationByAnnotationId: Annotation
+}
+
+"""A `AccountAnnotation` edge in the connection."""
+type AccountAnnotationsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `AccountAnnotation` at the end of the edge."""
+  node: AccountAnnotation
+}
+
+"""Methods to use when ordering `AccountAnnotation`."""
+enum AccountAnnotationsOrderBy {
+  NATURAL
+  ACCOUNT_ID_ASC
+  ACCOUNT_ID_DESC
+  ANNOTATION_ID_ASC
+  ANNOTATION_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `AccountAnnotation` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input AccountAnnotationCondition {
+  """Checks for equality with the object’s `accountId` field."""
+  accountId: UUID
+
+  """Checks for equality with the object’s `annotationId` field."""
+  annotationId: Int
+}
+
+"""A connection to a list of `AnnotationTag` values."""
+type AnnotationTagsConnection {
+  """A list of `AnnotationTag` objects."""
+  nodes: [AnnotationTag]!
+
+  """
+  A list of edges which contains the `AnnotationTag` and cursor to aid in pagination.
+  """
+  edges: [AnnotationTagsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `AnnotationTag` you could get from the connection."""
+  totalCount: Int!
+}
+
+type AnnotationTag implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  annotationId: Int!
+  tagId: Int!
+
+  """Reads a single `Annotation` that is related to this `AnnotationTag`."""
+  annotationByAnnotationId: Annotation
+
+  """Reads a single `Tag` that is related to this `AnnotationTag`."""
+  tagByTagId: Tag
+}
+
+type Tag implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  tagId: Int!
+  name: String
+
+  """Reads and enables pagination through a set of `AnnotationTag`."""
+  annotationTagsByTagId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `AnnotationTag`."""
+    orderBy: [AnnotationTagsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: AnnotationTagCondition
+  ): AnnotationTagsConnection!
+}
+
+"""Methods to use when ordering `AnnotationTag`."""
+enum AnnotationTagsOrderBy {
+  NATURAL
+  ANNOTATION_ID_ASC
+  ANNOTATION_ID_DESC
+  TAG_ID_ASC
+  TAG_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `AnnotationTag` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input AnnotationTagCondition {
+  """Checks for equality with the object’s `annotationId` field."""
+  annotationId: Int
+
+  """Checks for equality with the object’s `tagId` field."""
+  tagId: Int
+}
+
+"""A `AnnotationTag` edge in the connection."""
+type AnnotationTagsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `AnnotationTag` at the end of the edge."""
+  node: AnnotationTag
+}
+
+"""A `Annotation` edge in the connection."""
+type AnnotationsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Annotation` at the end of the edge."""
+  node: Annotation
+}
+
+"""Methods to use when ordering `Annotation`."""
+enum AnnotationsOrderBy {
+  NATURAL
+  ANNOTATION_ID_ASC
+  ANNOTATION_ID_DESC
+  PUBLICATION_ID_ASC
+  PUBLICATION_ID_DESC
+  LOCATION_BEGIN_ASC
+  LOCATION_BEGIN_DESC
+  LOCATION_END_ASC
+  LOCATION_END_DESC
+  RECORDED_AT_ASC
+  RECORDED_AT_DESC
+  HIGHLIGHT_ASC
+  HIGHLIGHT_DESC
+  HIGHLIGHT_COLOR_ASC
+  HIGHLIGHT_COLOR_DESC
+  NOTE_ASC
+  NOTE_DESC
+  STATUSLINE_ASC
+  STATUSLINE_DESC
+  PAGE_ASC
+  PAGE_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  LAST_MODIFIED_ASC
+  LAST_MODIFIED_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `Annotation` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input AnnotationCondition {
+  """Checks for equality with the object’s `annotationId` field."""
+  annotationId: Int
+
+  """Checks for equality with the object’s `publicationId` field."""
+  publicationId: Int
+
+  """Checks for equality with the object’s `locationBegin` field."""
+  locationBegin: Int
+
+  """Checks for equality with the object’s `locationEnd` field."""
+  locationEnd: Int
+
+  """Checks for equality with the object’s `recordedAt` field."""
+  recordedAt: Datetime
+
+  """Checks for equality with the object’s `highlight` field."""
+  highlight: String
+
+  """Checks for equality with the object’s `highlightColor` field."""
+  highlightColor: String
+
+  """Checks for equality with the object’s `note` field."""
+  note: String
+
+  """Checks for equality with the object’s `statusline` field."""
+  statusline: String
+
+  """Checks for equality with the object’s `page` field."""
+  page: Int
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: Datetime
+
+  """Checks for equality with the object’s `lastModified` field."""
+  lastModified: Datetime
+}
+
+"""A connection to a list of `PublicationAuthor` values."""
+type PublicationAuthorsConnection {
+  """A list of `PublicationAuthor` objects."""
+  nodes: [PublicationAuthor]!
+
+  """
+  A list of edges which contains the `PublicationAuthor` and cursor to aid in pagination.
+  """
+  edges: [PublicationAuthorsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `PublicationAuthor` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+type PublicationAuthor implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  publicationId: Int!
+  authorId: Int!
+
+  """
+  Reads a single `Publication` that is related to this `PublicationAuthor`.
+  """
+  publicationByPublicationId: Publication
+
+  """Reads a single `Author` that is related to this `PublicationAuthor`."""
+  authorByAuthorId: Author
+}
+
+type Author implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  authorId: Int!
+  firstName: String
+  lastName: String
+
+  """Reads and enables pagination through a set of `PublicationAuthor`."""
+  publicationAuthorsByAuthorId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `PublicationAuthor`."""
+    orderBy: [PublicationAuthorsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: PublicationAuthorCondition
+  ): PublicationAuthorsConnection!
+}
+
+"""Methods to use when ordering `PublicationAuthor`."""
+enum PublicationAuthorsOrderBy {
+  NATURAL
+  PUBLICATION_ID_ASC
+  PUBLICATION_ID_DESC
+  AUTHOR_ID_ASC
+  AUTHOR_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `PublicationAuthor` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input PublicationAuthorCondition {
+  """Checks for equality with the object’s `publicationId` field."""
+  publicationId: Int
+
+  """Checks for equality with the object’s `authorId` field."""
+  authorId: Int
+}
+
+"""A `PublicationAuthor` edge in the connection."""
+type PublicationAuthorsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `PublicationAuthor` at the end of the edge."""
+  node: PublicationAuthor
+}
+
+"""Methods to use when ordering `AccountPublication`."""
+enum AccountPublicationsOrderBy {
+  NATURAL
+  ACCOUNT_ID_ASC
+  ACCOUNT_ID_DESC
+  PUBLICATION_ID_ASC
+  PUBLICATION_ID_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  LAST_MODIFIED_ASC
+  LAST_MODIFIED_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `AccountPublication` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input AccountPublicationCondition {
+  """Checks for equality with the object’s `accountId` field."""
+  accountId: UUID
+
+  """Checks for equality with the object’s `publicationId` field."""
+  publicationId: Int
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: Datetime
+
+  """Checks for equality with the object’s `lastModified` field."""
+  lastModified: Datetime
+}
+
+"""A `AccountPublication` edge in the connection."""
+type AccountPublicationsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `AccountPublication` at the end of the edge."""
+  node: AccountPublication
+}
+
+"""A `Account` edge in the connection."""
+type AccountsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Account` at the end of the edge."""
+  node: Account
+}
+
+"""Methods to use when ordering `Account`."""
+enum AccountsOrderBy {
+  NATURAL
+  ACCOUNT_ID_ASC
+  ACCOUNT_ID_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+  LAST_MODIFIED_ASC
+  LAST_MODIFIED_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  STATUS_ASC
+  STATUS_DESC
+  EMAIL_VERIFIED_ASC
+  EMAIL_VERIFIED_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `Account` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input AccountCondition {
+  """Checks for equality with the object’s `accountId` field."""
+  accountId: UUID
+
+  """Checks for equality with the object’s `email` field."""
+  email: String
+
+  """Checks for equality with the object’s `lastModified` field."""
+  lastModified: Datetime
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: Datetime
+
+  """Checks for equality with the object’s `status` field."""
+  status: String
+
+  """Checks for equality with the object’s `emailVerified` field."""
+  emailVerified: Boolean
+}
+
+"""A connection to a list of `AccountTagAnnotation` values."""
+type AccountTagAnnotationsConnection {
+  """A list of `AccountTagAnnotation` objects."""
+  nodes: [AccountTagAnnotation]!
+
+  """
+  A list of edges which contains the `AccountTagAnnotation` and cursor to aid in pagination.
+  """
+  edges: [AccountTagAnnotationsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `AccountTagAnnotation` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+type AccountTagAnnotation {
+  accountId: UUID
+  annotationId: Int
+  tagId: Int
+}
+
+"""A `AccountTagAnnotation` edge in the connection."""
+type AccountTagAnnotationsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `AccountTagAnnotation` at the end of the edge."""
+  node: AccountTagAnnotation
+}
+
+"""Methods to use when ordering `AccountTagAnnotation`."""
+enum AccountTagAnnotationsOrderBy {
+  NATURAL
+  ACCOUNT_ID_ASC
+  ACCOUNT_ID_DESC
+  ANNOTATION_ID_ASC
+  ANNOTATION_ID_DESC
+  TAG_ID_ASC
+  TAG_ID_DESC
+}
+
+"""
+A condition to be used against `AccountTagAnnotation` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input AccountTagAnnotationCondition {
+  """Checks for equality with the object’s `accountId` field."""
+  accountId: UUID
+
+  """Checks for equality with the object’s `annotationId` field."""
+  annotationId: Int
+
+  """Checks for equality with the object’s `tagId` field."""
+  tagId: Int
+}
+
+"""A connection to a list of `Author` values."""
+type AuthorsConnection {
+  """A list of `Author` objects."""
+  nodes: [Author]!
+
+  """
+  A list of edges which contains the `Author` and cursor to aid in pagination.
+  """
+  edges: [AuthorsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Author` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Author` edge in the connection."""
+type AuthorsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Author` at the end of the edge."""
+  node: Author
+}
+
+"""Methods to use when ordering `Author`."""
+enum AuthorsOrderBy {
+  NATURAL
+  AUTHOR_ID_ASC
+  AUTHOR_ID_DESC
+  FIRST_NAME_ASC
+  FIRST_NAME_DESC
+  LAST_NAME_ASC
+  LAST_NAME_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `Author` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input AuthorCondition {
+  """Checks for equality with the object’s `authorId` field."""
+  authorId: Int
+
+  """Checks for equality with the object’s `firstName` field."""
+  firstName: String
+
+  """Checks for equality with the object’s `lastName` field."""
+  lastName: String
+}
+
+"""A connection to a list of `Publication` values."""
+type PublicationsConnection {
+  """A list of `Publication` objects."""
+  nodes: [Publication]!
+
+  """
+  A list of edges which contains the `Publication` and cursor to aid in pagination.
+  """
+  edges: [PublicationsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Publication` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Publication` edge in the connection."""
+type PublicationsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Publication` at the end of the edge."""
+  node: Publication
+}
+
+"""Methods to use when ordering `Publication`."""
+enum PublicationsOrderBy {
+  NATURAL
+  PUBLICATION_ID_ASC
+  PUBLICATION_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `Publication` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input PublicationCondition {
+  """Checks for equality with the object’s `publicationId` field."""
+  publicationId: Int
+}
+
+"""A connection to a list of `Tag` values."""
+type TagsConnection {
+  """A list of `Tag` objects."""
+  nodes: [Tag]!
+
+  """
+  A list of edges which contains the `Tag` and cursor to aid in pagination.
+  """
+  edges: [TagsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Tag` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Tag` edge in the connection."""
+type TagsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Tag` at the end of the edge."""
+  node: Tag
+}
+
+"""Methods to use when ordering `Tag`."""
+enum TagsOrderBy {
+  NATURAL
+  TAG_ID_ASC
+  TAG_ID_DESC
+  NAME_ASC
+  NAME_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `Tag` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input TagCondition {
+  """Checks for equality with the object’s `tagId` field."""
+  tagId: Int
+
+  """Checks for equality with the object’s `name` field."""
+  name: String
+}
+
+"""
+The root mutation type which contains root level fields which mutate data.
+"""
+type Mutation {
+  """Creates a single `Account`."""
+  createAccount(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateAccountInput!
+  ): CreateAccountPayload
+
+  """Creates a single `AccountAnnotation`."""
+  createAccountAnnotation(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateAccountAnnotationInput!
+  ): CreateAccountAnnotationPayload
+
+  """Creates a single `AccountPublication`."""
+  createAccountPublication(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateAccountPublicationInput!
+  ): CreateAccountPublicationPayload
+
+  """Creates a single `Annotation`."""
+  createAnnotation(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateAnnotationInput!
+  ): CreateAnnotationPayload
+
+  """Creates a single `AnnotationTag`."""
+  createAnnotationTag(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateAnnotationTagInput!
+  ): CreateAnnotationTagPayload
+
+  """Creates a single `Author`."""
+  createAuthor(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateAuthorInput!
+  ): CreateAuthorPayload
+
+  """Creates a single `Book`."""
+  createBook(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateBookInput!
+  ): CreateBookPayload
+
+  """Creates a single `Publication`."""
+  createPublication(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreatePublicationInput!
+  ): CreatePublicationPayload
+
+  """Creates a single `PublicationAuthor`."""
+  createPublicationAuthor(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreatePublicationAuthorInput!
+  ): CreatePublicationAuthorPayload
+
+  """Creates a single `Tag`."""
+  createTag(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateTagInput!
+  ): CreateTagPayload
+
+  """Updates a single `Account` using its globally unique id and a patch."""
+  updateAccount(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateAccountInput!
+  ): UpdateAccountPayload
+
+  """Updates a single `Account` using a unique key and a patch."""
+  updateAccountByAccountId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateAccountByAccountIdInput!
+  ): UpdateAccountPayload
+
+  """
+  Updates a single `AccountAnnotation` using its globally unique id and a patch.
+  """
+  updateAccountAnnotation(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateAccountAnnotationInput!
+  ): UpdateAccountAnnotationPayload
+
+  """Updates a single `AccountAnnotation` using a unique key and a patch."""
+  updateAccountAnnotationByAccountIdAndAnnotationId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateAccountAnnotationByAccountIdAndAnnotationIdInput!
+  ): UpdateAccountAnnotationPayload
+
+  """
+  Updates a single `AccountPublication` using its globally unique id and a patch.
+  """
+  updateAccountPublication(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateAccountPublicationInput!
+  ): UpdateAccountPublicationPayload
+
+  """Updates a single `AccountPublication` using a unique key and a patch."""
+  updateAccountPublicationByAccountIdAndPublicationId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateAccountPublicationByAccountIdAndPublicationIdInput!
+  ): UpdateAccountPublicationPayload
+
+  """
+  Updates a single `Annotation` using its globally unique id and a patch.
+  """
+  updateAnnotation(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateAnnotationInput!
+  ): UpdateAnnotationPayload
+
+  """Updates a single `Annotation` using a unique key and a patch."""
+  updateAnnotationByAnnotationId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateAnnotationByAnnotationIdInput!
+  ): UpdateAnnotationPayload
+
+  """Updates a single `Annotation` using a unique key and a patch."""
+  updateAnnotationByStatusline(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateAnnotationByStatuslineInput!
+  ): UpdateAnnotationPayload
+
+  """
+  Updates a single `AnnotationTag` using its globally unique id and a patch.
+  """
+  updateAnnotationTag(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateAnnotationTagInput!
+  ): UpdateAnnotationTagPayload
+
+  """Updates a single `AnnotationTag` using a unique key and a patch."""
+  updateAnnotationTagByAnnotationIdAndTagId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateAnnotationTagByAnnotationIdAndTagIdInput!
+  ): UpdateAnnotationTagPayload
+
+  """Updates a single `Author` using its globally unique id and a patch."""
+  updateAuthor(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateAuthorInput!
+  ): UpdateAuthorPayload
+
+  """Updates a single `Author` using a unique key and a patch."""
+  updateAuthorByAuthorId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateAuthorByAuthorIdInput!
+  ): UpdateAuthorPayload
+
+  """Updates a single `Book` using a unique key and a patch."""
+  updateBookByIsbn(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateBookByIsbnInput!
+  ): UpdateBookPayload
+
+  """
+  Updates a single `Publication` using its globally unique id and a patch.
+  """
+  updatePublication(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdatePublicationInput!
+  ): UpdatePublicationPayload
+
+  """Updates a single `Publication` using a unique key and a patch."""
+  updatePublicationByPublicationId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdatePublicationByPublicationIdInput!
+  ): UpdatePublicationPayload
+
+  """
+  Updates a single `PublicationAuthor` using its globally unique id and a patch.
+  """
+  updatePublicationAuthor(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdatePublicationAuthorInput!
+  ): UpdatePublicationAuthorPayload
+
+  """Updates a single `PublicationAuthor` using a unique key and a patch."""
+  updatePublicationAuthorByPublicationIdAndAuthorId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdatePublicationAuthorByPublicationIdAndAuthorIdInput!
+  ): UpdatePublicationAuthorPayload
+
+  """Updates a single `Tag` using its globally unique id and a patch."""
+  updateTag(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateTagInput!
+  ): UpdateTagPayload
+
+  """Updates a single `Tag` using a unique key and a patch."""
+  updateTagByTagId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateTagByTagIdInput!
+  ): UpdateTagPayload
+
+  """Deletes a single `Account` using its globally unique id."""
+  deleteAccount(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteAccountInput!
+  ): DeleteAccountPayload
+
+  """Deletes a single `Account` using a unique key."""
+  deleteAccountByAccountId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteAccountByAccountIdInput!
+  ): DeleteAccountPayload
+
+  """Deletes a single `AccountAnnotation` using its globally unique id."""
+  deleteAccountAnnotation(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteAccountAnnotationInput!
+  ): DeleteAccountAnnotationPayload
+
+  """Deletes a single `AccountAnnotation` using a unique key."""
+  deleteAccountAnnotationByAccountIdAndAnnotationId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteAccountAnnotationByAccountIdAndAnnotationIdInput!
+  ): DeleteAccountAnnotationPayload
+
+  """Deletes a single `AccountPublication` using its globally unique id."""
+  deleteAccountPublication(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteAccountPublicationInput!
+  ): DeleteAccountPublicationPayload
+
+  """Deletes a single `AccountPublication` using a unique key."""
+  deleteAccountPublicationByAccountIdAndPublicationId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteAccountPublicationByAccountIdAndPublicationIdInput!
+  ): DeleteAccountPublicationPayload
+
+  """Deletes a single `Annotation` using its globally unique id."""
+  deleteAnnotation(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteAnnotationInput!
+  ): DeleteAnnotationPayload
+
+  """Deletes a single `Annotation` using a unique key."""
+  deleteAnnotationByAnnotationId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteAnnotationByAnnotationIdInput!
+  ): DeleteAnnotationPayload
+
+  """Deletes a single `Annotation` using a unique key."""
+  deleteAnnotationByStatusline(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteAnnotationByStatuslineInput!
+  ): DeleteAnnotationPayload
+
+  """Deletes a single `AnnotationTag` using its globally unique id."""
+  deleteAnnotationTag(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteAnnotationTagInput!
+  ): DeleteAnnotationTagPayload
+
+  """Deletes a single `AnnotationTag` using a unique key."""
+  deleteAnnotationTagByAnnotationIdAndTagId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteAnnotationTagByAnnotationIdAndTagIdInput!
+  ): DeleteAnnotationTagPayload
+
+  """Deletes a single `Author` using its globally unique id."""
+  deleteAuthor(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteAuthorInput!
+  ): DeleteAuthorPayload
+
+  """Deletes a single `Author` using a unique key."""
+  deleteAuthorByAuthorId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteAuthorByAuthorIdInput!
+  ): DeleteAuthorPayload
+
+  """Deletes a single `Book` using a unique key."""
+  deleteBookByIsbn(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteBookByIsbnInput!
+  ): DeleteBookPayload
+
+  """Deletes a single `Publication` using its globally unique id."""
+  deletePublication(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeletePublicationInput!
+  ): DeletePublicationPayload
+
+  """Deletes a single `Publication` using a unique key."""
+  deletePublicationByPublicationId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeletePublicationByPublicationIdInput!
+  ): DeletePublicationPayload
+
+  """Deletes a single `PublicationAuthor` using its globally unique id."""
+  deletePublicationAuthor(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeletePublicationAuthorInput!
+  ): DeletePublicationAuthorPayload
+
+  """Deletes a single `PublicationAuthor` using a unique key."""
+  deletePublicationAuthorByPublicationIdAndAuthorId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeletePublicationAuthorByPublicationIdAndAuthorIdInput!
+  ): DeletePublicationAuthorPayload
+
+  """Deletes a single `Tag` using its globally unique id."""
+  deleteTag(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteTagInput!
+  ): DeleteTagPayload
+
+  """Deletes a single `Tag` using a unique key."""
+  deleteTagByTagId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteTagByTagIdInput!
+  ): DeleteTagPayload
+}
+
+"""The output of our create `Account` mutation."""
+type CreateAccountPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Account` that was created by this mutation."""
+  account: Account
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Account`. May be used by Relay 1."""
+  accountEdge(
+    """The method to use when ordering `Account`."""
+    orderBy: [AccountsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): AccountsEdge
+}
+
+"""All input for the create `Account` mutation."""
+input CreateAccountInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Account` to be created by this mutation."""
+  account: AccountInput!
+}
+
+"""An input for mutations affecting `Account`"""
+input AccountInput {
+  accountId: UUID!
+  email: String
+  lastModified: Datetime
+  createdAt: Datetime
+  status: String
+  emailVerified: Boolean
+}
+
+"""The output of our create `AccountAnnotation` mutation."""
+type CreateAccountAnnotationPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `AccountAnnotation` that was created by this mutation."""
+  accountAnnotation: AccountAnnotation
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Account` that is related to this `AccountAnnotation`."""
+  accountByAccountId: Account
+
+  """
+  Reads a single `Annotation` that is related to this `AccountAnnotation`.
+  """
+  annotationByAnnotationId: Annotation
+
+  """An edge for our `AccountAnnotation`. May be used by Relay 1."""
+  accountAnnotationEdge(
+    """The method to use when ordering `AccountAnnotation`."""
+    orderBy: [AccountAnnotationsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): AccountAnnotationsEdge
+}
+
+"""All input for the create `AccountAnnotation` mutation."""
+input CreateAccountAnnotationInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `AccountAnnotation` to be created by this mutation."""
+  accountAnnotation: AccountAnnotationInput!
+}
+
+"""An input for mutations affecting `AccountAnnotation`"""
+input AccountAnnotationInput {
+  accountId: UUID!
+  annotationId: Int!
+}
+
+"""The output of our create `AccountPublication` mutation."""
+type CreateAccountPublicationPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `AccountPublication` that was created by this mutation."""
+  accountPublication: AccountPublication
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Account` that is related to this `AccountPublication`."""
+  accountByAccountId: Account
+
+  """
+  Reads a single `Publication` that is related to this `AccountPublication`.
+  """
+  publicationByPublicationId: Publication
+
+  """An edge for our `AccountPublication`. May be used by Relay 1."""
+  accountPublicationEdge(
+    """The method to use when ordering `AccountPublication`."""
+    orderBy: [AccountPublicationsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): AccountPublicationsEdge
+}
+
+"""All input for the create `AccountPublication` mutation."""
+input CreateAccountPublicationInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `AccountPublication` to be created by this mutation."""
+  accountPublication: AccountPublicationInput!
+}
+
+"""An input for mutations affecting `AccountPublication`"""
+input AccountPublicationInput {
+  accountId: UUID!
+  publicationId: Int!
+  createdAt: Datetime
+  lastModified: Datetime
+}
+
+"""The output of our create `Annotation` mutation."""
+type CreateAnnotationPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Annotation` that was created by this mutation."""
+  annotation: Annotation
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Publication` that is related to this `Annotation`."""
+  publicationByPublicationId: Publication
+
+  """An edge for our `Annotation`. May be used by Relay 1."""
+  annotationEdge(
+    """The method to use when ordering `Annotation`."""
+    orderBy: [AnnotationsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): AnnotationsEdge
+}
+
+"""All input for the create `Annotation` mutation."""
+input CreateAnnotationInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Annotation` to be created by this mutation."""
+  annotation: AnnotationInput!
+}
+
+"""An input for mutations affecting `Annotation`"""
+input AnnotationInput {
+  annotationId: Int
+  publicationId: Int
+  locationBegin: Int
+  locationEnd: Int
+  recordedAt: Datetime
+  highlight: String
+  highlightColor: String
+  note: String
+  statusline: String
+  page: Int
+  createdAt: Datetime
+  lastModified: Datetime
+}
+
+"""The output of our create `AnnotationTag` mutation."""
+type CreateAnnotationTagPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `AnnotationTag` that was created by this mutation."""
+  annotationTag: AnnotationTag
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Annotation` that is related to this `AnnotationTag`."""
+  annotationByAnnotationId: Annotation
+
+  """Reads a single `Tag` that is related to this `AnnotationTag`."""
+  tagByTagId: Tag
+
+  """An edge for our `AnnotationTag`. May be used by Relay 1."""
+  annotationTagEdge(
+    """The method to use when ordering `AnnotationTag`."""
+    orderBy: [AnnotationTagsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): AnnotationTagsEdge
+}
+
+"""All input for the create `AnnotationTag` mutation."""
+input CreateAnnotationTagInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `AnnotationTag` to be created by this mutation."""
+  annotationTag: AnnotationTagInput!
+}
+
+"""An input for mutations affecting `AnnotationTag`"""
+input AnnotationTagInput {
+  annotationId: Int!
+  tagId: Int!
+}
+
+"""The output of our create `Author` mutation."""
+type CreateAuthorPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Author` that was created by this mutation."""
+  author: Author
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Author`. May be used by Relay 1."""
+  authorEdge(
+    """The method to use when ordering `Author`."""
+    orderBy: [AuthorsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): AuthorsEdge
+}
+
+"""All input for the create `Author` mutation."""
+input CreateAuthorInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Author` to be created by this mutation."""
+  author: AuthorInput!
+}
+
+"""An input for mutations affecting `Author`"""
+input AuthorInput {
+  authorId: Int
+  firstName: String
+  lastName: String
+}
+
+"""The output of our create `Book` mutation."""
+type CreateBookPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Book` that was created by this mutation."""
+  book: Book
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Publication` that is related to this `Book`."""
+  publicationByPublicationId: Publication
+
+  """An edge for our `Book`. May be used by Relay 1."""
+  bookEdge(
+    """The method to use when ordering `Book`."""
+    orderBy: [BooksOrderBy!] = [NATURAL]
+  ): BooksEdge
+}
+
+"""All input for the create `Book` mutation."""
+input CreateBookInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Book` to be created by this mutation."""
+  book: BookInput!
+}
+
+"""An input for mutations affecting `Book`"""
+input BookInput {
+  publicationId: Int
+  title: String!
+  isbn: String!
+  imageUrl: String
+  languageCode: String
+  publisher: String
+  publicationDate: Date
+  description: String
+  type: String
+}
+
+"""The output of our create `Publication` mutation."""
+type CreatePublicationPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Publication` that was created by this mutation."""
+  publication: Publication
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Publication`. May be used by Relay 1."""
+  publicationEdge(
+    """The method to use when ordering `Publication`."""
+    orderBy: [PublicationsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): PublicationsEdge
+}
+
+"""All input for the create `Publication` mutation."""
+input CreatePublicationInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Publication` to be created by this mutation."""
+  publication: PublicationInput!
+}
+
+"""An input for mutations affecting `Publication`"""
+input PublicationInput {
+  publicationId: Int
+}
+
+"""The output of our create `PublicationAuthor` mutation."""
+type CreatePublicationAuthorPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `PublicationAuthor` that was created by this mutation."""
+  publicationAuthor: PublicationAuthor
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `Publication` that is related to this `PublicationAuthor`.
+  """
+  publicationByPublicationId: Publication
+
+  """Reads a single `Author` that is related to this `PublicationAuthor`."""
+  authorByAuthorId: Author
+
+  """An edge for our `PublicationAuthor`. May be used by Relay 1."""
+  publicationAuthorEdge(
+    """The method to use when ordering `PublicationAuthor`."""
+    orderBy: [PublicationAuthorsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): PublicationAuthorsEdge
+}
+
+"""All input for the create `PublicationAuthor` mutation."""
+input CreatePublicationAuthorInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `PublicationAuthor` to be created by this mutation."""
+  publicationAuthor: PublicationAuthorInput!
+}
+
+"""An input for mutations affecting `PublicationAuthor`"""
+input PublicationAuthorInput {
+  publicationId: Int!
+  authorId: Int!
+}
+
+"""The output of our create `Tag` mutation."""
+type CreateTagPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Tag` that was created by this mutation."""
+  tag: Tag
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Tag`. May be used by Relay 1."""
+  tagEdge(
+    """The method to use when ordering `Tag`."""
+    orderBy: [TagsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TagsEdge
+}
+
+"""All input for the create `Tag` mutation."""
+input CreateTagInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Tag` to be created by this mutation."""
+  tag: TagInput!
+}
+
+"""An input for mutations affecting `Tag`"""
+input TagInput {
+  tagId: Int
+  name: String
+}
+
+"""The output of our update `Account` mutation."""
+type UpdateAccountPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Account` that was updated by this mutation."""
+  account: Account
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Account`. May be used by Relay 1."""
+  accountEdge(
+    """The method to use when ordering `Account`."""
+    orderBy: [AccountsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): AccountsEdge
+}
+
+"""All input for the `updateAccount` mutation."""
+input UpdateAccountInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Account` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Account` being updated.
+  """
+  accountPatch: AccountPatch!
+}
+
+"""
+Represents an update to a `Account`. Fields that are set will be updated.
+"""
+input AccountPatch {
+  accountId: UUID
+  email: String
+  lastModified: Datetime
+  createdAt: Datetime
+  status: String
+  emailVerified: Boolean
+}
+
+"""All input for the `updateAccountByAccountId` mutation."""
+input UpdateAccountByAccountIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Account` being updated.
+  """
+  accountPatch: AccountPatch!
+  accountId: UUID!
+}
+
+"""The output of our update `AccountAnnotation` mutation."""
+type UpdateAccountAnnotationPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `AccountAnnotation` that was updated by this mutation."""
+  accountAnnotation: AccountAnnotation
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Account` that is related to this `AccountAnnotation`."""
+  accountByAccountId: Account
+
+  """
+  Reads a single `Annotation` that is related to this `AccountAnnotation`.
+  """
+  annotationByAnnotationId: Annotation
+
+  """An edge for our `AccountAnnotation`. May be used by Relay 1."""
+  accountAnnotationEdge(
+    """The method to use when ordering `AccountAnnotation`."""
+    orderBy: [AccountAnnotationsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): AccountAnnotationsEdge
+}
+
+"""All input for the `updateAccountAnnotation` mutation."""
+input UpdateAccountAnnotationInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `AccountAnnotation` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `AccountAnnotation` being updated.
+  """
+  accountAnnotationPatch: AccountAnnotationPatch!
+}
+
+"""
+Represents an update to a `AccountAnnotation`. Fields that are set will be updated.
+"""
+input AccountAnnotationPatch {
+  accountId: UUID
+  annotationId: Int
+}
+
+"""
+All input for the `updateAccountAnnotationByAccountIdAndAnnotationId` mutation.
+"""
+input UpdateAccountAnnotationByAccountIdAndAnnotationIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `AccountAnnotation` being updated.
+  """
+  accountAnnotationPatch: AccountAnnotationPatch!
+  accountId: UUID!
+  annotationId: Int!
+}
+
+"""The output of our update `AccountPublication` mutation."""
+type UpdateAccountPublicationPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `AccountPublication` that was updated by this mutation."""
+  accountPublication: AccountPublication
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Account` that is related to this `AccountPublication`."""
+  accountByAccountId: Account
+
+  """
+  Reads a single `Publication` that is related to this `AccountPublication`.
+  """
+  publicationByPublicationId: Publication
+
+  """An edge for our `AccountPublication`. May be used by Relay 1."""
+  accountPublicationEdge(
+    """The method to use when ordering `AccountPublication`."""
+    orderBy: [AccountPublicationsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): AccountPublicationsEdge
+}
+
+"""All input for the `updateAccountPublication` mutation."""
+input UpdateAccountPublicationInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `AccountPublication` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `AccountPublication` being updated.
+  """
+  accountPublicationPatch: AccountPublicationPatch!
+}
+
+"""
+Represents an update to a `AccountPublication`. Fields that are set will be updated.
+"""
+input AccountPublicationPatch {
+  accountId: UUID
+  publicationId: Int
+  createdAt: Datetime
+  lastModified: Datetime
+}
+
+"""
+All input for the `updateAccountPublicationByAccountIdAndPublicationId` mutation.
+"""
+input UpdateAccountPublicationByAccountIdAndPublicationIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `AccountPublication` being updated.
+  """
+  accountPublicationPatch: AccountPublicationPatch!
+  accountId: UUID!
+  publicationId: Int!
+}
+
+"""The output of our update `Annotation` mutation."""
+type UpdateAnnotationPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Annotation` that was updated by this mutation."""
+  annotation: Annotation
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Publication` that is related to this `Annotation`."""
+  publicationByPublicationId: Publication
+
+  """An edge for our `Annotation`. May be used by Relay 1."""
+  annotationEdge(
+    """The method to use when ordering `Annotation`."""
+    orderBy: [AnnotationsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): AnnotationsEdge
+}
+
+"""All input for the `updateAnnotation` mutation."""
+input UpdateAnnotationInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Annotation` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Annotation` being updated.
+  """
+  annotationPatch: AnnotationPatch!
+}
+
+"""
+Represents an update to a `Annotation`. Fields that are set will be updated.
+"""
+input AnnotationPatch {
+  annotationId: Int
+  publicationId: Int
+  locationBegin: Int
+  locationEnd: Int
+  recordedAt: Datetime
+  highlight: String
+  highlightColor: String
+  note: String
+  statusline: String
+  page: Int
+  createdAt: Datetime
+  lastModified: Datetime
+}
+
+"""All input for the `updateAnnotationByAnnotationId` mutation."""
+input UpdateAnnotationByAnnotationIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Annotation` being updated.
+  """
+  annotationPatch: AnnotationPatch!
+  annotationId: Int!
+}
+
+"""All input for the `updateAnnotationByStatusline` mutation."""
+input UpdateAnnotationByStatuslineInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Annotation` being updated.
+  """
+  annotationPatch: AnnotationPatch!
+  statusline: String!
+}
+
+"""The output of our update `AnnotationTag` mutation."""
+type UpdateAnnotationTagPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `AnnotationTag` that was updated by this mutation."""
+  annotationTag: AnnotationTag
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Annotation` that is related to this `AnnotationTag`."""
+  annotationByAnnotationId: Annotation
+
+  """Reads a single `Tag` that is related to this `AnnotationTag`."""
+  tagByTagId: Tag
+
+  """An edge for our `AnnotationTag`. May be used by Relay 1."""
+  annotationTagEdge(
+    """The method to use when ordering `AnnotationTag`."""
+    orderBy: [AnnotationTagsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): AnnotationTagsEdge
+}
+
+"""All input for the `updateAnnotationTag` mutation."""
+input UpdateAnnotationTagInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `AnnotationTag` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `AnnotationTag` being updated.
+  """
+  annotationTagPatch: AnnotationTagPatch!
+}
+
+"""
+Represents an update to a `AnnotationTag`. Fields that are set will be updated.
+"""
+input AnnotationTagPatch {
+  annotationId: Int
+  tagId: Int
+}
+
+"""
+All input for the `updateAnnotationTagByAnnotationIdAndTagId` mutation.
+"""
+input UpdateAnnotationTagByAnnotationIdAndTagIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `AnnotationTag` being updated.
+  """
+  annotationTagPatch: AnnotationTagPatch!
+  annotationId: Int!
+  tagId: Int!
+}
+
+"""The output of our update `Author` mutation."""
+type UpdateAuthorPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Author` that was updated by this mutation."""
+  author: Author
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Author`. May be used by Relay 1."""
+  authorEdge(
+    """The method to use when ordering `Author`."""
+    orderBy: [AuthorsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): AuthorsEdge
+}
+
+"""All input for the `updateAuthor` mutation."""
+input UpdateAuthorInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Author` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Author` being updated.
+  """
+  authorPatch: AuthorPatch!
+}
+
+"""
+Represents an update to a `Author`. Fields that are set will be updated.
+"""
+input AuthorPatch {
+  authorId: Int
+  firstName: String
+  lastName: String
+}
+
+"""All input for the `updateAuthorByAuthorId` mutation."""
+input UpdateAuthorByAuthorIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Author` being updated.
+  """
+  authorPatch: AuthorPatch!
+  authorId: Int!
+}
+
+"""The output of our update `Book` mutation."""
+type UpdateBookPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Book` that was updated by this mutation."""
+  book: Book
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Publication` that is related to this `Book`."""
+  publicationByPublicationId: Publication
+
+  """An edge for our `Book`. May be used by Relay 1."""
+  bookEdge(
+    """The method to use when ordering `Book`."""
+    orderBy: [BooksOrderBy!] = [NATURAL]
+  ): BooksEdge
+}
+
+"""All input for the `updateBookByIsbn` mutation."""
+input UpdateBookByIsbnInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Book` being updated.
+  """
+  bookPatch: BookPatch!
+  isbn: String!
+}
+
+"""Represents an update to a `Book`. Fields that are set will be updated."""
+input BookPatch {
+  publicationId: Int
+  title: String
+  isbn: String
+  imageUrl: String
+  languageCode: String
+  publisher: String
+  publicationDate: Date
+  description: String
+  type: String
+}
+
+"""The output of our update `Publication` mutation."""
+type UpdatePublicationPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Publication` that was updated by this mutation."""
+  publication: Publication
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Publication`. May be used by Relay 1."""
+  publicationEdge(
+    """The method to use when ordering `Publication`."""
+    orderBy: [PublicationsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): PublicationsEdge
+}
+
+"""All input for the `updatePublication` mutation."""
+input UpdatePublicationInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Publication` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Publication` being updated.
+  """
+  publicationPatch: PublicationPatch!
+}
+
+"""
+Represents an update to a `Publication`. Fields that are set will be updated.
+"""
+input PublicationPatch {
+  publicationId: Int
+}
+
+"""All input for the `updatePublicationByPublicationId` mutation."""
+input UpdatePublicationByPublicationIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Publication` being updated.
+  """
+  publicationPatch: PublicationPatch!
+  publicationId: Int!
+}
+
+"""The output of our update `PublicationAuthor` mutation."""
+type UpdatePublicationAuthorPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `PublicationAuthor` that was updated by this mutation."""
+  publicationAuthor: PublicationAuthor
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `Publication` that is related to this `PublicationAuthor`.
+  """
+  publicationByPublicationId: Publication
+
+  """Reads a single `Author` that is related to this `PublicationAuthor`."""
+  authorByAuthorId: Author
+
+  """An edge for our `PublicationAuthor`. May be used by Relay 1."""
+  publicationAuthorEdge(
+    """The method to use when ordering `PublicationAuthor`."""
+    orderBy: [PublicationAuthorsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): PublicationAuthorsEdge
+}
+
+"""All input for the `updatePublicationAuthor` mutation."""
+input UpdatePublicationAuthorInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `PublicationAuthor` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `PublicationAuthor` being updated.
+  """
+  publicationAuthorPatch: PublicationAuthorPatch!
+}
+
+"""
+Represents an update to a `PublicationAuthor`. Fields that are set will be updated.
+"""
+input PublicationAuthorPatch {
+  publicationId: Int
+  authorId: Int
+}
+
+"""
+All input for the `updatePublicationAuthorByPublicationIdAndAuthorId` mutation.
+"""
+input UpdatePublicationAuthorByPublicationIdAndAuthorIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `PublicationAuthor` being updated.
+  """
+  publicationAuthorPatch: PublicationAuthorPatch!
+  publicationId: Int!
+  authorId: Int!
+}
+
+"""The output of our update `Tag` mutation."""
+type UpdateTagPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Tag` that was updated by this mutation."""
+  tag: Tag
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Tag`. May be used by Relay 1."""
+  tagEdge(
+    """The method to use when ordering `Tag`."""
+    orderBy: [TagsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TagsEdge
+}
+
+"""All input for the `updateTag` mutation."""
+input UpdateTagInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Tag` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Tag` being updated.
+  """
+  tagPatch: TagPatch!
+}
+
+"""Represents an update to a `Tag`. Fields that are set will be updated."""
+input TagPatch {
+  tagId: Int
+  name: String
+}
+
+"""All input for the `updateTagByTagId` mutation."""
+input UpdateTagByTagIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Tag` being updated.
+  """
+  tagPatch: TagPatch!
+  tagId: Int!
+}
+
+"""The output of our delete `Account` mutation."""
+type DeleteAccountPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Account` that was deleted by this mutation."""
+  account: Account
+  deletedAccountId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Account`. May be used by Relay 1."""
+  accountEdge(
+    """The method to use when ordering `Account`."""
+    orderBy: [AccountsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): AccountsEdge
+}
+
+"""All input for the `deleteAccount` mutation."""
+input DeleteAccountInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Account` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""All input for the `deleteAccountByAccountId` mutation."""
+input DeleteAccountByAccountIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  accountId: UUID!
+}
+
+"""The output of our delete `AccountAnnotation` mutation."""
+type DeleteAccountAnnotationPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `AccountAnnotation` that was deleted by this mutation."""
+  accountAnnotation: AccountAnnotation
+  deletedAccountAnnotationId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Account` that is related to this `AccountAnnotation`."""
+  accountByAccountId: Account
+
+  """
+  Reads a single `Annotation` that is related to this `AccountAnnotation`.
+  """
+  annotationByAnnotationId: Annotation
+
+  """An edge for our `AccountAnnotation`. May be used by Relay 1."""
+  accountAnnotationEdge(
+    """The method to use when ordering `AccountAnnotation`."""
+    orderBy: [AccountAnnotationsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): AccountAnnotationsEdge
+}
+
+"""All input for the `deleteAccountAnnotation` mutation."""
+input DeleteAccountAnnotationInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `AccountAnnotation` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+All input for the `deleteAccountAnnotationByAccountIdAndAnnotationId` mutation.
+"""
+input DeleteAccountAnnotationByAccountIdAndAnnotationIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  accountId: UUID!
+  annotationId: Int!
+}
+
+"""The output of our delete `AccountPublication` mutation."""
+type DeleteAccountPublicationPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `AccountPublication` that was deleted by this mutation."""
+  accountPublication: AccountPublication
+  deletedAccountPublicationId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Account` that is related to this `AccountPublication`."""
+  accountByAccountId: Account
+
+  """
+  Reads a single `Publication` that is related to this `AccountPublication`.
+  """
+  publicationByPublicationId: Publication
+
+  """An edge for our `AccountPublication`. May be used by Relay 1."""
+  accountPublicationEdge(
+    """The method to use when ordering `AccountPublication`."""
+    orderBy: [AccountPublicationsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): AccountPublicationsEdge
+}
+
+"""All input for the `deleteAccountPublication` mutation."""
+input DeleteAccountPublicationInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `AccountPublication` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+All input for the `deleteAccountPublicationByAccountIdAndPublicationId` mutation.
+"""
+input DeleteAccountPublicationByAccountIdAndPublicationIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  accountId: UUID!
+  publicationId: Int!
+}
+
+"""The output of our delete `Annotation` mutation."""
+type DeleteAnnotationPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Annotation` that was deleted by this mutation."""
+  annotation: Annotation
+  deletedAnnotationId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Publication` that is related to this `Annotation`."""
+  publicationByPublicationId: Publication
+
+  """An edge for our `Annotation`. May be used by Relay 1."""
+  annotationEdge(
+    """The method to use when ordering `Annotation`."""
+    orderBy: [AnnotationsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): AnnotationsEdge
+}
+
+"""All input for the `deleteAnnotation` mutation."""
+input DeleteAnnotationInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Annotation` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""All input for the `deleteAnnotationByAnnotationId` mutation."""
+input DeleteAnnotationByAnnotationIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  annotationId: Int!
+}
+
+"""All input for the `deleteAnnotationByStatusline` mutation."""
+input DeleteAnnotationByStatuslineInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  statusline: String!
+}
+
+"""The output of our delete `AnnotationTag` mutation."""
+type DeleteAnnotationTagPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `AnnotationTag` that was deleted by this mutation."""
+  annotationTag: AnnotationTag
+  deletedAnnotationTagId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Annotation` that is related to this `AnnotationTag`."""
+  annotationByAnnotationId: Annotation
+
+  """Reads a single `Tag` that is related to this `AnnotationTag`."""
+  tagByTagId: Tag
+
+  """An edge for our `AnnotationTag`. May be used by Relay 1."""
+  annotationTagEdge(
+    """The method to use when ordering `AnnotationTag`."""
+    orderBy: [AnnotationTagsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): AnnotationTagsEdge
+}
+
+"""All input for the `deleteAnnotationTag` mutation."""
+input DeleteAnnotationTagInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `AnnotationTag` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+All input for the `deleteAnnotationTagByAnnotationIdAndTagId` mutation.
+"""
+input DeleteAnnotationTagByAnnotationIdAndTagIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  annotationId: Int!
+  tagId: Int!
+}
+
+"""The output of our delete `Author` mutation."""
+type DeleteAuthorPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Author` that was deleted by this mutation."""
+  author: Author
+  deletedAuthorId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Author`. May be used by Relay 1."""
+  authorEdge(
+    """The method to use when ordering `Author`."""
+    orderBy: [AuthorsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): AuthorsEdge
+}
+
+"""All input for the `deleteAuthor` mutation."""
+input DeleteAuthorInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Author` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""All input for the `deleteAuthorByAuthorId` mutation."""
+input DeleteAuthorByAuthorIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  authorId: Int!
+}
+
+"""The output of our delete `Book` mutation."""
+type DeleteBookPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Book` that was deleted by this mutation."""
+  book: Book
+  deletedBookId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Publication` that is related to this `Book`."""
+  publicationByPublicationId: Publication
+
+  """An edge for our `Book`. May be used by Relay 1."""
+  bookEdge(
+    """The method to use when ordering `Book`."""
+    orderBy: [BooksOrderBy!] = [NATURAL]
+  ): BooksEdge
+}
+
+"""All input for the `deleteBookByIsbn` mutation."""
+input DeleteBookByIsbnInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  isbn: String!
+}
+
+"""The output of our delete `Publication` mutation."""
+type DeletePublicationPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Publication` that was deleted by this mutation."""
+  publication: Publication
+  deletedPublicationId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Publication`. May be used by Relay 1."""
+  publicationEdge(
+    """The method to use when ordering `Publication`."""
+    orderBy: [PublicationsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): PublicationsEdge
+}
+
+"""All input for the `deletePublication` mutation."""
+input DeletePublicationInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Publication` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""All input for the `deletePublicationByPublicationId` mutation."""
+input DeletePublicationByPublicationIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  publicationId: Int!
+}
+
+"""The output of our delete `PublicationAuthor` mutation."""
+type DeletePublicationAuthorPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `PublicationAuthor` that was deleted by this mutation."""
+  publicationAuthor: PublicationAuthor
+  deletedPublicationAuthorId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `Publication` that is related to this `PublicationAuthor`.
+  """
+  publicationByPublicationId: Publication
+
+  """Reads a single `Author` that is related to this `PublicationAuthor`."""
+  authorByAuthorId: Author
+
+  """An edge for our `PublicationAuthor`. May be used by Relay 1."""
+  publicationAuthorEdge(
+    """The method to use when ordering `PublicationAuthor`."""
+    orderBy: [PublicationAuthorsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): PublicationAuthorsEdge
+}
+
+"""All input for the `deletePublicationAuthor` mutation."""
+input DeletePublicationAuthorInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `PublicationAuthor` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+All input for the `deletePublicationAuthorByPublicationIdAndAuthorId` mutation.
+"""
+input DeletePublicationAuthorByPublicationIdAndAuthorIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  publicationId: Int!
+  authorId: Int!
+}
+
+"""The output of our delete `Tag` mutation."""
+type DeleteTagPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Tag` that was deleted by this mutation."""
+  tag: Tag
+  deletedTagId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Tag`. May be used by Relay 1."""
+  tagEdge(
+    """The method to use when ordering `Tag`."""
+    orderBy: [TagsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TagsEdge
+}
+
+"""All input for the `deleteTag` mutation."""
+input DeleteTagInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Tag` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""All input for the `deleteTagByTagId` mutation."""
+input DeleteTagByTagIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  tagId: Int!
+}
