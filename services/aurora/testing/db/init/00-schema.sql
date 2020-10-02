@@ -144,15 +144,23 @@ CREATE ROLE margins_account;
 
 GRANT margins_account TO margins_postgraphile;
 
+-- set search path for all roles, not inherited
+
+-- possible issue with postgraphile serach path? since it creates other schemas? we'll see
+ALTER ROLE margins_postgraphile SET search_path TO margins_public;
+ALTER ROLE margins_account SET search_path TO margins_public;
+ALTER ROLE margins_anonymous SET search_path TO margins_public;
+
 ALTER DEFAULT privileges REVOKE EXECUTE ON functions FROM public;
 
+-- all roles can use the margins_public schema
 GRANT USAGE ON SCHEMA margins_public TO margins_account, margins_anonymous;
 
---select for all users, usage only for account holders
+--select for all roles, usage only for account holders
 GRANT SELECT ON ALL SEQUENCES IN SCHEMA margins_public TO margins_account, margins_anonymous;
 GRANT USAGE ON ALL SEQUENCES IN SCHEMA margins_public TO margins_account;
 
---select for all users, insert update delete only for account holders
+--select for all roles, insert update delete only for account holders
 GRANT SELECT ON ALL TABLES IN SCHEMA margins_public TO margins_account, margins_anonymous;
 GRANT INSERT, UPDATE, DELETE ON ALL TABLES in SCHEMA margins_public TO margins_account;
 
