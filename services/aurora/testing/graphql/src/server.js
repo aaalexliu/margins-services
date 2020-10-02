@@ -14,6 +14,7 @@ app.use(
     ignoreIndexes: false,
     showErrorStack: "json",
     extendedErrors: ["hint", "detail", "errcode"],
+    classicIds: true
   })
 );
 
