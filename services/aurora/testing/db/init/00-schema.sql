@@ -166,7 +166,7 @@ GRANT SELECT ON ALL TABLES IN SCHEMA margins_public TO margins_account, margins_
 GRANT INSERT, UPDATE, DELETE ON ALL TABLES in SCHEMA margins_public TO margins_account;
 
 -- ROW LEVEL SECURITY
-CREATE FUNCTION get_account_id() RETURNS uuid AS $$
+CREATE FUNCTION current_account_id() RETURNS uuid AS $$
   SELECT nullif(
     current_setting('jwt.claims.sub')
   )
@@ -190,3 +190,11 @@ ALTER TABLE account ENABLE ROW LEVEL SECURITY;
 ALTER TABLE account_annotation ENABLE ROW LEVEL SECURITY;
 ALTER TABLE account_publication ENABLE ROW LEVEL SECURITY;
 
+CREATE POLICY account_allow_if_owner ON account
+FOR ALL USING ( account_id = current_account_id() );
+
+CREATE POLICY account_annotation_allow_if_owner ON account_annotation
+FOR ALL USING ( account_id = current_account_id() );
+
+CREATE POLICY account_publication_allow_if_owner ON account_publication
+FOR ALL USING ( account_id = current_account_id() );
