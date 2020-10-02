@@ -151,6 +151,7 @@ ALTER ROLE margins_postgraphile SET search_path TO margins_public;
 ALTER ROLE margins_account SET search_path TO margins_public;
 ALTER ROLE margins_anonymous SET search_path TO margins_public;
 
+-- alter default privileges
 ALTER DEFAULT privileges REVOKE EXECUTE ON functions FROM public;
 
 -- all roles can use the margins_public schema
@@ -164,5 +165,28 @@ GRANT USAGE ON ALL SEQUENCES IN SCHEMA margins_public TO margins_account;
 GRANT SELECT ON ALL TABLES IN SCHEMA margins_public TO margins_account, margins_anonymous;
 GRANT INSERT, UPDATE, DELETE ON ALL TABLES in SCHEMA margins_public TO margins_account;
 
-REVOKE INSERT, 
---
+-- ROW LEVEL SECURITY
+CREATE FUNCTION get_account_id() RETURNS uuid AS $$
+  SELECT nullif(
+    current_setting('jwt.claims.sub')
+  )
+$$ LANGUAGE sql STABLE;
+
+-- A JSON Web Token with the following claims:
+
+-- {
+--   "sub": "postgraphql",
+--   "role": "user",
+--   "user_id": 2
+-- }
+-- Would result in the following SQL being run:
+
+-- set local role user;
+-- set local jwt.claims.sub to 'postgraphql';
+-- set local jwt.claims.role to 'user';
+-- set local jwt.claims.user_id to 2;
+
+ALTER TABLE account ENABLE ROW LEVEL SECURITY;
+ALTER TABLE account_annotation ENABLE ROW LEVEL SECURITY;
+ALTER TABLE account_publication ENABLE ROW LEVEL SECURITY;
+
