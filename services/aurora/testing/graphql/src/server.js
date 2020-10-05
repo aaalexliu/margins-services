@@ -5,7 +5,7 @@ const PgManyToManyPlugin = require("@graphile-contrib/pg-many-to-many");
 const app = express();
 
 app.use(
-  postgraphile(process.env.DATABASE_URL, "public", {
+  postgraphile(process.env.DATABASE_URL, "margins_public", {
     watchPg: true,
     graphiql: true,
     enhanceGraphiql: true,

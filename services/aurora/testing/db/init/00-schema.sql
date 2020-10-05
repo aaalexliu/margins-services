@@ -169,7 +169,7 @@ GRANT INSERT, UPDATE, DELETE ON ALL TABLES in SCHEMA margins_public TO margins_a
 CREATE FUNCTION current_account_id() RETURNS uuid AS $$
   SELECT nullif(
     current_setting('jwt.claims.sub')
-  )
+  )::uuid;
 $$ LANGUAGE sql STABLE;
 
 -- A JSON Web Token with the following claims:
