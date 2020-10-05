@@ -1,6 +1,5 @@
 -- CREATE SCHEMA IF NOT EXISTS margins_public;
 -- SET SCHEMA 'margins_public';
-
 CREATE SCHEMA IF NOT EXISTS margins_public;
 
 SET SCHEMA 'margins_public';
@@ -28,14 +27,14 @@ CREATE TABLE annotation (
   "publication_id" int REFERENCES publication (publication_id),
   "location_begin" int,
   "location_end" int,
-  "recorded_at" timestamp,
+  "recorded_at" timestamp with time zone,
   "highlight" text,
   "highlight_color" text,
   "note" text,
   "statusline" text UNIQUE,
   "page" int,
-  "created_at" timestamp DEFAULT now(),
-  "last_modified" timestamp DEFAULT now()
+  "created_at" timestamp with time zone DEFAULT now(),
+  "last_modified" timestamp with time zone DEFAULT now()
 );
 
 CREATE INDEX annotation_publication_id_index ON annotation (publication_id);
@@ -58,17 +57,20 @@ CREATE INDEX publication_author_author_id_index ON publication_author (author_id
 CREATE TABLE account (
   "account_id" uuid PRIMARY KEY,
   "email" text,
-  "last_modified" timestamp,
-  "created_at" timestamp,
+  "created_at" timestamp with time zone,
+  "last_modified" timestamp with time zone DEFAULT now(),
   "status" text,
-  "email_verified" boolean
+  "email_verified" boolean,
+  "role" text,
+  "first_name" text,
+  "last_name" text
 );
 
 CREATE TABLE account_publication (
   "account_id" uuid REFERENCES account (account_id),
   "publication_id" int REFERENCES publication (publication_id),
-  "created_at" timestamp DEFAULT now(),
-  "last_modified" timestamp DEFAULT now(),
+  "created_at" timestamp with time zone DEFAULT now(),
+  "last_modified" timestamp with time zone DEFAULT now(),
   PRIMARY KEY ("account_id", "publication_id")
 );
 
@@ -91,7 +93,6 @@ CREATE TABLE annotation_tag (
 
 -- Primary key order is annotation_id last so to optimize for annotation_id create an index
 -- VIEWS
-
 CREATE VIEW account_tag_annotation AS
 SELECT
   a.account_id,
@@ -101,24 +102,24 @@ FROM
   account_annotation AS a
   JOIN annotation_tag AS b ON (a.annotation_id = b.annotation_id);
 
-CREATE VIEW full_annotation_tag AS
-SELECT
-  a.location_begin,
-  a.location_end,
-  a.recorded_at,
-  a.highlight,
-  a.highlight_color,
-  a.note,
-  a.statusline,
-  a.page,
-  a.last_modified,
-  json_agg(tag.name) AS all_tags
-FROM
-  annotation AS a
-  INNER JOIN annotation_tag ON a.annotation_id = annotation_tag.annotation_id
-  INNER JOIN tag ON account_tag.tag_id = tag.tag_id
-GROUP BY
-  tag.tag_id;
+-- CREATE VIEW full_annotation_tag AS
+-- SELECT
+--   a.location_begin,
+--   a.location_end,
+--   a.recorded_at,
+--   a.highlight,
+--   a.highlight_color,
+--   a.note,
+--   a.statusline,
+--   a.page,
+--   a.last_modified,
+--   json_agg(tag.name) AS all_tags
+-- FROM
+--   annotation AS a
+--   INNER JOIN annotation_tag ON a.annotation_id = annotation_tag.annotation_id
+--   INNER JOIN tag ON annotation_tag.tag_id = tag.tag_id
+-- GROUP BY
+--   tag.tag_id;
 
 -- FUNCTIONS
 CREATE FUNCTION account_full_name (account account)
@@ -126,6 +127,7 @@ CREATE FUNCTION account_full_name (account account)
   AS $$
   SELECT
     account.first_name || ' ' || account.last_name
+  FROM account;
     -- SELECT concat(account.first_name, ' ', account.last_name)
 $$
 LANGUAGE sql
@@ -145,10 +147,11 @@ CREATE ROLE margins_account;
 GRANT margins_account TO margins_postgraphile;
 
 -- set search path for all roles, not inherited
-
 -- possible issue with postgraphile serach path? since it creates other schemas? we'll see
 ALTER ROLE margins_postgraphile SET search_path TO margins_public;
+
 ALTER ROLE margins_account SET search_path TO margins_public;
+
 ALTER ROLE margins_anonymous SET search_path TO margins_public;
 
 -- alter default privileges
@@ -159,42 +162,51 @@ GRANT USAGE ON SCHEMA margins_public TO margins_account, margins_anonymous;
 
 --select for all roles, usage only for account holders
 GRANT SELECT ON ALL SEQUENCES IN SCHEMA margins_public TO margins_account, margins_anonymous;
+
 GRANT USAGE ON ALL SEQUENCES IN SCHEMA margins_public TO margins_account;
 
 --select for all roles, insert update delete only for account holders
 GRANT SELECT ON ALL TABLES IN SCHEMA margins_public TO margins_account, margins_anonymous;
-GRANT INSERT, UPDATE, DELETE ON ALL TABLES in SCHEMA margins_public TO margins_account;
+
+GRANT INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA margins_public TO margins_account;
 
 -- ROW LEVEL SECURITY
-CREATE FUNCTION current_account_id() RETURNS uuid AS $$
-  SELECT nullif(
-    current_setting('jwt.claims.sub')
-  )::uuid;
-$$ LANGUAGE sql STABLE;
+CREATE FUNCTION current_account_id ()
+  RETURNS uuid
+  AS $$
+  SELECT current_setting('jwt.claims.sub', TRUE)::uuid;
+$$
+LANGUAGE sql
+STABLE;
 
 -- A JSON Web Token with the following claims:
-
 -- {
 --   "sub": "postgraphql",
 --   "role": "user",
 --   "user_id": 2
 -- }
 -- Would result in the following SQL being run:
-
 -- set local role user;
 -- set local jwt.claims.sub to 'postgraphql';
 -- set local jwt.claims.role to 'user';
 -- set local jwt.claims.user_id to 2;
-
 ALTER TABLE account ENABLE ROW LEVEL SECURITY;
+
 ALTER TABLE account_annotation ENABLE ROW LEVEL SECURITY;
+
 ALTER TABLE account_publication ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY account_allow_if_owner ON account
-FOR ALL USING ( account_id = current_account_id() );
+CREATE POLICY account_allow_if_owner ON account FOR ALL USING (account_id = current_account_id ());
 
-CREATE POLICY account_annotation_allow_if_owner ON account_annotation
-FOR ALL USING ( account_id = current_account_id() );
+CREATE POLICY account_annotation_allow_if_owner ON account_annotation FOR ALL USING (account_id = current_account_id ());
 
-CREATE POLICY account_publication_allow_if_owner ON account_publication
-FOR ALL USING ( account_id = current_account_id() );
+CREATE POLICY account_publication_allow_if_owner ON account_publication FOR ALL USING (account_id = current_account_id ());
+
+-- CREATE FUNCTION create_book (book)
+--   RETURNS book
+--   AS $$
+--   INSERT
+-- $$
+-- LANGUAGE SQL
+-- VOLATILE;
+
