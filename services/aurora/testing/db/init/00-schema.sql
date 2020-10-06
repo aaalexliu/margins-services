@@ -31,7 +31,7 @@ CREATE TABLE book (
   "publisher" text,
   "publication_date" date,
   "description" text,
-  "type" text,
+  "type" text
 );
 
 CREATE INDEX book_publication_id_index ON book (publication_id);
