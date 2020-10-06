@@ -5,11 +5,13 @@ CREATE SCHEMA IF NOT EXISTS margins_public;
 SET SCHEMA 'margins_public';
 
 CREATE TABLE publication (
-  "publication_id" serial PRIMARY KEY
+  "publication_id" serial PRIMARY KEY,
+  "created_at" timestamp with time zone,
+  "last_modified" timestamp with time zone
 );
 
 CREATE TABLE book (
-  "publication_id" int REFERENCES publication (publication_id) NOT NULL,
+  "book_id" int REFERENCES publication (publication_id) NOT NULL,
   "title" text NOT NULL,
   "isbn" char(13) UNIQUE NOT NULL,
   "image_url" text,
@@ -17,7 +19,7 @@ CREATE TABLE book (
   "publisher" text,
   "publication_date" date,
   "description" text,
-  "type" text
+  "type" text,
 );
 
 CREATE INDEX book_publication_id_index ON book (publication_id);
@@ -69,8 +71,6 @@ CREATE TABLE account (
 CREATE TABLE account_publication (
   "account_id" uuid REFERENCES account (account_id) NOT NULL,
   "publication_id" int REFERENCES publication (publication_id) NOT NULL,
-  "created_at" timestamp with time zone DEFAULT now(),
-  "last_modified" timestamp with time zone DEFAULT now(),
   PRIMARY KEY ("account_id", "publication_id")
 );
 
@@ -155,7 +155,7 @@ GRANT margins_account TO margins_postgraphile;
 -- set search path for all roles, not inherited
 -- possible issue with postgraphile serach path? since it creates other schemas? we'll see
 
-ALTER ROLE margins_postgraphile SET search_path=margins_public, public, "$user";
+ALTER ROLE margins_admin SET search_path=margins_public, public, "$user";
 
 ALTER ROLE margins_postgraphile SET search_path=margins_public, public, "$user";
 
@@ -211,13 +211,15 @@ CREATE POLICY account_annotation_allow_if_owner ON account_annotation FOR ALL US
 
 CREATE POLICY account_publication_allow_if_owner ON account_publication FOR ALL USING (account_id = current_account_id ());
 
+
+-- in the future will hide book_id as that would expose a detail of internal implementation that could be misused by end users.
 CREATE FUNCTION create_book (newBook book)
   RETURNS book
   AS $$
   WITH publication_fk AS (
     INSERT INTO publication ("publication_id") VALUES (DEFAULT) RETURNING "publication_id"
   )
-  INSERT INTO book ("publication_id", "title", "isbn", "image_url", "language_code", "publisher", "publication_date", "description", "type")
+  INSERT INTO book ("book_id", "title", "isbn", "image_url", "language_code", "publisher", "publication_date", "description", "type")
   VALUES (
     (SELECT publication_id FROM publication_fk),
     newBook.title,
@@ -233,4 +235,3 @@ CREATE FUNCTION create_book (newBook book)
 $$
 LANGUAGE SQL
 VOLATILE;
-
