@@ -74,11 +74,15 @@ CREATE TABLE account_publication (
   PRIMARY KEY ("account_id", "publication_id")
 );
 
+CREATE INDEX account_publication_publication_id ON account_publication (publication_id);
+
 CREATE TABLE account_annotation (
   "account_id" uuid REFERENCES account (account_id),
   "annotation_id" int REFERENCES annotation (annotation_id),
   PRIMARY KEY ("account_id", "annotation_id")
 );
+
+CREATE INDEX account_annotation_annotation_id ON account_annotation (annotation_id);
 
 CREATE TABLE tag (
   "tag_id" serial PRIMARY KEY,
@@ -90,6 +94,8 @@ CREATE TABLE annotation_tag (
   "tag_id" int REFERENCES tag (tag_id),
   PRIMARY KEY ("annotation_id", "tag_id")
 );
+
+CREATE INDEX annotation_tag_tag_id ON annotation_tag (tag_id);
 
 -- Primary key order is annotation_id last so to optimize for annotation_id create an index
 -- VIEWS
@@ -136,7 +142,7 @@ STABLE;
 -- ROLES
 -- margins_postgraphile will have the union of all privileges granted to
 -- margins_anonymous and margins_account
-CREATE ROLE margins_postgraphile LOGIN PASSWORD 'margins_postgraphile';
+CREATE ROLE margins_postgraphile WITH LOGIN PASSWORD 'margins_postgraphile';
 
 CREATE ROLE margins_anonymous;
 
@@ -148,11 +154,14 @@ GRANT margins_account TO margins_postgraphile;
 
 -- set search path for all roles, not inherited
 -- possible issue with postgraphile serach path? since it creates other schemas? we'll see
-ALTER ROLE margins_postgraphile SET search_path TO margins_public;
 
-ALTER ROLE margins_account SET search_path TO margins_public;
+ALTER ROLE margins_postgraphile SET search_path=margins_public, public, "$user";
 
-ALTER ROLE margins_anonymous SET search_path TO margins_public;
+ALTER ROLE margins_postgraphile SET search_path=margins_public, public, "$user";
+
+ALTER ROLE margins_account SET search_path=margins_public, public, "$user";
+
+ALTER ROLE margins_anonymous SET search_path=margins_public, public, "$user";
 
 -- alter default privileges
 ALTER DEFAULT privileges REVOKE EXECUTE ON functions FROM public;
@@ -202,11 +211,26 @@ CREATE POLICY account_annotation_allow_if_owner ON account_annotation FOR ALL US
 
 CREATE POLICY account_publication_allow_if_owner ON account_publication FOR ALL USING (account_id = current_account_id ());
 
--- CREATE FUNCTION create_book (book)
---   RETURNS book
---   AS $$
---   INSERT
--- $$
--- LANGUAGE SQL
--- VOLATILE;
+CREATE FUNCTION new_book (newBook book)
+  RETURNS book
+  AS $$
+  WITH publication_fk AS (
+    INSERT INTO publication ("publication_id") VALUES (DEFAULT) RETURNING "publication_id"
+  )
+  INSERT INTO book ("publication_id", "title", "isbn", "image_url", "language_code", "publisher", "publication_date", "description", "type")
+  VALUES (
+    (SELECT publication_id FROM publication_fk),
+    newBook.title,
+    newBook.isbn,
+    newBook.image_url,
+    newBook.language_code,
+    newBook.publisher,
+    newBook.publication_date,
+    newBook.description,
+    newBook.type
+  ) RETURNING book
+  ;
+$$
+LANGUAGE SQL
+VOLATILE;
 
