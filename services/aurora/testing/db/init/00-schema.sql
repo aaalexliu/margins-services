@@ -9,7 +9,7 @@ CREATE TABLE publication (
 );
 
 CREATE TABLE book (
-  "publication_id" int REFERENCES publication (publication_id),
+  "publication_id" int REFERENCES publication (publication_id) NOT NULL,
   "title" text NOT NULL,
   "isbn" char(13) UNIQUE NOT NULL,
   "image_url" text,
@@ -24,7 +24,7 @@ CREATE INDEX book_publication_id_index ON book (publication_id);
 
 CREATE TABLE annotation (
   "annotation_id" serial PRIMARY KEY,
-  "publication_id" int REFERENCES publication (publication_id),
+  "publication_id" int REFERENCES publication (publication_id) NOT NULL,
   "location_begin" int,
   "location_end" int,
   "recorded_at" timestamp with time zone,
@@ -46,8 +46,8 @@ CREATE TABLE author (
 );
 
 CREATE TABLE publication_author (
-  "publication_id" int REFERENCES publication (publication_id),
-  "author_id" int REFERENCES author (author_id),
+  "publication_id" int REFERENCES publication (publication_id) NOT NULL,
+  "author_id" int REFERENCES author (author_id) NOT NULL,
   PRIMARY KEY ("publication_id", "author_id")
 );
 
@@ -56,7 +56,7 @@ CREATE INDEX publication_author_author_id_index ON publication_author (author_id
 -- primary index order is publication_id first so to search author order doesn't match
 CREATE TABLE account (
   "account_id" uuid PRIMARY KEY,
-  "email" text,
+  "email" text NOT NULL,
   "created_at" timestamp with time zone,
   "last_modified" timestamp with time zone DEFAULT now(),
   "status" text,
@@ -67,8 +67,8 @@ CREATE TABLE account (
 );
 
 CREATE TABLE account_publication (
-  "account_id" uuid REFERENCES account (account_id),
-  "publication_id" int REFERENCES publication (publication_id),
+  "account_id" uuid REFERENCES account (account_id) NOT NULL,
+  "publication_id" int REFERENCES publication (publication_id) NOT NULL,
   "created_at" timestamp with time zone DEFAULT now(),
   "last_modified" timestamp with time zone DEFAULT now(),
   PRIMARY KEY ("account_id", "publication_id")
@@ -77,8 +77,8 @@ CREATE TABLE account_publication (
 CREATE INDEX account_publication_publication_id ON account_publication (publication_id);
 
 CREATE TABLE account_annotation (
-  "account_id" uuid REFERENCES account (account_id),
-  "annotation_id" int REFERENCES annotation (annotation_id),
+  "account_id" uuid REFERENCES account (account_id) NOT NULL,
+  "annotation_id" int REFERENCES annotation (annotation_id) NOT NULL,
   PRIMARY KEY ("account_id", "annotation_id")
 );
 
@@ -86,12 +86,12 @@ CREATE INDEX account_annotation_annotation_id ON account_annotation (annotation_
 
 CREATE TABLE tag (
   "tag_id" serial PRIMARY KEY,
-  "name" text
+  "name" text NOT NULL
 );
 
 CREATE TABLE annotation_tag (
-  "annotation_id" int REFERENCES annotation (annotation_id),
-  "tag_id" int REFERENCES tag (tag_id),
+  "annotation_id" int REFERENCES annotation (annotation_id) NOT NULL,
+  "tag_id" int REFERENCES tag (tag_id) NOT NULL,
   PRIMARY KEY ("annotation_id", "tag_id")
 );
 
@@ -211,7 +211,7 @@ CREATE POLICY account_annotation_allow_if_owner ON account_annotation FOR ALL US
 
 CREATE POLICY account_publication_allow_if_owner ON account_publication FOR ALL USING (account_id = current_account_id ());
 
-CREATE FUNCTION new_book (newBook book)
+CREATE FUNCTION create_book (newBook book)
   RETURNS book
   AS $$
   WITH publication_fk AS (
