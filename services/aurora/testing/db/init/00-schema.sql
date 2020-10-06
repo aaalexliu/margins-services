@@ -4,6 +4,18 @@ CREATE SCHEMA IF NOT EXISTS margins_public;
 
 SET SCHEMA 'margins_public';
 
+CREATE TABLE account (
+  "account_id" uuid PRIMARY KEY,
+  "email" text NOT NULL,
+  "created_at" timestamp with time zone,
+  "last_modified" timestamp with time zone DEFAULT now(),
+  "status" text,
+  "email_verified" boolean,
+  "role" text,
+  "first_name" text,
+  "last_name" text
+);
+
 CREATE TABLE publication (
   "publication_id" serial PRIMARY KEY,
   "created_at" timestamp with time zone,
@@ -27,6 +39,7 @@ CREATE INDEX book_publication_id_index ON book (publication_id);
 CREATE TABLE annotation (
   "annotation_id" serial PRIMARY KEY,
   "publication_id" int REFERENCES publication (publication_id) NOT NULL,
+  "account_id" uuid REFERENCES account (account_id) NOT NULL,
   "location_begin" int,
   "location_end" int,
   "recorded_at" timestamp with time zone,
@@ -56,17 +69,6 @@ CREATE TABLE publication_author (
 CREATE INDEX publication_author_author_id_index ON publication_author (author_id);
 
 -- primary index order is publication_id first so to search author order doesn't match
-CREATE TABLE account (
-  "account_id" uuid PRIMARY KEY,
-  "email" text NOT NULL,
-  "created_at" timestamp with time zone,
-  "last_modified" timestamp with time zone DEFAULT now(),
-  "status" text,
-  "email_verified" boolean,
-  "role" text,
-  "first_name" text,
-  "last_name" text
-);
 
 CREATE TABLE account_publication (
   "account_id" uuid REFERENCES account (account_id) NOT NULL,
@@ -75,14 +77,6 @@ CREATE TABLE account_publication (
 );
 
 CREATE INDEX account_publication_publication_id ON account_publication (publication_id);
-
-CREATE TABLE account_annotation (
-  "account_id" uuid REFERENCES account (account_id) NOT NULL,
-  "annotation_id" int REFERENCES annotation (annotation_id) NOT NULL,
-  PRIMARY KEY ("account_id", "annotation_id")
-);
-
-CREATE INDEX account_annotation_annotation_id ON account_annotation (annotation_id);
 
 CREATE TABLE tag (
   "tag_id" serial PRIMARY KEY,
