@@ -34,7 +34,7 @@ CREATE TABLE book (
   "type" text
 );
 
-CREATE INDEX book_publication_id_index ON book (publication_id);
+CREATE INDEX book_book_id_index ON book (book_id);
 
 CREATE TABLE annotation (
   "annotation_id" serial PRIMARY KEY,
@@ -99,7 +99,7 @@ SELECT
   a.annotation_id,
   b.tag_id
 FROM
-  account_annotation AS a
+  annotation AS a
   JOIN annotation_tag AS b ON (a.annotation_id = b.annotation_id);
 
 -- CREATE VIEW full_annotation_tag AS
@@ -195,13 +195,9 @@ STABLE;
 -- set local jwt.claims.user_id to 2;
 ALTER TABLE account ENABLE ROW LEVEL SECURITY;
 
-ALTER TABLE account_annotation ENABLE ROW LEVEL SECURITY;
-
 ALTER TABLE account_publication ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY account_allow_if_owner ON account FOR ALL USING (account_id = current_account_id ());
-
-CREATE POLICY account_annotation_allow_if_owner ON account_annotation FOR ALL USING (account_id = current_account_id ());
 
 CREATE POLICY account_publication_allow_if_owner ON account_publication FOR ALL USING (account_id = current_account_id ());
 
