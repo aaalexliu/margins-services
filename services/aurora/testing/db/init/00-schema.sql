@@ -23,9 +23,9 @@ CREATE TABLE publication (
 );
 
 CREATE TABLE book (
-  "book_id" int REFERENCES publication (publication_id) NOT NULL,
+  "book_id" char(13) PRIMARY KEY CONSTRAINT is_isbn13 CHECK (char_length(book_id) = 13),
+  "publication_id" int REFERENCES publication (publication_id) NOT NULL,
   "title" text NOT NULL,
-  "isbn" char(13) UNIQUE NOT NULL,
   "image_url" text,
   "language_code" char(3),
   "publisher" text,
@@ -34,7 +34,9 @@ CREATE TABLE book (
   "type" text
 );
 
-CREATE INDEX book_book_id_index ON book (book_id);
+COMMENT ON COLUMN book.book_id IS 'natural key of isbn13';
+
+CREATE INDEX book_publication_id_index ON book (publication_id);
 
 CREATE TABLE annotation (
   "annotation_id" serial PRIMARY KEY,
@@ -204,7 +206,31 @@ CREATE POLICY account_publication_allow_if_owner ON account_publication FOR ALL 
 
 
 -- in the future will hide book_id as that would expose a detail of internal implementation that could be misused by end users.
-CREATE FUNCTION create_book (newBook book)
+
+CREATE FUNCTION create_book_test (newBook book, out book book, out author author)
+  RETURNS book
+  AS $$
+  WITH publication_fk AS (
+    INSERT INTO publication ("publication_id") VALUES (DEFAULT) RETURNING "publication_id"
+  )
+  INSERT INTO book ("book_id", "title", "isbn", "image_url", "language_code", "publisher", "publication_date", "description", "type")
+  VALUES (
+    (SELECT publication_id FROM publication_fk),
+    newBook.title,
+    newBook.isbn,
+    newBook.image_url,
+    newBook.language_code,
+    newBook.publisher,
+    newBook.publication_date,
+    newBook.description,
+    newBook.type
+  ) RETURNING book
+  ;
+$$
+LANGUAGE SQL
+VOLATILE;
+
+CREATE FUNCTION create_book_test2 (newBook book, out book book, out author author)
   RETURNS book
   AS $$
   WITH publication_fk AS (
