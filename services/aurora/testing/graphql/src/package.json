@@ -17,7 +17,8 @@
     "express": "^4.17.1",
     "graphql": "^14",
     "postgraphile": "^4.9.0",
-    "postgraphile-plugin-connection-filter": "^2.0.0"
+    "postgraphile-plugin-connection-filter": "^2.0.0",
+    "postgraphile-plugin-nested-mutations": "^1.0.1"
   },
   "resolutions": {
     "graphql": "^14"

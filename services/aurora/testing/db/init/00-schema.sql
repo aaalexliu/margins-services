@@ -53,6 +53,7 @@ CREATE TABLE annotation (
 );
 
 CREATE INDEX annotation_publication_id_index ON annotation (publication_id);
+CREATE INDEX annotation_account_id_index ON annotation (account_id);
 
 CREATE TABLE author (
   "author_id" serial PRIMARY KEY,

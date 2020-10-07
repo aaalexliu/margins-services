@@ -1,6 +1,7 @@
 const express = require("express");
 const { postgraphile } = require("postgraphile");
 const PgManyToManyPlugin = require("@graphile-contrib/pg-many-to-many");
+const PostGraphileNestedMutations = require('postgraphile-plugin-nested-mutations');
 
 const app = express();
 
@@ -9,7 +10,7 @@ app.use(
     watchPg: true,
     graphiql: true,
     enhanceGraphiql: true,
-    appendPlugins: [PgManyToManyPlugin],
+    appendPlugins: [PgManyToManyPlugin, PostGraphileNestedMutations],
     ignoreRBAC: false,
     ignoreIndexes: false,
     showErrorStack: "json",

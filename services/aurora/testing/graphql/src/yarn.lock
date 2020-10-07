@@ -395,7 +395,7 @@ fresh@0.5.2:
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
   integrity sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=
 
-graphile-build-pg@4.9.0:
+graphile-build-pg@4.9.0, graphile-build-pg@^4.2.0:
   version "4.9.0"
   resolved "https://registry.yarnpkg.com/graphile-build-pg/-/graphile-build-pg-4.9.0.tgz#1b5b323c7f917d76764ebbcecf05c24353cf85fb"
   integrity sha512-DhQ/T7cSEwWEQIAUeLH5cnrpXNBhrjMUJW0EOK0B/pCYTrhzO+GPn/3Fa6DeraFeHndojbmOE4t9LGy6vmP+gg==
@@ -774,6 +774,13 @@ postgraphile-plugin-connection-filter@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/postgraphile-plugin-connection-filter/-/postgraphile-plugin-connection-filter-2.0.0.tgz#caec75f8f8913f0a0ef48dcdd393c3e915c5ac3e"
   integrity sha512-4h1L1c7hyexRVmtWQrHsLvn4Ctm2j4kvn2jY593gfgJMotwEl7/exZ4PDszfgZJW8B4AO4c+HRy3v0TUG3AUpw==
+
+postgraphile-plugin-nested-mutations@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/postgraphile-plugin-nested-mutations/-/postgraphile-plugin-nested-mutations-1.0.1.tgz#f8eb132f3cd69d5bafcaa2de0322daadcf85fd15"
+  integrity sha512-nL4TZ/WCRRigFhBEeLPOMJxo5OZoKMsCllM2o0Dyvcdzx/z9/I9kXfEBQWUSTBLodgd8eC0cMZXhfesaIxEJzQ==
+  dependencies:
+    graphile-build-pg "^4.2.0"
 
 postgraphile@^4.9.0:
   version "4.9.0"
