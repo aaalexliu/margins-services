@@ -140,6 +140,27 @@ $$
 LANGUAGE sql
 STABLE;
 
+-- TRIGGER for created_at column
+
+CREATE OR REPLACE FUNCTION insert_created_at() RETURNS TRIGGER AS $$
+    BEGIN
+      NEW.created_at = now();
+      RETURN NEW;
+    END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER account_created_at
+BEFORE INSERT ON account
+FOR EACH ROW EXECUTE PROCEDURE insert_created_at();
+
+CREATE TRIGGER publication_created_at
+BEFORE INSERT ON publication
+FOR EACH ROW EXECUTE PROCEDURE insert_created_at();
+
+CREATE TRIGGER annotation_created_at
+BEFORE INSERT ON annotation
+FOR EACH ROW EXECUTE PROCEDURE insert_created_at();
+
 -- ROLES
 -- margins_postgraphile will have the union of all privileges granted to
 -- margins_anonymous and margins_account
