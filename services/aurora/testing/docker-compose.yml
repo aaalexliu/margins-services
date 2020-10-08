@@ -12,6 +12,8 @@ services:
       - ./.env
     ports:
       - 8000:5432
+    command: ["postgres", "-c", "log_statement=all"]
+
 
   graphql:
     container_name: margins-testing-graphql
