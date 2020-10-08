@@ -16,15 +16,19 @@ CREATE TABLE account (
   "last_name" text
 );
 
+CREATE FUNCTION is_valid_mongo_id (id text) RETURNS BOOLEAN AS $$
+  SELECT id ~* '^[a-f0-9]{24}$';
+$$ LANGUAGE SQL IMMUTABLE;
+
 CREATE TABLE publication (
-  "publication_id" serial PRIMARY KEY,
+  "publication_id" char(24) PRIMARY KEY CHECK (is_valid_mongo_id(publication_id)),
   "created_at" timestamp with time zone,
   "last_modified" timestamp with time zone
 );
 
 CREATE TABLE book (
   "book_id" char(13) PRIMARY KEY CONSTRAINT is_isbn13 CHECK (char_length(book_id) = 13),
-  "publication_id" int REFERENCES publication (publication_id) NOT NULL,
+  "publication_id" char(24) REFERENCES publication (publication_id) NOT NULL,
   "title" text NOT NULL,
   "image_url" text,
   "language_code" char(3),
@@ -39,8 +43,8 @@ COMMENT ON COLUMN book.book_id IS 'natural key of isbn13';
 CREATE INDEX book_publication_id_index ON book (publication_id);
 
 CREATE TABLE annotation (
-  "annotation_id" serial PRIMARY KEY,
-  "publication_id" int REFERENCES publication (publication_id) NOT NULL,
+  "annotation_id" char(24) PRIMARY KEY CHECK (is_valid_mongo_id(publication_id)),
+  "publication_id" char(24) REFERENCES publication (publication_id) NOT NULL,
   "account_id" uuid REFERENCES account (account_id) NOT NULL,
   "location_begin" int,
   "location_end" int,
@@ -58,14 +62,14 @@ CREATE INDEX annotation_publication_id_index ON annotation (publication_id);
 CREATE INDEX annotation_account_id_index ON annotation (account_id);
 
 CREATE TABLE author (
-  "author_id" serial PRIMARY KEY,
+  "author_id" char(24) PRIMARY KEY CHECK (is_valid_mongo_id(publication_id)),
   "first_name" text,
   "last_name" text
 );
 
 CREATE TABLE publication_author (
-  "publication_id" int REFERENCES publication (publication_id) NOT NULL,
-  "author_id" int REFERENCES author (author_id) NOT NULL,
+  "publication_id" char(24) REFERENCES publication (publication_id) NOT NULL,
+  "author_id" char(24) REFERENCES author (author_id) NOT NULL,
   PRIMARY KEY ("publication_id", "author_id")
 );
 
@@ -75,20 +79,20 @@ CREATE INDEX publication_author_author_id_index ON publication_author (author_id
 
 CREATE TABLE account_publication (
   "account_id" uuid REFERENCES account (account_id) NOT NULL,
-  "publication_id" int REFERENCES publication (publication_id) NOT NULL,
+  "publication_id" char(24) REFERENCES publication (publication_id) NOT NULL,
   PRIMARY KEY ("account_id", "publication_id")
 );
 
 CREATE INDEX account_publication_publication_id ON account_publication (publication_id);
 
 CREATE TABLE tag (
-  "tag_id" serial PRIMARY KEY,
+  "tag_id" char(24) PRIMARY KEY CHECK (is_valid_mongo_id(publication_id)),
   "name" text NOT NULL
 );
 
 CREATE TABLE annotation_tag (
-  "annotation_id" int REFERENCES annotation (annotation_id) NOT NULL,
-  "tag_id" int REFERENCES tag (tag_id) NOT NULL,
+  "annotation_id" char(24) REFERENCES annotation (annotation_id) NOT NULL,
+  "tag_id" char(24) REFERENCES tag (tag_id) NOT NULL,
   PRIMARY KEY ("annotation_id", "tag_id")
 );
 
