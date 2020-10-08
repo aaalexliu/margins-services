@@ -43,7 +43,7 @@ COMMENT ON COLUMN book.book_id IS 'natural key of isbn13';
 CREATE INDEX book_publication_id_index ON book (publication_id);
 
 CREATE TABLE annotation (
-  "annotation_id" char(24) PRIMARY KEY CHECK (is_valid_mongo_id(publication_id)),
+  "annotation_id" char(24) PRIMARY KEY CHECK (is_valid_mongo_id(annotation_id)),
   "publication_id" char(24) REFERENCES publication (publication_id) NOT NULL,
   "account_id" uuid REFERENCES account (account_id) NOT NULL,
   "location_begin" int,
@@ -62,7 +62,7 @@ CREATE INDEX annotation_publication_id_index ON annotation (publication_id);
 CREATE INDEX annotation_account_id_index ON annotation (account_id);
 
 CREATE TABLE author (
-  "author_id" char(24) PRIMARY KEY CHECK (is_valid_mongo_id(publication_id)),
+  "author_id" char(24) PRIMARY KEY CHECK (is_valid_mongo_id(author_id)),
   "first_name" text,
   "last_name" text
 );
@@ -86,7 +86,7 @@ CREATE TABLE account_publication (
 CREATE INDEX account_publication_publication_id ON account_publication (publication_id);
 
 CREATE TABLE tag (
-  "tag_id" char(24) PRIMARY KEY CHECK (is_valid_mongo_id(publication_id)),
+  "tag_id" char(24) PRIMARY KEY CHECK (is_valid_mongo_id(tag_id)),
   "name" text NOT NULL
 );
 
