@@ -1,83 +1,50 @@
-# don't seem to have an issue with out of order mutations - maybe it's because postraphile processes sql statements to
-# run sequentially
-
-# mutation creates an account, then author, then publication with nested book. right now it seems
-# the 'create' type on certain nested types doesn't include the id column which needs to be passed in
-# should fix but that will require digging into the nested queries plugin which is a rather costly
-# optimization
-
-# REMEMBER - top level mutations execute in order, not queries
 mutation MyMutation {
   __typename
-  createAccount(
-    input: {
-      account: {
-        accountId: "46d3f3d1-879b-4314-9301-ae470c5a2062"
-        email: "uilxela7@gmail.com"
-        emailVerified: true
-        firstName: "Alex"
-        lastName: "Liu"
-        role: "margins_account"
-      }
-    }
-  ) {
+  createAccount(input: {account: {accountId: "46d3f3d1-879b-4314-9301-ae470c5a2062", email: "uilxela7@gmail.com", emailVerified: true, firstName: "Alex", lastName: "Liu", role: "margins_account"}}) {
     account {
       id
       accountId
+      email
+      createdAt
+      emailVerified
+      firstName
+      fullName
+      lastModified
+      lastName
+      role
+      status
     }
   }
-  createAuthor(
-    input: {
-      author: {
-        authorId: "5f7e840a5adb04e595916e9f"
-        firstName: "Robert"
-        lastName: "L. Heilbroner"
-      }
-    }
-  ) {
+  createAuthor(input: {author: {authorId: "5f7e840a5adb04e595916e9f", firstName: "Robert", lastName: "L. Heilbroner"}}) {
     clientMutationId
+    author {
+      authorId
+      firstName
+      id
+      lastName
+    }
   }
-  createPublication(
-    input: {
-      publication: {
-        publicationId: "5f7e785c5adb04e595916e9e"
-        booksUsingPublicationId: {
-          create: {
-            bookId: "9780684862149"
-            title: "The Worldly Philosophers"
-            description: "<i>The Worldly Philosophers</i> not only "
-            imageUrl: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1463591845l/82120._SX98_.jpg"
-            languageCode: "eng"
-            publicationDate: "1999-08-10"
-            publisher: "Touchstone/Simon & Schuster"
-            type: "BOOK"
-          }
-        }
-        accountPublicationsUsingPublicationId: {
-          create: {
-            accountId: "46d3f3d1-879b-4314-9301-ae470c5a2062"
-            publicationToPublicationId: {
-              connectByPublicationId: {
-                publicationId: "5f7e785c5adb04e595916e9e"
-              }
-            }
-          }
-        }
-        publicationAuthorsUsingPublicationId: {
-          create: {
-            authorToAuthorId: {
-              connectByAuthorId: { authorId: "5f7e840a5adb04e595916e9f" }
-            }
-            publicationToPublicationId: {
-              connectByPublicationId: {
-                publicationId: "5f7e785c5adb04e595916e9e"
-              }
-            }
-          }
+  createPublication(input: {publication: {publicationId: "5f7e785c5adb04e595916e9e", booksUsingPublicationId: {create: {bookId: "9780684862149", title: "The Worldly Philosophers", description: "<i>The Worldly Philosophers</i> not only ", imageUrl: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1463591845l/82120._SX98_.jpg", languageCode: "eng", publicationDate: "1999-08-10", publisher: "Touchstone/Simon & Schuster", type: "BOOK"}}, accountPublicationsUsingPublicationId: {create: {accountId: "46d3f3d1-879b-4314-9301-ae470c5a2062", publicationToPublicationId: {connectByPublicationId: {publicationId: "5f7e785c5adb04e595916e9e"}}}}, publicationAuthorsUsingPublicationId: {create: {authorToAuthorId: {connectByAuthorId: {authorId: "5f7e840a5adb04e595916e9f"}}, publicationToPublicationId: {connectByPublicationId: {publicationId: "5f7e785c5adb04e595916e9e"}}}}}}) {
+    clientMutationId
+    publication {
+      createdAt
+      id
+      lastModified
+      publicationId
+      booksByPublicationId(condition: {publicationId: "5f7e785c5adb04e595916e9e"}) {
+        nodes {
+          bookId
+          description
+          id
+          imageUrl
+          languageCode
+          publicationDate
+          publicationId
+          publisher
+          title
+          type
         }
       }
     }
-  ) {
-    clientMutationId
   }
 }
