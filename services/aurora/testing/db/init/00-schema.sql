@@ -89,10 +89,10 @@ CREATE INDEX account_publication_publication_id ON account_publication (publicat
 CREATE TABLE tag (
   "tag_id" char(24) PRIMARY KEY CHECK (is_valid_mongo_id(tag_id)),
   "name" text NOT NULL,
-  "account_id" uuid NOT NULL REFERENCES account (account_id),
+  "account_id" uuid NOT NULL REFERENCES account (account_id)
 );
 
-CREATE INDEX tag_account_id ON tag (account_id)
+CREATE INDEX tag_account_id ON tag (account_id);
 
 CREATE TABLE annotation_tag (
   "annotation_id" char(24) REFERENCES annotation (annotation_id) NOT NULL,
