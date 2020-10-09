@@ -47,8 +47,6 @@ mutation MyMutation {
       }
     }
   },
-  mutation MyMutation {
-  __typename
   createAnnotation(
     input: {
       annotation: {
@@ -75,7 +73,27 @@ mutation MyMutation {
       annotationId
       createdAt
     }
+  },
+  createTag(
+    input: {
+      tag: {
+        tagId: "5f8003eb5adb04e595916ea4"
+        name: "economics"
+        annotationTagsUsingTagId: {
+          create: { annotationId: "5f7ff26c5adb04e595916ea2" }
+        }
+        accountId: "46d3f3d1-879b-4314-9301-ae470c5a2062"
+      }
+    }
+  ) {
+    tag {
+      name
+      tagId
+      annotationsByAnnotationTagTagIdAndAnnotationId {
+        nodes {
+          text
+        }
+      }
+    }
   }
-}
-
 }
