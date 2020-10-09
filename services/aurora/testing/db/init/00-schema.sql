@@ -4,11 +4,11 @@ CREATE SCHEMA IF NOT EXISTS margins_public;
 
 SET SCHEMA 'margins_public';
 
-CREATE TABLE account (
+CREATE TABLE "account" (
   "account_id" uuid PRIMARY KEY,
-  "email" text NOT NULL,
+  "email" text NOT NULL UNIQUE,
   "created_at" timestamp with time zone,
-  "last_modified" timestamp with time zone DEFAULT now(),
+  "updated_at" timestamp with time zone DEFAULT now(),
   "status" text,
   "email_verified" boolean,
   "role" text,
@@ -23,7 +23,7 @@ $$ LANGUAGE SQL IMMUTABLE;
 CREATE TABLE publication (
   "publication_id" char(24) PRIMARY KEY CHECK (is_valid_mongo_id(publication_id)),
   "created_at" timestamp with time zone,
-  "last_modified" timestamp with time zone
+  "updated_at" timestamp with time zone
 );
 
 CREATE TABLE book (
@@ -42,20 +42,21 @@ COMMENT ON COLUMN book.book_id IS 'natural key of isbn13';
 
 CREATE INDEX book_publication_id_index ON book (publication_id);
 
+CREATE TYPE annotation_kind AS ENUM(
+  'highlight',
+  'note'
+);
+
 CREATE TABLE annotation (
   "annotation_id" char(24) PRIMARY KEY CHECK (is_valid_mongo_id(annotation_id)),
   "publication_id" char(24) REFERENCES publication (publication_id) NOT NULL,
   "account_id" uuid REFERENCES account (account_id) NOT NULL,
-  "location_begin" int,
-  "location_end" int,
   "recorded_at" timestamp with time zone,
-  "highlight" text,
-  "highlight_color" text,
-  "note" text,
-  "statusline" text UNIQUE,
-  "page" int,
+  "text" text,
   "created_at" timestamp with time zone DEFAULT now(),
-  "last_modified" timestamp with time zone DEFAULT now()
+  "updated_at" timestamp with time zone DEFAULT now(),
+  "kind" annotation_kind,
+  "location" jsonb
 );
 
 CREATE INDEX annotation_publication_id_index ON annotation (publication_id);
@@ -119,7 +120,7 @@ FROM
 --   a.note,
 --   a.statusline,
 --   a.page,
---   a.last_modified,
+--   a.updated_at,
 --   json_agg(tag.name) AS all_tags
 -- FROM
 --   annotation AS a
@@ -177,13 +178,13 @@ GRANT margins_account TO margins_postgraphile;
 -- set search path for all roles, not inherited
 -- possible issue with postgraphile serach path? since it creates other schemas? we'll see
 
-ALTER ROLE margins_admin SET search_path=margins_public, public, "$user";
+ALTER ROLE margins_admin SET search_path=margins_public, public, "$account";
 
-ALTER ROLE margins_postgraphile SET search_path=margins_public, public, "$user";
+ALTER ROLE margins_postgraphile SET search_path=margins_public, public, "$account";
 
-ALTER ROLE margins_account SET search_path=margins_public, public, "$user";
+ALTER ROLE margins_account SET search_path=margins_public, public, "$account";
 
-ALTER ROLE margins_anonymous SET search_path=margins_public, public, "$user";
+ALTER ROLE margins_anonymous SET search_path=margins_public, public, "$account";
 
 -- alter default privileges
 ALTER DEFAULT privileges REVOKE EXECUTE ON functions FROM public;
@@ -191,12 +192,12 @@ ALTER DEFAULT privileges REVOKE EXECUTE ON functions FROM public;
 -- all roles can use the margins_public schema
 GRANT USAGE ON SCHEMA margins_public TO margins_account, margins_anonymous;
 
---select for all roles, usage only for account holders
+--select for all roles, usage only for account
 GRANT SELECT ON ALL SEQUENCES IN SCHEMA margins_public TO margins_account, margins_anonymous;
 
 GRANT USAGE ON ALL SEQUENCES IN SCHEMA margins_public TO margins_account;
 
---select for all roles, insert update delete only for account holders
+--select for all roles, insert update delete only for account
 GRANT SELECT ON ALL TABLES IN SCHEMA margins_public TO margins_account, margins_anonymous;
 
 GRANT INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA margins_public TO margins_account;
@@ -213,14 +214,14 @@ STABLE;
 -- A JSON Web Token with the following claims:
 -- {
 --   "sub": "postgraphql",
---   "role": "user",
---   "user_id": 2
+--   "role": "account",
+--   "account_id": 2
 -- }
 -- Would result in the following SQL being run:
--- set local role user;
+-- set local role account;
 -- set local jwt.claims.sub to 'postgraphql';
--- set local jwt.claims.role to 'user';
--- set local jwt.claims.user_id to 2;
+-- set local jwt.claims.role to 'account';
+-- set local jwt.claims.account_id to 2;
 ALTER TABLE account ENABLE ROW LEVEL SECURITY;
 
 ALTER TABLE account_publication ENABLE ROW LEVEL SECURITY;
