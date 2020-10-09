@@ -9,7 +9,7 @@ mutation MyMutation {
       emailVerified
       firstName
       fullName
-      lastModified
+      updatedAt
       lastName
       role
       status
@@ -29,7 +29,7 @@ mutation MyMutation {
     publication {
       createdAt
       id
-      lastModified
+      updatedAt
       publicationId
       booksByPublicationId(condition: {publicationId: "5f7e785c5adb04e595916e9e"}) {
         nodes {
@@ -46,5 +46,36 @@ mutation MyMutation {
         }
       }
     }
+  },
+  mutation MyMutation {
+  __typename
+  createAnnotation(
+    input: {
+      annotation: {
+        annotationId: "5f7ff26c5adb04e595916ea2"
+        kind: HIGHLIGHT
+        accountId: "46d3f3d1-879b-4314-9301-ae470c5a2062"
+        publicationId: "5f7e785c5adb04e595916e9e"
+        recordedAt: "2020-02-13 23:00:13-6"
+        text: "This is a book about a handful of men with a curious claim to fame. By all the rules of schoolboy history books, they were nonentities: they commanded no armies, sent no men to their deaths, ruled no empires, took little part in history-making decisions. A few of them achieved renown, but none was ever a national hero; a few were roundly abused, but none was ever quite a national villain. Yet what they did was more decisive for history than many acts of statesmen who basked in brighter glory, often more profoundly disturbing than the shuttling of armies back and forth across frontiers, more powerful for good and bad than the edicts of kings and legislatures. It was this: they shaped and swayed men's minds."
+        location: {kindle: {begin: 140, end: 144}}
+      }
+    }
+  ) {
+    clientMutationId
+    annotation {
+      updatedAt
+      text
+      recordedAt
+      publicationId
+      location
+      kind
+      id
+      accountId
+      annotationId
+      createdAt
+    }
   }
+}
+
 }

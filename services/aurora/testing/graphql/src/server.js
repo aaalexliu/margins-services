@@ -18,7 +18,8 @@ app.use(
     extendedErrors: ["hint", "detail", "errcode"],
     classicIds: true,
     ownerConnectionString: process.env.OWNER_URL,
-    retryOnInitFail: true
+    retryOnInitFail: true,
+    dynamicJson: true
   })
 );
 
