@@ -25,14 +25,16 @@ const checkJwt = jwt({
   }),
 
   // Validate the audience and the issuer.
-  audience: "4v1q302r040fct1ve3kkhoo30b",
+  // audience: "4v1q302r040fct1ve3kkhoo30b",
   issuer: ISSUER_DOMAIN,
   algorithms: ["RS256"],
 });
 
 const app = express();
 
-app.use('/graphql', checkJwt);
+app.use('/graphql', checkJwt, (req, res, next) => {
+  res.json(req.user);
+});
 
 app.use(
   postgraphile(process.env.DATABASE_URL, "margins_public", {
@@ -48,8 +50,22 @@ app.use(
     classicIds: true,
     ownerConnectionString: process.env.OWNER_URL,
     retryOnInitFail: true,
-    dynamicJson: true
+    dynamicJson: true,
+    pgSettings: req => {
+      const settings = {};
+      if (req.user) {
+        settings['account_id'] = req.user.sub;
+        settings['role'] = req.user['cognito:groups'][0];
+      }
+      return settings;
+    }
   })
 );
+
+app.use(function (err, req, res, next) {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).send('invalid token...');
+  }
+});
 
 app.listen(8080);
