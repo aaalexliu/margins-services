@@ -55,4 +55,4 @@ env.yml
 .idea
 
 # jwks
-jws.json
+jwks.json
