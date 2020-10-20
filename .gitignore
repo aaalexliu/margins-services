@@ -53,3 +53,6 @@ env.yml
 
 # Jetbrains IDEs
 .idea
+
+# jwks
+jws.json
