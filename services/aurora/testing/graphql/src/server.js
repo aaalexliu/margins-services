@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors');
 const { postgraphile } = require("postgraphile");
 const PgManyToManyPlugin = require("@graphile-contrib/pg-many-to-many");
 const PostGraphileNestedMutations = require('postgraphile-plugin-nested-mutations');
@@ -31,6 +32,8 @@ const checkJwt = jwt({
 });
 
 const app = express();
+
+app.use(cors());
 
 app.use('/graphql', checkJwt);
 
