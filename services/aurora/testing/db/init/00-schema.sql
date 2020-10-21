@@ -190,7 +190,8 @@ ALTER ROLE margins_account SET search_path=margins_public, public, "$account";
 ALTER ROLE margins_anonymous SET search_path=margins_public, public, "$account";
 
 -- alter default privileges
-ALTER DEFAULT privileges REVOKE EXECUTE ON functions FROM public;
+
+-- ALTER DEFAULT privileges REVOKE EXECUTE ON functions FROM public;
 
 -- all roles can use the margins_public schema
 GRANT USAGE ON SCHEMA margins_public TO margins_account, margins_anonymous;
@@ -206,10 +207,18 @@ GRANT SELECT ON ALL TABLES IN SCHEMA margins_public TO margins_account, margins_
 GRANT INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA margins_public TO margins_account;
 
 -- ROW LEVEL SECURITY
+-- CREATE FUNCTION current_account_id ()
+--   RETURNS uuid
+--   AS $$
+--   SELECT current_setting('jwt.claims.sub', TRUE)::uuid;
+-- $$
+-- LANGUAGE sql
+-- STABLE;
+
 CREATE FUNCTION current_account_id ()
   RETURNS uuid
   AS $$
-  SELECT current_setting('jwt.claims.sub', TRUE)::uuid;
+  SELECT current_setting('margins.account_id', TRUE)::uuid;
 $$
 LANGUAGE sql
 STABLE;

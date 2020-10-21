@@ -32,9 +32,7 @@ const checkJwt = jwt({
 
 const app = express();
 
-app.use('/graphql', checkJwt, (req, res, next) => {
-  res.json(req.user);
-});
+app.use('/graphql', checkJwt);
 
 app.use(
   postgraphile(process.env.DATABASE_URL, "margins_public", {
@@ -54,7 +52,7 @@ app.use(
     pgSettings: req => {
       const settings = {};
       if (req.user) {
-        settings['account_id'] = req.user.sub;
+        settings['margins.account_id'] = req.user.sub;
         settings['role'] = req.user['cognito:groups'][0];
       }
       return settings;
