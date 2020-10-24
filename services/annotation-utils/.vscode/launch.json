@@ -1,0 +1,18 @@
+{
+  "configurations": [
+    {
+      "type": "aws-sam",
+      "request": "direct-invoke",
+      "name": "margins.me-annotation-utils:HelloWorldFunction (nodejs12.x)",
+      "invokeTarget": {
+        "target": "template",
+        "templatePath": "margins.me-annotation-utils/template.yaml",
+        "logicalId": "HelloWorldFunction"
+      },
+      "lambda": {
+        "payload": {},
+        "environmentVariables": {}
+      }
+    }
+  ]
+}

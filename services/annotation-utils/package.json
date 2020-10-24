@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "highlights-email-to-json": "^1.1.0",
+    "kindle-clippings-to-json": "^1.0.0",
+    "kindle-email-to-json": "^1.4.0"
+  }
+}
