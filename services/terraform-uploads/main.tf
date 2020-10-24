@@ -9,7 +9,9 @@ provider "aws" {
 # }
 
 resource "aws_s3_bucket" "this" {
-  bucket_prefix = var.bucket_prefix
+  # bucket = var.bucket
+  bucket = "margins.me-uploads"
+
   # acl = "public-read-write"
 
   cors_rule {
