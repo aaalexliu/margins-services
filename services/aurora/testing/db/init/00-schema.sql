@@ -207,13 +207,6 @@ GRANT SELECT ON ALL TABLES IN SCHEMA margins_public TO margins_account, margins_
 GRANT INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA margins_public TO margins_account;
 
 -- ROW LEVEL SECURITY
--- CREATE FUNCTION current_account_id ()
---   RETURNS uuid
---   AS $$
---   SELECT current_setting('jwt.claims.sub', TRUE)::uuid;
--- $$
--- LANGUAGE sql
--- STABLE;
 
 CREATE FUNCTION current_account_id ()
   RETURNS uuid
