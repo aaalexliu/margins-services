@@ -1,0 +1,24 @@
+{
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.64",
+    "@types/jest": "^26.0.15",
+    "aws-sam-webpack-plugin": "^0.6.0",
+    "ts-loader": "^8.0.7",
+    "typescript": "^4.0.3",
+    "webpack": "^5.2.0",
+    "webpack-cli": "^4.1.0"
+  },
+  "name": "margin-lambdas",
+  "version": "1.0.0",
+  "description": "various lambdas to support services, might break out into individual service folders later",
+  "author": "Alex Liu",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack-cli",
+    "build-dev": "NODE_ENV=development yarn build",
+    "clean": "rimraf .aws-sam .vscode",
+    "prebuild": "rimraf .aws-sam .vscode",
+    "prewatch": "rimraf .aws-sam .vscode",
+    "watch": "webpack-cli -w"
+  }
+}
