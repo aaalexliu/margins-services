@@ -7,6 +7,7 @@ provider "aws" {
 #   version = "1.8.0"
 #   # insert the 6 required variables here
 # }
+data "aws_caller_identity" "current" {}
 
 resource "aws_s3_bucket" "this" {
   # bucket = var.bucket
@@ -21,4 +22,26 @@ resource "aws_s3_bucket" "this" {
     expose_headers  = ["ETag"]
     max_age_seconds = 3000
   }
+
+  policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+      {
+          "Sid": "AllowSESPuts",
+          "Effect": "Allow",
+          "Principal": {
+              "Service": "ses.amazonaws.com"
+          },
+          "Action": "s3:PutObject",
+          "Resource": "arn:aws:s3:::margins.me-uploads/*",
+          "Condition": {
+              "StringEquals": {
+                  "aws:Referer": ${data.aws_caller_identity.current.account_id}
+              }
+          }
+      }
+  ]
+}
+  POLICY
 }
