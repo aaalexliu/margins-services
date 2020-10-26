@@ -41,32 +41,33 @@ class kindleConverter {
   }
 
   getBookNotes() {
-    const allNoteHeadingElements = $("div[class$='Heading']");
+    const allNoteHeadingElements = this.$("[class$='Heading']");
     let section = '';
     let allNotes = [];
 
     for (let i = 0; i < allNoteHeadingElements.length; i++) {
       let noteHeadingElement = allNoteHeadingElements.eq(i);
+      
+      // if sectionHeading, skip parseNoteHeading
+      let noteClass = noteHeadingElement.attr('class');
+      if (noteClass === 'sectionHeading') {
+        section = noteHeadingElement.text().trim();
+        continue;
+      }
+
 
       let noteHeading = this.parseNoteHeading(
         noteHeadingElement.text().trim()
       );
-
-      // if kindle notes have section headings, include them in all note headings
-      let noteClass = noteHeadingElement.attr('class');
-      if (noteClass === 'sectionHeading') section = noteClass;
+      // console.log('parsed note heading', noteHeading);
+      // if kindle notes have section headings, include them in all following notes.
       if (section) noteHeading.location.section = section;
-
-      // check if highlight, then get color
-      let highlightColor = null;
-      if (noteHeading.noteType === 'highlight') {
-        let highlightClass = noteHeadingElement.find("span[class^='highlight_']").attr('class');
-        let highlightColorMatch = highlightClass.match(this.highlightColorRegex);
-        highlightColor = highlightColorMatch.groups.color;
-      }
-
+      
       // get note text
-      let noteText = noteHeadingElement.next('.noteText').text().trim();
+      let noteText = noteHeadingElement.next('.noteText')
+        .text()
+        .trim()
+        .replace(/\s\s+/g, ' ');
 
       // assemble note object
       let note = {
@@ -74,23 +75,31 @@ class kindleConverter {
         location: noteHeading.location,
         text: noteText
       };
-      if (highlightColor) note.highlightColor = highlightColor;
 
-      // check if noteType is note. if previous noteType is highlight, assume that note
-      // is child note of highlight. if previous noteType is note, assume orphan note
-      // with current kindle export format, no way to indepedently determine whether
-      // noteType note is orphan or child
-      let prevNote = allNotes.slice(-1)[0];
-      if (!prevNote && prevNote.noteType === 'higlight') {
-        prevParsedNote.note = note;
-        continue;
+      // check if highlight, then add color
+      if (note.noteType === 'highlight') {
+        let highlightClass = noteHeadingElement.find("span[class^='highlight_']").attr('class');
+        let highlightColorMatch = highlightClass.match(this.highlightColorRegex);
+        note.highlightColor = highlightColorMatch.groups.color;
+      } else if (note.noteType === 'note') {
+        // check if noteType is note. if previous noteType is highlight, assume that note
+        // is child note of highlight. if previous noteType is note, assume orphan note and add
+        // with current kindle export format, no way to indepedently determine whether
+        // noteType note is orphan or child
+        let prevNote = allNotes.slice(-1)[0];
+        if (prevNote && prevNote.noteType === 'highlight') {
+          prevNote.note = note;
+          continue;
+        }
       }
-
       allNotes.push(note);
     }
+
+    return allNotes;
   }
 
   parseNoteHeading(heading) {
+    // console.log('unparsed heading', heading);
     // a fiendish regex to match kindle html heading line
     // test examples that work:
     // 笔记 - 位置 25
@@ -98,8 +107,12 @@ class kindleConverter {
     // Highlight (yellow) - One: If You Want to Understand the Country, Visit McDonald’s > Page 37 · Location 310
     // Highlight (pink) - Page 17 · Location 284
     // 标注(黄色) - One: If You Want to Understand the Country, Visit McDonald’s > 第 38 页·位置 313
+
+    // for some reason there are line breaks and multiple spaces in heading. stripping them
+    const cleanHeading = heading.replace(/\s\s+/g, ' ');
+
     const headingRegex = /(?<noteType>.+) -( (?<chapter>.+) >)?( (?<page>.+)·)?([^0-9]*(?<location>[0-9]+))$/
-    const headingMatch = heading.match(headingRegex);
+    const headingMatch = cleanHeading.match(headingRegex);
     if (!headingMatch) throw new Error ("Not valid kindle note - metadata does not match");
 
     let { noteType, chapter, page, location } = headingMatch.groups;
@@ -133,7 +146,7 @@ class kindleConverter {
     let translated = noteType
       .replace(/标注/, "highlight")
       .replace(/笔记/, "note");
-    console.log(translated);
+    // console.log(translated);
     return translated;
   }
 }
