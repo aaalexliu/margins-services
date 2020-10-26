@@ -4,6 +4,7 @@ class kindleConverter {
   
   highlightRegex = /highlight/i;
   noteRegex = /note/i;
+  highlightColorRegex = /highlight_(?<color>\w+)/
 
   constructor(kindleHTML) {
     this.kindleHTML = kindleHTML;
@@ -40,7 +41,53 @@ class kindleConverter {
   }
 
   getBookNotes() {
+    const allNoteHeadingElements = $("div[class$='Heading']");
+    let section = '';
+    let allNotes = [];
 
+    for (let i = 0; i < allNoteHeadingElements.length; i++) {
+      let noteHeadingElement = allNoteHeadingElements.eq(i);
+
+      let noteHeading = this.parseNoteHeading(
+        noteHeadingElement.text().trim()
+      );
+
+      // if kindle notes have section headings, include them in all note headings
+      let noteClass = noteHeadingElement.attr('class');
+      if (noteClass === 'sectionHeading') section = noteClass;
+      if (section) noteHeading.location.section = section;
+
+      // check if highlight, then get color
+      let highlightColor = null;
+      if (noteHeading.noteType === 'highlight') {
+        let highlightClass = noteHeadingElement.find("span[class^='highlight_']").attr('class');
+        let highlightColorMatch = highlightClass.match(this.highlightColorRegex);
+        highlightColor = highlightColorMatch.groups.color;
+      }
+
+      // get note text
+      let noteText = noteHeadingElement.next('.noteText').text().trim();
+
+      // assemble note object
+      let note = {
+        noteType: noteHeading.noteType,
+        location: noteHeading.location,
+        text: noteText
+      };
+      if (highlightColor) note.highlightColor = highlightColor;
+
+      // check if noteType is note. if previous noteType is highlight, assume that note
+      // is child note of highlight. if previous noteType is note, assume orphan note
+      // with current kindle export format, no way to indepedently determine whether
+      // noteType note is orphan or child
+      let prevNote = allNotes.slice(-1)[0];
+      if (!prevNote && prevNote.noteType === 'higlight') {
+        prevParsedNote.note = note;
+        continue;
+      }
+
+      allNotes.push(note);
+    }
   }
 
   parseNoteHeading(heading) {
@@ -59,15 +106,17 @@ class kindleConverter {
     
     noteType = this.parseNoteType(noteType);
     if (isNaN(location)) throw new Error ('Not valid kindle note - invalid location');
-    location = parseInt(location, 10);
+    const kindleLocation = parseInt(location, 10);
 
     let parsedHeading = {
       noteType,
-      location
+      location: {
+        kindleLocation
+      }
     };
     
-    if (chapter) parsedHeading.chapter = chapter.trim();
-    if (page) parsedHeading.page = page.trim();
+    if (chapter) parsedHeading.location.chapter = chapter.trim();
+    if (page) parsedHeading.location.page = page.trim();
     
     return parsedHeading;
   }
