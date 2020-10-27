@@ -1,10 +1,30 @@
-const cheerio = require('cheerio');
+import cheerio =  require('cheerio');
+
+interface Location {
+  kindleLocation: Number,
+  page?: String,
+  section?: String,
+  chapter?: String
+}
+
+interface NoteHeading {
+  noteType: String,
+  location: Location,
+  highlightColor?: String
+}
+
+interface Note extends NoteHeading {
+  text: String
+  childNote?: Note
+}
 
 class kindleConverter {
   
   highlightRegex = /highlight/i;
   noteRegex = /note/i;
   highlightColorRegex = /highlight_(?<color>\w+)/
+  kindleHTML: any;
+  $: cheerio.Root;
 
   constructor(kindleHTML) {
     this.kindleHTML = kindleHTML;
@@ -40,7 +60,7 @@ class kindleConverter {
     }
   }
 
-  getBookNotes() {
+  getBookNotes(): Note[] {
     const allNoteHeadingElements = this.$("[class$='Heading']");
     let section = '';
     let allNotes = [];
@@ -49,12 +69,11 @@ class kindleConverter {
       let noteHeadingElement = allNoteHeadingElements.eq(i);
       
       // if sectionHeading, skip parseNoteHeading
-      let noteClass = noteHeadingElement.attr('class');
+      const noteClass = noteHeadingElement.attr('class');
       if (noteClass === 'sectionHeading') {
         section = noteHeadingElement.text().trim();
         continue;
       }
-
 
       let noteHeading = this.parseNoteHeading(
         noteHeadingElement.text().trim()
@@ -64,13 +83,13 @@ class kindleConverter {
       if (section) noteHeading.location.section = section;
       
       // get note text
-      let noteText = noteHeadingElement.next('.noteText')
+      const noteText = noteHeadingElement.next('.noteText')
         .text()
         .trim()
         .replace(/\s\s+/g, ' ');
 
       // assemble note object
-      let note = {
+      const note: Note = {
         noteType: noteHeading.noteType,
         location: noteHeading.location,
         text: noteText
@@ -98,7 +117,7 @@ class kindleConverter {
     return allNotes;
   }
 
-  parseNoteHeading(heading) {
+  parseNoteHeading(heading): NoteHeading {
     // console.log('unparsed heading', heading);
     // a fiendish regex to match kindle html heading line
     // test examples that work:
@@ -121,7 +140,7 @@ class kindleConverter {
     if (isNaN(location)) throw new Error ('Not valid kindle note - invalid location');
     const kindleLocation = parseInt(location, 10);
 
-    let parsedHeading = {
+    const parsedHeading: NoteHeading = {
       noteType,
       location: {
         kindleLocation
@@ -139,7 +158,7 @@ class kindleConverter {
     tempNoteType = this.translateNoteType(tempNoteType);
     if (this.highlightRegex.test(tempNoteType)) return 'highlight';
     if (this.noteRegex.test(tempNoteType)) return 'note';
-    throw new Error('Not valid kindle note - invalid note type');
+    throw new Error(`Not valid kindle note - invalid note type: ${noteType}`);
   }
 
   translateNoteType(noteType) {
