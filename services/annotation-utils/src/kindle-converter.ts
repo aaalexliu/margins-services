@@ -1,21 +1,27 @@
 import cheerio =  require('cheerio');
 
 interface Location {
-  kindleLocation: Number,
-  page?: String,
-  section?: String,
-  chapter?: String
+  kindleLocation: number,
+  // page is string because of possible roman numerals
+  page?: string,
+  section?: string,
+  chapter?: string
 }
 
 interface NoteHeading {
-  noteType: String,
+  noteType: string,
   location: Location,
-  highlightColor?: String
+  highlightColor?: string
 }
 
 interface Note extends NoteHeading {
-  text: String
+  text: string
   childNote?: Note
+}
+
+interface BookInfo {
+  title: string,
+  authors: string[]
 }
 
 class kindleConverter {
@@ -23,6 +29,8 @@ class kindleConverter {
   highlightRegex = /highlight/i;
   noteRegex = /note/i;
   highlightColorRegex = /highlight_(?<color>\w+)/
+  //page regex captures words because of possible roman numeral pages
+  pageRegex = /(page)?\s*(?<pageLocation>\w+)\s*/i
   kindleHTML: any;
   $: cheerio.Root;
 
@@ -31,7 +39,7 @@ class kindleConverter {
     this.$ = cheerio.load(this.kindleHTML);
   }
 
-  getBookInfo() {
+  getBookInfo(): BookInfo {
     const titleElement = this.$('.bookTitle');
     const title = titleElement.text().trim();
 
@@ -117,7 +125,7 @@ class kindleConverter {
     return allNotes;
   }
 
-  parseNoteHeading(heading): NoteHeading {
+  parseNoteHeading(heading: string): NoteHeading {
     // console.log('unparsed heading', heading);
     // a fiendish regex to match kindle html heading line
     // test examples that work:
@@ -137,7 +145,7 @@ class kindleConverter {
     let { noteType, chapter, page, location } = headingMatch.groups;
     
     noteType = this.parseNoteType(noteType);
-    if (isNaN(location)) throw new Error ('Not valid kindle note - invalid location');
+    if (isNaN(Number(location))) throw new Error (`Not valid kindle note - invalid location: ${location}`);
     const kindleLocation = parseInt(location, 10);
 
     const parsedHeading: NoteHeading = {
@@ -148,12 +156,12 @@ class kindleConverter {
     };
     
     if (chapter) parsedHeading.location.chapter = chapter.trim();
-    if (page) parsedHeading.location.page = page.trim();
+    if (page) parsedHeading.location.page = this.parseNotePage(page.trim());
     
     return parsedHeading;
   }
 
-  parseNoteType(noteType) {
+  parseNoteType(noteType: string): string {
     let tempNoteType = noteType;
     tempNoteType = this.translateNoteType(tempNoteType);
     if (this.highlightRegex.test(tempNoteType)) return 'highlight';
@@ -161,12 +169,21 @@ class kindleConverter {
     throw new Error(`Not valid kindle note - invalid note type: ${noteType}`);
   }
 
-  translateNoteType(noteType) {
+  translateNoteType(noteType: string): string {
     let translated = noteType
       .replace(/标注/, "highlight")
       .replace(/笔记/, "note");
     // console.log(translated);
     return translated;
+  }
+
+  parseNotePage(page: string): string {
+    const pageMatch = page.match(this.pageRegex);
+    if (!pageMatch.groups) {
+      console.log(`page doesn't seem to be correct: ${page}`);
+      return page;
+    }
+    return pageMatch.groups.pageLocation;
   }
 }
 

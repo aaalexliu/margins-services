@@ -1,4 +1,4 @@
-const { kindleConverter } = require('./kindle-converter');
+const { kindleConverter } = require('./build/kindle-converter');
 const fs = require('fs');
 
 const myArgs = process.argv.slice(2);
@@ -34,7 +34,7 @@ console.log("test full english note heading",
 console.log("test note parsing");
 let parsedNotes = converter.getBookNotes();
 fs.writeFileSync(
-  './dignity-chinese-notes.json',
+  './output-parsed/dignity-chinese-notes.json',
   JSON.stringify(parsedNotes, null, 2),
   'utf8'
 );

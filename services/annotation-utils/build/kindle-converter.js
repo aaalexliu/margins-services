@@ -6,6 +6,8 @@ class kindleConverter {
         this.highlightRegex = /highlight/i;
         this.noteRegex = /note/i;
         this.highlightColorRegex = /highlight_(?<color>\w+)/;
+        //page regex captures words because of possible roman numeral pages
+        this.pageRegex = /(page)?\s*(?<pageLocation>\w+)\s*/i;
         this.kindleHTML = kindleHTML;
         this.$ = cheerio.load(this.kindleHTML);
     }
@@ -99,8 +101,8 @@ class kindleConverter {
             throw new Error("Not valid kindle note - metadata does not match");
         let { noteType, chapter, page, location } = headingMatch.groups;
         noteType = this.parseNoteType(noteType);
-        if (isNaN(location))
-            throw new Error('Not valid kindle note - invalid location');
+        if (isNaN(Number(location)))
+            throw new Error(`Not valid kindle note - invalid location: ${location}`);
         const kindleLocation = parseInt(location, 10);
         const parsedHeading = {
             noteType,
@@ -111,7 +113,7 @@ class kindleConverter {
         if (chapter)
             parsedHeading.location.chapter = chapter.trim();
         if (page)
-            parsedHeading.location.page = page.trim();
+            parsedHeading.location.page = this.parseNotePage(page.trim());
         return parsedHeading;
     }
     parseNoteType(noteType) {
@@ -129,6 +131,14 @@ class kindleConverter {
             .replace(/笔记/, "note");
         // console.log(translated);
         return translated;
+    }
+    parseNotePage(page) {
+        const pageMatch = page.match(this.pageRegex);
+        if (!pageMatch.groups) {
+            console.log(`page doesn't seem to be correct: ${page}`);
+            return page;
+        }
+        return pageMatch.groups.pageLocation;
     }
 }
 module.exports.kindleConverter = kindleConverter;
