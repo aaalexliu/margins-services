@@ -6,21 +6,21 @@ const PostGraphileNestedMutations = require('postgraphile-plugin-nested-mutation
 
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
-const ISSUER_DOMAIN = `https://cognito-idp.${process.env.COGNITO_REGION}.amazonaws.com/${process.env.COGNITO_USER_POOL_ID}`;
+const COGNITO_DOMAIN = `https://cognito-idp.${process.env.COGNITO_REGION}.amazonaws.com/${process.env.COGNITO_USER_POOL_ID}`;
 
 
 const jwtSecret = (req, header, payload, done) => {
   const issuer = payload.iss;
-  console.log(req);
+  // console.log(req);
   console.log(header);
   console.log(payload);
-  if (issuer === ISSUER_DOMAIN) {
+  if (issuer === COGNITO_DOMAIN) {
     console.log('hello')
     return jwksRsa.expressJwtSecret({
         cache: true,
         rateLimit: true,
         jwksRequestsPerMinute: 5,
-        jwksUri: `${ISSUER_DOMAIN}/.well-known/jwks.json`,
+        jwksUri: `${COGNITO_DOMAIN}/.well-known/jwks.json`,
       })(req, header, payload, done);
   }
 }
