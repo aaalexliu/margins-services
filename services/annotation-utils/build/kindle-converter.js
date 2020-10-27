@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.KindleConverter = void 0;
 const cheerio = require("cheerio");
-class kindleConverter {
+class KindleConverter {
     constructor(kindleHTML) {
         this.highlightRegex = /highlight/i;
         this.noteRegex = /note/i;
@@ -141,5 +142,6 @@ class kindleConverter {
         return pageMatch.groups.pageLocation;
     }
 }
-module.exports.kindleConverter = kindleConverter;
+exports.KindleConverter = KindleConverter;
+exports.default = KindleConverter;
 //# sourceMappingURL=kindle-converter.js.map

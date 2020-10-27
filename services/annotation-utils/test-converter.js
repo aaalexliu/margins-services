@@ -1,4 +1,4 @@
-const { kindleConverter } = require('./build/kindle-converter');
+const { KindleConverter } = require('./build/kindle-converter');
 const fs = require('fs');
 
 const myArgs = process.argv.slice(2);
@@ -9,7 +9,7 @@ const bookFileLocation = myArgs[0] ? myArgs[0]
 
 const bookHTML = fs.readFileSync(bookFileLocation, 'utf8');
 
-const converter = new kindleConverter(bookHTML);
+const converter = new KindleConverter(bookHTML);
 
 console.log(
   converter.getBookInfo()

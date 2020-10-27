@@ -24,7 +24,7 @@ interface BookInfo {
   authors: string[]
 }
 
-class kindleConverter {
+export class KindleConverter {
   
   highlightRegex = /highlight/i;
   noteRegex = /note/i;
@@ -187,4 +187,4 @@ class kindleConverter {
   }
 }
 
-module.exports.kindleConverter = kindleConverter;
+export default KindleConverter
