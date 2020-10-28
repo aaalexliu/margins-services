@@ -10,12 +10,14 @@ const { v4: uuidv4 } = require('uuid');
 
 const pem = fs.readFileSync('rsa-public.pem');
 
+//uuidv4()
+
 const jwk = rsaPemToJwk(
   pem,
   {
     use: 'sig',
     alg: 'RS256',
-    kid: uuidv4()
+    kid: '8676a8a1-9b9b-4a91-9016-063569707baf'
   },
   'public'
 )
@@ -30,17 +32,24 @@ console.log(publicJwk);
 const privateKey = fs.readFileSync('private.pem');
 const token = jwt.sign(
   {
-    foo: 'bar'
+    sub: "46d3f3d1-879b-4314-9301-ae470c5a2062",
+    "cognito:groups": [
+      "margins_account"
+    ],
   },
   privateKey,
   {
     algorithm: 'RS256',
     issuer: 'www.margins.me',
     audience: 'www.margins.me/graphql',
-    subject: 'margins-email-lambda',
-    expiresIn: '7d'
-  }
+    expiresIn: '7d',
+    keyid: '8676a8a1-9b9b-4a91-9016-063569707baf'
+  },
 );
+
+const exportJwt = `GRAPHQL_JWT=${token}`;
+
+fs.writeFileSync('.env', exportJwt, 'utf8');
 
 const publicKey = jwkToPem(publicJwk);
 const decodedJwt = jwt.verify(token, publicKey);
