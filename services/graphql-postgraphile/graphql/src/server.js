@@ -85,7 +85,7 @@ app.use(
     classicIds: true,
     ownerConnectionString: process.env.OWNER_URL,
     retryOnInitFail: true,
-    dynamicJson: true,
+    dynamicJson: false, //truly a pain and breaks spec
     pgSettings: req => {
       const settings = {};
       if (req.user) {
