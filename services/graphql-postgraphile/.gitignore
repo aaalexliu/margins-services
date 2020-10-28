@@ -1,1 +1,3 @@
 test-*.json
+*.pem
+self-jwk.json
