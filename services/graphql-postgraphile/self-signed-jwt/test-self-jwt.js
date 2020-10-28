@@ -22,4 +22,26 @@ const jwk = rsaPemToJwk(
 
 fs.writeFileSync('./self-jwk.json', JSON.stringify(jwk, null, 2), 'utf8');
 
-console.log(jwkToPem(jwk))
+const publicJwk = JSON.parse(
+  fs.readFileSync('./self-jwk.json')
+);
+console.log(publicJwk);
+
+const privateKey = fs.readFileSync('private.pem');
+const token = jwt.sign(
+  {
+    foo: 'bar'
+  },
+  privateKey,
+  {
+    algorithm: 'RS256',
+    issuer: 'www.margins.me',
+    audience: 'www.margins.me/graphql',
+    subject: 'margins-email-lambda',
+    expiresIn: '7d'
+  }
+);
+
+const publicKey = jwkToPem(publicJwk);
+const decodedJwt = jwt.verify(token, publicKey);
+console.log(decodedJwt);
