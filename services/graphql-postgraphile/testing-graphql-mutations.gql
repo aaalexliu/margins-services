@@ -15,35 +15,39 @@ mutation MyMutation {
       status
     }
   }
-  createAuthor(input: {author: {authorId: "5f7e840a5adb04e595916e9f", firstName: "Robert", lastName: "L. Heilbroner"}}) {
+  createAuthor(
+    input: {
+      author: {
+        authorId: "5f7e840a5adb04e595916e9f"
+        name: "Robert L. Heilbroner"
+      }
+    }
+  ) {
     clientMutationId
     author {
       authorId
-      firstName
       id
-      lastName
+      name
     }
   }
-  createPublication(input: {publication: {publicationId: "5f7e785c5adb04e595916e9e", booksUsingPublicationId: {create: {bookId: "9780684862149", title: "The Worldly Philosophers", description: "<i>The Worldly Philosophers</i> not only ", imageUrl: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1463591845l/82120._SX98_.jpg", languageCode: "eng", publicationDate: "1999-08-10", publisher: "Touchstone/Simon & Schuster", type: "BOOK"}}, accountPublicationsUsingPublicationId: {create: {accountId: "46d3f3d1-879b-4314-9301-ae470c5a2062", publicationToPublicationId: {connectByPublicationId: {publicationId: "5f7e785c5adb04e595916e9e"}}}}, publicationAuthorsUsingPublicationId: {create: {authorToAuthorId: {connectByAuthorId: {authorId: "5f7e840a5adb04e595916e9f"}}, publicationToPublicationId: {connectByPublicationId: {publicationId: "5f7e785c5adb04e595916e9e"}}}}}}) {
+  createPublication(input: {publication: {publicationId: "5f7e785c5adb04e595916e9e", bookUsingPublicationId: {create: {isbn13: "9780684862149", title: "The Worldly Philosophers", description: "<i>The Worldly Philosophers</i> not only ", imageUrl: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1463591845l/82120._SX98_.jpg", languageCode: "eng", publicationDate: "1999-08-10", publisher: "Touchstone/Simon & Schuster", type: "BOOK"}}, accountPublicationsUsingPublicationId: {create: {accountId: "46d3f3d1-879b-4314-9301-ae470c5a2062", publicationToPublicationId: {connectByPublicationId: {publicationId: "5f7e785c5adb04e595916e9e"}}}}, publicationAuthorsUsingPublicationId: {create: {authorToAuthorId: {connectByAuthorId: {authorId: "5f7e840a5adb04e595916e9f"}}, publicationToPublicationId: {connectByPublicationId: {publicationId: "5f7e785c5adb04e595916e9e"}}}}}}) {
     clientMutationId
     publication {
       createdAt
       id
       updatedAt
       publicationId
-      booksByPublicationId(condition: {publicationId: "5f7e785c5adb04e595916e9e"}) {
-        nodes {
-          bookId
-          description
-          id
-          imageUrl
-          languageCode
-          publicationDate
-          publicationId
-          publisher
-          title
-          type
-        }
+      bookByPublicationId {
+        description
+        id
+        imageUrl
+        isbn13
+        languageCode
+        publicationDate
+        publicationId
+        publisher
+        title
+        type
       }
     }
   },
@@ -51,7 +55,7 @@ mutation MyMutation {
     input: {
       annotation: {
         annotationId: "5f7ff26c5adb04e595916ea2"
-        kind: HIGHLIGHT
+        noteType: HIGHLIGHT
         accountId: "46d3f3d1-879b-4314-9301-ae470c5a2062"
         publicationId: "5f7e785c5adb04e595916e9e"
         recordedAt: "2020-02-13 23:00:13-6"
@@ -67,7 +71,7 @@ mutation MyMutation {
       recordedAt
       publicationId
       location
-      kind
+      noteType
       id
       accountId
       annotationId

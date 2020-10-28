@@ -27,8 +27,8 @@ CREATE TABLE publication (
 );
 
 CREATE TABLE book (
-  "book_id" char(13) PRIMARY KEY CONSTRAINT is_isbn13 CHECK (char_length(book_id) = 13),
-  "publication_id" char(24) REFERENCES publication (publication_id) NOT NULL,
+  "publication_id" char(24) PRIMARY KEY REFERENCES publication (publication_id),
+  "isbn13" char(13) CONSTRAINT is_isbn13 CHECK (char_length(isbn13) = 13),
   "title" text NOT NULL,
   "image_url" text,
   "language_code" char(3),
@@ -38,11 +38,9 @@ CREATE TABLE book (
   "type" text
 );
 
-COMMENT ON COLUMN book.book_id IS 'natural key of isbn13';
-
 CREATE INDEX book_publication_id_index ON book (publication_id);
 
-CREATE TYPE annotation_kind AS ENUM(
+CREATE TYPE annotation_note_type AS ENUM(
   'highlight',
   'note'
 );
@@ -55,8 +53,10 @@ CREATE TABLE annotation (
   "text" text,
   "created_at" timestamp with time zone DEFAULT now(),
   "updated_at" timestamp with time zone DEFAULT now(),
-  "kind" annotation_kind,
-  "location" jsonb
+  "note_type" annotation_note_type,
+  "location" jsonb,
+  "user_edits" jsonb,
+  "parent_annotation_id" char(24) REFERENCES annotation(annotation_id) ON DELETE CASCADE 
 );
 
 CREATE INDEX annotation_publication_id_index ON annotation (publication_id);
@@ -64,8 +64,7 @@ CREATE INDEX annotation_account_id_index ON annotation (account_id);
 
 CREATE TABLE author (
   "author_id" char(24) PRIMARY KEY CHECK (is_valid_mongo_id(author_id)),
-  "first_name" text,
-  "last_name" text
+  "name" text
 );
 
 CREATE TABLE publication_author (

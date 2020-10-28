@@ -29,9 +29,10 @@ const jwtSecret = (req, header, payload, done) => {
       })(req, header, payload, done);
   }
   if (issuer === 'www.margins.me') {
+    console.log('procesing lambda token');
     const kid = header.kid;
+    if (!kid) { return done(new Error('no kid'));}
     if (kid !== selfJwk.kid) { return done(new Error('no matching kid'));}
-
     const secret = selfPem;
     done(null, secret);
   }
@@ -70,31 +71,31 @@ app.get('/test-jwt', (req, res, next) => {
   res.send('secret hello');
 });
 
-// app.use(
-//   postgraphile(process.env.DATABASE_URL, "margins_public", {
-//     watchPg: true,
-//     graphiql: true,
-//     enhanceGraphiql: true,
-//     allowExplain: (req) => { return true; },
-//     appendPlugins: [PostGraphileNestedMutations, PgManyToManyPlugin],
-//     ignoreRBAC: false,
-//     ignoreIndexes: false,
-//     showErrorStack: "json",
-//     extendedErrors: ["hint", "detail", "errcode"],
-//     classicIds: true,
-//     ownerConnectionString: process.env.OWNER_URL,
-//     retryOnInitFail: true,
-//     dynamicJson: true,
-//     pgSettings: req => {
-//       const settings = {};
-//       if (req.user) {
-//         settings['margins.account_id'] = req.user.sub;
-//         settings['role'] = req.user['cognito:groups'][0];
-//       }
-//       return settings;
-//     }
-//   })
-// );
+app.use(
+  postgraphile(process.env.DATABASE_URL, "margins_public", {
+    watchPg: true,
+    graphiql: true,
+    enhanceGraphiql: true,
+    allowExplain: (req) => { return true; },
+    appendPlugins: [PostGraphileNestedMutations, PgManyToManyPlugin],
+    ignoreRBAC: false,
+    ignoreIndexes: false,
+    showErrorStack: "json",
+    extendedErrors: ["hint", "detail", "errcode"],
+    classicIds: true,
+    ownerConnectionString: process.env.OWNER_URL,
+    retryOnInitFail: true,
+    dynamicJson: true,
+    pgSettings: req => {
+      const settings = {};
+      if (req.user) {
+        settings['margins.account_id'] = req.user.sub;
+        settings['role'] = req.user['cognito:groups'][0];
+      }
+      return settings;
+    }
+  })
+);
 
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
