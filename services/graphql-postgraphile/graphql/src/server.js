@@ -7,7 +7,12 @@ const PostGraphileNestedMutations = require('postgraphile-plugin-nested-mutation
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 const COGNITO_DOMAIN = `https://cognito-idp.${process.env.COGNITO_REGION}.amazonaws.com/${process.env.COGNITO_USER_POOL_ID}`;
+const jwkToPem = require('jwk-to-pem');
+const fs = require('fs');
 
+const selfJwk = JSON
+  .parse(fs.readFileSync('./self-jwk.json', 'utf8'));
+const selfPem = jwkToPem(selfJwk);
 
 const jwtSecret = (req, header, payload, done) => {
   const issuer = payload.iss;
@@ -15,13 +20,20 @@ const jwtSecret = (req, header, payload, done) => {
   console.log(header);
   console.log(payload);
   if (issuer === COGNITO_DOMAIN) {
-    console.log('hello')
+    console.log('procesing cognito token')
     return jwksRsa.expressJwtSecret({
         cache: true,
         rateLimit: true,
         jwksRequestsPerMinute: 5,
         jwksUri: `${COGNITO_DOMAIN}/.well-known/jwks.json`,
       })(req, header, payload, done);
+  }
+  if (issuer === 'www.margins.me') {
+    const kid = header.kid;
+    if (kid !== selfJwk.kid) { return done(new Error('no matching kid'));}
+
+    const secret = selfPem;
+    done(null, secret);
   }
 }
 

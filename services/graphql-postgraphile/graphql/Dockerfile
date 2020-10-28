@@ -8,6 +8,9 @@ WORKDIR /home/node/app
 # Copy dependencies
 COPY ./src/package.json ./
 
+# Copy jwk
+COPY ./src/self-jwk.json ./
+
 # Install dependencies
 USER node
 RUN yarn install
