@@ -1,5 +1,10 @@
-const { GraphQLClient, gql } = require('graphql-request');
-require('dotenv').config()
+import { GraphQLClient, gql }  from 'graphql-request';
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+import {
+  CreateAnnotationInput
+} from '../../__generated__/types'
 
 async function main() {
   const endpoint = 'http://ec2-34-232-69-157.compute-1.amazonaws.com:8080/graphql';
@@ -24,10 +29,10 @@ async function main() {
     }
   `;
 
-  const variables = {
+  const variables: {inputAnnotation: CreateAnnotationInput} = {
     inputAnnotation: {
       annotation: {
-        annotationId: '5f7ff26c5adb04e595916ec0',
+        annotationId: '5f7ff26c5adb04e595916ed0',
         publicationId: '5f7e785c5adb04e595916e9e',
         text: "test-location4",
         noteType: "HIGHLIGHT",
@@ -36,7 +41,8 @@ async function main() {
       }
     }
   }
-  const data = await graphQLClient.request(mutation, variables)
+  const data = await graphQLClient.request(mutation, variables);
+      // MutationCreateAnnotationArgs, {inputAnnotation: CreateAnnotationInput}
 
   console.log(JSON.stringify(data, undefined, 2))
 }

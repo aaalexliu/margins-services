@@ -1,0 +1,15 @@
+overwrite: true
+schema:
+  - "http://ec2-34-232-69-157.compute-1.amazonaws.com:8080/graphql":
+      headers:
+        Authorization: "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ijg2NzZhOGExLTliOWItNGE5MS05MDE2LTA2MzU2OTcwN2JhZiJ9.eyJzdWIiOiI0NmQzZjNkMS04NzliLTQzMTQtOTMwMS1hZTQ3MGM1YTIwNjIiLCJjb2duaXRvOmdyb3VwcyI6WyJtYXJnaW5zX2FjY291bnQiXSwiaWF0IjoxNjAzODc0NjM0LCJleHAiOjE2MDQ0Nzk0MzQsImF1ZCI6Ind3dy5tYXJnaW5zLm1lL2dyYXBocWwiLCJpc3MiOiJ3d3cubWFyZ2lucy5tZSJ9.WTB0Xfq1cOkAQ2nwD3H7GUa6HJ5Zkpw6lULOWOGUpSE1M3G5V0VClMjVuGTTDRODFwmwApLA6PhWopkxQ_kdsQ"
+documents: null
+generates:
+  __generated__/types.ts:
+    plugins:
+      - "typescript"
+    config:
+      enumsAsTypes: true
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"

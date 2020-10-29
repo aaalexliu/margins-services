@@ -7,6 +7,5 @@
     "sourceMap": true,
     "esModuleInterop": true,
   },
-  "include": ["src/**/*.ts", "src/**/*.js"],
-  "exclude": ["src/**/tests/*"]
+  // "include": ["src/**/*.ts", "src/**/*.js"],
 }

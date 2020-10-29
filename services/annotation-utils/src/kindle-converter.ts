@@ -164,8 +164,8 @@ export class KindleConverter {
   parseNoteType(noteType: string): string {
     let tempNoteType = noteType;
     tempNoteType = this.translateNoteType(tempNoteType);
-    if (this.highlightRegex.test(tempNoteType)) return 'highlight';
-    if (this.noteRegex.test(tempNoteType)) return 'note';
+    if (this.highlightRegex.test(tempNoteType)) return 'HIGHLIGHT';
+    if (this.noteRegex.test(tempNoteType)) return 'NOTE';
     throw new Error(`Not valid kindle note - invalid note type: ${noteType}`);
   }
 
