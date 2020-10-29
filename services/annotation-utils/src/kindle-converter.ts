@@ -115,7 +115,7 @@ export class KindleConverter {
         // noteType note is orphan or child
         let prevNote = allNotes.slice(-1)[0];
         if (prevNote && prevNote.noteType === 'highlight') {
-          prevNote.note = note;
+          prevNote.childNote = note;
           continue;
         }
       }

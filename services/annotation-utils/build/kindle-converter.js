@@ -77,7 +77,7 @@ class KindleConverter {
                 // noteType note is orphan or child
                 let prevNote = allNotes.slice(-1)[0];
                 if (prevNote && prevNote.noteType === 'highlight') {
-                    prevNote.note = note;
+                    prevNote.childNote = note;
                     continue;
                 }
             }
@@ -121,9 +121,9 @@ class KindleConverter {
         let tempNoteType = noteType;
         tempNoteType = this.translateNoteType(tempNoteType);
         if (this.highlightRegex.test(tempNoteType))
-            return 'highlight';
+            return 'HIGHLIGHT';
         if (this.noteRegex.test(tempNoteType))
-            return 'note';
+            return 'NOTE';
         throw new Error(`Not valid kindle note - invalid note type: ${noteType}`);
     }
     translateNoteType(noteType) {
