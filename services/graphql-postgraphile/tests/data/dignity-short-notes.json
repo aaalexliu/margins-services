@@ -1,0 +1,612 @@
+[
+  {
+    "noteType": "NOTE",
+    "location": {
+      "kindleLocation": 41,
+      "page": "ix",
+      "section": "Author’s Note"
+    },
+    "text": "Test empty note"
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 58,
+      "page": "1",
+      "section": "Introduction"
+    },
+    "text": "Ifirst walked into the Hunts Point neighborhood of the Bronx because I was told not to. I was told it was too dangerous, too poor, and that I was too white. I was told “nobody goes there for anything other than drugs and prostitutes.” The people directly telling me this were my colleagues (other bankers), my neighbors (other wealthy Brooklynites), and my friends (other academics). All, like me, successful, well-educated people who had opinions on the Bronx but had never really been there."
+  },
+  {
+    "noteType": "NOTE",
+    "location": {
+      "kindleLocation": 61,
+      "page": "1",
+      "section": "Introduction"
+    },
+    "text": "Test empty note 2"
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 72,
+      "page": "2",
+      "section": "Introduction"
+    },
+    "text": "The walks, the portraits, the stories I heard, the places they took me, became a process of learning in a different kind of way. Not from textbooks, or statistics, or spreadsheets, or PowerPoint presentations, or classrooms, or speeches, or documentaries—but from people."
+  },
+  {
+    "noteType": "NOTE",
+    "location": {
+      "kindleLocation": 74,
+      "page": "2",
+      "section": "Introduction"
+    },
+    "text": ""
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 76,
+      "page": "2",
+      "section": "Introduction"
+    },
+    "text": "This was a slow and shocking revelation to me, one I kept trying to fight. I certainly already knew I was privileged. I had a PhD in theoretical physics. I worked as a bond trader at a big Wall Street firm. I lived in the best part of Brooklyn. I sent my kids to private school. But like most successful and well-educated people, especially those in NYC, I considered myself open-minded, considered, and reflective about my privilege. I read three papers daily, I watched documentaries on our social problems, and I voted for and supported policies that I felt recognized and addressed my privilege. I gave money and time to charities that focused on poverty and injustice. I understood I was selfish, but I rationalized. Aren’t we all selfish? Besides, I am far less selfish than others, look at how I vote (progressive), what I believe in (equality), and who my colleagues are (people of all races from all places)."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 88,
+      "page": "3",
+      "section": "Introduction"
+    },
+    "text": "But I began to realize I hadn’t ended up much different at all. I had done pretty much what successful Americans do, regardless of their politics. I had removed myself from the realities of the majority of Americans. I was a member of an exclusive club, one requiring an elite education to enter. I was sitting in my expensive home, in my exclusive neighborhood, forming opinions and casting judgments about what was best for others largely just from what I read."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 224,
+      "page": "13",
+      "section": "Introduction"
+    },
+    "text": "But I could help in other ways because I had four things most didn’t: a computer, a phone with unlimited minutes, a car, and no habit to get in the way (well, I had one, just not as deep as theirs)."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 236,
+      "page": "14",
+      "section": "Introduction"
+    },
+    "text": "In the middle of 2015, I stopped going regularly to Hunts Point. I was drinking too much. While I could understand my friends’ drug use as forged from trauma, mine was simply about selfishness. I could no longer be around easily available drugs and daily dramas that made my mistakes seem minor; the contrast unmoored me."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 244,
+      "page": "14",
+      "section": "Introduction"
+    },
+    "text": "I didn’t do much research before I visited each place, beyond looking for areas with a reputation as “a place you shouldn’t visit” or a place that “sucks” or where “everyone who can leave has left” or was the butt of jokes. I didn’t want to go with a prejudice beyond knowing that others considered it unworthy of attention and so went with no goal beyond listening to the residents."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 250,
+      "page": "15",
+      "section": "Introduction"
+    },
+    "text": "In these communities I didn’t go to the nonprofits or the official community centers or talk to the local politicians. Despite the very good intentions of all of them, I had found many were still detached from those they advocated for, especially the politicians. Instead, I first went to the busiest McDonald’s in the community and hung out, eventually talking to the morning regulars. Then I walked and wandered with no clear goal beyond meeting people and letting their suggestions guide me. I often walked the entire day, stopping in at a McDonald’s to rest and talk to more people."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 258,
+      "page": "15",
+      "section": "Introduction"
+    },
+    "text": "When I began my trips, I spent some nights in dive bars and bonded with strangers over a shared love of drinking. By the start of 2016, I had quit both anxiety meds and drinking. Then I began spending my evenings at McDonald’s, sitting at the same table every night, writing notes, eating an ice-cream cone, and talking to whomever until closing time. Often it was during these nights when I would meet people who were struggling the most, people without a permanent home, people who used the safety and warmth of McDonald’s until it closed."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 266,
+      "page": "16",
+      "section": "Introduction"
+    },
+    "text": "Most people didn’t ask for money, even the most desperate. Most just wanted to sit and talk with someone who wasn’t trying to save them, didn’t scold them, and didn’t judge them. I tried to do that, often for hours, listening to long stories of wrongs, mistakes, and injustices. What most wanted wasn’t money but to use my computer or phone, to look up friends on Facebook or call for social services info or family or street friends. Almost everyone wanted to look and sort through the pictures I had taken of them and then have me send them the best one."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 271,
+      "page": "16",
+      "section": "Introduction"
+    },
+    "text": "next. I initially focused on black neighborhoods—places like Buffalo’s East Side; Selma, Alabama; Milwaukee’s North Side—places that, because of racism, had long been stigmatized. To give myself a greater balance, I added poor white communities, like Prestonsburg, Kentucky; Bristol, Tennessee; and the Ozarks. I tried to select places that, taken together, were as diverse as America, both by race and by location."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 277,
+      "page": "17",
+      "section": "Introduction"
+    },
+    "text": "Despite their differences—black, white, Hispanic, rural, urban—they were all similar to Hunts Point in one important way: despite being stigmatized, ignored, and made fun of, most of the people I met were fighting to maintain dignity."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 279,
+      "page": "17",
+      "section": "Introduction"
+    },
+    "text": "They feel disrespected—and with good reason. My circles, the bankers, business people, and the politicians they supported had created a world where McDonald’s was often one of the only restaurant options—and we make fun of them for going there."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 281,
+      "page": "17",
+      "section": "Introduction"
+    },
+    "text": "We pretend that the addicted take drugs because of bad character, not because it’s one of the few ways they have to dull the pain of not being able to live good lives in the economy we’ve created for them."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 282,
+      "page": "17",
+      "section": "Introduction"
+    },
+    "text": "We tell them that their religion is foolish and that they shouldn’t expect to be able to earn a living unless they leave their hometowns."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 283,
+      "page": "17",
+      "section": "Introduction"
+    },
+    "text": "We say the white working class is racist while the policies we endorse hurt the bulk of minorities. It is not surprising some have responded with cynicism or apathy, or rebel in anger."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 284,
+      "page": "17",
+      "section": "Introduction"
+    },
+    "text": "This book is not a book about “how we got Trump,” though learning to see the country differently may help answer questions about the 2016 election. Rather, it’s a book about reconsidering what is valuable, about honoring aspects of life that cannot be measured, and about an attempt to listen and look with humility."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 310,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "37",
+      "section": "New York City"
+    },
+    "text": "Once I started college, and then moved north for grad school in Baltimore, and then farther north for my Wall Street career, I went to McDonald’s only for a bathroom on long trips or when back home visiting my parents and wanting to sit in peace while my kids played in the ball pit."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 313,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "38",
+      "section": "New York City"
+    },
+    "text": "Beyond that, I’d never thought of McDonald’s as anything other than something people around me joked about, often outright mocking those who went there. I didn’t join in on the jokes, but I got where they were coming from. Most fast-food franchises and other stores like the Walmarts, Dollar Generals, and Big Lots that started filling my hometown were also places to ignore or joke about. They were something to avoid, or to visit only out of boredom, or to “slum it” for fun."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 316,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "38",
+      "section": "New York City"
+    },
+    "text": "In Hunts Point, I found myself going to McDonald’s every day because everyone did. It was an essential part of my new friends’ life. Without a stable home, they needed clean water, a place to charge a phone, a place to get free Wi-Fi. McDonald’s had all of those, and it also had good cheap food. (“ Coffee with fifteen packs of Sweet’N Low, pancakes covered in syrup and sugar. Extra syrup. An addict’s breakfast.”)"
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 321,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "38",
+      "section": "New York City"
+    },
+    "text": "McDonald’s was a space where they could be themselves on their own terms. It was a place to momentarily escape the drama and chaos of the streets, a place that allowed them to rejoin society on the same terms as everyone else. They needed and appreciated that far more than I did."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 325,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "38",
+      "section": "New York City"
+    },
+    "text": "There weren’t really many other options. McDonald’s was one of the few spaces in Hunts Point open to the public that worked. While wonderful and well-intentioned nonprofits serve Hunts Point, whenever I asked anyone where they wanted to meet or grab a meal, it was almost always McDonald’s."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 328,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "39",
+      "section": "New York City"
+    },
+    "text": "When I asked why not the nonprofits or the public parks, the answer would be some variation of “What is that?” or “They always telling you what to do.” The nonprofits came with lots of rules and lectures about behavior, with a quiet or not-so-quiet judgment."
+  },
+  {
+    "noteType": "NOTE",
+    "location": {
+      "kindleLocation": 330,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "39",
+      "section": "New York City"
+    },
+    "text": "markets are judgement free"
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 337,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "39",
+      "section": "New York City"
+    },
+    "text": "As the factories, jobs, and many of the people left, those remaining in Portsmouth have done their best to keep the city together, hold tightly to the past, and stay proud. That pride is reflected in the murals, a well-intentioned attempt to sell Portsmouth as a quaint place to visit, but they are also a distraction masking a larger decline."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 341,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "40",
+      "section": "New York City"
+    },
+    "text": "Our country is split into two worlds. In one, the downtowns are filled with nightlife, restaurants, well-maintained bike paths, and pedestrian crosswalks. You can tell you’re in this world by the kinds of grocery stores there are and by how many and what kind of vegetables they stock. You can tell by whether the convenience stores carry diet drinks."
+  },
+  {
+    "noteType": "NOTE",
+    "location": {
+      "kindleLocation": 343,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "40",
+      "section": "New York City"
+    },
+    "text": "nice whole foods dig"
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 343,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "40",
+      "section": "New York City"
+    },
+    "text": "In this world the residents told me of challenges overcome and plans for the future. There were fears and frustrations, but they were mostly about compromised dreams or juggling too much. Should I move to the West Coast to be an intern or go to grad school in DC?"
+  },
+  {
+    "noteType": "NOTE",
+    "location": {
+      "kindleLocation": 345,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "40",
+      "section": "New York City"
+    },
+    "text": "compromised dreams"
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 345,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "40",
+      "section": "New York City"
+    },
+    "text": "Portsmouth is part of the other world—the world of Hunts Point, where the stories told are about wrongs endured, frustrations that seem truly insurmountable, and a longing for what once was. The anxieties here come from having limited options: My company changed ownership, and there are rumors it will move to another state. With my sisters gone, there will be nobody to take care of my parents if I move. I’ve got symptoms that scare me, but I don’t have the money for the doctor. I can’t apply for school because I’ve got an outstanding charge and don’t want to be found."
+  },
+  {
+    "noteType": "NOTE",
+    "location": {
+      "kindleLocation": 350,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "40",
+      "section": "New York City"
+    },
+    "text": "no options"
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 350,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "40",
+      "section": "New York City"
+    },
+    "text": "In this world the energy is found outside of downtown, and in Portsmouth that is where I find the McDonald’s. It is on a busy road heading out of town, one lined with fast-food franchises, shopping malls, vape stores, check-cashing stores, and auto shops. Anchoring the area is a massive Walmart, surrounded by acres of parking and next to a railway filled with cars of coal. This is where the steel mill once was. Now only a tall, slender smokestack at the edge of the parking lot remains."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 359,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "41",
+      "section": "New York City"
+    },
+    "text": "They are mostly retired men born in Portsmouth who spent their lives working union jobs as firefighters, ironworkers, construction workers, and truck drivers, providing for their families."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 364,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "41",
+      "section": "New York City"
+    },
+    "text": "A woman dressed in pajama bottoms and a tank top sits yelling into an iPad with a broken screen, “He doesn’t respect my issues. He doesn’t understand my anxiety attacks. They come at me and take me over. I ain’t me no more when that happens. I am done with his shit. I am done with everybody’s shit.” The voice that comes back just says, “Nobody ever understands us.”"
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 371,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "42",
+      "section": "New York City"
+    },
+    "text": "I have seen countless adults pulled low by their addiction, sometimes pulling down those around them."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 374,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "42",
+      "section": "New York City"
+    },
+    "text": "The father, James, politely answers my questions with no sense of desperation in his voice, no anger. He is straight-up, speaking with a calm that clashes with the whoops and yells coming from a handful of others loitering by the entrance."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 387,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "43",
+      "section": "New York City"
+    },
+    "text": "He says that he started drinking as a teenager, then started on Percocet when he was nineteen. From there he went on to harder stuff like Oxy 80s, then heroin. “I was born in Portsmouth and raised around drugs. Everyone used them.”"
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 392,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "44",
+      "section": "New York City"
+    },
+    "text": "It was a pain I found in every town I visited, from Buffalo to New Haven to Cleveland to Selma to El Paso to Amarillo. In each of these places, there’s a sense of having been left behind, of being forgotten—or, even worse, of being mocked and stigmatized by the members of the world who are moving on and up with the GDP."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 394,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "44",
+      "section": "New York City"
+    },
+    "text": "In many cases, these areas are literally left behind by people like me. I spent most of my life focused on getting ahead by education. Putting education first and going to college and then grad school were expected, so I applied myself. I left my rural hometown and got into elite schools, which got me into elite jobs, which got me into an elite neighborhood."
+  },
+  {
+    "noteType": "NOTE",
+    "location": {
+      "kindleLocation": 397,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "44",
+      "section": "New York City"
+    },
+    "text": "left behind by people like me"
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 398,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "44",
+      "section": "New York City"
+    },
+    "text": "Almost all of us had used education to leave a hometown that we saw as oppressive, intolerant, and judgmental—often aggressively so. Education was the way out, so we dedicated ourselves to doing everything the system asked of us, starting with focusing on building a résumé for access to the right college."
+  },
+  {
+    "noteType": "NOTE",
+    "location": {
+      "kindleLocation": 400,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "44",
+      "section": "New York City"
+    },
+    "text": "left oppressive intolerant judgemental"
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 406,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "45",
+      "section": "New York City"
+    },
+    "text": "The shared experience and the rules necessary to succeed had left us with the same worldview. We were dedicated to knowledge, learning as much as we could but almost always from books. We saw the truth as something that could be figured out with enough study, with enough devotion to science and rational thought. Given enough time, enough data, enough experiments, enough computers, we believed we could figure out most anything."
+  },
+  {
+    "noteType": "NOTE",
+    "location": {
+      "kindleLocation": 409,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "45",
+      "section": "New York City"
+    },
+    "text": "shared worldview"
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 409,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "45",
+      "section": "New York City"
+    },
+    "text": "We were mobile, having moved many times before, and we would move again. Staying put was seen as failure. You advanced in your career, and that required not being tied to one place. Our community was global, allowing us to proclaim it to be diverse, despite every resident sharing a similar path beyond high school."
+  },
+  {
+    "noteType": "NOTE",
+    "location": {
+      "kindleLocation": 411,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "45",
+      "section": "New York City"
+    },
+    "text": "mobile. Diverse even though elite acculturation remains largely similar"
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 411,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "45",
+      "section": "New York City"
+    },
+    "text": "We used our dominance to change the world. The desire to change the world came from a good place since many of us were well-intentioned. We generally understood we were privileged and fought to make our country more inclusive for minorities. This meant dismantling a system that demeaned, denied, and dehumanized so many based simply on the color of their skin, their sexuality, or their views."
+  },
+  {
+    "noteType": "NOTE",
+    "location": {
+      "kindleLocation": 414,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "45",
+      "section": "New York City"
+    },
+    "text": "good intentions"
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 414,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "45",
+      "section": "New York City"
+    },
+    "text": "Yet we didn’t get just how deep and pervasive our privilege was. We were well intended, but we had removed ourselves from the lived experiences of most of the country, including the places and people we wanted to help. The vast majority of minorities and the working poor were excluded from our club—by a lack of credentials and by a system rigged against them getting any."
+  },
+  {
+    "noteType": "NOTE",
+    "location": {
+      "kindleLocation": 417,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "45",
+      "section": "New York City"
+    },
+    "text": "privilege has removed us from the very people we proclaim to help"
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 420,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "46",
+      "section": "New York City"
+    },
+    "text": "We had compassion for those left behind but thought that our job was to provide them an opportunity (no matter how small) to get where we were. We didn’t think about changing our definition of success. It didn’t occur to us that what we valued—getting more education and owning more stuff—wasn’t what everyone else wanted."
+  },
+  {
+    "noteType": "NOTE",
+    "location": {
+      "kindleLocation": 422,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "46",
+      "section": "New York City"
+    },
+    "text": "different definition of success"
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 422,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "46",
+      "section": "New York City"
+    },
+    "text": "In the front row, growing the economy and increasing efficiency were goals most of us, whether Democrat or Republican, put first and agreed on. We believed in free trade, globalization, and deregulation. Our metrics for success became how high the stock market got, how large the profits were, how efficient the company was. If certain communities, towns, and people, suffered in this, it was all for the greater good in the name of progress."
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 425,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "46",
+      "section": "New York City"
+    },
+    "text": "Our obsession with economic growth empowered massive corporations that filled many communities with franchises and big-box stores, crushing the downtowns that had once had small locally owned shops and restaurants. The economy grew, but gone were the local community, the labor union, and lifetime jobs for those without a college degree."
+  },
+  {
+    "noteType": "NOTE",
+    "location": {
+      "kindleLocation": 428,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "46",
+      "section": "New York City"
+    },
+    "text": "waittt... you can choose. you choose to buy local or buy cheap walmart"
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 429,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "46",
+      "section": "New York City"
+    },
+    "text": "If we were the front row, they were the back row. They were the people who couldn’t or didn’t want to leave their town or their family to get an education at an elite college. The students who didn’t take to education, because it wasn’t necessarily their thing or because they had far too many obligations—family, friends, problems large and small—to focus on studying. They want to graduate from high school and get a stable job allowing them to raise a family, often in the same community they were born into."
+  },
+  {
+    "noteType": "NOTE",
+    "location": {
+      "kindleLocation": 433,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "47",
+      "section": "New York City"
+    },
+    "text": "Didn't want to leave town family didn't want an education"
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 434,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "47",
+      "section": "New York City"
+    },
+    "text": "They are left with a world where their sense of home and family and community won’t get them anywhere, won’t pay the bills. And with a world where their jobs are disappearing."
+  },
+  {
+    "noteType": "NOTE",
+    "location": {
+      "kindleLocation": 436,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "47",
+      "section": "New York City"
+    },
+    "text": "communes??"
+  },
+  {
+    "noteType": "HIGHLIGHT",
+    "location": {
+      "kindleLocation": 456,
+      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+      "page": "48",
+      "section": "New York City"
+    },
+    "text": "He shrugs off my sympathy. “It is what it is. There is no jobs here, buddy. No jobs. Just nothing for nobody to do.”"
+  }
+]

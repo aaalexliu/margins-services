@@ -5,7 +5,7 @@ const myArgs = process.argv.slice(2);
 if (myArgs === undefined || myArgs.length === 0) console.log('using default test html');
 
 const bookFileLocation = myArgs[0] ? myArgs[0]
-  : './sample-kindle-exports/dignity-chinese.html';
+  : './sample-kindle-exports/dignity-english-short.html';
 
 const bookHTML = fs.readFileSync(bookFileLocation, 'utf8');
 
@@ -34,7 +34,7 @@ console.log("test full english note heading",
 console.log("test note parsing");
 let parsedNotes = converter.getBookNotes();
 fs.writeFileSync(
-  './output-parsed/dignity-chinese-notes.json',
+  './output-parsed/dignity-short-notes.json',
   JSON.stringify(parsedNotes, null, 2),
   'utf8'
 );

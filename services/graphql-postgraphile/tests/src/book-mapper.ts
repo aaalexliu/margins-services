@@ -10,8 +10,8 @@ import {
 
 
 const CREATE_AUTHOR = gql`
-  mutation CreateAuthor($inputAuthor: CreateAuthorInput!) {
-    createAuthor(input: $inputAuthor) {
+  mutation CreateAuthor($authorInput: CreateAuthorInput!) {
+    createAuthor(input: $authorInput) {
       __typename
       author {
         authorId
@@ -22,8 +22,8 @@ const CREATE_AUTHOR = gql`
 `;
 
 const CREATE_BOOK = gql`
-  mutation CreatePublication($inputBook: CreatePublicationInput!) {
-    createPublication(input: $inputBook) {
+  mutation CreatePublication($bookInput: CreatePublicationInput!) {
+    createPublication(input: $bookInput) {
       __typename
       publication {
         createdAt
@@ -48,11 +48,11 @@ const CREATE_BOOK = gql`
 `;
 
 interface AuthorInputVar {
-  inputAuthor: CreateAuthorInput
+  authorInput: CreateAuthorInput
 }
 
 interface BookInputVar {
-  inputBook: CreatePublicationInput
+  bookInput: CreatePublicationInput
 }
 
 interface Book {
@@ -81,6 +81,10 @@ export default class BookMapper {
     return objectId.toHexString();
   }
 
+  async findOrCreateBook(book: Book) {
+
+  }
+
   async createBook(book: Book) {
     const bookMutationVars = this.createBookInput(book);
     try {
@@ -107,7 +111,7 @@ export default class BookMapper {
     const bookNoAuthors = Object.assign({}, book);
     delete bookNoAuthors.authors;
     return {
-      inputBook: {
+      bookInput: {
         publication: {
           publicationId,
           bookUsingPublicationId: {
@@ -130,7 +134,7 @@ export default class BookMapper {
   }
 
   getBookPublicationId(input: BookInputVar): string {
-    return input.inputBook.publication.publicationId;
+    return input.bookInput.publication.publicationId;
   }
 
   async createAuthor(name: string, publicationId: string) {
@@ -142,7 +146,7 @@ export default class BookMapper {
   createAuthorInput(name: string, publicationId: string): AuthorInputVar {
     const authorId = this.generateObjectId();
     return {
-      inputAuthor: {
+      authorInput: {
         author: {
           authorId,
           name,
