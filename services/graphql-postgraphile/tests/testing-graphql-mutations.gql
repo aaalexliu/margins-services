@@ -26,21 +26,6 @@ mutation MyMutation {
       status
     }
   }
-  createAuthor(
-    input: {
-      author: {
-        authorId: "5f7e840a5adb04e595916e9f"
-        name: "Robert L. Heilbroner"
-      }
-    }
-  ) {
-    clientMutationId
-    author {
-      authorId
-      id
-      name
-    }
-  }
   createPublication(
     input: {
       publication: {
@@ -59,9 +44,6 @@ mutation MyMutation {
         }
         accountPublicationsUsingPublicationId: {
           create: { accountId: "46d3f3d1-879b-4314-9301-ae470c5a2062" }
-        }
-        publicationAuthorsUsingPublicationId: {
-          create: { authorId: "5f7e840a5adb04e595916e9f" }
         }
       }
     }
@@ -84,6 +66,23 @@ mutation MyMutation {
         title
         type
       }
+    }
+  }
+  createAuthor(
+    input: {
+      author: {
+        authorId: "5f7e785c5adb04e595916e2f"
+        name: "test test"
+        publicationAuthorsUsingAuthorId: {
+          create: { publicationId: "5f7e785c5adb04e595916e2e" }
+        }
+      }
+    }
+  ) {
+    author {
+      authorId
+      name
+      id
     }
   }
   createAnnotation(
