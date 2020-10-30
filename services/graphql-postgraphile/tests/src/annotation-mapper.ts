@@ -34,7 +34,7 @@ interface AnnotationMutationVars {
   inputAnnotation: CreateAnnotationInput
 }
 
-class AnnotationMapper {
+export default class AnnotationMapper {
   graphQLClient: GraphQLClient;
   publicationId: string;
   accountId: string;

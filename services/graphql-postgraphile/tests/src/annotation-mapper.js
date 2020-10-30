@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const graphql_request_1 = require("graphql-request");
 const mongodb_1 = require("mongodb");
 const CREATE_ANNOTATION_MUTATION = graphql_request_1.gql `
-  mutation MyMutation($inputAnnotation: CreateAnnotationInput!) {
+  mutation CreateAnnotation($inputAnnotation: CreateAnnotationInput!) {
     __typename
     createAnnotation(input: $inputAnnotation) {
       annotation {
@@ -16,7 +16,7 @@ const CREATE_ANNOTATION_MUTATION = graphql_request_1.gql `
   }
 `;
 class AnnotationMapper {
-    constructor(endpoint, authToken, publicationId, accountId) {
+    constructor(endpoint, authToken, accountId, publicationId) {
         this.graphQLClient = new graphql_request_1.GraphQLClient(endpoint, {
             headers: {
                 authorization: `BEARER ${authToken}`
@@ -28,6 +28,7 @@ class AnnotationMapper {
     async createAnnotation(annotation) {
         const annotationVars = this.createAnnotationInput(annotation);
         const response = this.executeCreateAnnotation(annotationVars);
+        console.log(JSON.stringify(response, null, 2));
     }
     createAnnotationInput(annotation) {
         const annotationId = (new mongodb_1.ObjectID()).toHexString();
@@ -53,4 +54,5 @@ class AnnotationMapper {
         }
     }
 }
+exports.default = AnnotationMapper;
 //# sourceMappingURL=annotation-mapper.js.map

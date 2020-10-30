@@ -63,7 +63,7 @@ interface Book {
   publisher?: string,
 }
 
-class BookMapper {
+export default class BookMapper {
   graphQLClient: GraphQLClient;
   accountId: string;
 
@@ -72,7 +72,8 @@ class BookMapper {
       headers: {
         authorization: `BEARER ${authToken}`
       }
-    })
+    });
+    this.accountId = accountId;
   }
 
   generateObjectId(): string {
@@ -82,13 +83,17 @@ class BookMapper {
 
   async createBook(book: Book) {
     const bookMutationVars = this.createBookInput(book);
-    const bookResponse = await this.graphQLClient.request(CREATE_BOOK, bookMutationVars);
-    console.log(bookResponse);
+    try {
+      const bookResponse = await this.graphQLClient.request(CREATE_BOOK, bookMutationVars);
+      console.log(bookResponse);
+    } catch(error) {
+      console.error(JSON.stringify(error, null, 2))
+    }
 
     // create authors if successful
     const authors = book.authors;
     const bookPublicationId = this.getBookPublicationId(bookMutationVars);
-    const authorResponses = Promise.all(authors.map((author) => {
+    const authorResponses = await Promise.all(authors.map((author) => {
         const authorMutationVars = this.createAuthorInput(author, bookPublicationId);
         return this.graphQLClient.request(CREATE_AUTHOR, authorMutationVars);
       })
