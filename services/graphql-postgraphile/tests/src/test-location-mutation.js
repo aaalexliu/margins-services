@@ -45,17 +45,16 @@ async function main() {
     const variables = {
         inputAnnotation: {
             annotation: {
-                annotationId: '5f7ff26c5adb04e595916ed0',
-                publicationId: '5f7e785c5adb04e595916e9e',
+                annotationId: "5f7ff26c5adb04e595916ed0",
+                publicationId: "5f7e785c5adb04e595916e9e",
                 text: "test-location4",
                 noteType: "HIGHLIGHT",
-                location: JSON.stringify({ kindleLocation: 1, chapter: 'chapter' }),
+                location: JSON.stringify({ kindleLocation: 1, chapter: "chapter" }),
                 accountId: "46d3f3d1-879b-4314-9301-ae470c5a2062"
             }
         }
     };
     const data = await graphQLClient.request(mutation, variables);
-    // MutationCreateAnnotationArgs, {inputAnnotation: CreateAnnotationInput}
     console.log(JSON.stringify(data, undefined, 2));
 }
 main().catch((error) => console.error(error));

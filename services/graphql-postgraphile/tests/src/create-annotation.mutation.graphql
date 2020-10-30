@@ -1,0 +1,11 @@
+mutation MyMutation($inputAnnotation: CreateAnnotationInput!) {
+    __typename
+    createAnnotation(input: $inputAnnotation) {
+      annotation {
+        annotationId
+        location
+        noteType
+        text
+      }
+    }
+}
