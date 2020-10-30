@@ -1,6 +1,17 @@
 mutation MyMutation {
   __typename
-  createAccount(input: {account: {accountId: "46d3f3d1-879b-4314-9301-ae470c5a2062", email: "uilxela7@gmail.com", emailVerified: true, firstName: "Alex", lastName: "Liu", role: "margins_account"}}) {
+  createAccount(
+    input: {
+      account: {
+        accountId: "46d3f3d1-879b-4314-9301-ae470c5a2062"
+        email: "uilxela7@gmail.com"
+        emailVerified: true
+        firstName: "Alex"
+        lastName: "Liu"
+        role: "margins_account"
+      }
+    }
+  ) {
     account {
       id
       accountId
@@ -30,7 +41,31 @@ mutation MyMutation {
       name
     }
   }
-  createPublication(input: {publication: {publicationId: "5f7e785c5adb04e595916e9e", bookUsingPublicationId: {create: {isbn13: "9780684862149", title: "The Worldly Philosophers", description: "<i>The Worldly Philosophers</i> not only ", imageUrl: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1463591845l/82120._SX98_.jpg", languageCode: "eng", publicationDate: "1999-08-10", publisher: "Touchstone/Simon & Schuster", type: "BOOK"}}, accountPublicationsUsingPublicationId: {create: {accountId: "46d3f3d1-879b-4314-9301-ae470c5a2062", publicationToPublicationId: {connectByPublicationId: {publicationId: "5f7e785c5adb04e595916e9e"}}}}, publicationAuthorsUsingPublicationId: {create: {authorToAuthorId: {connectByAuthorId: {authorId: "5f7e840a5adb04e595916e9f"}}, publicationToPublicationId: {connectByPublicationId: {publicationId: "5f7e785c5adb04e595916e9e"}}}}}}) {
+  createPublication(
+    input: {
+      publication: {
+        publicationId: "5f7e785c5adb04e595916e9e"
+        bookUsingPublicationId: {
+          create: {
+            isbn13: "9780684862149"
+            title: "The Worldly Philosophers"
+            description: "<i>The Worldly Philosophers</i> not only "
+            imageUrl: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1463591845l/82120._SX98_.jpg"
+            languageCode: "eng"
+            publicationDate: "1999-08-10"
+            publisher: "Touchstone/Simon & Schuster"
+            type: "BOOK"
+          }
+        }
+        accountPublicationsUsingPublicationId: {
+          create: { accountId: "46d3f3d1-879b-4314-9301-ae470c5a2062" }
+        }
+        publicationAuthorsUsingPublicationId: {
+          create: { authorId: "5f7e840a5adb04e595916e9f" }
+        }
+      }
+    }
+  ) {
     clientMutationId
     publication {
       createdAt
@@ -50,7 +85,7 @@ mutation MyMutation {
         type
       }
     }
-  },
+  }
   createAnnotation(
     input: {
       annotation: {
@@ -60,7 +95,7 @@ mutation MyMutation {
         publicationId: "5f7e785c5adb04e595916e9e"
         recordedAt: "2020-02-13 23:00:13-6"
         text: "This is a book about a handful of men with a curious claim to fame. By all the rules of schoolboy history books, they were nonentities: they commanded no armies, sent no men to their deaths, ruled no empires, took little part in history-making decisions. A few of them achieved renown, but none was ever a national hero; a few were roundly abused, but none was ever quite a national villain. Yet what they did was more decisive for history than many acts of statesmen who basked in brighter glory, often more profoundly disturbing than the shuttling of armies back and forth across frontiers, more powerful for good and bad than the edicts of kings and legislatures. It was this: they shaped and swayed men's minds."
-        location: {kindle: {begin: 140, end: 144}}
+        location: { kindle: { begin: 140, end: 144 } }
       }
     }
   ) {
@@ -77,7 +112,7 @@ mutation MyMutation {
       annotationId
       createdAt
     }
-  },
+  }
   createTag(
     input: {
       tag: {
