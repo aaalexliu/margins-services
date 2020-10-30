@@ -34,7 +34,7 @@ CREATE TABLE book (
   "language_code" char(3),
   "publisher" text,
   "publication_date" date,
-  "description" text,
+  "description" text,x
   "type" text
 );
 
@@ -47,13 +47,14 @@ CREATE TYPE annotation_note_type AS ENUM(
 
 CREATE TABLE annotation (
   "annotation_id" char(24) PRIMARY KEY CHECK (is_valid_mongo_id(annotation_id)),
-  "publication_id" char(24) REFERENCES publication (publication_id) NOT NULL ON DELETE CASCADE,
-  "account_id" uuid REFERENCES account (account_id) NOT NULL ON DELETE CASCADE,
+  "publication_id" char(24) REFERENCES publication (publication_id) ON DELETE CASCADE NOT NULL,
+  "account_id" uuid REFERENCES account (account_id) ON DELETE CASCADE NOT NULL,
   "recorded_at" timestamp with time zone,
   "text" text,
   "created_at" timestamp with time zone DEFAULT now(),
   "updated_at" timestamp with time zone DEFAULT now(),
   "note_type" annotation_note_type,
+  "color" text,
   "location" jsonb,
   "user_edits" jsonb,
   "parent_annotation_id" char(24) REFERENCES annotation(annotation_id) ON DELETE CASCADE 
@@ -68,8 +69,8 @@ CREATE TABLE author (
 );
 
 CREATE TABLE publication_author (
-  "publication_id" char(24) REFERENCES publication (publication_id) NOT NULL ON DELETE CASCADE,
-  "author_id" char(24) REFERENCES author (author_id) NOT NULL ON DELETE CASCADE,
+  "publication_id" char(24) REFERENCES publication (publication_id) ON DELETE CASCADE NOT NULL,
+  "author_id" char(24) REFERENCES author (author_id) ON DELETE CASCADE NOT NULL,
   PRIMARY KEY ("publication_id", "author_id")
 );
 
@@ -78,8 +79,8 @@ CREATE INDEX publication_author_author_id_index ON publication_author (author_id
 -- primary index order is publication_id first so to search author order doesn't match
 
 CREATE TABLE account_publication (
-  "account_id" uuid REFERENCES account (account_id) NOT NULL ON DELETE CASCADE,
-  "publication_id" char(24) REFERENCES publication (publication_id) NOT NULL ON DELETE CASCADE,
+  "account_id" uuid REFERENCES account (account_id) ON DELETE CASCADE NOT NULL ,
+  "publication_id" char(24) REFERENCES publication (publication_id) ON DELETE CASCADE NOT NULL,
   PRIMARY KEY ("account_id", "publication_id")
 );
 
@@ -94,8 +95,8 @@ CREATE TABLE tag (
 CREATE INDEX tag_account_id ON tag (account_id);
 
 CREATE TABLE annotation_tag (
-  "annotation_id" char(24) REFERENCES annotation (annotation_id) NOT NULL ON DELETE CASCADE,
-  "tag_id" char(24) REFERENCES tag (tag_id) NOT NULL ON DELETE CASCADE,
+  "annotation_id" char(24) REFERENCES annotation (annotation_id) ON DELETE CASCADE NOT NULL,
+  "tag_id" char(24) REFERENCES tag (tag_id) ON DELETE CASCADE NOT NULL,
   PRIMARY KEY ("annotation_id", "tag_id")
 );
 
