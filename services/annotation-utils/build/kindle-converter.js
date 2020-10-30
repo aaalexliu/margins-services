@@ -2,6 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.KindleConverter = void 0;
 const cheerio = require("cheerio");
+const HIGHLIGHT = 'HIGHLIGHT';
+const NOTE = 'NOTE';
 class KindleConverter {
     constructor(kindleHTML) {
         this.highlightRegex = /highlight/i;
@@ -65,18 +67,18 @@ class KindleConverter {
                 text: noteText
             };
             // check if highlight, then add color
-            if (note.noteType === 'highlight') {
+            if (note.noteType === HIGHLIGHT) {
                 let highlightClass = noteHeadingElement.find("span[class^='highlight_']").attr('class');
                 let highlightColorMatch = highlightClass.match(this.highlightColorRegex);
-                note.highlightColor = highlightColorMatch.groups.color;
+                note.color = highlightColorMatch.groups.color;
             }
-            else if (note.noteType === 'note') {
+            else if (note.noteType === NOTE) {
                 // check if noteType is note. if previous noteType is highlight, assume that note
                 // is child note of highlight. if previous noteType is note, assume orphan note and add
                 // with current kindle export format, no way to indepedently determine whether
                 // noteType note is orphan or child
                 let prevNote = allNotes.slice(-1)[0];
-                if (prevNote && prevNote.noteType === 'highlight') {
+                if (prevNote && prevNote.noteType === HIGHLIGHT) {
                     prevNote.childNote = note;
                     continue;
                 }
@@ -121,15 +123,15 @@ class KindleConverter {
         let tempNoteType = noteType;
         tempNoteType = this.translateNoteType(tempNoteType);
         if (this.highlightRegex.test(tempNoteType))
-            return 'HIGHLIGHT';
+            return HIGHLIGHT;
         if (this.noteRegex.test(tempNoteType))
-            return 'NOTE';
+            return NOTE;
         throw new Error(`Not valid kindle note - invalid note type: ${noteType}`);
     }
     translateNoteType(noteType) {
         let translated = noteType
-            .replace(/标注/, "highlight")
-            .replace(/笔记/, "note");
+            .replace(/标注/, HIGHLIGHT)
+            .replace(/笔记/, NOTE);
         // console.log(translated);
         return translated;
     }
