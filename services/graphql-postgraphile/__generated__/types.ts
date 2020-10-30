@@ -55,6 +55,7 @@ export type Query = Node & {
   annotationTagByAnnotationIdAndTagId?: Maybe<AnnotationTag>;
   authorByAuthorId?: Maybe<Author>;
   bookByPublicationId?: Maybe<Book>;
+  bookByTitle?: Maybe<Book>;
   publicationByPublicationId?: Maybe<Publication>;
   publicationAuthorByPublicationIdAndAuthorId?: Maybe<PublicationAuthor>;
   tagByTagId?: Maybe<Tag>;
@@ -247,6 +248,12 @@ export type QueryAuthorByAuthorIdArgs = {
 /** The root query type which gives access points into the data universe. */
 export type QueryBookByPublicationIdArgs = {
   publicationId: Scalars['String'];
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QueryBookByTitleArgs = {
+  title: Scalars['String'];
 };
 
 
@@ -664,6 +671,8 @@ export type BooksOrderBy =
   | 'NATURAL'
   | 'PUBLICATION_ID_ASC'
   | 'PUBLICATION_ID_DESC'
+  | 'TITLE_ASC'
+  | 'TITLE_DESC'
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC';
 
@@ -671,6 +680,8 @@ export type BooksOrderBy =
 export type BookCondition = {
   /** Checks for equality with the object’s `publicationId` field. */
   publicationId?: Maybe<Scalars['String']>;
+  /** Checks for equality with the object’s `title` field. */
+  title?: Maybe<Scalars['String']>;
 };
 
 /** A connection to a list of `Book` values. */
@@ -1349,6 +1360,8 @@ export type Mutation = {
   updateBook?: Maybe<UpdateBookPayload>;
   /** Updates a single `Book` using a unique key and a patch. */
   updateBookByPublicationId?: Maybe<UpdateBookPayload>;
+  /** Updates a single `Book` using a unique key and a patch. */
+  updateBookByTitle?: Maybe<UpdateBookPayload>;
   /** Updates a single `Publication` using its globally unique id and a patch. */
   updatePublication?: Maybe<UpdatePublicationPayload>;
   /** Updates a single `Publication` using a unique key and a patch. */
@@ -1387,6 +1400,8 @@ export type Mutation = {
   deleteBook?: Maybe<DeleteBookPayload>;
   /** Deletes a single `Book` using a unique key. */
   deleteBookByPublicationId?: Maybe<DeleteBookPayload>;
+  /** Deletes a single `Book` using a unique key. */
+  deleteBookByTitle?: Maybe<DeleteBookPayload>;
   /** Deletes a single `Publication` using its globally unique id. */
   deletePublication?: Maybe<DeletePublicationPayload>;
   /** Deletes a single `Publication` using a unique key. */
@@ -1535,6 +1550,12 @@ export type MutationUpdateBookByPublicationIdArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateBookByTitleArgs = {
+  input: UpdateBookByTitleInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
 export type MutationUpdatePublicationArgs = {
   input: UpdatePublicationInput;
 };
@@ -1645,6 +1666,12 @@ export type MutationDeleteBookArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationDeleteBookByPublicationIdArgs = {
   input: DeleteBookByPublicationIdInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteBookByTitleArgs = {
+  input: DeleteBookByTitleInput;
 };
 
 
@@ -1837,13 +1864,19 @@ export type BookPublicationIdFkeyInverseInput = {
   /** The primary key(s) for `book` for the far side of the relationship. */
   connectByPublicationId?: Maybe<BookBookPkeyConnect>;
   /** The primary key(s) for `book` for the far side of the relationship. */
+  connectByTitle?: Maybe<BookUniqTitleConnect>;
+  /** The primary key(s) for `book` for the far side of the relationship. */
   connectById?: Maybe<BookNodeIdConnect>;
   /** The primary key(s) for `book` for the far side of the relationship. */
   deleteByPublicationId?: Maybe<BookBookPkeyDelete>;
   /** The primary key(s) for `book` for the far side of the relationship. */
+  deleteByTitle?: Maybe<BookUniqTitleDelete>;
+  /** The primary key(s) for `book` for the far side of the relationship. */
   deleteById?: Maybe<BookNodeIdDelete>;
   /** The primary key(s) and patch data for `book` for the far side of the relationship. */
   updateByPublicationId?: Maybe<BookOnBookForBookPublicationIdFkeyUsingBookPkeyUpdate>;
+  /** The primary key(s) and patch data for `book` for the far side of the relationship. */
+  updateByTitle?: Maybe<BookOnBookForBookPublicationIdFkeyUsingUniqTitleUpdate>;
   /** The primary key(s) and patch data for `book` for the far side of the relationship. */
   updateById?: Maybe<PublicationOnBookForBookPublicationIdFkeyNodeIdUpdate>;
   /** A `BookInput` object that will be created and connected to this object. */
@@ -1855,6 +1888,11 @@ export type BookBookPkeyConnect = {
   publicationId: Scalars['String'];
 };
 
+/** The fields on `book` to look up the row to connect. */
+export type BookUniqTitleConnect = {
+  title: Scalars['String'];
+};
+
 /** The globally unique `ID` look up for the row to connect. */
 export type BookNodeIdConnect = {
   /** The globally unique `ID` which identifies a single `book` to be connected. */
@@ -1864,6 +1902,11 @@ export type BookNodeIdConnect = {
 /** The fields on `book` to look up the row to delete. */
 export type BookBookPkeyDelete = {
   publicationId: Scalars['String'];
+};
+
+/** The fields on `book` to look up the row to delete. */
+export type BookUniqTitleDelete = {
+  title: Scalars['String'];
 };
 
 /** The globally unique `ID` look up for the row to delete. */
@@ -3093,6 +3136,13 @@ export type BookPublicationIdFkeyPublicationCreateInput = {
   accountPublicationsUsingPublicationId?: Maybe<AccountPublicationPublicationIdFkeyInverseInput>;
 };
 
+/** The fields on `book` to look up the row to update. */
+export type BookOnBookForBookPublicationIdFkeyUsingUniqTitleUpdate = {
+  /** An object where the defined keys will be set on the `book` being updated. */
+  bookPatch: UpdateBookOnBookForBookPublicationIdFkeyPatch;
+  title: Scalars['String'];
+};
+
 /** The globally unique `ID` look up for the row to update. */
 export type PublicationOnBookForBookPublicationIdFkeyNodeIdUpdate = {
   /** The globally unique `ID` which identifies a single `book` to be connected. */
@@ -3762,6 +3812,15 @@ export type UpdateBookByPublicationIdInput = {
   publicationId: Scalars['String'];
 };
 
+/** All input for the `updateBookByTitle` mutation. */
+export type UpdateBookByTitleInput = {
+  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** An object where the defined keys will be set on the `Book` being updated. */
+  bookPatch: BookPatch;
+  title: Scalars['String'];
+};
+
 /** All input for the `updatePublication` mutation. */
 export type UpdatePublicationInput = {
   /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
@@ -4114,6 +4173,13 @@ export type DeleteBookByPublicationIdInput = {
   /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
   clientMutationId?: Maybe<Scalars['String']>;
   publicationId: Scalars['String'];
+};
+
+/** All input for the `deleteBookByTitle` mutation. */
+export type DeleteBookByTitleInput = {
+  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  clientMutationId?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
 };
 
 /** All input for the `deletePublication` mutation. */

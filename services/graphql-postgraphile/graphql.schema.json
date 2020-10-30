@@ -1190,6 +1190,33 @@
             "deprecationReason": null
           },
           {
+            "name": "bookByTitle",
+            "description": null,
+            "args": [
+              {
+                "name": "title",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Book",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "publicationByPublicationId",
             "description": null,
             "args": [
@@ -4094,6 +4121,18 @@
             "deprecationReason": null
           },
           {
+            "name": "TITLE_ASC",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TITLE_DESC",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "PRIMARY_KEY_ASC",
             "description": null,
             "isDeprecated": false,
@@ -4117,6 +4156,16 @@
           {
             "name": "publicationId",
             "description": "Checks for equality with the object’s `publicationId` field.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "title",
+            "description": "Checks for equality with the object’s `title` field.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -8333,6 +8382,33 @@
             "deprecationReason": null
           },
           {
+            "name": "updateBookByTitle",
+            "description": "Updates a single `Book` using a unique key and a patch.",
+            "args": [
+              {
+                "name": "input",
+                "description": "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "UpdateBookByTitleInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "UpdateBookPayload",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "updatePublication",
             "description": "Updates a single `Publication` using its globally unique id and a patch.",
             "args": [
@@ -8831,6 +8907,33 @@
                   "ofType": {
                     "kind": "INPUT_OBJECT",
                     "name": "DeleteBookByPublicationIdInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "DeleteBookPayload",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "deleteBookByTitle",
+            "description": "Deletes a single `Book` using a unique key.",
+            "args": [
+              {
+                "name": "input",
+                "description": "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "DeleteBookByTitleInput",
                     "ofType": null
                   }
                 },
@@ -9932,6 +10035,16 @@
             "defaultValue": null
           },
           {
+            "name": "connectByTitle",
+            "description": "The primary key(s) for `book` for the far side of the relationship.",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "BookUniqTitleConnect",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "connectById",
             "description": "The primary key(s) for `book` for the far side of the relationship.",
             "type": {
@@ -9952,6 +10065,16 @@
             "defaultValue": null
           },
           {
+            "name": "deleteByTitle",
+            "description": "The primary key(s) for `book` for the far side of the relationship.",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "BookUniqTitleDelete",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "deleteById",
             "description": "The primary key(s) for `book` for the far side of the relationship.",
             "type": {
@@ -9967,6 +10090,16 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "BookOnBookForBookPublicationIdFkeyUsingBookPkeyUpdate",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "updateByTitle",
+            "description": "The primary key(s) and patch data for `book` for the far side of the relationship.",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "BookOnBookForBookPublicationIdFkeyUsingUniqTitleUpdate",
               "ofType": null
             },
             "defaultValue": null
@@ -10031,6 +10164,31 @@
       },
       {
         "kind": "INPUT_OBJECT",
+        "name": "BookUniqTitleConnect",
+        "description": "The fields on `book` to look up the row to connect.",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "title",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
         "name": "BookNodeIdConnect",
         "description": "The globally unique `ID` look up for the row to connect.",
         "fields": null,
@@ -10062,6 +10220,31 @@
         "inputFields": [
           {
             "name": "publicationId",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "BookUniqTitleDelete",
+        "description": "The fields on `book` to look up the row to delete.",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "title",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -17622,6 +17805,45 @@
       },
       {
         "kind": "INPUT_OBJECT",
+        "name": "BookOnBookForBookPublicationIdFkeyUsingUniqTitleUpdate",
+        "description": "The fields on `book` to look up the row to update.",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "bookPatch",
+            "description": "An object where the defined keys will be set on the `book` being updated.",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "INPUT_OBJECT",
+                "name": "updateBookOnBookForBookPublicationIdFkeyPatch",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "title",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
         "name": "PublicationOnBookForBookPublicationIdFkeyNodeIdUpdate",
         "description": "The globally unique `ID` look up for the row to update.",
         "fields": null,
@@ -21112,6 +21334,55 @@
       },
       {
         "kind": "INPUT_OBJECT",
+        "name": "UpdateBookByTitleInput",
+        "description": "All input for the `updateBookByTitle` mutation.",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "clientMutationId",
+            "description": "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "bookPatch",
+            "description": "An object where the defined keys will be set on the `Book` being updated.",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "INPUT_OBJECT",
+                "name": "BookPatch",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "title",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
         "name": "UpdatePublicationInput",
         "description": "All input for the `updatePublication` mutation.",
         "fields": null,
@@ -22778,6 +23049,41 @@
           },
           {
             "name": "publicationId",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DeleteBookByTitleInput",
+        "description": "All input for the `deleteBookByTitle` mutation.",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "clientMutationId",
+            "description": "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "title",
             "description": null,
             "type": {
               "kind": "NON_NULL",
