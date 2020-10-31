@@ -34,30 +34,25 @@ CREATE TABLE book (
   "language_code" char(3),
   "publisher" text,
   "publication_date" date,
-  "description" text,x
-  "type" text
+  "description" text,
+  "bookType" text
 );
 
 CREATE INDEX book_publication_id_index ON book (publication_id);
-
-CREATE TYPE annotation_note_type AS ENUM(
-  'highlight',
-  'note'
-);
 
 CREATE TABLE annotation (
   "annotation_id" char(24) PRIMARY KEY CHECK (is_valid_mongo_id(annotation_id)),
   "publication_id" char(24) REFERENCES publication (publication_id) ON DELETE CASCADE NOT NULL,
   "account_id" uuid REFERENCES account (account_id) ON DELETE CASCADE NOT NULL,
+  "color" text,
+  "highlight_location" jsonb,
+  "highlight_text" text,
+  "note_text" text,
+  "note_location" jsonb,
   "recorded_at" timestamp with time zone,
-  "text" text,
   "created_at" timestamp with time zone DEFAULT now(),
   "updated_at" timestamp with time zone DEFAULT now(),
-  "note_type" annotation_note_type,
-  "color" text,
-  "location" jsonb,
-  "user_edits" jsonb,
-  "parent_annotation_id" char(24) REFERENCES annotation(annotation_id) ON DELETE CASCADE 
+  "extra_edits" jsonb
 );
 
 CREATE INDEX annotation_publication_id_index ON annotation (publication_id);
