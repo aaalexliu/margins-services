@@ -41,7 +41,7 @@ class KindleConverter {
     getBookNotes() {
         const allNoteHeadingElements = this.$("[class$='Heading']");
         let section = '';
-        let allNotes = [];
+        let allAnnotations = [];
         for (let i = 0; i < allNoteHeadingElements.length; i++) {
             let noteHeadingElement = allNoteHeadingElements.eq(i);
             // if sectionHeading, skip parseNoteHeading
@@ -61,31 +61,45 @@ class KindleConverter {
                 .trim()
                 .replace(/\s\s+/g, ' ');
             // assemble note object
-            const note = {
-                noteType: noteHeading.noteType,
-                location: noteHeading.location,
-                text: noteText
-            };
+            // const note: Annotation = {
+            //   noteType: noteHeading.noteType,
+            //   location: noteHeading.location,
+            // };
+            let annotation;
             // check if highlight, then add color
-            if (note.noteType === HIGHLIGHT) {
-                let highlightClass = noteHeadingElement.find("span[class^='highlight_']").attr('class');
-                let highlightColorMatch = highlightClass.match(this.highlightColorRegex);
-                note.color = highlightColorMatch.groups.color;
+            if (noteHeading.noteType === HIGHLIGHT) {
+                annotation = this.createHighlight(noteHeading, noteHeadingElement, noteText);
             }
-            else if (note.noteType === NOTE) {
+            else if (noteHeading.noteType === NOTE) {
+                annotation = this.createNote(noteHeading, noteText);
                 // check if noteType is note. if previous noteType is highlight, assume that note
                 // is child note of highlight. if previous noteType is note, assume orphan note and add
                 // with current kindle export format, no way to indepedently determine whether
                 // noteType note is orphan or child
-                let prevNote = allNotes.slice(-1)[0];
-                if (prevNote && prevNote.noteType === HIGHLIGHT) {
-                    prevNote.childNote = note;
+                let prevNote = allAnnotations.slice(-1)[0];
+                if (prevNote && prevNote.highlightText) {
+                    Object.assign(prevNote, annotation);
                     continue;
                 }
             }
-            allNotes.push(note);
+            allAnnotations.push(annotation);
         }
-        return allNotes;
+        return allAnnotations;
+    }
+    createHighlight(noteHeading, noteHeadingElement, text) {
+        let highlightClass = noteHeadingElement.find("span[class^='highlight_']").attr('class');
+        let highlightColorMatch = highlightClass.match(this.highlightColorRegex);
+        return {
+            highlightLocation: noteHeading.location,
+            color: highlightColorMatch.groups.color,
+            highlightText: text
+        };
+    }
+    createNote(noteHeading, text) {
+        return {
+            noteLocation: noteHeading.location,
+            noteText: text
+        };
     }
     parseNoteHeading(heading) {
         // console.log('unparsed heading', heading);
