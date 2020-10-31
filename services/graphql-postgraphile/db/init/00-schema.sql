@@ -22,14 +22,20 @@ $$ LANGUAGE SQL IMMUTABLE;
 
 CREATE TABLE publication (
   "publication_id" char(24) PRIMARY KEY CHECK (is_valid_mongo_id(publication_id)),
+  "account_id" uuid REFERENCES account (account_id) ON DELETE CASCADE NOT NULL,
   "created_at" timestamp with time zone,
-  "updated_at" timestamp with time zone
+  "updated_at" timestamp with time zone,
+  "title" text NOT NULL,
+  "additional_meta" jsonb,
+  UNIQUE(account_id, title)
 );
+
+CREATE INDEX publication_account_id_index ON publication (account_id);
 
 CREATE TABLE book (
   "publication_id" char(24) PRIMARY KEY REFERENCES publication (publication_id) ON DELETE CASCADE,
   "isbn13" char(13) CONSTRAINT is_isbn13 CHECK (char_length(isbn13) = 13),
-  "title" text NOT NULL UNIQUE,
+  "book_title" text NOT NULL,
   "image_url" text,
   "language_code" char(3),
   "publisher" text,
@@ -54,7 +60,7 @@ CREATE TABLE annotation (
   "updated_at" timestamp with time zone DEFAULT now(),
   "extra_edits" jsonb,
   UNIQUE(annotation_id, publication_id, account_id, highlight_location, highlight_text),
-  UNIQUE(annotation_id, publication_id, accound_id, note_location, note_text)
+  UNIQUE(annotation_id, publication_id, account_id, note_location, note_text)
 );
 
 CREATE INDEX annotation_publication_id_index ON annotation (publication_id);
@@ -75,19 +81,11 @@ CREATE INDEX publication_author_author_id_index ON publication_author (author_id
 
 -- primary index order is publication_id first so to search author order doesn't match
 
-CREATE TABLE account_publication (
-  "account_id" uuid REFERENCES account (account_id) ON DELETE CASCADE NOT NULL ,
-  "publication_id" char(24) REFERENCES publication (publication_id) ON DELETE CASCADE NOT NULL,
-  PRIMARY KEY ("account_id", "publication_id")
-);
-
-CREATE INDEX account_publication_publication_id ON account_publication (publication_id);
-
 CREATE TABLE tag (
   "tag_id" char(24) PRIMARY KEY CHECK (is_valid_mongo_id(tag_id)),
-  "name" text NOT NULL,
+  "tag_name" text NOT NULL,
   "account_id" uuid NOT NULL REFERENCES account (account_id) ON DELETE CASCADE,
-  UNIQUE(name, account_id)
+  UNIQUE(tag_name, account_id)
 );
 
 CREATE INDEX tag_account_id ON tag (account_id);
@@ -227,8 +225,8 @@ STABLE;
 -- set local jwt.claims.account_id to 2;
 ALTER TABLE account ENABLE ROW LEVEL SECURITY;
 
-ALTER TABLE account_publication ENABLE ROW LEVEL SECURITY;
+-- ALTER TABLE publication ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY account_allow_if_owner ON account FOR ALL USING (account_id = current_account_id ());
 
-CREATE POLICY account_publication_allow_if_owner ON account_publication FOR ALL USING (account_id = current_account_id ());
+-- CREATE POLICY publication_allow_if_owner ON publication FOR ALL USING (account_id = current_account_id ());
