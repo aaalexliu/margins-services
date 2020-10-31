@@ -1,7 +1,7 @@
 import { GraphQLClient, gql } from 'graphql-request';
 
 import {
-  CreateAccountInput
+  CreateAccountInput,
 } from '../../__generated__/types';
 
 const CREATE_ACCOUNT = gql`
@@ -22,6 +22,23 @@ const CREATE_ACCOUNT = gql`
   }
 `;
 
+const GET_ACCOUNT = gql`
+  query GetAccountByAccountId($accountId: UUID!) {
+    accountByAccountId(accountId: $accountId) {
+      accountId
+      email
+      emailVerified
+      group
+      fullName
+      firstName
+    }
+  }
+`;
+
+interface AccountIdVar {
+  accountId: string
+}
+
 interface AccountInputVar {
   accountInput: CreateAccountInput
 }
@@ -29,13 +46,23 @@ interface AccountInputVar {
 interface Account {
   accountId: string,
   email: string,
-  emailVerified: boolean
+  emailVerified: boolean,
+  group: string
 }
+
+// omit 'id' from imported Account type, since it's generated
+// server side to adhere to the relay specification
+// so in a sense it's a local account instead of global 
+// OK NVM works in theory but many to many plugin adds a ton of
+// connectors that seem like a pain to strip, just manually
+// define interface then...
+// type LocalAccount = Omit<Account, "id">;
 
 interface CognitoAccount {
   sub: string,
   email: string,
-  emailVerified: boolean
+  emailVerified: boolean,
+  'cognito:groups': [string]
 }
 
 export default class AccountMapper {
@@ -49,13 +76,32 @@ export default class AccountMapper {
     });
   }
 
+  async findOrCreateCognitoAccount(cognitoAccount: CognitoAccount) {
+    const findResponse = await this.findCognitoAccount(cognitoAccount);
+    console.log('find response', findResponse);
+    if (findResponse) return findResponse;
+    
+    const createResponse = await this.createAccountFromCognito(cognitoAccount);
+    console.log('create response', createResponse);
+    return createResponse;
+  }
+
+  async findCognitoAccount(cognitoAccount: CognitoAccount) {
+    const accountId = cognitoAccount.sub;
+    const response = await this.graphQLClient
+      .request<any, AccountIdVar>(GET_ACCOUNT, { accountId });
+    return response.data;
+  }
+
   async createAccountFromCognito(cognitoAccount: CognitoAccount) {
     const account = {
       accountId: cognitoAccount.sub,
       email: cognitoAccount.email,
-      emailVerified: cognitoAccount.emailVerified
+      emailVerified: cognitoAccount.emailVerified,
+      group: cognitoAccount['cognito:groups'][0]
     }
     const response = await this.createAccount(account);
+    return response;
   }
 
   async createAccount(account: Account) {
@@ -63,7 +109,7 @@ export default class AccountMapper {
     const response = await this.graphQLClient.request(CREATE_ACCOUNT, accountInputVar);
     console.log(response);
 
-    return response;
+    return response.data;
   }
 
   createAccountInput(account: Account): AccountInputVar {
