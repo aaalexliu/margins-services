@@ -10,7 +10,7 @@ const CREATE_ANNOTATION_MUTATION = graphql_request_1.gql `
         annotationId
         location
         noteType
-        text
+        higlightText
       }
     }
   }
@@ -32,11 +32,14 @@ class AnnotationMapper {
     }
     createAnnotationInput(annotation) {
         const annotationId = (new mongodb_1.ObjectID()).toHexString();
+        if ('noteLocation' in annotation)
+            annotation.noteLocation = JSON.stringify(annotation.noteLocation);
+        if ('highlightLocation' in annotation)
+            annotation.highlightLocation = JSON.stringify(annotation.highlightLocation);
         return {
             inputAnnotation: {
                 annotation: {
                     ...annotation,
-                    location: JSON.stringify(annotation.location),
                     annotationId,
                     publicationId: this.publicationId,
                     accountId: this.accountId

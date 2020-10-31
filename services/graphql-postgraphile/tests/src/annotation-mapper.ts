@@ -4,8 +4,7 @@ import { ObjectID } from 'mongodb';
 import {
   AnnotationInput,
   CreateAccountInput,
-  CreateAnnotationInput,
-  AnnotationNoteType
+  CreateAnnotationInput
 } from '../../__generated__/types';
 
 const CREATE_ANNOTATION_MUTATION = gql`
@@ -16,19 +15,24 @@ const CREATE_ANNOTATION_MUTATION = gql`
         annotationId
         location
         noteType
-        text
+        higlightText
       }
     }
   }
 `
 
-interface Annotation {
-  noteType: AnnotationNoteType,
-  location: any,
-  text: string,
-  childNote?: any,
-  highlightColor?: string
+interface Highlight {
+  highlightText: string,
+  color: string,
+  highlightLocation: any
 }
+
+interface Note {
+  noteText: string,
+  noteLocation: any
+}
+
+type Annotation = Highlight | Note;
 
 interface AnnotationMutationVars {
   inputAnnotation: CreateAnnotationInput
@@ -57,11 +61,13 @@ export default class AnnotationMapper {
 
   createAnnotationInput(annotation: Annotation): AnnotationMutationVars {
     const annotationId = (new ObjectID()).toHexString();
+    if ('noteLocation' in annotation) annotation.noteLocation = JSON.stringify(annotation.noteLocation);
+    if ('highlightLocation' in annotation) annotation.highlightLocation = JSON.stringify(annotation.highlightLocation);
+
     return {
       inputAnnotation: {
         annotation: {
           ...annotation,
-          location: JSON.stringify(annotation.location),
           annotationId,
           publicationId: this.publicationId,
           accountId: this.accountId
