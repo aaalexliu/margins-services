@@ -40,7 +40,7 @@ const CREATE_BOOK = gql`
           publicationId
           publisher
           title
-          type
+          bookType
         }
       }
     }

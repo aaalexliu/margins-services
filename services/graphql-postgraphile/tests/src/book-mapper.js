@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const graphql_request_1 = require("graphql-request");
 const mongodb_1 = require("mongodb");
 const CREATE_AUTHOR = graphql_request_1.gql `
-  mutation CreateAuthor($inputAuthor: CreateAuthorInput!) {
-    createAuthor(input: $inputAuthor) {
+  mutation CreateAuthor($authorInput: CreateAuthorInput!) {
+    createAuthor(input: $authorInput) {
       __typename
       author {
         authorId
@@ -14,8 +14,8 @@ const CREATE_AUTHOR = graphql_request_1.gql `
   }
 `;
 const CREATE_BOOK = graphql_request_1.gql `
-  mutation CreatePublication($inputBook: CreatePublicationInput!) {
-    createPublication(input: $inputBook) {
+  mutation CreatePublication($bookInput: CreatePublicationInput!) {
+    createPublication(input: $bookInput) {
       __typename
       publication {
         createdAt
@@ -32,7 +32,7 @@ const CREATE_BOOK = graphql_request_1.gql `
           publicationId
           publisher
           title
-          type
+          bookType
         }
       }
     }
@@ -50,6 +50,8 @@ class BookMapper {
     generateObjectId() {
         const objectId = new mongodb_1.ObjectID();
         return objectId.toHexString();
+    }
+    async findOrCreateBook(book) {
     }
     async createBook(book) {
         const bookMutationVars = this.createBookInput(book);
@@ -75,7 +77,7 @@ class BookMapper {
         const bookNoAuthors = Object.assign({}, book);
         delete bookNoAuthors.authors;
         return {
-            inputBook: {
+            bookInput: {
                 publication: {
                     publicationId,
                     bookUsingPublicationId: {
@@ -97,7 +99,7 @@ class BookMapper {
         };
     }
     getBookPublicationId(input) {
-        return input.inputBook.publication.publicationId;
+        return input.bookInput.publication.publicationId;
     }
     async createAuthor(name, publicationId) {
         const mutationVar = this.createAuthorInput(name, publicationId);
@@ -107,7 +109,7 @@ class BookMapper {
     createAuthorInput(name, publicationId) {
         const authorId = this.generateObjectId();
         return {
-            inputAuthor: {
+            authorInput: {
                 author: {
                     authorId,
                     name,
