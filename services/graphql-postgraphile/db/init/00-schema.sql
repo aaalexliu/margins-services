@@ -52,7 +52,9 @@ CREATE TABLE annotation (
   "recorded_at" timestamp with time zone,
   "created_at" timestamp with time zone DEFAULT now(),
   "updated_at" timestamp with time zone DEFAULT now(),
-  "extra_edits" jsonb
+  "extra_edits" jsonb,
+  UNIQUE(annotation_id, publication_id, account_id, highlight_location, highlight_text),
+  UNIQUE(annotation_id, publication_id, accound_id, note_location, note_text)
 );
 
 CREATE INDEX annotation_publication_id_index ON annotation (publication_id);
@@ -60,7 +62,7 @@ CREATE INDEX annotation_account_id_index ON annotation (account_id);
 
 CREATE TABLE author (
   "author_id" char(24) PRIMARY KEY CHECK (is_valid_mongo_id(author_id)),
-  "name" text
+  "name" text UNIQUE NOT NULL
 );
 
 CREATE TABLE publication_author (
@@ -84,7 +86,8 @@ CREATE INDEX account_publication_publication_id ON account_publication (publicat
 CREATE TABLE tag (
   "tag_id" char(24) PRIMARY KEY CHECK (is_valid_mongo_id(tag_id)),
   "name" text NOT NULL,
-  "account_id" uuid NOT NULL REFERENCES account (account_id) ON DELETE CASCADE
+  "account_id" uuid NOT NULL REFERENCES account (account_id) ON DELETE CASCADE,
+  UNIQUE(name, account_id)
 );
 
 CREATE INDEX tag_account_id ON tag (account_id);
