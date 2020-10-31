@@ -2012,7 +2012,7 @@
             "deprecationReason": null
           },
           {
-            "name": "role",
+            "name": "group",
             "description": null,
             "args": [],
             "type": {
@@ -2819,24 +2819,72 @@
             "deprecationReason": null
           },
           {
-            "name": "recordedAt",
+            "name": "color",
             "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "Datetime",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "text",
+            "name": "highlightLocation",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSON",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "highlightedText",
             "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "noteText",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "noteLocation",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSON",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "recordedAt",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Datetime",
               "ofType": null
             },
             "isDeprecated": false,
@@ -2867,48 +2915,12 @@
             "deprecationReason": null
           },
           {
-            "name": "noteType",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "ENUM",
-              "name": "AnnotationNoteType",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "location",
+            "name": "extraEdits",
             "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "JSON",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "userEdits",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "JSON",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "parentAnnotationId",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -3138,29 +3150,6 @@
           }
         ],
         "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "ENUM",
-        "name": "AnnotationNoteType",
-        "description": null,
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": [
-          {
-            "name": "HIGHLIGHT",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "NOTE",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
         "possibleTypes": null
       },
       {
@@ -4049,7 +4038,7 @@
             "deprecationReason": null
           },
           {
-            "name": "type",
+            "name": "bookType",
             "description": null,
             "args": [],
             "type": {
@@ -9226,7 +9215,7 @@
             "defaultValue": null
           },
           {
-            "name": "role",
+            "name": "group",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -9603,21 +9592,61 @@
             "defaultValue": null
           },
           {
-            "name": "recordedAt",
+            "name": "color",
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "Datetime",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null
           },
           {
-            "name": "text",
+            "name": "highlightLocation",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSON",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "highlightedText",
             "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "noteText",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "noteLocation",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSON",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "recordedAt",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Datetime",
               "ofType": null
             },
             "defaultValue": null
@@ -9643,41 +9672,11 @@
             "defaultValue": null
           },
           {
-            "name": "noteType",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "AnnotationNoteType",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "location",
+            "name": "extraEdits",
             "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "JSON",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "userEdits",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "JSON",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "parentAnnotationId",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
               "ofType": null
             },
             "defaultValue": null
@@ -10039,7 +10038,7 @@
             "description": "The primary key(s) for `book` for the far side of the relationship.",
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUniqTitleConnect",
+              "name": "BookBookTitleKeyConnect",
               "ofType": null
             },
             "defaultValue": null
@@ -10069,7 +10068,7 @@
             "description": "The primary key(s) for `book` for the far side of the relationship.",
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookUniqTitleDelete",
+              "name": "BookBookTitleKeyDelete",
               "ofType": null
             },
             "defaultValue": null
@@ -10099,7 +10098,7 @@
             "description": "The primary key(s) and patch data for `book` for the far side of the relationship.",
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "BookOnBookForBookPublicationIdFkeyUsingUniqTitleUpdate",
+              "name": "BookOnBookForBookPublicationIdFkeyUsingBookTitleKeyUpdate",
               "ofType": null
             },
             "defaultValue": null
@@ -10164,7 +10163,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "BookUniqTitleConnect",
+        "name": "BookBookTitleKeyConnect",
         "description": "The fields on `book` to look up the row to connect.",
         "fields": null,
         "inputFields": [
@@ -10239,7 +10238,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "BookUniqTitleDelete",
+        "name": "BookBookTitleKeyDelete",
         "description": "The fields on `book` to look up the row to delete.",
         "fields": null,
         "inputFields": [
@@ -10403,7 +10402,7 @@
             "defaultValue": null
           },
           {
-            "name": "type",
+            "name": "bookType",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -10831,21 +10830,61 @@
             "defaultValue": null
           },
           {
-            "name": "recordedAt",
+            "name": "color",
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "Datetime",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null
           },
           {
-            "name": "text",
+            "name": "highlightLocation",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSON",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "highlightedText",
             "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "noteText",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "noteLocation",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSON",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "recordedAt",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Datetime",
               "ofType": null
             },
             "defaultValue": null
@@ -10871,41 +10910,11 @@
             "defaultValue": null
           },
           {
-            "name": "noteType",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "AnnotationNoteType",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "location",
+            "name": "extraEdits",
             "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "JSON",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "userEdits",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "JSON",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "parentAnnotationId",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
               "ofType": null
             },
             "defaultValue": null
@@ -11302,7 +11311,7 @@
             "defaultValue": null
           },
           {
-            "name": "role",
+            "name": "group",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -11942,7 +11951,7 @@
             "defaultValue": null
           },
           {
-            "name": "role",
+            "name": "group",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -12550,7 +12559,7 @@
             "defaultValue": null
           },
           {
-            "name": "role",
+            "name": "group",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -12759,7 +12768,7 @@
             "defaultValue": null
           },
           {
-            "name": "role",
+            "name": "group",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -12884,7 +12893,7 @@
             "defaultValue": null
           },
           {
-            "name": "role",
+            "name": "group",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -13464,21 +13473,61 @@
             "defaultValue": null
           },
           {
-            "name": "recordedAt",
+            "name": "color",
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "Datetime",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null
           },
           {
-            "name": "text",
+            "name": "highlightLocation",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSON",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "highlightedText",
             "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "noteText",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "noteLocation",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSON",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "recordedAt",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Datetime",
               "ofType": null
             },
             "defaultValue": null
@@ -13504,41 +13553,11 @@
             "defaultValue": null
           },
           {
-            "name": "noteType",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "AnnotationNoteType",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "location",
+            "name": "extraEdits",
             "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "JSON",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "userEdits",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "JSON",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "parentAnnotationId",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
               "ofType": null
             },
             "defaultValue": null
@@ -14352,21 +14371,61 @@
             "defaultValue": null
           },
           {
-            "name": "recordedAt",
+            "name": "color",
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "Datetime",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null
           },
           {
-            "name": "text",
+            "name": "highlightLocation",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSON",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "highlightedText",
             "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "noteText",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "noteLocation",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSON",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "recordedAt",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Datetime",
               "ofType": null
             },
             "defaultValue": null
@@ -14392,41 +14451,11 @@
             "defaultValue": null
           },
           {
-            "name": "noteType",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "AnnotationNoteType",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "location",
+            "name": "extraEdits",
             "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "JSON",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "userEdits",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "JSON",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "parentAnnotationId",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
               "ofType": null
             },
             "defaultValue": null
@@ -14493,21 +14522,61 @@
             "defaultValue": null
           },
           {
-            "name": "recordedAt",
+            "name": "color",
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "Datetime",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null
           },
           {
-            "name": "text",
+            "name": "highlightLocation",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSON",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "highlightedText",
             "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "noteText",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "noteLocation",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSON",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "recordedAt",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Datetime",
               "ofType": null
             },
             "defaultValue": null
@@ -14533,41 +14602,11 @@
             "defaultValue": null
           },
           {
-            "name": "noteType",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "AnnotationNoteType",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "location",
+            "name": "extraEdits",
             "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "JSON",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "userEdits",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "JSON",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "parentAnnotationId",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
               "ofType": null
             },
             "defaultValue": null
@@ -14924,7 +14963,7 @@
             "defaultValue": null
           },
           {
-            "name": "role",
+            "name": "group",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -17445,7 +17484,7 @@
             "defaultValue": null
           },
           {
-            "name": "role",
+            "name": "group",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -17579,21 +17618,61 @@
             "defaultValue": null
           },
           {
-            "name": "recordedAt",
+            "name": "color",
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "Datetime",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null
           },
           {
-            "name": "text",
+            "name": "highlightLocation",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSON",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "highlightedText",
             "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "noteText",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "noteLocation",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSON",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "recordedAt",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Datetime",
               "ofType": null
             },
             "defaultValue": null
@@ -17619,41 +17698,11 @@
             "defaultValue": null
           },
           {
-            "name": "noteType",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "AnnotationNoteType",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "location",
+            "name": "extraEdits",
             "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "JSON",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "userEdits",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "JSON",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "parentAnnotationId",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
               "ofType": null
             },
             "defaultValue": null
@@ -17805,7 +17854,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "BookOnBookForBookPublicationIdFkeyUsingUniqTitleUpdate",
+        "name": "BookOnBookForBookPublicationIdFkeyUsingBookTitleKeyUpdate",
         "description": "The fields on `book` to look up the row to update.",
         "fields": null,
         "inputFields": [
@@ -17968,7 +18017,7 @@
             "defaultValue": null
           },
           {
-            "name": "type",
+            "name": "bookType",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -18073,7 +18122,7 @@
             "defaultValue": null
           },
           {
-            "name": "type",
+            "name": "bookType",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -18277,21 +18326,61 @@
             "defaultValue": null
           },
           {
-            "name": "recordedAt",
+            "name": "color",
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "Datetime",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null
           },
           {
-            "name": "text",
+            "name": "highlightLocation",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSON",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "highlightedText",
             "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "noteText",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "noteLocation",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSON",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "recordedAt",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Datetime",
               "ofType": null
             },
             "defaultValue": null
@@ -18317,41 +18406,11 @@
             "defaultValue": null
           },
           {
-            "name": "noteType",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "AnnotationNoteType",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "location",
+            "name": "extraEdits",
             "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "JSON",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "userEdits",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "JSON",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "parentAnnotationId",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
               "ofType": null
             },
             "defaultValue": null
@@ -18733,21 +18792,61 @@
             "defaultValue": null
           },
           {
-            "name": "recordedAt",
+            "name": "color",
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "Datetime",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null
           },
           {
-            "name": "text",
+            "name": "highlightLocation",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSON",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "highlightedText",
             "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "noteText",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "noteLocation",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSON",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "recordedAt",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Datetime",
               "ofType": null
             },
             "defaultValue": null
@@ -18773,41 +18872,11 @@
             "defaultValue": null
           },
           {
-            "name": "noteType",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "AnnotationNoteType",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "location",
+            "name": "extraEdits",
             "description": null,
             "type": {
               "kind": "SCALAR",
               "name": "JSON",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "userEdits",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "JSON",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "parentAnnotationId",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
               "ofType": null
             },
             "defaultValue": null
@@ -19421,7 +19490,7 @@
             "defaultValue": null
           },
           {
-            "name": "type",
+            "name": "bookType",
             "description": null,
             "type": {
               "kind": "SCALAR",

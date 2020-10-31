@@ -384,7 +384,7 @@ export type Account = Node & {
   updatedAt?: Maybe<Scalars['Datetime']>;
   status?: Maybe<Scalars['String']>;
   emailVerified?: Maybe<Scalars['Boolean']>;
-  role?: Maybe<Scalars['String']>;
+  group?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   /** Reads and enables pagination through a set of `Annotation`. */
@@ -498,14 +498,15 @@ export type Annotation = Node & {
   annotationId: Scalars['String'];
   publicationId: Scalars['String'];
   accountId: Scalars['UUID'];
+  color?: Maybe<Scalars['String']>;
+  highlightLocation?: Maybe<Scalars['JSON']>;
+  highlightedText?: Maybe<Scalars['String']>;
+  noteText?: Maybe<Scalars['String']>;
+  noteLocation?: Maybe<Scalars['JSON']>;
   recordedAt?: Maybe<Scalars['Datetime']>;
-  text?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
-  noteType?: Maybe<AnnotationNoteType>;
-  location?: Maybe<Scalars['JSON']>;
-  userEdits?: Maybe<Scalars['JSON']>;
-  parentAnnotationId?: Maybe<Scalars['String']>;
+  extraEdits?: Maybe<Scalars['JSON']>;
   /** Reads a single `Publication` that is related to this `Annotation`. */
   publicationByPublicationId?: Maybe<Publication>;
   /** Reads a single `Account` that is related to this `Annotation`. */
@@ -537,10 +538,6 @@ export type AnnotationTagsByAnnotationTagAnnotationIdAndTagIdArgs = {
   orderBy?: Maybe<Array<TagsOrderBy>>;
   condition?: Maybe<TagCondition>;
 };
-
-export type AnnotationNoteType = 
-  | 'HIGHLIGHT'
-  | 'NOTE';
 
 
 export type Publication = Node & {
@@ -660,7 +657,7 @@ export type Book = Node & {
   publisher?: Maybe<Scalars['String']>;
   publicationDate?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
+  bookType?: Maybe<Scalars['String']>;
   /** Reads a single `Publication` that is related to this `Book`. */
   publicationByPublicationId?: Maybe<Publication>;
 };
@@ -1726,7 +1723,7 @@ export type AccountInput = {
   updatedAt?: Maybe<Scalars['Datetime']>;
   status?: Maybe<Scalars['String']>;
   emailVerified?: Maybe<Scalars['Boolean']>;
-  role?: Maybe<Scalars['String']>;
+  group?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   annotationsUsingAccountId?: Maybe<AnnotationAccountIdFkeyInverseInput>;
@@ -1787,14 +1784,15 @@ export type AnnotationOnAnnotationForAnnotationAccountIdFkeyUsingAnnotationPkeyU
 export type UpdateAnnotationOnAnnotationForAnnotationAccountIdFkeyPatch = {
   annotationId?: Maybe<Scalars['String']>;
   publicationId?: Maybe<Scalars['String']>;
+  color?: Maybe<Scalars['String']>;
+  highlightLocation?: Maybe<Scalars['JSON']>;
+  highlightedText?: Maybe<Scalars['String']>;
+  noteText?: Maybe<Scalars['String']>;
+  noteLocation?: Maybe<Scalars['JSON']>;
   recordedAt?: Maybe<Scalars['Datetime']>;
-  text?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
-  noteType?: Maybe<AnnotationNoteType>;
-  location?: Maybe<Scalars['JSON']>;
-  userEdits?: Maybe<Scalars['JSON']>;
-  parentAnnotationId?: Maybe<Scalars['String']>;
+  extraEdits?: Maybe<Scalars['JSON']>;
   publicationToPublicationId?: Maybe<AnnotationPublicationIdFkeyInput>;
   accountToAccountId?: Maybe<AnnotationAccountIdFkeyInput>;
   annotationTagsUsingAnnotationId?: Maybe<AnnotationTagAnnotationIdFkeyInverseInput>;
@@ -1864,19 +1862,19 @@ export type BookPublicationIdFkeyInverseInput = {
   /** The primary key(s) for `book` for the far side of the relationship. */
   connectByPublicationId?: Maybe<BookBookPkeyConnect>;
   /** The primary key(s) for `book` for the far side of the relationship. */
-  connectByTitle?: Maybe<BookUniqTitleConnect>;
+  connectByTitle?: Maybe<BookBookTitleKeyConnect>;
   /** The primary key(s) for `book` for the far side of the relationship. */
   connectById?: Maybe<BookNodeIdConnect>;
   /** The primary key(s) for `book` for the far side of the relationship. */
   deleteByPublicationId?: Maybe<BookBookPkeyDelete>;
   /** The primary key(s) for `book` for the far side of the relationship. */
-  deleteByTitle?: Maybe<BookUniqTitleDelete>;
+  deleteByTitle?: Maybe<BookBookTitleKeyDelete>;
   /** The primary key(s) for `book` for the far side of the relationship. */
   deleteById?: Maybe<BookNodeIdDelete>;
   /** The primary key(s) and patch data for `book` for the far side of the relationship. */
   updateByPublicationId?: Maybe<BookOnBookForBookPublicationIdFkeyUsingBookPkeyUpdate>;
   /** The primary key(s) and patch data for `book` for the far side of the relationship. */
-  updateByTitle?: Maybe<BookOnBookForBookPublicationIdFkeyUsingUniqTitleUpdate>;
+  updateByTitle?: Maybe<BookOnBookForBookPublicationIdFkeyUsingBookTitleKeyUpdate>;
   /** The primary key(s) and patch data for `book` for the far side of the relationship. */
   updateById?: Maybe<PublicationOnBookForBookPublicationIdFkeyNodeIdUpdate>;
   /** A `BookInput` object that will be created and connected to this object. */
@@ -1889,7 +1887,7 @@ export type BookBookPkeyConnect = {
 };
 
 /** The fields on `book` to look up the row to connect. */
-export type BookUniqTitleConnect = {
+export type BookBookTitleKeyConnect = {
   title: Scalars['String'];
 };
 
@@ -1905,7 +1903,7 @@ export type BookBookPkeyDelete = {
 };
 
 /** The fields on `book` to look up the row to delete. */
-export type BookUniqTitleDelete = {
+export type BookBookTitleKeyDelete = {
   title: Scalars['String'];
 };
 
@@ -1931,7 +1929,7 @@ export type UpdateBookOnBookForBookPublicationIdFkeyPatch = {
   publisher?: Maybe<Scalars['String']>;
   publicationDate?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
+  bookType?: Maybe<Scalars['String']>;
   publicationToPublicationId?: Maybe<BookPublicationIdFkeyInput>;
 };
 
@@ -2001,14 +1999,15 @@ export type AnnotationOnAnnotationForAnnotationPublicationIdFkeyUsingAnnotationP
 export type UpdateAnnotationOnAnnotationForAnnotationPublicationIdFkeyPatch = {
   annotationId?: Maybe<Scalars['String']>;
   accountId?: Maybe<Scalars['UUID']>;
+  color?: Maybe<Scalars['String']>;
+  highlightLocation?: Maybe<Scalars['JSON']>;
+  highlightedText?: Maybe<Scalars['String']>;
+  noteText?: Maybe<Scalars['String']>;
+  noteLocation?: Maybe<Scalars['JSON']>;
   recordedAt?: Maybe<Scalars['Datetime']>;
-  text?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
-  noteType?: Maybe<AnnotationNoteType>;
-  location?: Maybe<Scalars['JSON']>;
-  userEdits?: Maybe<Scalars['JSON']>;
-  parentAnnotationId?: Maybe<Scalars['String']>;
+  extraEdits?: Maybe<Scalars['JSON']>;
   publicationToPublicationId?: Maybe<AnnotationPublicationIdFkeyInput>;
   accountToAccountId?: Maybe<AnnotationAccountIdFkeyInput>;
   annotationTagsUsingAnnotationId?: Maybe<AnnotationTagAnnotationIdFkeyInverseInput>;
@@ -2084,7 +2083,7 @@ export type UpdateAccountOnAnnotationForAnnotationAccountIdFkeyPatch = {
   updatedAt?: Maybe<Scalars['Datetime']>;
   status?: Maybe<Scalars['String']>;
   emailVerified?: Maybe<Scalars['Boolean']>;
-  role?: Maybe<Scalars['String']>;
+  group?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   annotationsUsingAccountId?: Maybe<AnnotationAccountIdFkeyInverseInput>;
@@ -2189,7 +2188,7 @@ export type UpdateAccountOnAccountPublicationForAccountPublicationAccountIdFkeyP
   updatedAt?: Maybe<Scalars['Datetime']>;
   status?: Maybe<Scalars['String']>;
   emailVerified?: Maybe<Scalars['Boolean']>;
-  role?: Maybe<Scalars['String']>;
+  group?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   annotationsUsingAccountId?: Maybe<AnnotationAccountIdFkeyInverseInput>;
@@ -2292,7 +2291,7 @@ export type UpdateAccountOnTagForTagAccountIdFkeyPatch = {
   updatedAt?: Maybe<Scalars['Datetime']>;
   status?: Maybe<Scalars['String']>;
   emailVerified?: Maybe<Scalars['Boolean']>;
-  role?: Maybe<Scalars['String']>;
+  group?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   annotationsUsingAccountId?: Maybe<AnnotationAccountIdFkeyInverseInput>;
@@ -2323,7 +2322,7 @@ export type AccountPatch = {
   updatedAt?: Maybe<Scalars['Datetime']>;
   status?: Maybe<Scalars['String']>;
   emailVerified?: Maybe<Scalars['Boolean']>;
-  role?: Maybe<Scalars['String']>;
+  group?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   annotationsUsingAccountId?: Maybe<AnnotationAccountIdFkeyInverseInput>;
@@ -2338,7 +2337,7 @@ export type TagAccountIdFkeyAccountCreateInput = {
   updatedAt?: Maybe<Scalars['Datetime']>;
   status?: Maybe<Scalars['String']>;
   emailVerified?: Maybe<Scalars['Boolean']>;
-  role?: Maybe<Scalars['String']>;
+  group?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   annotationsUsingAccountId?: Maybe<AnnotationAccountIdFkeyInverseInput>;
@@ -2434,14 +2433,15 @@ export type AnnotationOnAnnotationTagForAnnotationTagAnnotationIdFkeyUsingAnnota
 export type UpdateAnnotationOnAnnotationTagForAnnotationTagAnnotationIdFkeyPatch = {
   publicationId?: Maybe<Scalars['String']>;
   accountId?: Maybe<Scalars['UUID']>;
+  color?: Maybe<Scalars['String']>;
+  highlightLocation?: Maybe<Scalars['JSON']>;
+  highlightedText?: Maybe<Scalars['String']>;
+  noteText?: Maybe<Scalars['String']>;
+  noteLocation?: Maybe<Scalars['JSON']>;
   recordedAt?: Maybe<Scalars['Datetime']>;
-  text?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
-  noteType?: Maybe<AnnotationNoteType>;
-  location?: Maybe<Scalars['JSON']>;
-  userEdits?: Maybe<Scalars['JSON']>;
-  parentAnnotationId?: Maybe<Scalars['String']>;
+  extraEdits?: Maybe<Scalars['JSON']>;
   publicationToPublicationId?: Maybe<AnnotationPublicationIdFkeyInput>;
   accountToAccountId?: Maybe<AnnotationAccountIdFkeyInput>;
   annotationTagsUsingAnnotationId?: Maybe<AnnotationTagAnnotationIdFkeyInverseInput>;
@@ -2576,14 +2576,15 @@ export type AnnotationPatch = {
   annotationId?: Maybe<Scalars['String']>;
   publicationId?: Maybe<Scalars['String']>;
   accountId?: Maybe<Scalars['UUID']>;
+  color?: Maybe<Scalars['String']>;
+  highlightLocation?: Maybe<Scalars['JSON']>;
+  highlightedText?: Maybe<Scalars['String']>;
+  noteText?: Maybe<Scalars['String']>;
+  noteLocation?: Maybe<Scalars['JSON']>;
   recordedAt?: Maybe<Scalars['Datetime']>;
-  text?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
-  noteType?: Maybe<AnnotationNoteType>;
-  location?: Maybe<Scalars['JSON']>;
-  userEdits?: Maybe<Scalars['JSON']>;
-  parentAnnotationId?: Maybe<Scalars['String']>;
+  extraEdits?: Maybe<Scalars['JSON']>;
   publicationToPublicationId?: Maybe<AnnotationPublicationIdFkeyInput>;
   accountToAccountId?: Maybe<AnnotationAccountIdFkeyInput>;
   annotationTagsUsingAnnotationId?: Maybe<AnnotationTagAnnotationIdFkeyInverseInput>;
@@ -2593,14 +2594,15 @@ export type AnnotationPatch = {
 export type AnnotationTagAnnotationIdFkeyAnnotationCreateInput = {
   publicationId?: Maybe<Scalars['String']>;
   accountId?: Maybe<Scalars['UUID']>;
+  color?: Maybe<Scalars['String']>;
+  highlightLocation?: Maybe<Scalars['JSON']>;
+  highlightedText?: Maybe<Scalars['String']>;
+  noteText?: Maybe<Scalars['String']>;
+  noteLocation?: Maybe<Scalars['JSON']>;
   recordedAt?: Maybe<Scalars['Datetime']>;
-  text?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
-  noteType?: Maybe<AnnotationNoteType>;
-  location?: Maybe<Scalars['JSON']>;
-  userEdits?: Maybe<Scalars['JSON']>;
-  parentAnnotationId?: Maybe<Scalars['String']>;
+  extraEdits?: Maybe<Scalars['JSON']>;
   publicationToPublicationId?: Maybe<AnnotationPublicationIdFkeyInput>;
   accountToAccountId?: Maybe<AnnotationAccountIdFkeyInput>;
   annotationTagsUsingAnnotationId?: Maybe<AnnotationTagAnnotationIdFkeyInverseInput>;
@@ -2659,7 +2661,7 @@ export type AccountPublicationAccountIdFkeyAccountCreateInput = {
   updatedAt?: Maybe<Scalars['Datetime']>;
   status?: Maybe<Scalars['String']>;
   emailVerified?: Maybe<Scalars['Boolean']>;
-  role?: Maybe<Scalars['String']>;
+  group?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   annotationsUsingAccountId?: Maybe<AnnotationAccountIdFkeyInverseInput>;
@@ -3085,7 +3087,7 @@ export type AnnotationAccountIdFkeyAccountCreateInput = {
   updatedAt?: Maybe<Scalars['Datetime']>;
   status?: Maybe<Scalars['String']>;
   emailVerified?: Maybe<Scalars['Boolean']>;
-  role?: Maybe<Scalars['String']>;
+  group?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   annotationsUsingAccountId?: Maybe<AnnotationAccountIdFkeyInverseInput>;
@@ -3105,14 +3107,15 @@ export type PublicationOnAnnotationForAnnotationPublicationIdFkeyNodeIdUpdate = 
 export type AnnotationPublicationIdFkeyAnnotationCreateInput = {
   annotationId: Scalars['String'];
   accountId?: Maybe<Scalars['UUID']>;
+  color?: Maybe<Scalars['String']>;
+  highlightLocation?: Maybe<Scalars['JSON']>;
+  highlightedText?: Maybe<Scalars['String']>;
+  noteText?: Maybe<Scalars['String']>;
+  noteLocation?: Maybe<Scalars['JSON']>;
   recordedAt?: Maybe<Scalars['Datetime']>;
-  text?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
-  noteType?: Maybe<AnnotationNoteType>;
-  location?: Maybe<Scalars['JSON']>;
-  userEdits?: Maybe<Scalars['JSON']>;
-  parentAnnotationId?: Maybe<Scalars['String']>;
+  extraEdits?: Maybe<Scalars['JSON']>;
   publicationToPublicationId?: Maybe<AnnotationPublicationIdFkeyInput>;
   accountToAccountId?: Maybe<AnnotationAccountIdFkeyInput>;
   annotationTagsUsingAnnotationId?: Maybe<AnnotationTagAnnotationIdFkeyInverseInput>;
@@ -3137,7 +3140,7 @@ export type BookPublicationIdFkeyPublicationCreateInput = {
 };
 
 /** The fields on `book` to look up the row to update. */
-export type BookOnBookForBookPublicationIdFkeyUsingUniqTitleUpdate = {
+export type BookOnBookForBookPublicationIdFkeyUsingBookTitleKeyUpdate = {
   /** An object where the defined keys will be set on the `book` being updated. */
   bookPatch: UpdateBookOnBookForBookPublicationIdFkeyPatch;
   title: Scalars['String'];
@@ -3161,7 +3164,7 @@ export type BookPatch = {
   publisher?: Maybe<Scalars['String']>;
   publicationDate?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
+  bookType?: Maybe<Scalars['String']>;
   publicationToPublicationId?: Maybe<BookPublicationIdFkeyInput>;
 };
 
@@ -3174,7 +3177,7 @@ export type BookPublicationIdFkeyBookCreateInput = {
   publisher?: Maybe<Scalars['String']>;
   publicationDate?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
+  bookType?: Maybe<Scalars['String']>;
   publicationToPublicationId?: Maybe<BookPublicationIdFkeyInput>;
 };
 
@@ -3208,14 +3211,15 @@ export type AccountOnAnnotationForAnnotationAccountIdFkeyNodeIdUpdate = {
 export type AnnotationAccountIdFkeyAnnotationCreateInput = {
   annotationId: Scalars['String'];
   publicationId?: Maybe<Scalars['String']>;
+  color?: Maybe<Scalars['String']>;
+  highlightLocation?: Maybe<Scalars['JSON']>;
+  highlightedText?: Maybe<Scalars['String']>;
+  noteText?: Maybe<Scalars['String']>;
+  noteLocation?: Maybe<Scalars['JSON']>;
   recordedAt?: Maybe<Scalars['Datetime']>;
-  text?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
-  noteType?: Maybe<AnnotationNoteType>;
-  location?: Maybe<Scalars['JSON']>;
-  userEdits?: Maybe<Scalars['JSON']>;
-  parentAnnotationId?: Maybe<Scalars['String']>;
+  extraEdits?: Maybe<Scalars['JSON']>;
   publicationToPublicationId?: Maybe<AnnotationPublicationIdFkeyInput>;
   accountToAccountId?: Maybe<AnnotationAccountIdFkeyInput>;
   annotationTagsUsingAnnotationId?: Maybe<AnnotationTagAnnotationIdFkeyInverseInput>;
@@ -3292,14 +3296,15 @@ export type AnnotationInput = {
   annotationId: Scalars['String'];
   publicationId?: Maybe<Scalars['String']>;
   accountId?: Maybe<Scalars['UUID']>;
+  color?: Maybe<Scalars['String']>;
+  highlightLocation?: Maybe<Scalars['JSON']>;
+  highlightedText?: Maybe<Scalars['String']>;
+  noteText?: Maybe<Scalars['String']>;
+  noteLocation?: Maybe<Scalars['JSON']>;
   recordedAt?: Maybe<Scalars['Datetime']>;
-  text?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
-  noteType?: Maybe<AnnotationNoteType>;
-  location?: Maybe<Scalars['JSON']>;
-  userEdits?: Maybe<Scalars['JSON']>;
-  parentAnnotationId?: Maybe<Scalars['String']>;
+  extraEdits?: Maybe<Scalars['JSON']>;
   publicationToPublicationId?: Maybe<AnnotationPublicationIdFkeyInput>;
   accountToAccountId?: Maybe<AnnotationAccountIdFkeyInput>;
   annotationTagsUsingAnnotationId?: Maybe<AnnotationTagAnnotationIdFkeyInverseInput>;
@@ -3419,7 +3424,7 @@ export type BookInput = {
   publisher?: Maybe<Scalars['String']>;
   publicationDate?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
+  bookType?: Maybe<Scalars['String']>;
   publicationToPublicationId?: Maybe<BookPublicationIdFkeyInput>;
 };
 
