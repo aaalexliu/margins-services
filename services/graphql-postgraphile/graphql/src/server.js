@@ -1,8 +1,11 @@
 const express = require("express");
 const cors = require('cors');
-const { postgraphile } = require("postgraphile");
+const { postgraphile, PostGraphileInflectionPlugin } = require("postgraphile");
 const PgManyToManyPlugin = require("@graphile-contrib/pg-many-to-many");
 const PostGraphileNestedMutations = require('postgraphile-plugin-nested-mutations');
+// simplifies things but i prefer verbosity makes things clearer
+// const PgSimplifyInflectorPlugin = require("@graphile-contrib/pg-simplify-inflector");
+
 
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");

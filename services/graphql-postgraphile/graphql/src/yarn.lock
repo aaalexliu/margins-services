@@ -7,6 +7,11 @@
   resolved "https://registry.yarnpkg.com/@graphile-contrib/pg-many-to-many/-/pg-many-to-many-1.0.0.tgz#93f12f9d68724523bef1c833ea24e9f646c257af"
   integrity sha512-y8DiptnJBDW8mrI9btQi/q/nYVYxG92P5QGBsKW6WdYiSKLvrhnnnqm0Qi2VrWIiRVxj22v0NKRmvZ8c6EIiZg==
 
+"@graphile-contrib/pg-simplify-inflector@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@graphile-contrib/pg-simplify-inflector/-/pg-simplify-inflector-6.1.0.tgz#5ecb842bd43af4d3ffdfcd25b1e7c452374f7440"
+  integrity sha512-3eI2FP4ulu/fxwkJBNXhR6XEzqVz4wJWFr4LfeyUNNArUtLFx0DpP6YdcARCYgwLExFcIQNE8fnul3JKiciYIw==
+
 "@graphile/lru@4.9.0":
   version "4.9.0"
   resolved "https://registry.yarnpkg.com/@graphile/lru/-/lru-4.9.0.tgz#f101cbaaaf8a0ae6cb661e8cdc579a11c253cc10"
