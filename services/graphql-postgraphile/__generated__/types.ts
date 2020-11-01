@@ -30,8 +30,6 @@ export type Query = Node & {
   node?: Maybe<Node>;
   /** Reads and enables pagination through a set of `Account`. */
   allAccounts?: Maybe<AccountsConnection>;
-  /** Reads and enables pagination through a set of `AccountPublication`. */
-  allAccountPublications?: Maybe<AccountPublicationsConnection>;
   /** Reads and enables pagination through a set of `AccountTagAnnotation`. */
   allAccountTagAnnotations?: Maybe<AccountTagAnnotationsConnection>;
   /** Reads and enables pagination through a set of `Annotation`. */
@@ -50,21 +48,22 @@ export type Query = Node & {
   allTags?: Maybe<TagsConnection>;
   accountByAccountId?: Maybe<Account>;
   accountByEmail?: Maybe<Account>;
-  accountPublicationByAccountIdAndPublicationId?: Maybe<AccountPublication>;
   annotationByAnnotationId?: Maybe<Annotation>;
+  annotationByAnnotationIdAndPublicationIdAndAccountIdAndHighlightLocationAndHighlightText?: Maybe<Annotation>;
+  annotationByAnnotationIdAndPublicationIdAndAccountIdAndNoteLocationAndNoteText?: Maybe<Annotation>;
   annotationTagByAnnotationIdAndTagId?: Maybe<AnnotationTag>;
   authorByAuthorId?: Maybe<Author>;
+  authorByFullName?: Maybe<Author>;
   bookByPublicationId?: Maybe<Book>;
-  bookByTitle?: Maybe<Book>;
   publicationByPublicationId?: Maybe<Publication>;
+  publicationByAccountIdAndTitle?: Maybe<Publication>;
   publicationAuthorByPublicationIdAndAuthorId?: Maybe<PublicationAuthor>;
   tagByTagId?: Maybe<Tag>;
+  tagByTagNameAndAccountId?: Maybe<Tag>;
   currentAccountId?: Maybe<Scalars['UUID']>;
   isValidMongoId?: Maybe<Scalars['Boolean']>;
   /** Reads a single `Account` using its globally unique `ID`. */
   account?: Maybe<Account>;
-  /** Reads a single `AccountPublication` using its globally unique `ID`. */
-  accountPublication?: Maybe<AccountPublication>;
   /** Reads a single `Annotation` using its globally unique `ID`. */
   annotation?: Maybe<Annotation>;
   /** Reads a single `AnnotationTag` using its globally unique `ID`. */
@@ -97,18 +96,6 @@ export type QueryAllAccountsArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<Array<AccountsOrderBy>>;
   condition?: Maybe<AccountCondition>;
-};
-
-
-/** The root query type which gives access points into the data universe. */
-export type QueryAllAccountPublicationsArgs = {
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['Cursor']>;
-  after?: Maybe<Scalars['Cursor']>;
-  orderBy?: Maybe<Array<AccountPublicationsOrderBy>>;
-  condition?: Maybe<AccountPublicationCondition>;
 };
 
 
@@ -220,15 +207,28 @@ export type QueryAccountByEmailArgs = {
 
 
 /** The root query type which gives access points into the data universe. */
-export type QueryAccountPublicationByAccountIdAndPublicationIdArgs = {
-  accountId: Scalars['UUID'];
-  publicationId: Scalars['String'];
+export type QueryAnnotationByAnnotationIdArgs = {
+  annotationId: Scalars['String'];
 };
 
 
 /** The root query type which gives access points into the data universe. */
-export type QueryAnnotationByAnnotationIdArgs = {
+export type QueryAnnotationByAnnotationIdAndPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextArgs = {
   annotationId: Scalars['String'];
+  publicationId: Scalars['String'];
+  accountId: Scalars['UUID'];
+  highlightLocation: Scalars['JSON'];
+  highlightText: Scalars['String'];
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QueryAnnotationByAnnotationIdAndPublicationIdAndAccountIdAndNoteLocationAndNoteTextArgs = {
+  annotationId: Scalars['String'];
+  publicationId: Scalars['String'];
+  accountId: Scalars['UUID'];
+  noteLocation: Scalars['JSON'];
+  noteText: Scalars['String'];
 };
 
 
@@ -246,20 +246,27 @@ export type QueryAuthorByAuthorIdArgs = {
 
 
 /** The root query type which gives access points into the data universe. */
+export type QueryAuthorByFullNameArgs = {
+  fullName: Scalars['String'];
+};
+
+
+/** The root query type which gives access points into the data universe. */
 export type QueryBookByPublicationIdArgs = {
   publicationId: Scalars['String'];
 };
 
 
 /** The root query type which gives access points into the data universe. */
-export type QueryBookByTitleArgs = {
-  title: Scalars['String'];
+export type QueryPublicationByPublicationIdArgs = {
+  publicationId: Scalars['String'];
 };
 
 
 /** The root query type which gives access points into the data universe. */
-export type QueryPublicationByPublicationIdArgs = {
-  publicationId: Scalars['String'];
+export type QueryPublicationByAccountIdAndTitleArgs = {
+  accountId: Scalars['UUID'];
+  title: Scalars['String'];
 };
 
 
@@ -277,6 +284,13 @@ export type QueryTagByTagIdArgs = {
 
 
 /** The root query type which gives access points into the data universe. */
+export type QueryTagByTagNameAndAccountIdArgs = {
+  tagName: Scalars['String'];
+  accountId: Scalars['UUID'];
+};
+
+
+/** The root query type which gives access points into the data universe. */
 export type QueryIsValidMongoIdArgs = {
   id?: Maybe<Scalars['String']>;
 };
@@ -284,12 +298,6 @@ export type QueryIsValidMongoIdArgs = {
 
 /** The root query type which gives access points into the data universe. */
 export type QueryAccountArgs = {
-  id: Scalars['ID'];
-};
-
-
-/** The root query type which gives access points into the data universe. */
-export type QueryAccountPublicationArgs = {
   id: Scalars['ID'];
 };
 
@@ -387,17 +395,26 @@ export type Account = Node & {
   group?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
+  /** Reads and enables pagination through a set of `Publication`. */
+  publicationsByAccountId: PublicationsConnection;
   /** Reads and enables pagination through a set of `Annotation`. */
   annotationsByAccountId: AnnotationsConnection;
-  /** Reads and enables pagination through a set of `AccountPublication`. */
-  accountPublicationsByAccountId: AccountPublicationsConnection;
   /** Reads and enables pagination through a set of `Tag`. */
   tagsByAccountId: TagsConnection;
   fullName?: Maybe<Scalars['String']>;
   /** Reads and enables pagination through a set of `Publication`. */
   publicationsByAnnotationAccountIdAndPublicationId: AccountPublicationsByAnnotationAccountIdAndPublicationIdManyToManyConnection;
-  /** Reads and enables pagination through a set of `Publication`. */
-  publicationsByAccountPublicationAccountIdAndPublicationId: AccountPublicationsByAccountPublicationAccountIdAndPublicationIdManyToManyConnection;
+};
+
+
+export type AccountPublicationsByAccountIdArgs = {
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['Cursor']>;
+  after?: Maybe<Scalars['Cursor']>;
+  orderBy?: Maybe<Array<PublicationsOrderBy>>;
+  condition?: Maybe<PublicationCondition>;
 };
 
 
@@ -409,17 +426,6 @@ export type AccountAnnotationsByAccountIdArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<Array<AnnotationsOrderBy>>;
   condition?: Maybe<AnnotationCondition>;
-};
-
-
-export type AccountAccountPublicationsByAccountIdArgs = {
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['Cursor']>;
-  after?: Maybe<Scalars['Cursor']>;
-  orderBy?: Maybe<Array<AccountPublicationsOrderBy>>;
-  condition?: Maybe<AccountPublicationCondition>;
 };
 
 
@@ -445,16 +451,188 @@ export type AccountPublicationsByAnnotationAccountIdAndPublicationIdArgs = {
 };
 
 
-export type AccountPublicationsByAccountPublicationAccountIdAndPublicationIdArgs = {
+/** Methods to use when ordering `Publication`. */
+export type PublicationsOrderBy = 
+  | 'NATURAL'
+  | 'PUBLICATION_ID_ASC'
+  | 'PUBLICATION_ID_DESC'
+  | 'ACCOUNT_ID_ASC'
+  | 'ACCOUNT_ID_DESC'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC';
+
+/** A condition to be used against `Publication` object types. All fields are tested for equality and combined with a logical ‘and.’ */
+export type PublicationCondition = {
+  /** Checks for equality with the object’s `publicationId` field. */
+  publicationId?: Maybe<Scalars['String']>;
+  /** Checks for equality with the object’s `accountId` field. */
+  accountId?: Maybe<Scalars['UUID']>;
+};
+
+/** A connection to a list of `Publication` values. */
+export type PublicationsConnection = {
+  __typename?: 'PublicationsConnection';
+  /** A list of `Publication` objects. */
+  nodes: Array<Maybe<Publication>>;
+  /** A list of edges which contains the `Publication` and cursor to aid in pagination. */
+  edges: Array<PublicationsEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Publication` you could get from the connection. */
+  totalCount: Scalars['Int'];
+};
+
+export type Publication = Node & {
+  __typename?: 'Publication';
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  id: Scalars['ID'];
+  publicationId: Scalars['String'];
+  accountId: Scalars['UUID'];
+  createdAt?: Maybe<Scalars['Datetime']>;
+  updatedAt?: Maybe<Scalars['Datetime']>;
+  title: Scalars['String'];
+  additionalMeta?: Maybe<Scalars['JSON']>;
+  /** Reads a single `Account` that is related to this `Publication`. */
+  accountByAccountId?: Maybe<Account>;
+  /** Reads a single `Book` that is related to this `Publication`. */
+  bookByPublicationId?: Maybe<Book>;
+  /**
+   * Reads and enables pagination through a set of `Book`.
+   * @deprecated Please use bookByPublicationId instead
+   */
+  booksByPublicationId: BooksConnection;
+  /** Reads and enables pagination through a set of `Annotation`. */
+  annotationsByPublicationId: AnnotationsConnection;
+  /** Reads and enables pagination through a set of `PublicationAuthor`. */
+  publicationAuthorsByPublicationId: PublicationAuthorsConnection;
+  /** Reads and enables pagination through a set of `Account`. */
+  accountsByAnnotationPublicationIdAndAccountId: PublicationAccountsByAnnotationPublicationIdAndAccountIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Author`. */
+  authorsByPublicationAuthorPublicationIdAndAuthorId: PublicationAuthorsByPublicationAuthorPublicationIdAndAuthorIdManyToManyConnection;
+};
+
+
+export type PublicationBooksByPublicationIdArgs = {
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['Cursor']>;
   after?: Maybe<Scalars['Cursor']>;
-  orderBy?: Maybe<Array<PublicationsOrderBy>>;
-  condition?: Maybe<PublicationCondition>;
+  orderBy?: Maybe<Array<BooksOrderBy>>;
+  condition?: Maybe<BookCondition>;
 };
 
+
+export type PublicationAnnotationsByPublicationIdArgs = {
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['Cursor']>;
+  after?: Maybe<Scalars['Cursor']>;
+  orderBy?: Maybe<Array<AnnotationsOrderBy>>;
+  condition?: Maybe<AnnotationCondition>;
+};
+
+
+export type PublicationPublicationAuthorsByPublicationIdArgs = {
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['Cursor']>;
+  after?: Maybe<Scalars['Cursor']>;
+  orderBy?: Maybe<Array<PublicationAuthorsOrderBy>>;
+  condition?: Maybe<PublicationAuthorCondition>;
+};
+
+
+export type PublicationAccountsByAnnotationPublicationIdAndAccountIdArgs = {
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['Cursor']>;
+  after?: Maybe<Scalars['Cursor']>;
+  orderBy?: Maybe<Array<AccountsOrderBy>>;
+  condition?: Maybe<AccountCondition>;
+};
+
+
+export type PublicationAuthorsByPublicationAuthorPublicationIdAndAuthorIdArgs = {
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['Cursor']>;
+  after?: Maybe<Scalars['Cursor']>;
+  orderBy?: Maybe<Array<AuthorsOrderBy>>;
+  condition?: Maybe<AuthorCondition>;
+};
+
+
+export type Book = Node & {
+  __typename?: 'Book';
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  id: Scalars['ID'];
+  publicationId: Scalars['String'];
+  isbn13?: Maybe<Scalars['String']>;
+  bookTitle: Scalars['String'];
+  imageUrl?: Maybe<Scalars['String']>;
+  languageCode?: Maybe<Scalars['String']>;
+  publisher?: Maybe<Scalars['String']>;
+  publicationDate?: Maybe<Scalars['Date']>;
+  description?: Maybe<Scalars['String']>;
+  bookType?: Maybe<Scalars['String']>;
+  /** Reads a single `Publication` that is related to this `Book`. */
+  publicationByPublicationId?: Maybe<Publication>;
+};
+
+
+/** Methods to use when ordering `Book`. */
+export type BooksOrderBy = 
+  | 'NATURAL'
+  | 'PUBLICATION_ID_ASC'
+  | 'PUBLICATION_ID_DESC'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC';
+
+/** A condition to be used against `Book` object types. All fields are tested for equality and combined with a logical ‘and.’ */
+export type BookCondition = {
+  /** Checks for equality with the object’s `publicationId` field. */
+  publicationId?: Maybe<Scalars['String']>;
+};
+
+/** A connection to a list of `Book` values. */
+export type BooksConnection = {
+  __typename?: 'BooksConnection';
+  /** A list of `Book` objects. */
+  nodes: Array<Maybe<Book>>;
+  /** A list of edges which contains the `Book` and cursor to aid in pagination. */
+  edges: Array<BooksEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Book` you could get from the connection. */
+  totalCount: Scalars['Int'];
+};
+
+/** A `Book` edge in the connection. */
+export type BooksEdge = {
+  __typename?: 'BooksEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']>;
+  /** The `Book` at the end of the edge. */
+  node?: Maybe<Book>;
+};
+
+/** Information about pagination in a connection. */
+export type PageInfo = {
+  __typename?: 'PageInfo';
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean'];
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['Cursor']>;
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['Cursor']>;
+};
 
 /** Methods to use when ordering `Annotation`. */
 export type AnnotationsOrderBy = 
@@ -500,7 +678,7 @@ export type Annotation = Node & {
   accountId: Scalars['UUID'];
   color?: Maybe<Scalars['String']>;
   highlightLocation?: Maybe<Scalars['JSON']>;
-  highlightedText?: Maybe<Scalars['String']>;
+  highlightText?: Maybe<Scalars['String']>;
   noteText?: Maybe<Scalars['String']>;
   noteLocation?: Maybe<Scalars['JSON']>;
   recordedAt?: Maybe<Scalars['Datetime']>;
@@ -537,451 +715,6 @@ export type AnnotationTagsByAnnotationTagAnnotationIdAndTagIdArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<Array<TagsOrderBy>>;
   condition?: Maybe<TagCondition>;
-};
-
-
-export type Publication = Node & {
-  __typename?: 'Publication';
-  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
-  id: Scalars['ID'];
-  publicationId: Scalars['String'];
-  createdAt?: Maybe<Scalars['Datetime']>;
-  updatedAt?: Maybe<Scalars['Datetime']>;
-  /** Reads a single `Book` that is related to this `Publication`. */
-  bookByPublicationId?: Maybe<Book>;
-  /**
-   * Reads and enables pagination through a set of `Book`.
-   * @deprecated Please use bookByPublicationId instead
-   */
-  booksByPublicationId: BooksConnection;
-  /** Reads and enables pagination through a set of `Annotation`. */
-  annotationsByPublicationId: AnnotationsConnection;
-  /** Reads and enables pagination through a set of `PublicationAuthor`. */
-  publicationAuthorsByPublicationId: PublicationAuthorsConnection;
-  /** Reads and enables pagination through a set of `AccountPublication`. */
-  accountPublicationsByPublicationId: AccountPublicationsConnection;
-  /** Reads and enables pagination through a set of `Account`. */
-  accountsByAnnotationPublicationIdAndAccountId: PublicationAccountsByAnnotationPublicationIdAndAccountIdManyToManyConnection;
-  /** Reads and enables pagination through a set of `Author`. */
-  authorsByPublicationAuthorPublicationIdAndAuthorId: PublicationAuthorsByPublicationAuthorPublicationIdAndAuthorIdManyToManyConnection;
-  /** Reads and enables pagination through a set of `Account`. */
-  accountsByAccountPublicationPublicationIdAndAccountId: PublicationAccountsByAccountPublicationPublicationIdAndAccountIdManyToManyConnection;
-};
-
-
-export type PublicationBooksByPublicationIdArgs = {
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['Cursor']>;
-  after?: Maybe<Scalars['Cursor']>;
-  orderBy?: Maybe<Array<BooksOrderBy>>;
-  condition?: Maybe<BookCondition>;
-};
-
-
-export type PublicationAnnotationsByPublicationIdArgs = {
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['Cursor']>;
-  after?: Maybe<Scalars['Cursor']>;
-  orderBy?: Maybe<Array<AnnotationsOrderBy>>;
-  condition?: Maybe<AnnotationCondition>;
-};
-
-
-export type PublicationPublicationAuthorsByPublicationIdArgs = {
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['Cursor']>;
-  after?: Maybe<Scalars['Cursor']>;
-  orderBy?: Maybe<Array<PublicationAuthorsOrderBy>>;
-  condition?: Maybe<PublicationAuthorCondition>;
-};
-
-
-export type PublicationAccountPublicationsByPublicationIdArgs = {
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['Cursor']>;
-  after?: Maybe<Scalars['Cursor']>;
-  orderBy?: Maybe<Array<AccountPublicationsOrderBy>>;
-  condition?: Maybe<AccountPublicationCondition>;
-};
-
-
-export type PublicationAccountsByAnnotationPublicationIdAndAccountIdArgs = {
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['Cursor']>;
-  after?: Maybe<Scalars['Cursor']>;
-  orderBy?: Maybe<Array<AccountsOrderBy>>;
-  condition?: Maybe<AccountCondition>;
-};
-
-
-export type PublicationAuthorsByPublicationAuthorPublicationIdAndAuthorIdArgs = {
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['Cursor']>;
-  after?: Maybe<Scalars['Cursor']>;
-  orderBy?: Maybe<Array<AuthorsOrderBy>>;
-  condition?: Maybe<AuthorCondition>;
-};
-
-
-export type PublicationAccountsByAccountPublicationPublicationIdAndAccountIdArgs = {
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['Cursor']>;
-  after?: Maybe<Scalars['Cursor']>;
-  orderBy?: Maybe<Array<AccountsOrderBy>>;
-  condition?: Maybe<AccountCondition>;
-};
-
-export type Book = Node & {
-  __typename?: 'Book';
-  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
-  id: Scalars['ID'];
-  publicationId: Scalars['String'];
-  isbn13?: Maybe<Scalars['String']>;
-  title: Scalars['String'];
-  imageUrl?: Maybe<Scalars['String']>;
-  languageCode?: Maybe<Scalars['String']>;
-  publisher?: Maybe<Scalars['String']>;
-  publicationDate?: Maybe<Scalars['Date']>;
-  description?: Maybe<Scalars['String']>;
-  bookType?: Maybe<Scalars['String']>;
-  /** Reads a single `Publication` that is related to this `Book`. */
-  publicationByPublicationId?: Maybe<Publication>;
-};
-
-
-/** Methods to use when ordering `Book`. */
-export type BooksOrderBy = 
-  | 'NATURAL'
-  | 'PUBLICATION_ID_ASC'
-  | 'PUBLICATION_ID_DESC'
-  | 'TITLE_ASC'
-  | 'TITLE_DESC'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC';
-
-/** A condition to be used against `Book` object types. All fields are tested for equality and combined with a logical ‘and.’ */
-export type BookCondition = {
-  /** Checks for equality with the object’s `publicationId` field. */
-  publicationId?: Maybe<Scalars['String']>;
-  /** Checks for equality with the object’s `title` field. */
-  title?: Maybe<Scalars['String']>;
-};
-
-/** A connection to a list of `Book` values. */
-export type BooksConnection = {
-  __typename?: 'BooksConnection';
-  /** A list of `Book` objects. */
-  nodes: Array<Maybe<Book>>;
-  /** A list of edges which contains the `Book` and cursor to aid in pagination. */
-  edges: Array<BooksEdge>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
-  /** The count of *all* `Book` you could get from the connection. */
-  totalCount: Scalars['Int'];
-};
-
-/** A `Book` edge in the connection. */
-export type BooksEdge = {
-  __typename?: 'BooksEdge';
-  /** A cursor for use in pagination. */
-  cursor?: Maybe<Scalars['Cursor']>;
-  /** The `Book` at the end of the edge. */
-  node?: Maybe<Book>;
-};
-
-/** Information about pagination in a connection. */
-export type PageInfo = {
-  __typename?: 'PageInfo';
-  /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean'];
-  /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean'];
-  /** When paginating backwards, the cursor to continue. */
-  startCursor?: Maybe<Scalars['Cursor']>;
-  /** When paginating forwards, the cursor to continue. */
-  endCursor?: Maybe<Scalars['Cursor']>;
-};
-
-/** Methods to use when ordering `PublicationAuthor`. */
-export type PublicationAuthorsOrderBy = 
-  | 'NATURAL'
-  | 'PUBLICATION_ID_ASC'
-  | 'PUBLICATION_ID_DESC'
-  | 'AUTHOR_ID_ASC'
-  | 'AUTHOR_ID_DESC'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC';
-
-/** A condition to be used against `PublicationAuthor` object types. All fields are tested for equality and combined with a logical ‘and.’ */
-export type PublicationAuthorCondition = {
-  /** Checks for equality with the object’s `publicationId` field. */
-  publicationId?: Maybe<Scalars['String']>;
-  /** Checks for equality with the object’s `authorId` field. */
-  authorId?: Maybe<Scalars['String']>;
-};
-
-/** A connection to a list of `PublicationAuthor` values. */
-export type PublicationAuthorsConnection = {
-  __typename?: 'PublicationAuthorsConnection';
-  /** A list of `PublicationAuthor` objects. */
-  nodes: Array<Maybe<PublicationAuthor>>;
-  /** A list of edges which contains the `PublicationAuthor` and cursor to aid in pagination. */
-  edges: Array<PublicationAuthorsEdge>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
-  /** The count of *all* `PublicationAuthor` you could get from the connection. */
-  totalCount: Scalars['Int'];
-};
-
-export type PublicationAuthor = Node & {
-  __typename?: 'PublicationAuthor';
-  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
-  id: Scalars['ID'];
-  publicationId: Scalars['String'];
-  authorId: Scalars['String'];
-  /** Reads a single `Publication` that is related to this `PublicationAuthor`. */
-  publicationByPublicationId?: Maybe<Publication>;
-  /** Reads a single `Author` that is related to this `PublicationAuthor`. */
-  authorByAuthorId?: Maybe<Author>;
-};
-
-export type Author = Node & {
-  __typename?: 'Author';
-  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
-  id: Scalars['ID'];
-  authorId: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  /** Reads and enables pagination through a set of `PublicationAuthor`. */
-  publicationAuthorsByAuthorId: PublicationAuthorsConnection;
-  /** Reads and enables pagination through a set of `Publication`. */
-  publicationsByPublicationAuthorAuthorIdAndPublicationId: AuthorPublicationsByPublicationAuthorAuthorIdAndPublicationIdManyToManyConnection;
-};
-
-
-export type AuthorPublicationAuthorsByAuthorIdArgs = {
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['Cursor']>;
-  after?: Maybe<Scalars['Cursor']>;
-  orderBy?: Maybe<Array<PublicationAuthorsOrderBy>>;
-  condition?: Maybe<PublicationAuthorCondition>;
-};
-
-
-export type AuthorPublicationsByPublicationAuthorAuthorIdAndPublicationIdArgs = {
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['Cursor']>;
-  after?: Maybe<Scalars['Cursor']>;
-  orderBy?: Maybe<Array<PublicationsOrderBy>>;
-  condition?: Maybe<PublicationCondition>;
-};
-
-/** Methods to use when ordering `Publication`. */
-export type PublicationsOrderBy = 
-  | 'NATURAL'
-  | 'PUBLICATION_ID_ASC'
-  | 'PUBLICATION_ID_DESC'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC';
-
-/** A condition to be used against `Publication` object types. All fields are tested for equality and combined with a logical ‘and.’ */
-export type PublicationCondition = {
-  /** Checks for equality with the object’s `publicationId` field. */
-  publicationId?: Maybe<Scalars['String']>;
-};
-
-/** A connection to a list of `Publication` values, with data from `PublicationAuthor`. */
-export type AuthorPublicationsByPublicationAuthorAuthorIdAndPublicationIdManyToManyConnection = {
-  __typename?: 'AuthorPublicationsByPublicationAuthorAuthorIdAndPublicationIdManyToManyConnection';
-  /** A list of `Publication` objects. */
-  nodes: Array<Maybe<Publication>>;
-  /** A list of edges which contains the `Publication`, info from the `PublicationAuthor`, and the cursor to aid in pagination. */
-  edges: Array<AuthorPublicationsByPublicationAuthorAuthorIdAndPublicationIdManyToManyEdge>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
-  /** The count of *all* `Publication` you could get from the connection. */
-  totalCount: Scalars['Int'];
-};
-
-/** A `Publication` edge in the connection, with data from `PublicationAuthor`. */
-export type AuthorPublicationsByPublicationAuthorAuthorIdAndPublicationIdManyToManyEdge = {
-  __typename?: 'AuthorPublicationsByPublicationAuthorAuthorIdAndPublicationIdManyToManyEdge';
-  /** A cursor for use in pagination. */
-  cursor?: Maybe<Scalars['Cursor']>;
-  /** The `Publication` at the end of the edge. */
-  node?: Maybe<Publication>;
-};
-
-/** A `PublicationAuthor` edge in the connection. */
-export type PublicationAuthorsEdge = {
-  __typename?: 'PublicationAuthorsEdge';
-  /** A cursor for use in pagination. */
-  cursor?: Maybe<Scalars['Cursor']>;
-  /** The `PublicationAuthor` at the end of the edge. */
-  node?: Maybe<PublicationAuthor>;
-};
-
-/** Methods to use when ordering `AccountPublication`. */
-export type AccountPublicationsOrderBy = 
-  | 'NATURAL'
-  | 'ACCOUNT_ID_ASC'
-  | 'ACCOUNT_ID_DESC'
-  | 'PUBLICATION_ID_ASC'
-  | 'PUBLICATION_ID_DESC'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC';
-
-/** A condition to be used against `AccountPublication` object types. All fields are tested for equality and combined with a logical ‘and.’ */
-export type AccountPublicationCondition = {
-  /** Checks for equality with the object’s `accountId` field. */
-  accountId?: Maybe<Scalars['UUID']>;
-  /** Checks for equality with the object’s `publicationId` field. */
-  publicationId?: Maybe<Scalars['String']>;
-};
-
-/** A connection to a list of `AccountPublication` values. */
-export type AccountPublicationsConnection = {
-  __typename?: 'AccountPublicationsConnection';
-  /** A list of `AccountPublication` objects. */
-  nodes: Array<Maybe<AccountPublication>>;
-  /** A list of edges which contains the `AccountPublication` and cursor to aid in pagination. */
-  edges: Array<AccountPublicationsEdge>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
-  /** The count of *all* `AccountPublication` you could get from the connection. */
-  totalCount: Scalars['Int'];
-};
-
-export type AccountPublication = Node & {
-  __typename?: 'AccountPublication';
-  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
-  id: Scalars['ID'];
-  accountId: Scalars['UUID'];
-  publicationId: Scalars['String'];
-  /** Reads a single `Account` that is related to this `AccountPublication`. */
-  accountByAccountId?: Maybe<Account>;
-  /** Reads a single `Publication` that is related to this `AccountPublication`. */
-  publicationByPublicationId?: Maybe<Publication>;
-};
-
-/** A `AccountPublication` edge in the connection. */
-export type AccountPublicationsEdge = {
-  __typename?: 'AccountPublicationsEdge';
-  /** A cursor for use in pagination. */
-  cursor?: Maybe<Scalars['Cursor']>;
-  /** The `AccountPublication` at the end of the edge. */
-  node?: Maybe<AccountPublication>;
-};
-
-/** A connection to a list of `Account` values, with data from `Annotation`. */
-export type PublicationAccountsByAnnotationPublicationIdAndAccountIdManyToManyConnection = {
-  __typename?: 'PublicationAccountsByAnnotationPublicationIdAndAccountIdManyToManyConnection';
-  /** A list of `Account` objects. */
-  nodes: Array<Maybe<Account>>;
-  /** A list of edges which contains the `Account`, info from the `Annotation`, and the cursor to aid in pagination. */
-  edges: Array<PublicationAccountsByAnnotationPublicationIdAndAccountIdManyToManyEdge>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
-  /** The count of *all* `Account` you could get from the connection. */
-  totalCount: Scalars['Int'];
-};
-
-/** A `Account` edge in the connection, with data from `Annotation`. */
-export type PublicationAccountsByAnnotationPublicationIdAndAccountIdManyToManyEdge = {
-  __typename?: 'PublicationAccountsByAnnotationPublicationIdAndAccountIdManyToManyEdge';
-  /** A cursor for use in pagination. */
-  cursor?: Maybe<Scalars['Cursor']>;
-  /** The `Account` at the end of the edge. */
-  node?: Maybe<Account>;
-  /** Reads and enables pagination through a set of `Annotation`. */
-  annotationsByAccountId: AnnotationsConnection;
-};
-
-
-/** A `Account` edge in the connection, with data from `Annotation`. */
-export type PublicationAccountsByAnnotationPublicationIdAndAccountIdManyToManyEdgeAnnotationsByAccountIdArgs = {
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['Cursor']>;
-  after?: Maybe<Scalars['Cursor']>;
-  orderBy?: Maybe<Array<AnnotationsOrderBy>>;
-  condition?: Maybe<AnnotationCondition>;
-};
-
-/** Methods to use when ordering `Author`. */
-export type AuthorsOrderBy = 
-  | 'NATURAL'
-  | 'AUTHOR_ID_ASC'
-  | 'AUTHOR_ID_DESC'
-  | 'PRIMARY_KEY_ASC'
-  | 'PRIMARY_KEY_DESC';
-
-/** A condition to be used against `Author` object types. All fields are tested for equality and combined with a logical ‘and.’ */
-export type AuthorCondition = {
-  /** Checks for equality with the object’s `authorId` field. */
-  authorId?: Maybe<Scalars['String']>;
-};
-
-/** A connection to a list of `Author` values, with data from `PublicationAuthor`. */
-export type PublicationAuthorsByPublicationAuthorPublicationIdAndAuthorIdManyToManyConnection = {
-  __typename?: 'PublicationAuthorsByPublicationAuthorPublicationIdAndAuthorIdManyToManyConnection';
-  /** A list of `Author` objects. */
-  nodes: Array<Maybe<Author>>;
-  /** A list of edges which contains the `Author`, info from the `PublicationAuthor`, and the cursor to aid in pagination. */
-  edges: Array<PublicationAuthorsByPublicationAuthorPublicationIdAndAuthorIdManyToManyEdge>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
-  /** The count of *all* `Author` you could get from the connection. */
-  totalCount: Scalars['Int'];
-};
-
-/** A `Author` edge in the connection, with data from `PublicationAuthor`. */
-export type PublicationAuthorsByPublicationAuthorPublicationIdAndAuthorIdManyToManyEdge = {
-  __typename?: 'PublicationAuthorsByPublicationAuthorPublicationIdAndAuthorIdManyToManyEdge';
-  /** A cursor for use in pagination. */
-  cursor?: Maybe<Scalars['Cursor']>;
-  /** The `Author` at the end of the edge. */
-  node?: Maybe<Author>;
-};
-
-/** A connection to a list of `Account` values, with data from `AccountPublication`. */
-export type PublicationAccountsByAccountPublicationPublicationIdAndAccountIdManyToManyConnection = {
-  __typename?: 'PublicationAccountsByAccountPublicationPublicationIdAndAccountIdManyToManyConnection';
-  /** A list of `Account` objects. */
-  nodes: Array<Maybe<Account>>;
-  /** A list of edges which contains the `Account`, info from the `AccountPublication`, and the cursor to aid in pagination. */
-  edges: Array<PublicationAccountsByAccountPublicationPublicationIdAndAccountIdManyToManyEdge>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
-  /** The count of *all* `Account` you could get from the connection. */
-  totalCount: Scalars['Int'];
-};
-
-/** A `Account` edge in the connection, with data from `AccountPublication`. */
-export type PublicationAccountsByAccountPublicationPublicationIdAndAccountIdManyToManyEdge = {
-  __typename?: 'PublicationAccountsByAccountPublicationPublicationIdAndAccountIdManyToManyEdge';
-  /** A cursor for use in pagination. */
-  cursor?: Maybe<Scalars['Cursor']>;
-  /** The `Account` at the end of the edge. */
-  node?: Maybe<Account>;
 };
 
 /** Methods to use when ordering `AnnotationTag`. */
@@ -1032,7 +765,7 @@ export type Tag = Node & {
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   id: Scalars['ID'];
   tagId: Scalars['String'];
-  name: Scalars['String'];
+  tagName: Scalars['String'];
   accountId: Scalars['UUID'];
   /** Reads a single `Account` that is related to this `Tag`. */
   accountByAccountId?: Maybe<Account>;
@@ -1100,6 +833,8 @@ export type TagsOrderBy =
   | 'NATURAL'
   | 'TAG_ID_ASC'
   | 'TAG_ID_DESC'
+  | 'TAG_NAME_ASC'
+  | 'TAG_NAME_DESC'
   | 'ACCOUNT_ID_ASC'
   | 'ACCOUNT_ID_DESC'
   | 'PRIMARY_KEY_ASC'
@@ -1109,6 +844,8 @@ export type TagsOrderBy =
 export type TagCondition = {
   /** Checks for equality with the object’s `tagId` field. */
   tagId?: Maybe<Scalars['String']>;
+  /** Checks for equality with the object’s `tagName` field. */
+  tagName?: Maybe<Scalars['String']>;
   /** Checks for equality with the object’s `accountId` field. */
   accountId?: Maybe<Scalars['UUID']>;
 };
@@ -1142,6 +879,199 @@ export type AnnotationsEdge = {
   cursor?: Maybe<Scalars['Cursor']>;
   /** The `Annotation` at the end of the edge. */
   node?: Maybe<Annotation>;
+};
+
+/** Methods to use when ordering `PublicationAuthor`. */
+export type PublicationAuthorsOrderBy = 
+  | 'NATURAL'
+  | 'PUBLICATION_ID_ASC'
+  | 'PUBLICATION_ID_DESC'
+  | 'AUTHOR_ID_ASC'
+  | 'AUTHOR_ID_DESC'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC';
+
+/** A condition to be used against `PublicationAuthor` object types. All fields are tested for equality and combined with a logical ‘and.’ */
+export type PublicationAuthorCondition = {
+  /** Checks for equality with the object’s `publicationId` field. */
+  publicationId?: Maybe<Scalars['String']>;
+  /** Checks for equality with the object’s `authorId` field. */
+  authorId?: Maybe<Scalars['String']>;
+};
+
+/** A connection to a list of `PublicationAuthor` values. */
+export type PublicationAuthorsConnection = {
+  __typename?: 'PublicationAuthorsConnection';
+  /** A list of `PublicationAuthor` objects. */
+  nodes: Array<Maybe<PublicationAuthor>>;
+  /** A list of edges which contains the `PublicationAuthor` and cursor to aid in pagination. */
+  edges: Array<PublicationAuthorsEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `PublicationAuthor` you could get from the connection. */
+  totalCount: Scalars['Int'];
+};
+
+export type PublicationAuthor = Node & {
+  __typename?: 'PublicationAuthor';
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  id: Scalars['ID'];
+  publicationId: Scalars['String'];
+  authorId: Scalars['String'];
+  /** Reads a single `Publication` that is related to this `PublicationAuthor`. */
+  publicationByPublicationId?: Maybe<Publication>;
+  /** Reads a single `Author` that is related to this `PublicationAuthor`. */
+  authorByAuthorId?: Maybe<Author>;
+};
+
+export type Author = Node & {
+  __typename?: 'Author';
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  id: Scalars['ID'];
+  authorId: Scalars['String'];
+  fullName: Scalars['String'];
+  /** Reads and enables pagination through a set of `PublicationAuthor`. */
+  publicationAuthorsByAuthorId: PublicationAuthorsConnection;
+  /** Reads and enables pagination through a set of `Publication`. */
+  publicationsByPublicationAuthorAuthorIdAndPublicationId: AuthorPublicationsByPublicationAuthorAuthorIdAndPublicationIdManyToManyConnection;
+};
+
+
+export type AuthorPublicationAuthorsByAuthorIdArgs = {
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['Cursor']>;
+  after?: Maybe<Scalars['Cursor']>;
+  orderBy?: Maybe<Array<PublicationAuthorsOrderBy>>;
+  condition?: Maybe<PublicationAuthorCondition>;
+};
+
+
+export type AuthorPublicationsByPublicationAuthorAuthorIdAndPublicationIdArgs = {
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['Cursor']>;
+  after?: Maybe<Scalars['Cursor']>;
+  orderBy?: Maybe<Array<PublicationsOrderBy>>;
+  condition?: Maybe<PublicationCondition>;
+};
+
+/** A connection to a list of `Publication` values, with data from `PublicationAuthor`. */
+export type AuthorPublicationsByPublicationAuthorAuthorIdAndPublicationIdManyToManyConnection = {
+  __typename?: 'AuthorPublicationsByPublicationAuthorAuthorIdAndPublicationIdManyToManyConnection';
+  /** A list of `Publication` objects. */
+  nodes: Array<Maybe<Publication>>;
+  /** A list of edges which contains the `Publication`, info from the `PublicationAuthor`, and the cursor to aid in pagination. */
+  edges: Array<AuthorPublicationsByPublicationAuthorAuthorIdAndPublicationIdManyToManyEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Publication` you could get from the connection. */
+  totalCount: Scalars['Int'];
+};
+
+/** A `Publication` edge in the connection, with data from `PublicationAuthor`. */
+export type AuthorPublicationsByPublicationAuthorAuthorIdAndPublicationIdManyToManyEdge = {
+  __typename?: 'AuthorPublicationsByPublicationAuthorAuthorIdAndPublicationIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']>;
+  /** The `Publication` at the end of the edge. */
+  node?: Maybe<Publication>;
+};
+
+/** A `PublicationAuthor` edge in the connection. */
+export type PublicationAuthorsEdge = {
+  __typename?: 'PublicationAuthorsEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']>;
+  /** The `PublicationAuthor` at the end of the edge. */
+  node?: Maybe<PublicationAuthor>;
+};
+
+/** A connection to a list of `Account` values, with data from `Annotation`. */
+export type PublicationAccountsByAnnotationPublicationIdAndAccountIdManyToManyConnection = {
+  __typename?: 'PublicationAccountsByAnnotationPublicationIdAndAccountIdManyToManyConnection';
+  /** A list of `Account` objects. */
+  nodes: Array<Maybe<Account>>;
+  /** A list of edges which contains the `Account`, info from the `Annotation`, and the cursor to aid in pagination. */
+  edges: Array<PublicationAccountsByAnnotationPublicationIdAndAccountIdManyToManyEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Account` you could get from the connection. */
+  totalCount: Scalars['Int'];
+};
+
+/** A `Account` edge in the connection, with data from `Annotation`. */
+export type PublicationAccountsByAnnotationPublicationIdAndAccountIdManyToManyEdge = {
+  __typename?: 'PublicationAccountsByAnnotationPublicationIdAndAccountIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']>;
+  /** The `Account` at the end of the edge. */
+  node?: Maybe<Account>;
+  /** Reads and enables pagination through a set of `Annotation`. */
+  annotationsByAccountId: AnnotationsConnection;
+};
+
+
+/** A `Account` edge in the connection, with data from `Annotation`. */
+export type PublicationAccountsByAnnotationPublicationIdAndAccountIdManyToManyEdgeAnnotationsByAccountIdArgs = {
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['Cursor']>;
+  after?: Maybe<Scalars['Cursor']>;
+  orderBy?: Maybe<Array<AnnotationsOrderBy>>;
+  condition?: Maybe<AnnotationCondition>;
+};
+
+/** Methods to use when ordering `Author`. */
+export type AuthorsOrderBy = 
+  | 'NATURAL'
+  | 'AUTHOR_ID_ASC'
+  | 'AUTHOR_ID_DESC'
+  | 'FULL_NAME_ASC'
+  | 'FULL_NAME_DESC'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC';
+
+/** A condition to be used against `Author` object types. All fields are tested for equality and combined with a logical ‘and.’ */
+export type AuthorCondition = {
+  /** Checks for equality with the object’s `authorId` field. */
+  authorId?: Maybe<Scalars['String']>;
+  /** Checks for equality with the object’s `fullName` field. */
+  fullName?: Maybe<Scalars['String']>;
+};
+
+/** A connection to a list of `Author` values, with data from `PublicationAuthor`. */
+export type PublicationAuthorsByPublicationAuthorPublicationIdAndAuthorIdManyToManyConnection = {
+  __typename?: 'PublicationAuthorsByPublicationAuthorPublicationIdAndAuthorIdManyToManyConnection';
+  /** A list of `Author` objects. */
+  nodes: Array<Maybe<Author>>;
+  /** A list of edges which contains the `Author`, info from the `PublicationAuthor`, and the cursor to aid in pagination. */
+  edges: Array<PublicationAuthorsByPublicationAuthorPublicationIdAndAuthorIdManyToManyEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Author` you could get from the connection. */
+  totalCount: Scalars['Int'];
+};
+
+/** A `Author` edge in the connection, with data from `PublicationAuthor`. */
+export type PublicationAuthorsByPublicationAuthorPublicationIdAndAuthorIdManyToManyEdge = {
+  __typename?: 'PublicationAuthorsByPublicationAuthorPublicationIdAndAuthorIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']>;
+  /** The `Author` at the end of the edge. */
+  node?: Maybe<Author>;
+};
+
+/** A `Publication` edge in the connection. */
+export type PublicationsEdge = {
+  __typename?: 'PublicationsEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']>;
+  /** The `Publication` at the end of the edge. */
+  node?: Maybe<Publication>;
 };
 
 /** A connection to a list of `Tag` values. */
@@ -1200,28 +1130,6 @@ export type AccountPublicationsByAnnotationAccountIdAndPublicationIdManyToManyEd
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<Array<AnnotationsOrderBy>>;
   condition?: Maybe<AnnotationCondition>;
-};
-
-/** A connection to a list of `Publication` values, with data from `AccountPublication`. */
-export type AccountPublicationsByAccountPublicationAccountIdAndPublicationIdManyToManyConnection = {
-  __typename?: 'AccountPublicationsByAccountPublicationAccountIdAndPublicationIdManyToManyConnection';
-  /** A list of `Publication` objects. */
-  nodes: Array<Maybe<Publication>>;
-  /** A list of edges which contains the `Publication`, info from the `AccountPublication`, and the cursor to aid in pagination. */
-  edges: Array<AccountPublicationsByAccountPublicationAccountIdAndPublicationIdManyToManyEdge>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
-  /** The count of *all* `Publication` you could get from the connection. */
-  totalCount: Scalars['Int'];
-};
-
-/** A `Publication` edge in the connection, with data from `AccountPublication`. */
-export type AccountPublicationsByAccountPublicationAccountIdAndPublicationIdManyToManyEdge = {
-  __typename?: 'AccountPublicationsByAccountPublicationAccountIdAndPublicationIdManyToManyEdge';
-  /** A cursor for use in pagination. */
-  cursor?: Maybe<Scalars['Cursor']>;
-  /** The `Publication` at the end of the edge. */
-  node?: Maybe<Publication>;
 };
 
 /** A `Account` edge in the connection. */
@@ -1288,35 +1196,11 @@ export type AuthorsEdge = {
   node?: Maybe<Author>;
 };
 
-/** A connection to a list of `Publication` values. */
-export type PublicationsConnection = {
-  __typename?: 'PublicationsConnection';
-  /** A list of `Publication` objects. */
-  nodes: Array<Maybe<Publication>>;
-  /** A list of edges which contains the `Publication` and cursor to aid in pagination. */
-  edges: Array<PublicationsEdge>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
-  /** The count of *all* `Publication` you could get from the connection. */
-  totalCount: Scalars['Int'];
-};
-
-/** A `Publication` edge in the connection. */
-export type PublicationsEdge = {
-  __typename?: 'PublicationsEdge';
-  /** A cursor for use in pagination. */
-  cursor?: Maybe<Scalars['Cursor']>;
-  /** The `Publication` at the end of the edge. */
-  node?: Maybe<Publication>;
-};
-
 /** The root mutation type which contains root level fields which mutate data. */
 export type Mutation = {
   __typename?: 'Mutation';
   /** Creates a single `Account`. */
   createAccount?: Maybe<CreateAccountPayload>;
-  /** Creates a single `AccountPublication`. */
-  createAccountPublication?: Maybe<CreateAccountPublicationPayload>;
   /** Creates a single `Annotation`. */
   createAnnotation?: Maybe<CreateAnnotationPayload>;
   /** Creates a single `AnnotationTag`. */
@@ -1337,14 +1221,14 @@ export type Mutation = {
   updateAccountByAccountId?: Maybe<UpdateAccountPayload>;
   /** Updates a single `Account` using a unique key and a patch. */
   updateAccountByEmail?: Maybe<UpdateAccountPayload>;
-  /** Updates a single `AccountPublication` using its globally unique id and a patch. */
-  updateAccountPublication?: Maybe<UpdateAccountPublicationPayload>;
-  /** Updates a single `AccountPublication` using a unique key and a patch. */
-  updateAccountPublicationByAccountIdAndPublicationId?: Maybe<UpdateAccountPublicationPayload>;
   /** Updates a single `Annotation` using its globally unique id and a patch. */
   updateAnnotation?: Maybe<UpdateAnnotationPayload>;
   /** Updates a single `Annotation` using a unique key and a patch. */
   updateAnnotationByAnnotationId?: Maybe<UpdateAnnotationPayload>;
+  /** Updates a single `Annotation` using a unique key and a patch. */
+  updateAnnotationByAnnotationIdAndPublicationIdAndAccountIdAndHighlightLocationAndHighlightText?: Maybe<UpdateAnnotationPayload>;
+  /** Updates a single `Annotation` using a unique key and a patch. */
+  updateAnnotationByAnnotationIdAndPublicationIdAndAccountIdAndNoteLocationAndNoteText?: Maybe<UpdateAnnotationPayload>;
   /** Updates a single `AnnotationTag` using its globally unique id and a patch. */
   updateAnnotationTag?: Maybe<UpdateAnnotationTagPayload>;
   /** Updates a single `AnnotationTag` using a unique key and a patch. */
@@ -1353,16 +1237,18 @@ export type Mutation = {
   updateAuthor?: Maybe<UpdateAuthorPayload>;
   /** Updates a single `Author` using a unique key and a patch. */
   updateAuthorByAuthorId?: Maybe<UpdateAuthorPayload>;
+  /** Updates a single `Author` using a unique key and a patch. */
+  updateAuthorByFullName?: Maybe<UpdateAuthorPayload>;
   /** Updates a single `Book` using its globally unique id and a patch. */
   updateBook?: Maybe<UpdateBookPayload>;
   /** Updates a single `Book` using a unique key and a patch. */
   updateBookByPublicationId?: Maybe<UpdateBookPayload>;
-  /** Updates a single `Book` using a unique key and a patch. */
-  updateBookByTitle?: Maybe<UpdateBookPayload>;
   /** Updates a single `Publication` using its globally unique id and a patch. */
   updatePublication?: Maybe<UpdatePublicationPayload>;
   /** Updates a single `Publication` using a unique key and a patch. */
   updatePublicationByPublicationId?: Maybe<UpdatePublicationPayload>;
+  /** Updates a single `Publication` using a unique key and a patch. */
+  updatePublicationByAccountIdAndTitle?: Maybe<UpdatePublicationPayload>;
   /** Updates a single `PublicationAuthor` using its globally unique id and a patch. */
   updatePublicationAuthor?: Maybe<UpdatePublicationAuthorPayload>;
   /** Updates a single `PublicationAuthor` using a unique key and a patch. */
@@ -1371,20 +1257,22 @@ export type Mutation = {
   updateTag?: Maybe<UpdateTagPayload>;
   /** Updates a single `Tag` using a unique key and a patch. */
   updateTagByTagId?: Maybe<UpdateTagPayload>;
+  /** Updates a single `Tag` using a unique key and a patch. */
+  updateTagByTagNameAndAccountId?: Maybe<UpdateTagPayload>;
   /** Deletes a single `Account` using its globally unique id. */
   deleteAccount?: Maybe<DeleteAccountPayload>;
   /** Deletes a single `Account` using a unique key. */
   deleteAccountByAccountId?: Maybe<DeleteAccountPayload>;
   /** Deletes a single `Account` using a unique key. */
   deleteAccountByEmail?: Maybe<DeleteAccountPayload>;
-  /** Deletes a single `AccountPublication` using its globally unique id. */
-  deleteAccountPublication?: Maybe<DeleteAccountPublicationPayload>;
-  /** Deletes a single `AccountPublication` using a unique key. */
-  deleteAccountPublicationByAccountIdAndPublicationId?: Maybe<DeleteAccountPublicationPayload>;
   /** Deletes a single `Annotation` using its globally unique id. */
   deleteAnnotation?: Maybe<DeleteAnnotationPayload>;
   /** Deletes a single `Annotation` using a unique key. */
   deleteAnnotationByAnnotationId?: Maybe<DeleteAnnotationPayload>;
+  /** Deletes a single `Annotation` using a unique key. */
+  deleteAnnotationByAnnotationIdAndPublicationIdAndAccountIdAndHighlightLocationAndHighlightText?: Maybe<DeleteAnnotationPayload>;
+  /** Deletes a single `Annotation` using a unique key. */
+  deleteAnnotationByAnnotationIdAndPublicationIdAndAccountIdAndNoteLocationAndNoteText?: Maybe<DeleteAnnotationPayload>;
   /** Deletes a single `AnnotationTag` using its globally unique id. */
   deleteAnnotationTag?: Maybe<DeleteAnnotationTagPayload>;
   /** Deletes a single `AnnotationTag` using a unique key. */
@@ -1393,16 +1281,18 @@ export type Mutation = {
   deleteAuthor?: Maybe<DeleteAuthorPayload>;
   /** Deletes a single `Author` using a unique key. */
   deleteAuthorByAuthorId?: Maybe<DeleteAuthorPayload>;
+  /** Deletes a single `Author` using a unique key. */
+  deleteAuthorByFullName?: Maybe<DeleteAuthorPayload>;
   /** Deletes a single `Book` using its globally unique id. */
   deleteBook?: Maybe<DeleteBookPayload>;
   /** Deletes a single `Book` using a unique key. */
   deleteBookByPublicationId?: Maybe<DeleteBookPayload>;
-  /** Deletes a single `Book` using a unique key. */
-  deleteBookByTitle?: Maybe<DeleteBookPayload>;
   /** Deletes a single `Publication` using its globally unique id. */
   deletePublication?: Maybe<DeletePublicationPayload>;
   /** Deletes a single `Publication` using a unique key. */
   deletePublicationByPublicationId?: Maybe<DeletePublicationPayload>;
+  /** Deletes a single `Publication` using a unique key. */
+  deletePublicationByAccountIdAndTitle?: Maybe<DeletePublicationPayload>;
   /** Deletes a single `PublicationAuthor` using its globally unique id. */
   deletePublicationAuthor?: Maybe<DeletePublicationAuthorPayload>;
   /** Deletes a single `PublicationAuthor` using a unique key. */
@@ -1411,18 +1301,14 @@ export type Mutation = {
   deleteTag?: Maybe<DeleteTagPayload>;
   /** Deletes a single `Tag` using a unique key. */
   deleteTagByTagId?: Maybe<DeleteTagPayload>;
+  /** Deletes a single `Tag` using a unique key. */
+  deleteTagByTagNameAndAccountId?: Maybe<DeleteTagPayload>;
 };
 
 
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationCreateAccountArgs = {
   input: CreateAccountInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationCreateAccountPublicationArgs = {
-  input: CreateAccountPublicationInput;
 };
 
 
@@ -1487,18 +1373,6 @@ export type MutationUpdateAccountByEmailArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
-export type MutationUpdateAccountPublicationArgs = {
-  input: UpdateAccountPublicationInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationUpdateAccountPublicationByAccountIdAndPublicationIdArgs = {
-  input: UpdateAccountPublicationByAccountIdAndPublicationIdInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
 export type MutationUpdateAnnotationArgs = {
   input: UpdateAnnotationInput;
 };
@@ -1507,6 +1381,18 @@ export type MutationUpdateAnnotationArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationUpdateAnnotationByAnnotationIdArgs = {
   input: UpdateAnnotationByAnnotationIdInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateAnnotationByAnnotationIdAndPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextArgs = {
+  input: UpdateAnnotationByAnnotationIdAndPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateAnnotationByAnnotationIdAndPublicationIdAndAccountIdAndNoteLocationAndNoteTextArgs = {
+  input: UpdateAnnotationByAnnotationIdAndPublicationIdAndAccountIdAndNoteLocationAndNoteTextInput;
 };
 
 
@@ -1535,6 +1421,12 @@ export type MutationUpdateAuthorByAuthorIdArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateAuthorByFullNameArgs = {
+  input: UpdateAuthorByFullNameInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
 export type MutationUpdateBookArgs = {
   input: UpdateBookInput;
 };
@@ -1547,12 +1439,6 @@ export type MutationUpdateBookByPublicationIdArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
-export type MutationUpdateBookByTitleArgs = {
-  input: UpdateBookByTitleInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
 export type MutationUpdatePublicationArgs = {
   input: UpdatePublicationInput;
 };
@@ -1561,6 +1447,12 @@ export type MutationUpdatePublicationArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationUpdatePublicationByPublicationIdArgs = {
   input: UpdatePublicationByPublicationIdInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdatePublicationByAccountIdAndTitleArgs = {
+  input: UpdatePublicationByAccountIdAndTitleInput;
 };
 
 
@@ -1589,6 +1481,12 @@ export type MutationUpdateTagByTagIdArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateTagByTagNameAndAccountIdArgs = {
+  input: UpdateTagByTagNameAndAccountIdInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
 export type MutationDeleteAccountArgs = {
   input: DeleteAccountInput;
 };
@@ -1607,18 +1505,6 @@ export type MutationDeleteAccountByEmailArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
-export type MutationDeleteAccountPublicationArgs = {
-  input: DeleteAccountPublicationInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationDeleteAccountPublicationByAccountIdAndPublicationIdArgs = {
-  input: DeleteAccountPublicationByAccountIdAndPublicationIdInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
 export type MutationDeleteAnnotationArgs = {
   input: DeleteAnnotationInput;
 };
@@ -1627,6 +1513,18 @@ export type MutationDeleteAnnotationArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationDeleteAnnotationByAnnotationIdArgs = {
   input: DeleteAnnotationByAnnotationIdInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteAnnotationByAnnotationIdAndPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextArgs = {
+  input: DeleteAnnotationByAnnotationIdAndPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteAnnotationByAnnotationIdAndPublicationIdAndAccountIdAndNoteLocationAndNoteTextArgs = {
+  input: DeleteAnnotationByAnnotationIdAndPublicationIdAndAccountIdAndNoteLocationAndNoteTextInput;
 };
 
 
@@ -1655,6 +1553,12 @@ export type MutationDeleteAuthorByAuthorIdArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteAuthorByFullNameArgs = {
+  input: DeleteAuthorByFullNameInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
 export type MutationDeleteBookArgs = {
   input: DeleteBookInput;
 };
@@ -1667,12 +1571,6 @@ export type MutationDeleteBookByPublicationIdArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
-export type MutationDeleteBookByTitleArgs = {
-  input: DeleteBookByTitleInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
 export type MutationDeletePublicationArgs = {
   input: DeletePublicationInput;
 };
@@ -1681,6 +1579,12 @@ export type MutationDeletePublicationArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationDeletePublicationByPublicationIdArgs = {
   input: DeletePublicationByPublicationIdInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeletePublicationByAccountIdAndTitleArgs = {
+  input: DeletePublicationByAccountIdAndTitleInput;
 };
 
 
@@ -1707,6 +1611,12 @@ export type MutationDeleteTagByTagIdArgs = {
   input: DeleteTagByTagIdInput;
 };
 
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteTagByTagNameAndAccountIdArgs = {
+  input: DeleteTagByTagNameAndAccountIdInput;
+};
+
 /** All input for the create `Account` mutation. */
 export type CreateAccountInput = {
   /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
@@ -1726,99 +1636,46 @@ export type AccountInput = {
   group?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
+  publicationsUsingAccountId?: Maybe<PublicationAccountIdFkeyInverseInput>;
   annotationsUsingAccountId?: Maybe<AnnotationAccountIdFkeyInverseInput>;
-  accountPublicationsUsingAccountId?: Maybe<AccountPublicationAccountIdFkeyInverseInput>;
   tagsUsingAccountId?: Maybe<TagAccountIdFkeyInverseInput>;
 };
 
-/** Input for the nested mutation of `annotation` in the `AccountInput` mutation. */
-export type AnnotationAccountIdFkeyInverseInput = {
-  /** Flag indicating whether all other `annotation` records that match this relationship should be removed. */
+/** Input for the nested mutation of `publication` in the `AccountInput` mutation. */
+export type PublicationAccountIdFkeyInverseInput = {
+  /** Flag indicating whether all other `publication` records that match this relationship should be removed. */
   deleteOthers?: Maybe<Scalars['Boolean']>;
-  /** The primary key(s) for `annotation` for the far side of the relationship. */
-  connectByAnnotationId?: Maybe<Array<AnnotationAnnotationPkeyConnect>>;
-  /** The primary key(s) for `annotation` for the far side of the relationship. */
-  connectById?: Maybe<Array<AnnotationNodeIdConnect>>;
-  /** The primary key(s) for `annotation` for the far side of the relationship. */
-  deleteByAnnotationId?: Maybe<Array<AnnotationAnnotationPkeyDelete>>;
-  /** The primary key(s) for `annotation` for the far side of the relationship. */
-  deleteById?: Maybe<Array<AnnotationNodeIdDelete>>;
-  /** The primary key(s) and patch data for `annotation` for the far side of the relationship. */
-  updateByAnnotationId?: Maybe<Array<AnnotationOnAnnotationForAnnotationAccountIdFkeyUsingAnnotationPkeyUpdate>>;
-  /** The primary key(s) and patch data for `annotation` for the far side of the relationship. */
-  updateById?: Maybe<Array<AccountOnAnnotationForAnnotationAccountIdFkeyNodeIdUpdate>>;
-  /** A `AnnotationInput` object that will be created and connected to this object. */
-  create?: Maybe<Array<AnnotationAccountIdFkeyAnnotationCreateInput>>;
-};
-
-/** The fields on `annotation` to look up the row to connect. */
-export type AnnotationAnnotationPkeyConnect = {
-  annotationId: Scalars['String'];
-};
-
-/** The globally unique `ID` look up for the row to connect. */
-export type AnnotationNodeIdConnect = {
-  /** The globally unique `ID` which identifies a single `annotation` to be connected. */
-  id: Scalars['ID'];
-};
-
-/** The fields on `annotation` to look up the row to delete. */
-export type AnnotationAnnotationPkeyDelete = {
-  annotationId: Scalars['String'];
-};
-
-/** The globally unique `ID` look up for the row to delete. */
-export type AnnotationNodeIdDelete = {
-  /** The globally unique `ID` which identifies a single `annotation` to be deleted. */
-  id: Scalars['ID'];
-};
-
-/** The fields on `annotation` to look up the row to update. */
-export type AnnotationOnAnnotationForAnnotationAccountIdFkeyUsingAnnotationPkeyUpdate = {
-  /** An object where the defined keys will be set on the `annotation` being updated. */
-  annotationPatch: UpdateAnnotationOnAnnotationForAnnotationAccountIdFkeyPatch;
-  annotationId: Scalars['String'];
-};
-
-/** An object where the defined keys will be set on the `annotation` being updated. */
-export type UpdateAnnotationOnAnnotationForAnnotationAccountIdFkeyPatch = {
-  annotationId?: Maybe<Scalars['String']>;
-  publicationId?: Maybe<Scalars['String']>;
-  color?: Maybe<Scalars['String']>;
-  highlightLocation?: Maybe<Scalars['JSON']>;
-  highlightedText?: Maybe<Scalars['String']>;
-  noteText?: Maybe<Scalars['String']>;
-  noteLocation?: Maybe<Scalars['JSON']>;
-  recordedAt?: Maybe<Scalars['Datetime']>;
-  createdAt?: Maybe<Scalars['Datetime']>;
-  updatedAt?: Maybe<Scalars['Datetime']>;
-  extraEdits?: Maybe<Scalars['JSON']>;
-  publicationToPublicationId?: Maybe<AnnotationPublicationIdFkeyInput>;
-  accountToAccountId?: Maybe<AnnotationAccountIdFkeyInput>;
-  annotationTagsUsingAnnotationId?: Maybe<AnnotationTagAnnotationIdFkeyInverseInput>;
-};
-
-/** Input for the nested mutation of `publication` in the `AnnotationInput` mutation. */
-export type AnnotationPublicationIdFkeyInput = {
   /** The primary key(s) for `publication` for the far side of the relationship. */
-  connectByPublicationId?: Maybe<PublicationPublicationPkeyConnect>;
+  connectByPublicationId?: Maybe<Array<PublicationPublicationPkeyConnect>>;
   /** The primary key(s) for `publication` for the far side of the relationship. */
-  connectById?: Maybe<PublicationNodeIdConnect>;
+  connectByAccountIdAndTitle?: Maybe<Array<PublicationPublicationAccountIdTitleKeyConnect>>;
   /** The primary key(s) for `publication` for the far side of the relationship. */
-  deleteByPublicationId?: Maybe<PublicationPublicationPkeyDelete>;
+  connectById?: Maybe<Array<PublicationNodeIdConnect>>;
   /** The primary key(s) for `publication` for the far side of the relationship. */
-  deleteById?: Maybe<PublicationNodeIdDelete>;
+  deleteByPublicationId?: Maybe<Array<PublicationPublicationPkeyDelete>>;
+  /** The primary key(s) for `publication` for the far side of the relationship. */
+  deleteByAccountIdAndTitle?: Maybe<Array<PublicationPublicationAccountIdTitleKeyDelete>>;
+  /** The primary key(s) for `publication` for the far side of the relationship. */
+  deleteById?: Maybe<Array<PublicationNodeIdDelete>>;
   /** The primary key(s) and patch data for `publication` for the far side of the relationship. */
-  updateByPublicationId?: Maybe<PublicationOnAnnotationForAnnotationPublicationIdFkeyUsingPublicationPkeyUpdate>;
+  updateByPublicationId?: Maybe<Array<PublicationOnPublicationForPublicationAccountIdFkeyUsingPublicationPkeyUpdate>>;
   /** The primary key(s) and patch data for `publication` for the far side of the relationship. */
-  updateById?: Maybe<AnnotationOnAnnotationForAnnotationPublicationIdFkeyNodeIdUpdate>;
+  updateByAccountIdAndTitle?: Maybe<Array<PublicationOnPublicationForPublicationAccountIdFkeyUsingPublicationAccountIdTitleKeyUpdate>>;
+  /** The primary key(s) and patch data for `publication` for the far side of the relationship. */
+  updateById?: Maybe<Array<AccountOnPublicationForPublicationAccountIdFkeyNodeIdUpdate>>;
   /** A `PublicationInput` object that will be created and connected to this object. */
-  create?: Maybe<AnnotationPublicationIdFkeyPublicationCreateInput>;
+  create?: Maybe<Array<PublicationAccountIdFkeyPublicationCreateInput>>;
 };
 
 /** The fields on `publication` to look up the row to connect. */
 export type PublicationPublicationPkeyConnect = {
   publicationId: Scalars['String'];
+};
+
+/** The fields on `publication` to look up the row to connect. */
+export type PublicationPublicationAccountIdTitleKeyConnect = {
+  accountId: Scalars['UUID'];
+  title: Scalars['String'];
 };
 
 /** The globally unique `ID` look up for the row to connect. */
@@ -1832,6 +1689,12 @@ export type PublicationPublicationPkeyDelete = {
   publicationId: Scalars['String'];
 };
 
+/** The fields on `publication` to look up the row to delete. */
+export type PublicationPublicationAccountIdTitleKeyDelete = {
+  accountId: Scalars['UUID'];
+  title: Scalars['String'];
+};
+
 /** The globally unique `ID` look up for the row to delete. */
 export type PublicationNodeIdDelete = {
   /** The globally unique `ID` which identifies a single `publication` to be deleted. */
@@ -1839,182 +1702,27 @@ export type PublicationNodeIdDelete = {
 };
 
 /** The fields on `publication` to look up the row to update. */
-export type PublicationOnAnnotationForAnnotationPublicationIdFkeyUsingPublicationPkeyUpdate = {
+export type PublicationOnPublicationForPublicationAccountIdFkeyUsingPublicationPkeyUpdate = {
   /** An object where the defined keys will be set on the `publication` being updated. */
-  publicationPatch: UpdatePublicationOnAnnotationForAnnotationPublicationIdFkeyPatch;
+  publicationPatch: UpdatePublicationOnPublicationForPublicationAccountIdFkeyPatch;
   publicationId: Scalars['String'];
 };
 
 /** An object where the defined keys will be set on the `publication` being updated. */
-export type UpdatePublicationOnAnnotationForAnnotationPublicationIdFkeyPatch = {
+export type UpdatePublicationOnPublicationForPublicationAccountIdFkeyPatch = {
+  publicationId?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
-  bookUsingPublicationId?: Maybe<BookPublicationIdFkeyInverseInput>;
-  annotationsUsingPublicationId?: Maybe<AnnotationPublicationIdFkeyInverseInput>;
-  publicationAuthorsUsingPublicationId?: Maybe<PublicationAuthorPublicationIdFkeyInverseInput>;
-  accountPublicationsUsingPublicationId?: Maybe<AccountPublicationPublicationIdFkeyInverseInput>;
-};
-
-/** Input for the nested mutation of `book` in the `PublicationInput` mutation. */
-export type BookPublicationIdFkeyInverseInput = {
-  /** Flag indicating whether all other `book` records that match this relationship should be removed. */
-  deleteOthers?: Maybe<Scalars['Boolean']>;
-  /** The primary key(s) for `book` for the far side of the relationship. */
-  connectByPublicationId?: Maybe<BookBookPkeyConnect>;
-  /** The primary key(s) for `book` for the far side of the relationship. */
-  connectByTitle?: Maybe<BookBookTitleKeyConnect>;
-  /** The primary key(s) for `book` for the far side of the relationship. */
-  connectById?: Maybe<BookNodeIdConnect>;
-  /** The primary key(s) for `book` for the far side of the relationship. */
-  deleteByPublicationId?: Maybe<BookBookPkeyDelete>;
-  /** The primary key(s) for `book` for the far side of the relationship. */
-  deleteByTitle?: Maybe<BookBookTitleKeyDelete>;
-  /** The primary key(s) for `book` for the far side of the relationship. */
-  deleteById?: Maybe<BookNodeIdDelete>;
-  /** The primary key(s) and patch data for `book` for the far side of the relationship. */
-  updateByPublicationId?: Maybe<BookOnBookForBookPublicationIdFkeyUsingBookPkeyUpdate>;
-  /** The primary key(s) and patch data for `book` for the far side of the relationship. */
-  updateByTitle?: Maybe<BookOnBookForBookPublicationIdFkeyUsingBookTitleKeyUpdate>;
-  /** The primary key(s) and patch data for `book` for the far side of the relationship. */
-  updateById?: Maybe<PublicationOnBookForBookPublicationIdFkeyNodeIdUpdate>;
-  /** A `BookInput` object that will be created and connected to this object. */
-  create?: Maybe<Array<BookPublicationIdFkeyBookCreateInput>>;
-};
-
-/** The fields on `book` to look up the row to connect. */
-export type BookBookPkeyConnect = {
-  publicationId: Scalars['String'];
-};
-
-/** The fields on `book` to look up the row to connect. */
-export type BookBookTitleKeyConnect = {
-  title: Scalars['String'];
-};
-
-/** The globally unique `ID` look up for the row to connect. */
-export type BookNodeIdConnect = {
-  /** The globally unique `ID` which identifies a single `book` to be connected. */
-  id: Scalars['ID'];
-};
-
-/** The fields on `book` to look up the row to delete. */
-export type BookBookPkeyDelete = {
-  publicationId: Scalars['String'];
-};
-
-/** The fields on `book` to look up the row to delete. */
-export type BookBookTitleKeyDelete = {
-  title: Scalars['String'];
-};
-
-/** The globally unique `ID` look up for the row to delete. */
-export type BookNodeIdDelete = {
-  /** The globally unique `ID` which identifies a single `book` to be deleted. */
-  id: Scalars['ID'];
-};
-
-/** The fields on `book` to look up the row to update. */
-export type BookOnBookForBookPublicationIdFkeyUsingBookPkeyUpdate = {
-  /** An object where the defined keys will be set on the `book` being updated. */
-  bookPatch: UpdateBookOnBookForBookPublicationIdFkeyPatch;
-  publicationId: Scalars['String'];
-};
-
-/** An object where the defined keys will be set on the `book` being updated. */
-export type UpdateBookOnBookForBookPublicationIdFkeyPatch = {
-  isbn13?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
-  imageUrl?: Maybe<Scalars['String']>;
-  languageCode?: Maybe<Scalars['String']>;
-  publisher?: Maybe<Scalars['String']>;
-  publicationDate?: Maybe<Scalars['Date']>;
-  description?: Maybe<Scalars['String']>;
-  bookType?: Maybe<Scalars['String']>;
-  publicationToPublicationId?: Maybe<BookPublicationIdFkeyInput>;
-};
-
-/** Input for the nested mutation of `publication` in the `BookInput` mutation. */
-export type BookPublicationIdFkeyInput = {
-  /** The primary key(s) for `publication` for the far side of the relationship. */
-  connectByPublicationId?: Maybe<PublicationPublicationPkeyConnect>;
-  /** The primary key(s) for `publication` for the far side of the relationship. */
-  connectById?: Maybe<PublicationNodeIdConnect>;
-  /** The primary key(s) for `publication` for the far side of the relationship. */
-  deleteByPublicationId?: Maybe<PublicationPublicationPkeyDelete>;
-  /** The primary key(s) for `publication` for the far side of the relationship. */
-  deleteById?: Maybe<PublicationNodeIdDelete>;
-  /** The primary key(s) and patch data for `publication` for the far side of the relationship. */
-  updateByPublicationId?: Maybe<PublicationOnBookForBookPublicationIdFkeyUsingPublicationPkeyUpdate>;
-  /** The primary key(s) and patch data for `publication` for the far side of the relationship. */
-  updateById?: Maybe<BookOnBookForBookPublicationIdFkeyNodeIdUpdate>;
-  /** A `PublicationInput` object that will be created and connected to this object. */
-  create?: Maybe<BookPublicationIdFkeyPublicationCreateInput>;
-};
-
-/** The fields on `publication` to look up the row to update. */
-export type PublicationOnBookForBookPublicationIdFkeyUsingPublicationPkeyUpdate = {
-  /** An object where the defined keys will be set on the `publication` being updated. */
-  publicationPatch: UpdatePublicationOnBookForBookPublicationIdFkeyPatch;
-  publicationId: Scalars['String'];
-};
-
-/** An object where the defined keys will be set on the `publication` being updated. */
-export type UpdatePublicationOnBookForBookPublicationIdFkeyPatch = {
-  createdAt?: Maybe<Scalars['Datetime']>;
-  updatedAt?: Maybe<Scalars['Datetime']>;
+  additionalMeta?: Maybe<Scalars['JSON']>;
+  accountToAccountId?: Maybe<PublicationAccountIdFkeyInput>;
   bookUsingPublicationId?: Maybe<BookPublicationIdFkeyInverseInput>;
   annotationsUsingPublicationId?: Maybe<AnnotationPublicationIdFkeyInverseInput>;
   publicationAuthorsUsingPublicationId?: Maybe<PublicationAuthorPublicationIdFkeyInverseInput>;
-  accountPublicationsUsingPublicationId?: Maybe<AccountPublicationPublicationIdFkeyInverseInput>;
 };
 
-/** Input for the nested mutation of `annotation` in the `PublicationInput` mutation. */
-export type AnnotationPublicationIdFkeyInverseInput = {
-  /** Flag indicating whether all other `annotation` records that match this relationship should be removed. */
-  deleteOthers?: Maybe<Scalars['Boolean']>;
-  /** The primary key(s) for `annotation` for the far side of the relationship. */
-  connectByAnnotationId?: Maybe<Array<AnnotationAnnotationPkeyConnect>>;
-  /** The primary key(s) for `annotation` for the far side of the relationship. */
-  connectById?: Maybe<Array<AnnotationNodeIdConnect>>;
-  /** The primary key(s) for `annotation` for the far side of the relationship. */
-  deleteByAnnotationId?: Maybe<Array<AnnotationAnnotationPkeyDelete>>;
-  /** The primary key(s) for `annotation` for the far side of the relationship. */
-  deleteById?: Maybe<Array<AnnotationNodeIdDelete>>;
-  /** The primary key(s) and patch data for `annotation` for the far side of the relationship. */
-  updateByAnnotationId?: Maybe<Array<AnnotationOnAnnotationForAnnotationPublicationIdFkeyUsingAnnotationPkeyUpdate>>;
-  /** The primary key(s) and patch data for `annotation` for the far side of the relationship. */
-  updateById?: Maybe<Array<PublicationOnAnnotationForAnnotationPublicationIdFkeyNodeIdUpdate>>;
-  /** A `AnnotationInput` object that will be created and connected to this object. */
-  create?: Maybe<Array<AnnotationPublicationIdFkeyAnnotationCreateInput>>;
-};
-
-/** The fields on `annotation` to look up the row to update. */
-export type AnnotationOnAnnotationForAnnotationPublicationIdFkeyUsingAnnotationPkeyUpdate = {
-  /** An object where the defined keys will be set on the `annotation` being updated. */
-  annotationPatch: UpdateAnnotationOnAnnotationForAnnotationPublicationIdFkeyPatch;
-  annotationId: Scalars['String'];
-};
-
-/** An object where the defined keys will be set on the `annotation` being updated. */
-export type UpdateAnnotationOnAnnotationForAnnotationPublicationIdFkeyPatch = {
-  annotationId?: Maybe<Scalars['String']>;
-  accountId?: Maybe<Scalars['UUID']>;
-  color?: Maybe<Scalars['String']>;
-  highlightLocation?: Maybe<Scalars['JSON']>;
-  highlightedText?: Maybe<Scalars['String']>;
-  noteText?: Maybe<Scalars['String']>;
-  noteLocation?: Maybe<Scalars['JSON']>;
-  recordedAt?: Maybe<Scalars['Datetime']>;
-  createdAt?: Maybe<Scalars['Datetime']>;
-  updatedAt?: Maybe<Scalars['Datetime']>;
-  extraEdits?: Maybe<Scalars['JSON']>;
-  publicationToPublicationId?: Maybe<AnnotationPublicationIdFkeyInput>;
-  accountToAccountId?: Maybe<AnnotationAccountIdFkeyInput>;
-  annotationTagsUsingAnnotationId?: Maybe<AnnotationTagAnnotationIdFkeyInverseInput>;
-};
-
-/** Input for the nested mutation of `account` in the `AnnotationInput` mutation. */
-export type AnnotationAccountIdFkeyInput = {
+/** Input for the nested mutation of `account` in the `PublicationInput` mutation. */
+export type PublicationAccountIdFkeyInput = {
   /** The primary key(s) for `account` for the far side of the relationship. */
   connectByAccountId?: Maybe<AccountAccountPkeyConnect>;
   /** The primary key(s) for `account` for the far side of the relationship. */
@@ -2028,13 +1736,13 @@ export type AnnotationAccountIdFkeyInput = {
   /** The primary key(s) for `account` for the far side of the relationship. */
   deleteById?: Maybe<AccountNodeIdDelete>;
   /** The primary key(s) and patch data for `account` for the far side of the relationship. */
-  updateByAccountId?: Maybe<AccountOnAnnotationForAnnotationAccountIdFkeyUsingAccountPkeyUpdate>;
+  updateByAccountId?: Maybe<AccountOnPublicationForPublicationAccountIdFkeyUsingAccountPkeyUpdate>;
   /** The primary key(s) and patch data for `account` for the far side of the relationship. */
-  updateByEmail?: Maybe<AccountOnAnnotationForAnnotationAccountIdFkeyUsingAccountEmailKeyUpdate>;
+  updateByEmail?: Maybe<AccountOnPublicationForPublicationAccountIdFkeyUsingAccountEmailKeyUpdate>;
   /** The primary key(s) and patch data for `account` for the far side of the relationship. */
-  updateById?: Maybe<AnnotationOnAnnotationForAnnotationAccountIdFkeyNodeIdUpdate>;
+  updateById?: Maybe<PublicationOnPublicationForPublicationAccountIdFkeyNodeIdUpdate>;
   /** A `AccountInput` object that will be created and connected to this object. */
-  create?: Maybe<AnnotationAccountIdFkeyAccountCreateInput>;
+  create?: Maybe<PublicationAccountIdFkeyAccountCreateInput>;
 };
 
 /** The fields on `account` to look up the row to connect. */
@@ -2070,6 +1778,374 @@ export type AccountNodeIdDelete = {
 };
 
 /** The fields on `account` to look up the row to update. */
+export type AccountOnPublicationForPublicationAccountIdFkeyUsingAccountPkeyUpdate = {
+  /** An object where the defined keys will be set on the `account` being updated. */
+  accountPatch: UpdateAccountOnPublicationForPublicationAccountIdFkeyPatch;
+  accountId: Scalars['UUID'];
+};
+
+/** An object where the defined keys will be set on the `account` being updated. */
+export type UpdateAccountOnPublicationForPublicationAccountIdFkeyPatch = {
+  email?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['Datetime']>;
+  updatedAt?: Maybe<Scalars['Datetime']>;
+  status?: Maybe<Scalars['String']>;
+  emailVerified?: Maybe<Scalars['Boolean']>;
+  group?: Maybe<Scalars['String']>;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  publicationsUsingAccountId?: Maybe<PublicationAccountIdFkeyInverseInput>;
+  annotationsUsingAccountId?: Maybe<AnnotationAccountIdFkeyInverseInput>;
+  tagsUsingAccountId?: Maybe<TagAccountIdFkeyInverseInput>;
+};
+
+/** Input for the nested mutation of `annotation` in the `AccountInput` mutation. */
+export type AnnotationAccountIdFkeyInverseInput = {
+  /** Flag indicating whether all other `annotation` records that match this relationship should be removed. */
+  deleteOthers?: Maybe<Scalars['Boolean']>;
+  /** The primary key(s) for `annotation` for the far side of the relationship. */
+  connectByAnnotationId?: Maybe<Array<AnnotationAnnotationPkeyConnect>>;
+  /** The primary key(s) for `annotation` for the far side of the relationship. */
+  connectByAnnotationIdAndPublicationIdAndAccountIdAndHighlightLocationAndHighlightText?: Maybe<Array<AnnotationAnnotationAnnotationIdPublicationIdAccountIdHighlighKeyConnect>>;
+  /** The primary key(s) for `annotation` for the far side of the relationship. */
+  connectByAnnotationIdAndPublicationIdAndAccountIdAndNoteLocationAndNoteText?: Maybe<Array<AnnotationAnnotationAnnotationIdPublicationIdAccountIdNoteLocKeyConnect>>;
+  /** The primary key(s) for `annotation` for the far side of the relationship. */
+  connectById?: Maybe<Array<AnnotationNodeIdConnect>>;
+  /** The primary key(s) for `annotation` for the far side of the relationship. */
+  deleteByAnnotationId?: Maybe<Array<AnnotationAnnotationPkeyDelete>>;
+  /** The primary key(s) for `annotation` for the far side of the relationship. */
+  deleteByAnnotationIdAndPublicationIdAndAccountIdAndHighlightLocationAndHighlightText?: Maybe<Array<AnnotationAnnotationAnnotationIdPublicationIdAccountIdHighlighKeyDelete>>;
+  /** The primary key(s) for `annotation` for the far side of the relationship. */
+  deleteByAnnotationIdAndPublicationIdAndAccountIdAndNoteLocationAndNoteText?: Maybe<Array<AnnotationAnnotationAnnotationIdPublicationIdAccountIdNoteLocKeyDelete>>;
+  /** The primary key(s) for `annotation` for the far side of the relationship. */
+  deleteById?: Maybe<Array<AnnotationNodeIdDelete>>;
+  /** The primary key(s) and patch data for `annotation` for the far side of the relationship. */
+  updateByAnnotationId?: Maybe<Array<AnnotationOnAnnotationForAnnotationAccountIdFkeyUsingAnnotationPkeyUpdate>>;
+  /** The primary key(s) and patch data for `annotation` for the far side of the relationship. */
+  updateByAnnotationIdAndPublicationIdAndAccountIdAndHighlightLocationAndHighlightText?: Maybe<Array<AnnotationOnAnnotationForAnnotationAccountIdFkeyUsingAnnotationAnnotationIdPublicationIdAccountIdHighlighKeyUpdate>>;
+  /** The primary key(s) and patch data for `annotation` for the far side of the relationship. */
+  updateByAnnotationIdAndPublicationIdAndAccountIdAndNoteLocationAndNoteText?: Maybe<Array<AnnotationOnAnnotationForAnnotationAccountIdFkeyUsingAnnotationAnnotationIdPublicationIdAccountIdNoteLocKeyUpdate>>;
+  /** The primary key(s) and patch data for `annotation` for the far side of the relationship. */
+  updateById?: Maybe<Array<AccountOnAnnotationForAnnotationAccountIdFkeyNodeIdUpdate>>;
+  /** A `AnnotationInput` object that will be created and connected to this object. */
+  create?: Maybe<Array<AnnotationAccountIdFkeyAnnotationCreateInput>>;
+};
+
+/** The fields on `annotation` to look up the row to connect. */
+export type AnnotationAnnotationPkeyConnect = {
+  annotationId: Scalars['String'];
+};
+
+/** The fields on `annotation` to look up the row to connect. */
+export type AnnotationAnnotationAnnotationIdPublicationIdAccountIdHighlighKeyConnect = {
+  annotationId: Scalars['String'];
+  publicationId: Scalars['String'];
+  accountId: Scalars['UUID'];
+  highlightLocation: Scalars['JSON'];
+  highlightText: Scalars['String'];
+};
+
+/** The fields on `annotation` to look up the row to connect. */
+export type AnnotationAnnotationAnnotationIdPublicationIdAccountIdNoteLocKeyConnect = {
+  annotationId: Scalars['String'];
+  publicationId: Scalars['String'];
+  accountId: Scalars['UUID'];
+  noteLocation: Scalars['JSON'];
+  noteText: Scalars['String'];
+};
+
+/** The globally unique `ID` look up for the row to connect. */
+export type AnnotationNodeIdConnect = {
+  /** The globally unique `ID` which identifies a single `annotation` to be connected. */
+  id: Scalars['ID'];
+};
+
+/** The fields on `annotation` to look up the row to delete. */
+export type AnnotationAnnotationPkeyDelete = {
+  annotationId: Scalars['String'];
+};
+
+/** The fields on `annotation` to look up the row to delete. */
+export type AnnotationAnnotationAnnotationIdPublicationIdAccountIdHighlighKeyDelete = {
+  annotationId: Scalars['String'];
+  publicationId: Scalars['String'];
+  accountId: Scalars['UUID'];
+  highlightLocation: Scalars['JSON'];
+  highlightText: Scalars['String'];
+};
+
+/** The fields on `annotation` to look up the row to delete. */
+export type AnnotationAnnotationAnnotationIdPublicationIdAccountIdNoteLocKeyDelete = {
+  annotationId: Scalars['String'];
+  publicationId: Scalars['String'];
+  accountId: Scalars['UUID'];
+  noteLocation: Scalars['JSON'];
+  noteText: Scalars['String'];
+};
+
+/** The globally unique `ID` look up for the row to delete. */
+export type AnnotationNodeIdDelete = {
+  /** The globally unique `ID` which identifies a single `annotation` to be deleted. */
+  id: Scalars['ID'];
+};
+
+/** The fields on `annotation` to look up the row to update. */
+export type AnnotationOnAnnotationForAnnotationAccountIdFkeyUsingAnnotationPkeyUpdate = {
+  /** An object where the defined keys will be set on the `annotation` being updated. */
+  annotationPatch: UpdateAnnotationOnAnnotationForAnnotationAccountIdFkeyPatch;
+  annotationId: Scalars['String'];
+};
+
+/** An object where the defined keys will be set on the `annotation` being updated. */
+export type UpdateAnnotationOnAnnotationForAnnotationAccountIdFkeyPatch = {
+  annotationId?: Maybe<Scalars['String']>;
+  publicationId?: Maybe<Scalars['String']>;
+  color?: Maybe<Scalars['String']>;
+  highlightLocation?: Maybe<Scalars['JSON']>;
+  highlightText?: Maybe<Scalars['String']>;
+  noteText?: Maybe<Scalars['String']>;
+  noteLocation?: Maybe<Scalars['JSON']>;
+  recordedAt?: Maybe<Scalars['Datetime']>;
+  createdAt?: Maybe<Scalars['Datetime']>;
+  updatedAt?: Maybe<Scalars['Datetime']>;
+  extraEdits?: Maybe<Scalars['JSON']>;
+  publicationToPublicationId?: Maybe<AnnotationPublicationIdFkeyInput>;
+  accountToAccountId?: Maybe<AnnotationAccountIdFkeyInput>;
+  annotationTagsUsingAnnotationId?: Maybe<AnnotationTagAnnotationIdFkeyInverseInput>;
+};
+
+/** Input for the nested mutation of `publication` in the `AnnotationInput` mutation. */
+export type AnnotationPublicationIdFkeyInput = {
+  /** The primary key(s) for `publication` for the far side of the relationship. */
+  connectByPublicationId?: Maybe<PublicationPublicationPkeyConnect>;
+  /** The primary key(s) for `publication` for the far side of the relationship. */
+  connectByAccountIdAndTitle?: Maybe<PublicationPublicationAccountIdTitleKeyConnect>;
+  /** The primary key(s) for `publication` for the far side of the relationship. */
+  connectById?: Maybe<PublicationNodeIdConnect>;
+  /** The primary key(s) for `publication` for the far side of the relationship. */
+  deleteByPublicationId?: Maybe<PublicationPublicationPkeyDelete>;
+  /** The primary key(s) for `publication` for the far side of the relationship. */
+  deleteByAccountIdAndTitle?: Maybe<PublicationPublicationAccountIdTitleKeyDelete>;
+  /** The primary key(s) for `publication` for the far side of the relationship. */
+  deleteById?: Maybe<PublicationNodeIdDelete>;
+  /** The primary key(s) and patch data for `publication` for the far side of the relationship. */
+  updateByPublicationId?: Maybe<PublicationOnAnnotationForAnnotationPublicationIdFkeyUsingPublicationPkeyUpdate>;
+  /** The primary key(s) and patch data for `publication` for the far side of the relationship. */
+  updateByAccountIdAndTitle?: Maybe<PublicationOnAnnotationForAnnotationPublicationIdFkeyUsingPublicationAccountIdTitleKeyUpdate>;
+  /** The primary key(s) and patch data for `publication` for the far side of the relationship. */
+  updateById?: Maybe<AnnotationOnAnnotationForAnnotationPublicationIdFkeyNodeIdUpdate>;
+  /** A `PublicationInput` object that will be created and connected to this object. */
+  create?: Maybe<AnnotationPublicationIdFkeyPublicationCreateInput>;
+};
+
+/** The fields on `publication` to look up the row to update. */
+export type PublicationOnAnnotationForAnnotationPublicationIdFkeyUsingPublicationPkeyUpdate = {
+  /** An object where the defined keys will be set on the `publication` being updated. */
+  publicationPatch: UpdatePublicationOnAnnotationForAnnotationPublicationIdFkeyPatch;
+  publicationId: Scalars['String'];
+};
+
+/** An object where the defined keys will be set on the `publication` being updated. */
+export type UpdatePublicationOnAnnotationForAnnotationPublicationIdFkeyPatch = {
+  accountId?: Maybe<Scalars['UUID']>;
+  createdAt?: Maybe<Scalars['Datetime']>;
+  updatedAt?: Maybe<Scalars['Datetime']>;
+  title?: Maybe<Scalars['String']>;
+  additionalMeta?: Maybe<Scalars['JSON']>;
+  accountToAccountId?: Maybe<PublicationAccountIdFkeyInput>;
+  bookUsingPublicationId?: Maybe<BookPublicationIdFkeyInverseInput>;
+  annotationsUsingPublicationId?: Maybe<AnnotationPublicationIdFkeyInverseInput>;
+  publicationAuthorsUsingPublicationId?: Maybe<PublicationAuthorPublicationIdFkeyInverseInput>;
+};
+
+/** Input for the nested mutation of `book` in the `PublicationInput` mutation. */
+export type BookPublicationIdFkeyInverseInput = {
+  /** Flag indicating whether all other `book` records that match this relationship should be removed. */
+  deleteOthers?: Maybe<Scalars['Boolean']>;
+  /** The primary key(s) for `book` for the far side of the relationship. */
+  connectByPublicationId?: Maybe<BookBookPkeyConnect>;
+  /** The primary key(s) for `book` for the far side of the relationship. */
+  connectById?: Maybe<BookNodeIdConnect>;
+  /** The primary key(s) for `book` for the far side of the relationship. */
+  deleteByPublicationId?: Maybe<BookBookPkeyDelete>;
+  /** The primary key(s) for `book` for the far side of the relationship. */
+  deleteById?: Maybe<BookNodeIdDelete>;
+  /** The primary key(s) and patch data for `book` for the far side of the relationship. */
+  updateByPublicationId?: Maybe<BookOnBookForBookPublicationIdFkeyUsingBookPkeyUpdate>;
+  /** The primary key(s) and patch data for `book` for the far side of the relationship. */
+  updateById?: Maybe<PublicationOnBookForBookPublicationIdFkeyNodeIdUpdate>;
+  /** A `BookInput` object that will be created and connected to this object. */
+  create?: Maybe<Array<BookPublicationIdFkeyBookCreateInput>>;
+};
+
+/** The fields on `book` to look up the row to connect. */
+export type BookBookPkeyConnect = {
+  publicationId: Scalars['String'];
+};
+
+/** The globally unique `ID` look up for the row to connect. */
+export type BookNodeIdConnect = {
+  /** The globally unique `ID` which identifies a single `book` to be connected. */
+  id: Scalars['ID'];
+};
+
+/** The fields on `book` to look up the row to delete. */
+export type BookBookPkeyDelete = {
+  publicationId: Scalars['String'];
+};
+
+/** The globally unique `ID` look up for the row to delete. */
+export type BookNodeIdDelete = {
+  /** The globally unique `ID` which identifies a single `book` to be deleted. */
+  id: Scalars['ID'];
+};
+
+/** The fields on `book` to look up the row to update. */
+export type BookOnBookForBookPublicationIdFkeyUsingBookPkeyUpdate = {
+  /** An object where the defined keys will be set on the `book` being updated. */
+  bookPatch: UpdateBookOnBookForBookPublicationIdFkeyPatch;
+  publicationId: Scalars['String'];
+};
+
+/** An object where the defined keys will be set on the `book` being updated. */
+export type UpdateBookOnBookForBookPublicationIdFkeyPatch = {
+  isbn13?: Maybe<Scalars['String']>;
+  bookTitle?: Maybe<Scalars['String']>;
+  imageUrl?: Maybe<Scalars['String']>;
+  languageCode?: Maybe<Scalars['String']>;
+  publisher?: Maybe<Scalars['String']>;
+  publicationDate?: Maybe<Scalars['Date']>;
+  description?: Maybe<Scalars['String']>;
+  bookType?: Maybe<Scalars['String']>;
+  publicationToPublicationId?: Maybe<BookPublicationIdFkeyInput>;
+};
+
+/** Input for the nested mutation of `publication` in the `BookInput` mutation. */
+export type BookPublicationIdFkeyInput = {
+  /** The primary key(s) for `publication` for the far side of the relationship. */
+  connectByPublicationId?: Maybe<PublicationPublicationPkeyConnect>;
+  /** The primary key(s) for `publication` for the far side of the relationship. */
+  connectByAccountIdAndTitle?: Maybe<PublicationPublicationAccountIdTitleKeyConnect>;
+  /** The primary key(s) for `publication` for the far side of the relationship. */
+  connectById?: Maybe<PublicationNodeIdConnect>;
+  /** The primary key(s) for `publication` for the far side of the relationship. */
+  deleteByPublicationId?: Maybe<PublicationPublicationPkeyDelete>;
+  /** The primary key(s) for `publication` for the far side of the relationship. */
+  deleteByAccountIdAndTitle?: Maybe<PublicationPublicationAccountIdTitleKeyDelete>;
+  /** The primary key(s) for `publication` for the far side of the relationship. */
+  deleteById?: Maybe<PublicationNodeIdDelete>;
+  /** The primary key(s) and patch data for `publication` for the far side of the relationship. */
+  updateByPublicationId?: Maybe<PublicationOnBookForBookPublicationIdFkeyUsingPublicationPkeyUpdate>;
+  /** The primary key(s) and patch data for `publication` for the far side of the relationship. */
+  updateByAccountIdAndTitle?: Maybe<PublicationOnBookForBookPublicationIdFkeyUsingPublicationAccountIdTitleKeyUpdate>;
+  /** The primary key(s) and patch data for `publication` for the far side of the relationship. */
+  updateById?: Maybe<BookOnBookForBookPublicationIdFkeyNodeIdUpdate>;
+  /** A `PublicationInput` object that will be created and connected to this object. */
+  create?: Maybe<BookPublicationIdFkeyPublicationCreateInput>;
+};
+
+/** The fields on `publication` to look up the row to update. */
+export type PublicationOnBookForBookPublicationIdFkeyUsingPublicationPkeyUpdate = {
+  /** An object where the defined keys will be set on the `publication` being updated. */
+  publicationPatch: UpdatePublicationOnBookForBookPublicationIdFkeyPatch;
+  publicationId: Scalars['String'];
+};
+
+/** An object where the defined keys will be set on the `publication` being updated. */
+export type UpdatePublicationOnBookForBookPublicationIdFkeyPatch = {
+  accountId?: Maybe<Scalars['UUID']>;
+  createdAt?: Maybe<Scalars['Datetime']>;
+  updatedAt?: Maybe<Scalars['Datetime']>;
+  title?: Maybe<Scalars['String']>;
+  additionalMeta?: Maybe<Scalars['JSON']>;
+  accountToAccountId?: Maybe<PublicationAccountIdFkeyInput>;
+  bookUsingPublicationId?: Maybe<BookPublicationIdFkeyInverseInput>;
+  annotationsUsingPublicationId?: Maybe<AnnotationPublicationIdFkeyInverseInput>;
+  publicationAuthorsUsingPublicationId?: Maybe<PublicationAuthorPublicationIdFkeyInverseInput>;
+};
+
+/** Input for the nested mutation of `annotation` in the `PublicationInput` mutation. */
+export type AnnotationPublicationIdFkeyInverseInput = {
+  /** Flag indicating whether all other `annotation` records that match this relationship should be removed. */
+  deleteOthers?: Maybe<Scalars['Boolean']>;
+  /** The primary key(s) for `annotation` for the far side of the relationship. */
+  connectByAnnotationId?: Maybe<Array<AnnotationAnnotationPkeyConnect>>;
+  /** The primary key(s) for `annotation` for the far side of the relationship. */
+  connectByAnnotationIdAndPublicationIdAndAccountIdAndHighlightLocationAndHighlightText?: Maybe<Array<AnnotationAnnotationAnnotationIdPublicationIdAccountIdHighlighKeyConnect>>;
+  /** The primary key(s) for `annotation` for the far side of the relationship. */
+  connectByAnnotationIdAndPublicationIdAndAccountIdAndNoteLocationAndNoteText?: Maybe<Array<AnnotationAnnotationAnnotationIdPublicationIdAccountIdNoteLocKeyConnect>>;
+  /** The primary key(s) for `annotation` for the far side of the relationship. */
+  connectById?: Maybe<Array<AnnotationNodeIdConnect>>;
+  /** The primary key(s) for `annotation` for the far side of the relationship. */
+  deleteByAnnotationId?: Maybe<Array<AnnotationAnnotationPkeyDelete>>;
+  /** The primary key(s) for `annotation` for the far side of the relationship. */
+  deleteByAnnotationIdAndPublicationIdAndAccountIdAndHighlightLocationAndHighlightText?: Maybe<Array<AnnotationAnnotationAnnotationIdPublicationIdAccountIdHighlighKeyDelete>>;
+  /** The primary key(s) for `annotation` for the far side of the relationship. */
+  deleteByAnnotationIdAndPublicationIdAndAccountIdAndNoteLocationAndNoteText?: Maybe<Array<AnnotationAnnotationAnnotationIdPublicationIdAccountIdNoteLocKeyDelete>>;
+  /** The primary key(s) for `annotation` for the far side of the relationship. */
+  deleteById?: Maybe<Array<AnnotationNodeIdDelete>>;
+  /** The primary key(s) and patch data for `annotation` for the far side of the relationship. */
+  updateByAnnotationId?: Maybe<Array<AnnotationOnAnnotationForAnnotationPublicationIdFkeyUsingAnnotationPkeyUpdate>>;
+  /** The primary key(s) and patch data for `annotation` for the far side of the relationship. */
+  updateByAnnotationIdAndPublicationIdAndAccountIdAndHighlightLocationAndHighlightText?: Maybe<Array<AnnotationOnAnnotationForAnnotationPublicationIdFkeyUsingAnnotationAnnotationIdPublicationIdAccountIdHighlighKeyUpdate>>;
+  /** The primary key(s) and patch data for `annotation` for the far side of the relationship. */
+  updateByAnnotationIdAndPublicationIdAndAccountIdAndNoteLocationAndNoteText?: Maybe<Array<AnnotationOnAnnotationForAnnotationPublicationIdFkeyUsingAnnotationAnnotationIdPublicationIdAccountIdNoteLocKeyUpdate>>;
+  /** The primary key(s) and patch data for `annotation` for the far side of the relationship. */
+  updateById?: Maybe<Array<PublicationOnAnnotationForAnnotationPublicationIdFkeyNodeIdUpdate>>;
+  /** A `AnnotationInput` object that will be created and connected to this object. */
+  create?: Maybe<Array<AnnotationPublicationIdFkeyAnnotationCreateInput>>;
+};
+
+/** The fields on `annotation` to look up the row to update. */
+export type AnnotationOnAnnotationForAnnotationPublicationIdFkeyUsingAnnotationPkeyUpdate = {
+  /** An object where the defined keys will be set on the `annotation` being updated. */
+  annotationPatch: UpdateAnnotationOnAnnotationForAnnotationPublicationIdFkeyPatch;
+  annotationId: Scalars['String'];
+};
+
+/** An object where the defined keys will be set on the `annotation` being updated. */
+export type UpdateAnnotationOnAnnotationForAnnotationPublicationIdFkeyPatch = {
+  annotationId?: Maybe<Scalars['String']>;
+  accountId?: Maybe<Scalars['UUID']>;
+  color?: Maybe<Scalars['String']>;
+  highlightLocation?: Maybe<Scalars['JSON']>;
+  highlightText?: Maybe<Scalars['String']>;
+  noteText?: Maybe<Scalars['String']>;
+  noteLocation?: Maybe<Scalars['JSON']>;
+  recordedAt?: Maybe<Scalars['Datetime']>;
+  createdAt?: Maybe<Scalars['Datetime']>;
+  updatedAt?: Maybe<Scalars['Datetime']>;
+  extraEdits?: Maybe<Scalars['JSON']>;
+  publicationToPublicationId?: Maybe<AnnotationPublicationIdFkeyInput>;
+  accountToAccountId?: Maybe<AnnotationAccountIdFkeyInput>;
+  annotationTagsUsingAnnotationId?: Maybe<AnnotationTagAnnotationIdFkeyInverseInput>;
+};
+
+/** Input for the nested mutation of `account` in the `AnnotationInput` mutation. */
+export type AnnotationAccountIdFkeyInput = {
+  /** The primary key(s) for `account` for the far side of the relationship. */
+  connectByAccountId?: Maybe<AccountAccountPkeyConnect>;
+  /** The primary key(s) for `account` for the far side of the relationship. */
+  connectByEmail?: Maybe<AccountAccountEmailKeyConnect>;
+  /** The primary key(s) for `account` for the far side of the relationship. */
+  connectById?: Maybe<AccountNodeIdConnect>;
+  /** The primary key(s) for `account` for the far side of the relationship. */
+  deleteByAccountId?: Maybe<AccountAccountPkeyDelete>;
+  /** The primary key(s) for `account` for the far side of the relationship. */
+  deleteByEmail?: Maybe<AccountAccountEmailKeyDelete>;
+  /** The primary key(s) for `account` for the far side of the relationship. */
+  deleteById?: Maybe<AccountNodeIdDelete>;
+  /** The primary key(s) and patch data for `account` for the far side of the relationship. */
+  updateByAccountId?: Maybe<AccountOnAnnotationForAnnotationAccountIdFkeyUsingAccountPkeyUpdate>;
+  /** The primary key(s) and patch data for `account` for the far side of the relationship. */
+  updateByEmail?: Maybe<AccountOnAnnotationForAnnotationAccountIdFkeyUsingAccountEmailKeyUpdate>;
+  /** The primary key(s) and patch data for `account` for the far side of the relationship. */
+  updateById?: Maybe<AnnotationOnAnnotationForAnnotationAccountIdFkeyNodeIdUpdate>;
+  /** A `AccountInput` object that will be created and connected to this object. */
+  create?: Maybe<AnnotationAccountIdFkeyAccountCreateInput>;
+};
+
+/** The fields on `account` to look up the row to update. */
 export type AccountOnAnnotationForAnnotationAccountIdFkeyUsingAccountPkeyUpdate = {
   /** An object where the defined keys will be set on the `account` being updated. */
   accountPatch: UpdateAccountOnAnnotationForAnnotationAccountIdFkeyPatch;
@@ -2086,113 +2162,8 @@ export type UpdateAccountOnAnnotationForAnnotationAccountIdFkeyPatch = {
   group?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
+  publicationsUsingAccountId?: Maybe<PublicationAccountIdFkeyInverseInput>;
   annotationsUsingAccountId?: Maybe<AnnotationAccountIdFkeyInverseInput>;
-  accountPublicationsUsingAccountId?: Maybe<AccountPublicationAccountIdFkeyInverseInput>;
-  tagsUsingAccountId?: Maybe<TagAccountIdFkeyInverseInput>;
-};
-
-/** Input for the nested mutation of `accountPublication` in the `AccountInput` mutation. */
-export type AccountPublicationAccountIdFkeyInverseInput = {
-  /** Flag indicating whether all other `accountPublication` records that match this relationship should be removed. */
-  deleteOthers?: Maybe<Scalars['Boolean']>;
-  /** The primary key(s) for `accountPublication` for the far side of the relationship. */
-  connectByAccountIdAndPublicationId?: Maybe<Array<AccountPublicationAccountPublicationPkeyConnect>>;
-  /** The primary key(s) for `accountPublication` for the far side of the relationship. */
-  connectById?: Maybe<Array<AccountPublicationNodeIdConnect>>;
-  /** The primary key(s) for `accountPublication` for the far side of the relationship. */
-  deleteByAccountIdAndPublicationId?: Maybe<Array<AccountPublicationAccountPublicationPkeyDelete>>;
-  /** The primary key(s) for `accountPublication` for the far side of the relationship. */
-  deleteById?: Maybe<Array<AccountPublicationNodeIdDelete>>;
-  /** The primary key(s) and patch data for `accountPublication` for the far side of the relationship. */
-  updateByAccountIdAndPublicationId?: Maybe<Array<AccountPublicationOnAccountPublicationForAccountPublicationAccountIdFkeyUsingAccountPublicationPkeyUpdate>>;
-  /** The primary key(s) and patch data for `accountPublication` for the far side of the relationship. */
-  updateById?: Maybe<Array<AccountOnAccountPublicationForAccountPublicationAccountIdFkeyNodeIdUpdate>>;
-  /** A `AccountPublicationInput` object that will be created and connected to this object. */
-  create?: Maybe<Array<AccountPublicationAccountIdFkeyAccountPublicationCreateInput>>;
-};
-
-/** The fields on `accountPublication` to look up the row to connect. */
-export type AccountPublicationAccountPublicationPkeyConnect = {
-  accountId: Scalars['UUID'];
-  publicationId: Scalars['String'];
-};
-
-/** The globally unique `ID` look up for the row to connect. */
-export type AccountPublicationNodeIdConnect = {
-  /** The globally unique `ID` which identifies a single `accountPublication` to be connected. */
-  id: Scalars['ID'];
-};
-
-/** The fields on `accountPublication` to look up the row to delete. */
-export type AccountPublicationAccountPublicationPkeyDelete = {
-  accountId: Scalars['UUID'];
-  publicationId: Scalars['String'];
-};
-
-/** The globally unique `ID` look up for the row to delete. */
-export type AccountPublicationNodeIdDelete = {
-  /** The globally unique `ID` which identifies a single `accountPublication` to be deleted. */
-  id: Scalars['ID'];
-};
-
-/** The fields on `accountPublication` to look up the row to update. */
-export type AccountPublicationOnAccountPublicationForAccountPublicationAccountIdFkeyUsingAccountPublicationPkeyUpdate = {
-  /** An object where the defined keys will be set on the `accountPublication` being updated. */
-  accountPublicationPatch: UpdateAccountPublicationOnAccountPublicationForAccountPublicationAccountIdFkeyPatch;
-  accountId: Scalars['UUID'];
-  publicationId: Scalars['String'];
-};
-
-/** An object where the defined keys will be set on the `accountPublication` being updated. */
-export type UpdateAccountPublicationOnAccountPublicationForAccountPublicationAccountIdFkeyPatch = {
-  publicationId?: Maybe<Scalars['String']>;
-  accountToAccountId?: Maybe<AccountPublicationAccountIdFkeyInput>;
-  publicationToPublicationId?: Maybe<AccountPublicationPublicationIdFkeyInput>;
-};
-
-/** Input for the nested mutation of `account` in the `AccountPublicationInput` mutation. */
-export type AccountPublicationAccountIdFkeyInput = {
-  /** The primary key(s) for `account` for the far side of the relationship. */
-  connectByAccountId?: Maybe<AccountAccountPkeyConnect>;
-  /** The primary key(s) for `account` for the far side of the relationship. */
-  connectByEmail?: Maybe<AccountAccountEmailKeyConnect>;
-  /** The primary key(s) for `account` for the far side of the relationship. */
-  connectById?: Maybe<AccountNodeIdConnect>;
-  /** The primary key(s) for `account` for the far side of the relationship. */
-  deleteByAccountId?: Maybe<AccountAccountPkeyDelete>;
-  /** The primary key(s) for `account` for the far side of the relationship. */
-  deleteByEmail?: Maybe<AccountAccountEmailKeyDelete>;
-  /** The primary key(s) for `account` for the far side of the relationship. */
-  deleteById?: Maybe<AccountNodeIdDelete>;
-  /** The primary key(s) and patch data for `account` for the far side of the relationship. */
-  updateByAccountId?: Maybe<AccountOnAccountPublicationForAccountPublicationAccountIdFkeyUsingAccountPkeyUpdate>;
-  /** The primary key(s) and patch data for `account` for the far side of the relationship. */
-  updateByEmail?: Maybe<AccountOnAccountPublicationForAccountPublicationAccountIdFkeyUsingAccountEmailKeyUpdate>;
-  /** The primary key(s) and patch data for `account` for the far side of the relationship. */
-  updateById?: Maybe<AccountPublicationOnAccountPublicationForAccountPublicationAccountIdFkeyNodeIdUpdate>;
-  /** A `AccountInput` object that will be created and connected to this object. */
-  create?: Maybe<AccountPublicationAccountIdFkeyAccountCreateInput>;
-};
-
-/** The fields on `account` to look up the row to update. */
-export type AccountOnAccountPublicationForAccountPublicationAccountIdFkeyUsingAccountPkeyUpdate = {
-  /** An object where the defined keys will be set on the `account` being updated. */
-  accountPatch: UpdateAccountOnAccountPublicationForAccountPublicationAccountIdFkeyPatch;
-  accountId: Scalars['UUID'];
-};
-
-/** An object where the defined keys will be set on the `account` being updated. */
-export type UpdateAccountOnAccountPublicationForAccountPublicationAccountIdFkeyPatch = {
-  email?: Maybe<Scalars['String']>;
-  createdAt?: Maybe<Scalars['Datetime']>;
-  updatedAt?: Maybe<Scalars['Datetime']>;
-  status?: Maybe<Scalars['String']>;
-  emailVerified?: Maybe<Scalars['Boolean']>;
-  group?: Maybe<Scalars['String']>;
-  firstName?: Maybe<Scalars['String']>;
-  lastName?: Maybe<Scalars['String']>;
-  annotationsUsingAccountId?: Maybe<AnnotationAccountIdFkeyInverseInput>;
-  accountPublicationsUsingAccountId?: Maybe<AccountPublicationAccountIdFkeyInverseInput>;
   tagsUsingAccountId?: Maybe<TagAccountIdFkeyInverseInput>;
 };
 
@@ -2203,13 +2174,19 @@ export type TagAccountIdFkeyInverseInput = {
   /** The primary key(s) for `tag` for the far side of the relationship. */
   connectByTagId?: Maybe<Array<TagTagPkeyConnect>>;
   /** The primary key(s) for `tag` for the far side of the relationship. */
+  connectByTagNameAndAccountId?: Maybe<Array<TagTagTagNameAccountIdKeyConnect>>;
+  /** The primary key(s) for `tag` for the far side of the relationship. */
   connectById?: Maybe<Array<TagNodeIdConnect>>;
   /** The primary key(s) for `tag` for the far side of the relationship. */
   deleteByTagId?: Maybe<Array<TagTagPkeyDelete>>;
   /** The primary key(s) for `tag` for the far side of the relationship. */
+  deleteByTagNameAndAccountId?: Maybe<Array<TagTagTagNameAccountIdKeyDelete>>;
+  /** The primary key(s) for `tag` for the far side of the relationship. */
   deleteById?: Maybe<Array<TagNodeIdDelete>>;
   /** The primary key(s) and patch data for `tag` for the far side of the relationship. */
   updateByTagId?: Maybe<Array<TagOnTagForTagAccountIdFkeyUsingTagPkeyUpdate>>;
+  /** The primary key(s) and patch data for `tag` for the far side of the relationship. */
+  updateByTagNameAndAccountId?: Maybe<Array<TagOnTagForTagAccountIdFkeyUsingTagTagNameAccountIdKeyUpdate>>;
   /** The primary key(s) and patch data for `tag` for the far side of the relationship. */
   updateById?: Maybe<Array<AccountOnTagForTagAccountIdFkeyNodeIdUpdate>>;
   /** A `TagInput` object that will be created and connected to this object. */
@@ -2221,6 +2198,12 @@ export type TagTagPkeyConnect = {
   tagId: Scalars['String'];
 };
 
+/** The fields on `tag` to look up the row to connect. */
+export type TagTagTagNameAccountIdKeyConnect = {
+  tagName: Scalars['String'];
+  accountId: Scalars['UUID'];
+};
+
 /** The globally unique `ID` look up for the row to connect. */
 export type TagNodeIdConnect = {
   /** The globally unique `ID` which identifies a single `tag` to be connected. */
@@ -2230,6 +2213,12 @@ export type TagNodeIdConnect = {
 /** The fields on `tag` to look up the row to delete. */
 export type TagTagPkeyDelete = {
   tagId: Scalars['String'];
+};
+
+/** The fields on `tag` to look up the row to delete. */
+export type TagTagTagNameAccountIdKeyDelete = {
+  tagName: Scalars['String'];
+  accountId: Scalars['UUID'];
 };
 
 /** The globally unique `ID` look up for the row to delete. */
@@ -2248,7 +2237,7 @@ export type TagOnTagForTagAccountIdFkeyUsingTagPkeyUpdate = {
 /** An object where the defined keys will be set on the `tag` being updated. */
 export type UpdateTagOnTagForTagAccountIdFkeyPatch = {
   tagId?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
+  tagName?: Maybe<Scalars['String']>;
   accountToAccountId?: Maybe<TagAccountIdFkeyInput>;
   annotationTagsUsingTagId?: Maybe<AnnotationTagTagIdFkeyInverseInput>;
 };
@@ -2294,8 +2283,8 @@ export type UpdateAccountOnTagForTagAccountIdFkeyPatch = {
   group?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
+  publicationsUsingAccountId?: Maybe<PublicationAccountIdFkeyInverseInput>;
   annotationsUsingAccountId?: Maybe<AnnotationAccountIdFkeyInverseInput>;
-  accountPublicationsUsingAccountId?: Maybe<AccountPublicationAccountIdFkeyInverseInput>;
   tagsUsingAccountId?: Maybe<TagAccountIdFkeyInverseInput>;
 };
 
@@ -2325,8 +2314,8 @@ export type AccountPatch = {
   group?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
+  publicationsUsingAccountId?: Maybe<PublicationAccountIdFkeyInverseInput>;
   annotationsUsingAccountId?: Maybe<AnnotationAccountIdFkeyInverseInput>;
-  accountPublicationsUsingAccountId?: Maybe<AccountPublicationAccountIdFkeyInverseInput>;
   tagsUsingAccountId?: Maybe<TagAccountIdFkeyInverseInput>;
 };
 
@@ -2340,8 +2329,8 @@ export type TagAccountIdFkeyAccountCreateInput = {
   group?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
+  publicationsUsingAccountId?: Maybe<PublicationAccountIdFkeyInverseInput>;
   annotationsUsingAccountId?: Maybe<AnnotationAccountIdFkeyInverseInput>;
-  accountPublicationsUsingAccountId?: Maybe<AccountPublicationAccountIdFkeyInverseInput>;
   tagsUsingAccountId?: Maybe<TagAccountIdFkeyInverseInput>;
 };
 
@@ -2409,13 +2398,25 @@ export type AnnotationTagAnnotationIdFkeyInput = {
   /** The primary key(s) for `annotation` for the far side of the relationship. */
   connectByAnnotationId?: Maybe<AnnotationAnnotationPkeyConnect>;
   /** The primary key(s) for `annotation` for the far side of the relationship. */
+  connectByAnnotationIdAndPublicationIdAndAccountIdAndHighlightLocationAndHighlightText?: Maybe<AnnotationAnnotationAnnotationIdPublicationIdAccountIdHighlighKeyConnect>;
+  /** The primary key(s) for `annotation` for the far side of the relationship. */
+  connectByAnnotationIdAndPublicationIdAndAccountIdAndNoteLocationAndNoteText?: Maybe<AnnotationAnnotationAnnotationIdPublicationIdAccountIdNoteLocKeyConnect>;
+  /** The primary key(s) for `annotation` for the far side of the relationship. */
   connectById?: Maybe<AnnotationNodeIdConnect>;
   /** The primary key(s) for `annotation` for the far side of the relationship. */
   deleteByAnnotationId?: Maybe<AnnotationAnnotationPkeyDelete>;
   /** The primary key(s) for `annotation` for the far side of the relationship. */
+  deleteByAnnotationIdAndPublicationIdAndAccountIdAndHighlightLocationAndHighlightText?: Maybe<AnnotationAnnotationAnnotationIdPublicationIdAccountIdHighlighKeyDelete>;
+  /** The primary key(s) for `annotation` for the far side of the relationship. */
+  deleteByAnnotationIdAndPublicationIdAndAccountIdAndNoteLocationAndNoteText?: Maybe<AnnotationAnnotationAnnotationIdPublicationIdAccountIdNoteLocKeyDelete>;
+  /** The primary key(s) for `annotation` for the far side of the relationship. */
   deleteById?: Maybe<AnnotationNodeIdDelete>;
   /** The primary key(s) and patch data for `annotation` for the far side of the relationship. */
   updateByAnnotationId?: Maybe<AnnotationOnAnnotationTagForAnnotationTagAnnotationIdFkeyUsingAnnotationPkeyUpdate>;
+  /** The primary key(s) and patch data for `annotation` for the far side of the relationship. */
+  updateByAnnotationIdAndPublicationIdAndAccountIdAndHighlightLocationAndHighlightText?: Maybe<AnnotationOnAnnotationTagForAnnotationTagAnnotationIdFkeyUsingAnnotationAnnotationIdPublicationIdAccountIdHighlighKeyUpdate>;
+  /** The primary key(s) and patch data for `annotation` for the far side of the relationship. */
+  updateByAnnotationIdAndPublicationIdAndAccountIdAndNoteLocationAndNoteText?: Maybe<AnnotationOnAnnotationTagForAnnotationTagAnnotationIdFkeyUsingAnnotationAnnotationIdPublicationIdAccountIdNoteLocKeyUpdate>;
   /** The primary key(s) and patch data for `annotation` for the far side of the relationship. */
   updateById?: Maybe<AnnotationTagOnAnnotationTagForAnnotationTagAnnotationIdFkeyNodeIdUpdate>;
   /** A `AnnotationInput` object that will be created and connected to this object. */
@@ -2435,7 +2436,7 @@ export type UpdateAnnotationOnAnnotationTagForAnnotationTagAnnotationIdFkeyPatch
   accountId?: Maybe<Scalars['UUID']>;
   color?: Maybe<Scalars['String']>;
   highlightLocation?: Maybe<Scalars['JSON']>;
-  highlightedText?: Maybe<Scalars['String']>;
+  highlightText?: Maybe<Scalars['String']>;
   noteText?: Maybe<Scalars['String']>;
   noteLocation?: Maybe<Scalars['JSON']>;
   recordedAt?: Maybe<Scalars['Datetime']>;
@@ -2487,13 +2488,19 @@ export type AnnotationTagTagIdFkeyInput = {
   /** The primary key(s) for `tag` for the far side of the relationship. */
   connectByTagId?: Maybe<TagTagPkeyConnect>;
   /** The primary key(s) for `tag` for the far side of the relationship. */
+  connectByTagNameAndAccountId?: Maybe<TagTagTagNameAccountIdKeyConnect>;
+  /** The primary key(s) for `tag` for the far side of the relationship. */
   connectById?: Maybe<TagNodeIdConnect>;
   /** The primary key(s) for `tag` for the far side of the relationship. */
   deleteByTagId?: Maybe<TagTagPkeyDelete>;
   /** The primary key(s) for `tag` for the far side of the relationship. */
+  deleteByTagNameAndAccountId?: Maybe<TagTagTagNameAccountIdKeyDelete>;
+  /** The primary key(s) for `tag` for the far side of the relationship. */
   deleteById?: Maybe<TagNodeIdDelete>;
   /** The primary key(s) and patch data for `tag` for the far side of the relationship. */
   updateByTagId?: Maybe<TagOnAnnotationTagForAnnotationTagTagIdFkeyUsingTagPkeyUpdate>;
+  /** The primary key(s) and patch data for `tag` for the far side of the relationship. */
+  updateByTagNameAndAccountId?: Maybe<TagOnAnnotationTagForAnnotationTagTagIdFkeyUsingTagTagNameAccountIdKeyUpdate>;
   /** The primary key(s) and patch data for `tag` for the far side of the relationship. */
   updateById?: Maybe<AnnotationTagOnAnnotationTagForAnnotationTagTagIdFkeyNodeIdUpdate>;
   /** A `TagInput` object that will be created and connected to this object. */
@@ -2509,10 +2516,18 @@ export type TagOnAnnotationTagForAnnotationTagTagIdFkeyUsingTagPkeyUpdate = {
 
 /** An object where the defined keys will be set on the `tag` being updated. */
 export type UpdateTagOnAnnotationTagForAnnotationTagTagIdFkeyPatch = {
-  name?: Maybe<Scalars['String']>;
+  tagName?: Maybe<Scalars['String']>;
   accountId?: Maybe<Scalars['UUID']>;
   accountToAccountId?: Maybe<TagAccountIdFkeyInput>;
   annotationTagsUsingTagId?: Maybe<AnnotationTagTagIdFkeyInverseInput>;
+};
+
+/** The fields on `tag` to look up the row to update. */
+export type TagOnAnnotationTagForAnnotationTagTagIdFkeyUsingTagTagNameAccountIdKeyUpdate = {
+  /** An object where the defined keys will be set on the `tag` being updated. */
+  tagPatch: UpdateTagOnAnnotationTagForAnnotationTagTagIdFkeyPatch;
+  tagName: Scalars['String'];
+  accountId: Scalars['UUID'];
 };
 
 /** The globally unique `ID` look up for the row to update. */
@@ -2526,7 +2541,7 @@ export type AnnotationTagOnAnnotationTagForAnnotationTagTagIdFkeyNodeIdUpdate = 
 /** Represents an update to a `Tag`. Fields that are set will be updated. */
 export type TagPatch = {
   tagId?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
+  tagName?: Maybe<Scalars['String']>;
   accountId?: Maybe<Scalars['UUID']>;
   accountToAccountId?: Maybe<TagAccountIdFkeyInput>;
   annotationTagsUsingTagId?: Maybe<AnnotationTagTagIdFkeyInverseInput>;
@@ -2534,7 +2549,7 @@ export type TagPatch = {
 
 /** The `tag` to be created by this mutation. */
 export type AnnotationTagTagIdFkeyTagCreateInput = {
-  name: Scalars['String'];
+  tagName: Scalars['String'];
   accountId?: Maybe<Scalars['UUID']>;
   accountToAccountId?: Maybe<TagAccountIdFkeyInput>;
   annotationTagsUsingTagId?: Maybe<AnnotationTagTagIdFkeyInverseInput>;
@@ -2563,6 +2578,28 @@ export type AnnotationTagAnnotationIdFkeyAnnotationTagCreateInput = {
   tagToTagId?: Maybe<AnnotationTagTagIdFkeyInput>;
 };
 
+/** The fields on `annotation` to look up the row to update. */
+export type AnnotationOnAnnotationTagForAnnotationTagAnnotationIdFkeyUsingAnnotationAnnotationIdPublicationIdAccountIdHighlighKeyUpdate = {
+  /** An object where the defined keys will be set on the `annotation` being updated. */
+  annotationPatch: UpdateAnnotationOnAnnotationTagForAnnotationTagAnnotationIdFkeyPatch;
+  annotationId: Scalars['String'];
+  publicationId: Scalars['String'];
+  accountId: Scalars['UUID'];
+  highlightLocation: Scalars['JSON'];
+  highlightText: Scalars['String'];
+};
+
+/** The fields on `annotation` to look up the row to update. */
+export type AnnotationOnAnnotationTagForAnnotationTagAnnotationIdFkeyUsingAnnotationAnnotationIdPublicationIdAccountIdNoteLocKeyUpdate = {
+  /** An object where the defined keys will be set on the `annotation` being updated. */
+  annotationPatch: UpdateAnnotationOnAnnotationTagForAnnotationTagAnnotationIdFkeyPatch;
+  annotationId: Scalars['String'];
+  publicationId: Scalars['String'];
+  accountId: Scalars['UUID'];
+  noteLocation: Scalars['JSON'];
+  noteText: Scalars['String'];
+};
+
 /** The globally unique `ID` look up for the row to update. */
 export type AnnotationTagOnAnnotationTagForAnnotationTagAnnotationIdFkeyNodeIdUpdate = {
   /** The globally unique `ID` which identifies a single `annotation` to be connected. */
@@ -2578,7 +2615,7 @@ export type AnnotationPatch = {
   accountId?: Maybe<Scalars['UUID']>;
   color?: Maybe<Scalars['String']>;
   highlightLocation?: Maybe<Scalars['JSON']>;
-  highlightedText?: Maybe<Scalars['String']>;
+  highlightText?: Maybe<Scalars['String']>;
   noteText?: Maybe<Scalars['String']>;
   noteLocation?: Maybe<Scalars['JSON']>;
   recordedAt?: Maybe<Scalars['Datetime']>;
@@ -2596,7 +2633,7 @@ export type AnnotationTagAnnotationIdFkeyAnnotationCreateInput = {
   accountId?: Maybe<Scalars['UUID']>;
   color?: Maybe<Scalars['String']>;
   highlightLocation?: Maybe<Scalars['JSON']>;
-  highlightedText?: Maybe<Scalars['String']>;
+  highlightText?: Maybe<Scalars['String']>;
   noteText?: Maybe<Scalars['String']>;
   noteLocation?: Maybe<Scalars['JSON']>;
   recordedAt?: Maybe<Scalars['Datetime']>;
@@ -2623,6 +2660,14 @@ export type AnnotationTagTagIdFkeyAnnotationTagCreateInput = {
   tagToTagId?: Maybe<AnnotationTagTagIdFkeyInput>;
 };
 
+/** The fields on `tag` to look up the row to update. */
+export type TagOnTagForTagAccountIdFkeyUsingTagTagNameAccountIdKeyUpdate = {
+  /** An object where the defined keys will be set on the `tag` being updated. */
+  tagPatch: UpdateTagOnTagForTagAccountIdFkeyPatch;
+  tagName: Scalars['String'];
+  accountId: Scalars['UUID'];
+};
+
 /** The globally unique `ID` look up for the row to update. */
 export type AccountOnTagForTagAccountIdFkeyNodeIdUpdate = {
   /** The globally unique `ID` which identifies a single `tag` to be connected. */
@@ -2634,20 +2679,20 @@ export type AccountOnTagForTagAccountIdFkeyNodeIdUpdate = {
 /** The `tag` to be created by this mutation. */
 export type TagAccountIdFkeyTagCreateInput = {
   tagId: Scalars['String'];
-  name: Scalars['String'];
+  tagName: Scalars['String'];
   accountToAccountId?: Maybe<TagAccountIdFkeyInput>;
   annotationTagsUsingTagId?: Maybe<AnnotationTagTagIdFkeyInverseInput>;
 };
 
 /** The fields on `account` to look up the row to update. */
-export type AccountOnAccountPublicationForAccountPublicationAccountIdFkeyUsingAccountEmailKeyUpdate = {
+export type AccountOnAnnotationForAnnotationAccountIdFkeyUsingAccountEmailKeyUpdate = {
   /** An object where the defined keys will be set on the `account` being updated. */
-  accountPatch: UpdateAccountOnAccountPublicationForAccountPublicationAccountIdFkeyPatch;
+  accountPatch: UpdateAccountOnAnnotationForAnnotationAccountIdFkeyPatch;
   email: Scalars['String'];
 };
 
 /** The globally unique `ID` look up for the row to update. */
-export type AccountPublicationOnAccountPublicationForAccountPublicationAccountIdFkeyNodeIdUpdate = {
+export type AnnotationOnAnnotationForAnnotationAccountIdFkeyNodeIdUpdate = {
   /** The globally unique `ID` which identifies a single `account` to be connected. */
   id: Scalars['ID'];
   /** An object where the defined keys will be set on the `account` being updated. */
@@ -2655,7 +2700,7 @@ export type AccountPublicationOnAccountPublicationForAccountPublicationAccountId
 };
 
 /** The `account` to be created by this mutation. */
-export type AccountPublicationAccountIdFkeyAccountCreateInput = {
+export type AnnotationAccountIdFkeyAccountCreateInput = {
   email: Scalars['String'];
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
@@ -2664,44 +2709,57 @@ export type AccountPublicationAccountIdFkeyAccountCreateInput = {
   group?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
+  publicationsUsingAccountId?: Maybe<PublicationAccountIdFkeyInverseInput>;
   annotationsUsingAccountId?: Maybe<AnnotationAccountIdFkeyInverseInput>;
-  accountPublicationsUsingAccountId?: Maybe<AccountPublicationAccountIdFkeyInverseInput>;
   tagsUsingAccountId?: Maybe<TagAccountIdFkeyInverseInput>;
 };
 
-/** Input for the nested mutation of `publication` in the `AccountPublicationInput` mutation. */
-export type AccountPublicationPublicationIdFkeyInput = {
-  /** The primary key(s) for `publication` for the far side of the relationship. */
-  connectByPublicationId?: Maybe<PublicationPublicationPkeyConnect>;
-  /** The primary key(s) for `publication` for the far side of the relationship. */
-  connectById?: Maybe<PublicationNodeIdConnect>;
-  /** The primary key(s) for `publication` for the far side of the relationship. */
-  deleteByPublicationId?: Maybe<PublicationPublicationPkeyDelete>;
-  /** The primary key(s) for `publication` for the far side of the relationship. */
-  deleteById?: Maybe<PublicationNodeIdDelete>;
-  /** The primary key(s) and patch data for `publication` for the far side of the relationship. */
-  updateByPublicationId?: Maybe<PublicationOnAccountPublicationForAccountPublicationPublicationIdFkeyUsingPublicationPkeyUpdate>;
-  /** The primary key(s) and patch data for `publication` for the far side of the relationship. */
-  updateById?: Maybe<AccountPublicationOnAccountPublicationForAccountPublicationPublicationIdFkeyNodeIdUpdate>;
-  /** A `PublicationInput` object that will be created and connected to this object. */
-  create?: Maybe<AccountPublicationPublicationIdFkeyPublicationCreateInput>;
-};
-
-/** The fields on `publication` to look up the row to update. */
-export type PublicationOnAccountPublicationForAccountPublicationPublicationIdFkeyUsingPublicationPkeyUpdate = {
-  /** An object where the defined keys will be set on the `publication` being updated. */
-  publicationPatch: UpdatePublicationOnAccountPublicationForAccountPublicationPublicationIdFkeyPatch;
+/** The fields on `annotation` to look up the row to update. */
+export type AnnotationOnAnnotationForAnnotationPublicationIdFkeyUsingAnnotationAnnotationIdPublicationIdAccountIdHighlighKeyUpdate = {
+  /** An object where the defined keys will be set on the `annotation` being updated. */
+  annotationPatch: UpdateAnnotationOnAnnotationForAnnotationPublicationIdFkeyPatch;
+  annotationId: Scalars['String'];
   publicationId: Scalars['String'];
+  accountId: Scalars['UUID'];
+  highlightLocation: Scalars['JSON'];
+  highlightText: Scalars['String'];
 };
 
-/** An object where the defined keys will be set on the `publication` being updated. */
-export type UpdatePublicationOnAccountPublicationForAccountPublicationPublicationIdFkeyPatch = {
+/** The fields on `annotation` to look up the row to update. */
+export type AnnotationOnAnnotationForAnnotationPublicationIdFkeyUsingAnnotationAnnotationIdPublicationIdAccountIdNoteLocKeyUpdate = {
+  /** An object where the defined keys will be set on the `annotation` being updated. */
+  annotationPatch: UpdateAnnotationOnAnnotationForAnnotationPublicationIdFkeyPatch;
+  annotationId: Scalars['String'];
+  publicationId: Scalars['String'];
+  accountId: Scalars['UUID'];
+  noteLocation: Scalars['JSON'];
+  noteText: Scalars['String'];
+};
+
+/** The globally unique `ID` look up for the row to update. */
+export type PublicationOnAnnotationForAnnotationPublicationIdFkeyNodeIdUpdate = {
+  /** The globally unique `ID` which identifies a single `annotation` to be connected. */
+  id: Scalars['ID'];
+  /** An object where the defined keys will be set on the `annotation` being updated. */
+  annotationPatch: AnnotationPatch;
+};
+
+/** The `annotation` to be created by this mutation. */
+export type AnnotationPublicationIdFkeyAnnotationCreateInput = {
+  annotationId: Scalars['String'];
+  accountId?: Maybe<Scalars['UUID']>;
+  color?: Maybe<Scalars['String']>;
+  highlightLocation?: Maybe<Scalars['JSON']>;
+  highlightText?: Maybe<Scalars['String']>;
+  noteText?: Maybe<Scalars['String']>;
+  noteLocation?: Maybe<Scalars['JSON']>;
+  recordedAt?: Maybe<Scalars['Datetime']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
-  bookUsingPublicationId?: Maybe<BookPublicationIdFkeyInverseInput>;
-  annotationsUsingPublicationId?: Maybe<AnnotationPublicationIdFkeyInverseInput>;
-  publicationAuthorsUsingPublicationId?: Maybe<PublicationAuthorPublicationIdFkeyInverseInput>;
-  accountPublicationsUsingPublicationId?: Maybe<AccountPublicationPublicationIdFkeyInverseInput>;
+  extraEdits?: Maybe<Scalars['JSON']>;
+  publicationToPublicationId?: Maybe<AnnotationPublicationIdFkeyInput>;
+  accountToAccountId?: Maybe<AnnotationAccountIdFkeyInput>;
+  annotationTagsUsingAnnotationId?: Maybe<AnnotationTagAnnotationIdFkeyInverseInput>;
 };
 
 /** Input for the nested mutation of `publicationAuthor` in the `PublicationInput` mutation. */
@@ -2768,13 +2826,19 @@ export type PublicationAuthorPublicationIdFkeyInput = {
   /** The primary key(s) for `publication` for the far side of the relationship. */
   connectByPublicationId?: Maybe<PublicationPublicationPkeyConnect>;
   /** The primary key(s) for `publication` for the far side of the relationship. */
+  connectByAccountIdAndTitle?: Maybe<PublicationPublicationAccountIdTitleKeyConnect>;
+  /** The primary key(s) for `publication` for the far side of the relationship. */
   connectById?: Maybe<PublicationNodeIdConnect>;
   /** The primary key(s) for `publication` for the far side of the relationship. */
   deleteByPublicationId?: Maybe<PublicationPublicationPkeyDelete>;
   /** The primary key(s) for `publication` for the far side of the relationship. */
+  deleteByAccountIdAndTitle?: Maybe<PublicationPublicationAccountIdTitleKeyDelete>;
+  /** The primary key(s) for `publication` for the far side of the relationship. */
   deleteById?: Maybe<PublicationNodeIdDelete>;
   /** The primary key(s) and patch data for `publication` for the far side of the relationship. */
   updateByPublicationId?: Maybe<PublicationOnPublicationAuthorForPublicationAuthorPublicationIdFkeyUsingPublicationPkeyUpdate>;
+  /** The primary key(s) and patch data for `publication` for the far side of the relationship. */
+  updateByAccountIdAndTitle?: Maybe<PublicationOnPublicationAuthorForPublicationAuthorPublicationIdFkeyUsingPublicationAccountIdTitleKeyUpdate>;
   /** The primary key(s) and patch data for `publication` for the far side of the relationship. */
   updateById?: Maybe<PublicationAuthorOnPublicationAuthorForPublicationAuthorPublicationIdFkeyNodeIdUpdate>;
   /** A `PublicationInput` object that will be created and connected to this object. */
@@ -2790,70 +2854,23 @@ export type PublicationOnPublicationAuthorForPublicationAuthorPublicationIdFkeyU
 
 /** An object where the defined keys will be set on the `publication` being updated. */
 export type UpdatePublicationOnPublicationAuthorForPublicationAuthorPublicationIdFkeyPatch = {
+  accountId?: Maybe<Scalars['UUID']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
+  title?: Maybe<Scalars['String']>;
+  additionalMeta?: Maybe<Scalars['JSON']>;
+  accountToAccountId?: Maybe<PublicationAccountIdFkeyInput>;
   bookUsingPublicationId?: Maybe<BookPublicationIdFkeyInverseInput>;
   annotationsUsingPublicationId?: Maybe<AnnotationPublicationIdFkeyInverseInput>;
   publicationAuthorsUsingPublicationId?: Maybe<PublicationAuthorPublicationIdFkeyInverseInput>;
-  accountPublicationsUsingPublicationId?: Maybe<AccountPublicationPublicationIdFkeyInverseInput>;
 };
 
-/** Input for the nested mutation of `accountPublication` in the `PublicationInput` mutation. */
-export type AccountPublicationPublicationIdFkeyInverseInput = {
-  /** Flag indicating whether all other `accountPublication` records that match this relationship should be removed. */
-  deleteOthers?: Maybe<Scalars['Boolean']>;
-  /** The primary key(s) for `accountPublication` for the far side of the relationship. */
-  connectByAccountIdAndPublicationId?: Maybe<Array<AccountPublicationAccountPublicationPkeyConnect>>;
-  /** The primary key(s) for `accountPublication` for the far side of the relationship. */
-  connectById?: Maybe<Array<AccountPublicationNodeIdConnect>>;
-  /** The primary key(s) for `accountPublication` for the far side of the relationship. */
-  deleteByAccountIdAndPublicationId?: Maybe<Array<AccountPublicationAccountPublicationPkeyDelete>>;
-  /** The primary key(s) for `accountPublication` for the far side of the relationship. */
-  deleteById?: Maybe<Array<AccountPublicationNodeIdDelete>>;
-  /** The primary key(s) and patch data for `accountPublication` for the far side of the relationship. */
-  updateByAccountIdAndPublicationId?: Maybe<Array<AccountPublicationOnAccountPublicationForAccountPublicationPublicationIdFkeyUsingAccountPublicationPkeyUpdate>>;
-  /** The primary key(s) and patch data for `accountPublication` for the far side of the relationship. */
-  updateById?: Maybe<Array<PublicationOnAccountPublicationForAccountPublicationPublicationIdFkeyNodeIdUpdate>>;
-  /** A `AccountPublicationInput` object that will be created and connected to this object. */
-  create?: Maybe<Array<AccountPublicationPublicationIdFkeyAccountPublicationCreateInput>>;
-};
-
-/** The fields on `accountPublication` to look up the row to update. */
-export type AccountPublicationOnAccountPublicationForAccountPublicationPublicationIdFkeyUsingAccountPublicationPkeyUpdate = {
-  /** An object where the defined keys will be set on the `accountPublication` being updated. */
-  accountPublicationPatch: UpdateAccountPublicationOnAccountPublicationForAccountPublicationPublicationIdFkeyPatch;
+/** The fields on `publication` to look up the row to update. */
+export type PublicationOnPublicationAuthorForPublicationAuthorPublicationIdFkeyUsingPublicationAccountIdTitleKeyUpdate = {
+  /** An object where the defined keys will be set on the `publication` being updated. */
+  publicationPatch: UpdatePublicationOnPublicationAuthorForPublicationAuthorPublicationIdFkeyPatch;
   accountId: Scalars['UUID'];
-  publicationId: Scalars['String'];
-};
-
-/** An object where the defined keys will be set on the `accountPublication` being updated. */
-export type UpdateAccountPublicationOnAccountPublicationForAccountPublicationPublicationIdFkeyPatch = {
-  accountId?: Maybe<Scalars['UUID']>;
-  accountToAccountId?: Maybe<AccountPublicationAccountIdFkeyInput>;
-  publicationToPublicationId?: Maybe<AccountPublicationPublicationIdFkeyInput>;
-};
-
-/** The globally unique `ID` look up for the row to update. */
-export type PublicationOnAccountPublicationForAccountPublicationPublicationIdFkeyNodeIdUpdate = {
-  /** The globally unique `ID` which identifies a single `accountPublication` to be connected. */
-  id: Scalars['ID'];
-  /** An object where the defined keys will be set on the `accountPublication` being updated. */
-  accountPublicationPatch: AccountPublicationPatch;
-};
-
-/** Represents an update to a `AccountPublication`. Fields that are set will be updated. */
-export type AccountPublicationPatch = {
-  accountId?: Maybe<Scalars['UUID']>;
-  publicationId?: Maybe<Scalars['String']>;
-  accountToAccountId?: Maybe<AccountPublicationAccountIdFkeyInput>;
-  publicationToPublicationId?: Maybe<AccountPublicationPublicationIdFkeyInput>;
-};
-
-/** The `accountPublication` to be created by this mutation. */
-export type AccountPublicationPublicationIdFkeyAccountPublicationCreateInput = {
-  accountId?: Maybe<Scalars['UUID']>;
-  accountToAccountId?: Maybe<AccountPublicationAccountIdFkeyInput>;
-  publicationToPublicationId?: Maybe<AccountPublicationPublicationIdFkeyInput>;
+  title: Scalars['String'];
 };
 
 /** The globally unique `ID` look up for the row to update. */
@@ -2867,22 +2884,28 @@ export type PublicationAuthorOnPublicationAuthorForPublicationAuthorPublicationI
 /** Represents an update to a `Publication`. Fields that are set will be updated. */
 export type PublicationPatch = {
   publicationId?: Maybe<Scalars['String']>;
+  accountId?: Maybe<Scalars['UUID']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
+  title?: Maybe<Scalars['String']>;
+  additionalMeta?: Maybe<Scalars['JSON']>;
+  accountToAccountId?: Maybe<PublicationAccountIdFkeyInput>;
   bookUsingPublicationId?: Maybe<BookPublicationIdFkeyInverseInput>;
   annotationsUsingPublicationId?: Maybe<AnnotationPublicationIdFkeyInverseInput>;
   publicationAuthorsUsingPublicationId?: Maybe<PublicationAuthorPublicationIdFkeyInverseInput>;
-  accountPublicationsUsingPublicationId?: Maybe<AccountPublicationPublicationIdFkeyInverseInput>;
 };
 
 /** The `publication` to be created by this mutation. */
 export type PublicationAuthorPublicationIdFkeyPublicationCreateInput = {
+  accountId?: Maybe<Scalars['UUID']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
+  title: Scalars['String'];
+  additionalMeta?: Maybe<Scalars['JSON']>;
+  accountToAccountId?: Maybe<PublicationAccountIdFkeyInput>;
   bookUsingPublicationId?: Maybe<BookPublicationIdFkeyInverseInput>;
   annotationsUsingPublicationId?: Maybe<AnnotationPublicationIdFkeyInverseInput>;
   publicationAuthorsUsingPublicationId?: Maybe<PublicationAuthorPublicationIdFkeyInverseInput>;
-  accountPublicationsUsingPublicationId?: Maybe<AccountPublicationPublicationIdFkeyInverseInput>;
 };
 
 /** Input for the nested mutation of `author` in the `PublicationAuthorInput` mutation. */
@@ -2890,13 +2913,19 @@ export type PublicationAuthorAuthorIdFkeyInput = {
   /** The primary key(s) for `author` for the far side of the relationship. */
   connectByAuthorId?: Maybe<AuthorAuthorPkeyConnect>;
   /** The primary key(s) for `author` for the far side of the relationship. */
+  connectByFullName?: Maybe<AuthorAuthorFullNameKeyConnect>;
+  /** The primary key(s) for `author` for the far side of the relationship. */
   connectById?: Maybe<AuthorNodeIdConnect>;
   /** The primary key(s) for `author` for the far side of the relationship. */
   deleteByAuthorId?: Maybe<AuthorAuthorPkeyDelete>;
   /** The primary key(s) for `author` for the far side of the relationship. */
+  deleteByFullName?: Maybe<AuthorAuthorFullNameKeyDelete>;
+  /** The primary key(s) for `author` for the far side of the relationship. */
   deleteById?: Maybe<AuthorNodeIdDelete>;
   /** The primary key(s) and patch data for `author` for the far side of the relationship. */
   updateByAuthorId?: Maybe<AuthorOnPublicationAuthorForPublicationAuthorAuthorIdFkeyUsingAuthorPkeyUpdate>;
+  /** The primary key(s) and patch data for `author` for the far side of the relationship. */
+  updateByFullName?: Maybe<AuthorOnPublicationAuthorForPublicationAuthorAuthorIdFkeyUsingAuthorFullNameKeyUpdate>;
   /** The primary key(s) and patch data for `author` for the far side of the relationship. */
   updateById?: Maybe<PublicationAuthorOnPublicationAuthorForPublicationAuthorAuthorIdFkeyNodeIdUpdate>;
   /** A `AuthorInput` object that will be created and connected to this object. */
@@ -2908,6 +2937,11 @@ export type AuthorAuthorPkeyConnect = {
   authorId: Scalars['String'];
 };
 
+/** The fields on `author` to look up the row to connect. */
+export type AuthorAuthorFullNameKeyConnect = {
+  fullName: Scalars['String'];
+};
+
 /** The globally unique `ID` look up for the row to connect. */
 export type AuthorNodeIdConnect = {
   /** The globally unique `ID` which identifies a single `author` to be connected. */
@@ -2917,6 +2951,11 @@ export type AuthorNodeIdConnect = {
 /** The fields on `author` to look up the row to delete. */
 export type AuthorAuthorPkeyDelete = {
   authorId: Scalars['String'];
+};
+
+/** The fields on `author` to look up the row to delete. */
+export type AuthorAuthorFullNameKeyDelete = {
+  fullName: Scalars['String'];
 };
 
 /** The globally unique `ID` look up for the row to delete. */
@@ -2934,7 +2973,7 @@ export type AuthorOnPublicationAuthorForPublicationAuthorAuthorIdFkeyUsingAuthor
 
 /** An object where the defined keys will be set on the `author` being updated. */
 export type UpdateAuthorOnPublicationAuthorForPublicationAuthorAuthorIdFkeyPatch = {
-  name?: Maybe<Scalars['String']>;
+  fullName?: Maybe<Scalars['String']>;
   publicationAuthorsUsingAuthorId?: Maybe<PublicationAuthorAuthorIdFkeyInverseInput>;
 };
 
@@ -2996,6 +3035,13 @@ export type PublicationAuthorAuthorIdFkeyPublicationAuthorCreateInput = {
   authorToAuthorId?: Maybe<PublicationAuthorAuthorIdFkeyInput>;
 };
 
+/** The fields on `author` to look up the row to update. */
+export type AuthorOnPublicationAuthorForPublicationAuthorAuthorIdFkeyUsingAuthorFullNameKeyUpdate = {
+  /** An object where the defined keys will be set on the `author` being updated. */
+  authorPatch: UpdateAuthorOnPublicationAuthorForPublicationAuthorAuthorIdFkeyPatch;
+  fullName: Scalars['String'];
+};
+
 /** The globally unique `ID` look up for the row to update. */
 export type PublicationAuthorOnPublicationAuthorForPublicationAuthorAuthorIdFkeyNodeIdUpdate = {
   /** The globally unique `ID` which identifies a single `author` to be connected. */
@@ -3007,13 +3053,13 @@ export type PublicationAuthorOnPublicationAuthorForPublicationAuthorAuthorIdFkey
 /** Represents an update to a `Author`. Fields that are set will be updated. */
 export type AuthorPatch = {
   authorId?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
+  fullName?: Maybe<Scalars['String']>;
   publicationAuthorsUsingAuthorId?: Maybe<PublicationAuthorAuthorIdFkeyInverseInput>;
 };
 
 /** The `author` to be created by this mutation. */
 export type PublicationAuthorAuthorIdFkeyAuthorCreateInput = {
-  name?: Maybe<Scalars['String']>;
+  fullName: Scalars['String'];
   publicationAuthorsUsingAuthorId?: Maybe<PublicationAuthorAuthorIdFkeyInverseInput>;
 };
 
@@ -3032,93 +3078,12 @@ export type PublicationAuthorPublicationIdFkeyPublicationAuthorCreateInput = {
   authorToAuthorId?: Maybe<PublicationAuthorAuthorIdFkeyInput>;
 };
 
-/** The globally unique `ID` look up for the row to update. */
-export type AccountPublicationOnAccountPublicationForAccountPublicationPublicationIdFkeyNodeIdUpdate = {
-  /** The globally unique `ID` which identifies a single `publication` to be connected. */
-  id: Scalars['ID'];
+/** The fields on `publication` to look up the row to update. */
+export type PublicationOnBookForBookPublicationIdFkeyUsingPublicationAccountIdTitleKeyUpdate = {
   /** An object where the defined keys will be set on the `publication` being updated. */
-  publicationPatch: PublicationPatch;
-};
-
-/** The `publication` to be created by this mutation. */
-export type AccountPublicationPublicationIdFkeyPublicationCreateInput = {
-  createdAt?: Maybe<Scalars['Datetime']>;
-  updatedAt?: Maybe<Scalars['Datetime']>;
-  bookUsingPublicationId?: Maybe<BookPublicationIdFkeyInverseInput>;
-  annotationsUsingPublicationId?: Maybe<AnnotationPublicationIdFkeyInverseInput>;
-  publicationAuthorsUsingPublicationId?: Maybe<PublicationAuthorPublicationIdFkeyInverseInput>;
-  accountPublicationsUsingPublicationId?: Maybe<AccountPublicationPublicationIdFkeyInverseInput>;
-};
-
-/** The globally unique `ID` look up for the row to update. */
-export type AccountOnAccountPublicationForAccountPublicationAccountIdFkeyNodeIdUpdate = {
-  /** The globally unique `ID` which identifies a single `accountPublication` to be connected. */
-  id: Scalars['ID'];
-  /** An object where the defined keys will be set on the `accountPublication` being updated. */
-  accountPublicationPatch: AccountPublicationPatch;
-};
-
-/** The `accountPublication` to be created by this mutation. */
-export type AccountPublicationAccountIdFkeyAccountPublicationCreateInput = {
-  publicationId?: Maybe<Scalars['String']>;
-  accountToAccountId?: Maybe<AccountPublicationAccountIdFkeyInput>;
-  publicationToPublicationId?: Maybe<AccountPublicationPublicationIdFkeyInput>;
-};
-
-/** The fields on `account` to look up the row to update. */
-export type AccountOnAnnotationForAnnotationAccountIdFkeyUsingAccountEmailKeyUpdate = {
-  /** An object where the defined keys will be set on the `account` being updated. */
-  accountPatch: UpdateAccountOnAnnotationForAnnotationAccountIdFkeyPatch;
-  email: Scalars['String'];
-};
-
-/** The globally unique `ID` look up for the row to update. */
-export type AnnotationOnAnnotationForAnnotationAccountIdFkeyNodeIdUpdate = {
-  /** The globally unique `ID` which identifies a single `account` to be connected. */
-  id: Scalars['ID'];
-  /** An object where the defined keys will be set on the `account` being updated. */
-  accountPatch: AccountPatch;
-};
-
-/** The `account` to be created by this mutation. */
-export type AnnotationAccountIdFkeyAccountCreateInput = {
-  email: Scalars['String'];
-  createdAt?: Maybe<Scalars['Datetime']>;
-  updatedAt?: Maybe<Scalars['Datetime']>;
-  status?: Maybe<Scalars['String']>;
-  emailVerified?: Maybe<Scalars['Boolean']>;
-  group?: Maybe<Scalars['String']>;
-  firstName?: Maybe<Scalars['String']>;
-  lastName?: Maybe<Scalars['String']>;
-  annotationsUsingAccountId?: Maybe<AnnotationAccountIdFkeyInverseInput>;
-  accountPublicationsUsingAccountId?: Maybe<AccountPublicationAccountIdFkeyInverseInput>;
-  tagsUsingAccountId?: Maybe<TagAccountIdFkeyInverseInput>;
-};
-
-/** The globally unique `ID` look up for the row to update. */
-export type PublicationOnAnnotationForAnnotationPublicationIdFkeyNodeIdUpdate = {
-  /** The globally unique `ID` which identifies a single `annotation` to be connected. */
-  id: Scalars['ID'];
-  /** An object where the defined keys will be set on the `annotation` being updated. */
-  annotationPatch: AnnotationPatch;
-};
-
-/** The `annotation` to be created by this mutation. */
-export type AnnotationPublicationIdFkeyAnnotationCreateInput = {
-  annotationId: Scalars['String'];
-  accountId?: Maybe<Scalars['UUID']>;
-  color?: Maybe<Scalars['String']>;
-  highlightLocation?: Maybe<Scalars['JSON']>;
-  highlightedText?: Maybe<Scalars['String']>;
-  noteText?: Maybe<Scalars['String']>;
-  noteLocation?: Maybe<Scalars['JSON']>;
-  recordedAt?: Maybe<Scalars['Datetime']>;
-  createdAt?: Maybe<Scalars['Datetime']>;
-  updatedAt?: Maybe<Scalars['Datetime']>;
-  extraEdits?: Maybe<Scalars['JSON']>;
-  publicationToPublicationId?: Maybe<AnnotationPublicationIdFkeyInput>;
-  accountToAccountId?: Maybe<AnnotationAccountIdFkeyInput>;
-  annotationTagsUsingAnnotationId?: Maybe<AnnotationTagAnnotationIdFkeyInverseInput>;
+  publicationPatch: UpdatePublicationOnBookForBookPublicationIdFkeyPatch;
+  accountId: Scalars['UUID'];
+  title: Scalars['String'];
 };
 
 /** The globally unique `ID` look up for the row to update. */
@@ -3131,19 +3096,15 @@ export type BookOnBookForBookPublicationIdFkeyNodeIdUpdate = {
 
 /** The `publication` to be created by this mutation. */
 export type BookPublicationIdFkeyPublicationCreateInput = {
+  accountId?: Maybe<Scalars['UUID']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
+  title: Scalars['String'];
+  additionalMeta?: Maybe<Scalars['JSON']>;
+  accountToAccountId?: Maybe<PublicationAccountIdFkeyInput>;
   bookUsingPublicationId?: Maybe<BookPublicationIdFkeyInverseInput>;
   annotationsUsingPublicationId?: Maybe<AnnotationPublicationIdFkeyInverseInput>;
   publicationAuthorsUsingPublicationId?: Maybe<PublicationAuthorPublicationIdFkeyInverseInput>;
-  accountPublicationsUsingPublicationId?: Maybe<AccountPublicationPublicationIdFkeyInverseInput>;
-};
-
-/** The fields on `book` to look up the row to update. */
-export type BookOnBookForBookPublicationIdFkeyUsingBookTitleKeyUpdate = {
-  /** An object where the defined keys will be set on the `book` being updated. */
-  bookPatch: UpdateBookOnBookForBookPublicationIdFkeyPatch;
-  title: Scalars['String'];
 };
 
 /** The globally unique `ID` look up for the row to update. */
@@ -3158,7 +3119,7 @@ export type PublicationOnBookForBookPublicationIdFkeyNodeIdUpdate = {
 export type BookPatch = {
   publicationId?: Maybe<Scalars['String']>;
   isbn13?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
+  bookTitle?: Maybe<Scalars['String']>;
   imageUrl?: Maybe<Scalars['String']>;
   languageCode?: Maybe<Scalars['String']>;
   publisher?: Maybe<Scalars['String']>;
@@ -3171,7 +3132,7 @@ export type BookPatch = {
 /** The `book` to be created by this mutation. */
 export type BookPublicationIdFkeyBookCreateInput = {
   isbn13?: Maybe<Scalars['String']>;
-  title: Scalars['String'];
+  bookTitle: Scalars['String'];
   imageUrl?: Maybe<Scalars['String']>;
   languageCode?: Maybe<Scalars['String']>;
   publisher?: Maybe<Scalars['String']>;
@@ -3179,6 +3140,14 @@ export type BookPublicationIdFkeyBookCreateInput = {
   description?: Maybe<Scalars['String']>;
   bookType?: Maybe<Scalars['String']>;
   publicationToPublicationId?: Maybe<BookPublicationIdFkeyInput>;
+};
+
+/** The fields on `publication` to look up the row to update. */
+export type PublicationOnAnnotationForAnnotationPublicationIdFkeyUsingPublicationAccountIdTitleKeyUpdate = {
+  /** An object where the defined keys will be set on the `publication` being updated. */
+  publicationPatch: UpdatePublicationOnAnnotationForAnnotationPublicationIdFkeyPatch;
+  accountId: Scalars['UUID'];
+  title: Scalars['String'];
 };
 
 /** The globally unique `ID` look up for the row to update. */
@@ -3191,12 +3160,37 @@ export type AnnotationOnAnnotationForAnnotationPublicationIdFkeyNodeIdUpdate = {
 
 /** The `publication` to be created by this mutation. */
 export type AnnotationPublicationIdFkeyPublicationCreateInput = {
+  accountId?: Maybe<Scalars['UUID']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
+  title: Scalars['String'];
+  additionalMeta?: Maybe<Scalars['JSON']>;
+  accountToAccountId?: Maybe<PublicationAccountIdFkeyInput>;
   bookUsingPublicationId?: Maybe<BookPublicationIdFkeyInverseInput>;
   annotationsUsingPublicationId?: Maybe<AnnotationPublicationIdFkeyInverseInput>;
   publicationAuthorsUsingPublicationId?: Maybe<PublicationAuthorPublicationIdFkeyInverseInput>;
-  accountPublicationsUsingPublicationId?: Maybe<AccountPublicationPublicationIdFkeyInverseInput>;
+};
+
+/** The fields on `annotation` to look up the row to update. */
+export type AnnotationOnAnnotationForAnnotationAccountIdFkeyUsingAnnotationAnnotationIdPublicationIdAccountIdHighlighKeyUpdate = {
+  /** An object where the defined keys will be set on the `annotation` being updated. */
+  annotationPatch: UpdateAnnotationOnAnnotationForAnnotationAccountIdFkeyPatch;
+  annotationId: Scalars['String'];
+  publicationId: Scalars['String'];
+  accountId: Scalars['UUID'];
+  highlightLocation: Scalars['JSON'];
+  highlightText: Scalars['String'];
+};
+
+/** The fields on `annotation` to look up the row to update. */
+export type AnnotationOnAnnotationForAnnotationAccountIdFkeyUsingAnnotationAnnotationIdPublicationIdAccountIdNoteLocKeyUpdate = {
+  /** An object where the defined keys will be set on the `annotation` being updated. */
+  annotationPatch: UpdateAnnotationOnAnnotationForAnnotationAccountIdFkeyPatch;
+  annotationId: Scalars['String'];
+  publicationId: Scalars['String'];
+  accountId: Scalars['UUID'];
+  noteLocation: Scalars['JSON'];
+  noteText: Scalars['String'];
 };
 
 /** The globally unique `ID` look up for the row to update. */
@@ -3213,7 +3207,7 @@ export type AnnotationAccountIdFkeyAnnotationCreateInput = {
   publicationId?: Maybe<Scalars['String']>;
   color?: Maybe<Scalars['String']>;
   highlightLocation?: Maybe<Scalars['JSON']>;
-  highlightedText?: Maybe<Scalars['String']>;
+  highlightText?: Maybe<Scalars['String']>;
   noteText?: Maybe<Scalars['String']>;
   noteLocation?: Maybe<Scalars['JSON']>;
   recordedAt?: Maybe<Scalars['Datetime']>;
@@ -3223,6 +3217,65 @@ export type AnnotationAccountIdFkeyAnnotationCreateInput = {
   publicationToPublicationId?: Maybe<AnnotationPublicationIdFkeyInput>;
   accountToAccountId?: Maybe<AnnotationAccountIdFkeyInput>;
   annotationTagsUsingAnnotationId?: Maybe<AnnotationTagAnnotationIdFkeyInverseInput>;
+};
+
+/** The fields on `account` to look up the row to update. */
+export type AccountOnPublicationForPublicationAccountIdFkeyUsingAccountEmailKeyUpdate = {
+  /** An object where the defined keys will be set on the `account` being updated. */
+  accountPatch: UpdateAccountOnPublicationForPublicationAccountIdFkeyPatch;
+  email: Scalars['String'];
+};
+
+/** The globally unique `ID` look up for the row to update. */
+export type PublicationOnPublicationForPublicationAccountIdFkeyNodeIdUpdate = {
+  /** The globally unique `ID` which identifies a single `account` to be connected. */
+  id: Scalars['ID'];
+  /** An object where the defined keys will be set on the `account` being updated. */
+  accountPatch: AccountPatch;
+};
+
+/** The `account` to be created by this mutation. */
+export type PublicationAccountIdFkeyAccountCreateInput = {
+  email: Scalars['String'];
+  createdAt?: Maybe<Scalars['Datetime']>;
+  updatedAt?: Maybe<Scalars['Datetime']>;
+  status?: Maybe<Scalars['String']>;
+  emailVerified?: Maybe<Scalars['Boolean']>;
+  group?: Maybe<Scalars['String']>;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  publicationsUsingAccountId?: Maybe<PublicationAccountIdFkeyInverseInput>;
+  annotationsUsingAccountId?: Maybe<AnnotationAccountIdFkeyInverseInput>;
+  tagsUsingAccountId?: Maybe<TagAccountIdFkeyInverseInput>;
+};
+
+/** The fields on `publication` to look up the row to update. */
+export type PublicationOnPublicationForPublicationAccountIdFkeyUsingPublicationAccountIdTitleKeyUpdate = {
+  /** An object where the defined keys will be set on the `publication` being updated. */
+  publicationPatch: UpdatePublicationOnPublicationForPublicationAccountIdFkeyPatch;
+  accountId: Scalars['UUID'];
+  title: Scalars['String'];
+};
+
+/** The globally unique `ID` look up for the row to update. */
+export type AccountOnPublicationForPublicationAccountIdFkeyNodeIdUpdate = {
+  /** The globally unique `ID` which identifies a single `publication` to be connected. */
+  id: Scalars['ID'];
+  /** An object where the defined keys will be set on the `publication` being updated. */
+  publicationPatch: PublicationPatch;
+};
+
+/** The `publication` to be created by this mutation. */
+export type PublicationAccountIdFkeyPublicationCreateInput = {
+  publicationId: Scalars['String'];
+  createdAt?: Maybe<Scalars['Datetime']>;
+  updatedAt?: Maybe<Scalars['Datetime']>;
+  title: Scalars['String'];
+  additionalMeta?: Maybe<Scalars['JSON']>;
+  accountToAccountId?: Maybe<PublicationAccountIdFkeyInput>;
+  bookUsingPublicationId?: Maybe<BookPublicationIdFkeyInverseInput>;
+  annotationsUsingPublicationId?: Maybe<AnnotationPublicationIdFkeyInverseInput>;
+  publicationAuthorsUsingPublicationId?: Maybe<PublicationAuthorPublicationIdFkeyInverseInput>;
 };
 
 /** The output of our create `Account` mutation. */
@@ -3244,45 +3297,6 @@ export type CreateAccountPayloadAccountEdgeArgs = {
   orderBy?: Maybe<Array<AccountsOrderBy>>;
 };
 
-/** All input for the create `AccountPublication` mutation. */
-export type CreateAccountPublicationInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
-  clientMutationId?: Maybe<Scalars['String']>;
-  /** The `AccountPublication` to be created by this mutation. */
-  accountPublication: AccountPublicationInput;
-};
-
-/** An input for mutations affecting `AccountPublication` */
-export type AccountPublicationInput = {
-  accountId?: Maybe<Scalars['UUID']>;
-  publicationId?: Maybe<Scalars['String']>;
-  accountToAccountId?: Maybe<AccountPublicationAccountIdFkeyInput>;
-  publicationToPublicationId?: Maybe<AccountPublicationPublicationIdFkeyInput>;
-};
-
-/** The output of our create `AccountPublication` mutation. */
-export type CreateAccountPublicationPayload = {
-  __typename?: 'CreateAccountPublicationPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
-  clientMutationId?: Maybe<Scalars['String']>;
-  /** The `AccountPublication` that was created by this mutation. */
-  accountPublication?: Maybe<AccountPublication>;
-  /** Our root query field type. Allows us to run any query from our mutation payload. */
-  query?: Maybe<Query>;
-  /** Reads a single `Account` that is related to this `AccountPublication`. */
-  accountByAccountId?: Maybe<Account>;
-  /** Reads a single `Publication` that is related to this `AccountPublication`. */
-  publicationByPublicationId?: Maybe<Publication>;
-  /** An edge for our `AccountPublication`. May be used by Relay 1. */
-  accountPublicationEdge?: Maybe<AccountPublicationsEdge>;
-};
-
-
-/** The output of our create `AccountPublication` mutation. */
-export type CreateAccountPublicationPayloadAccountPublicationEdgeArgs = {
-  orderBy?: Maybe<Array<AccountPublicationsOrderBy>>;
-};
-
 /** All input for the create `Annotation` mutation. */
 export type CreateAnnotationInput = {
   /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
@@ -3298,7 +3312,7 @@ export type AnnotationInput = {
   accountId?: Maybe<Scalars['UUID']>;
   color?: Maybe<Scalars['String']>;
   highlightLocation?: Maybe<Scalars['JSON']>;
-  highlightedText?: Maybe<Scalars['String']>;
+  highlightText?: Maybe<Scalars['String']>;
   noteText?: Maybe<Scalars['String']>;
   noteLocation?: Maybe<Scalars['JSON']>;
   recordedAt?: Maybe<Scalars['Datetime']>;
@@ -3383,7 +3397,7 @@ export type CreateAuthorInput = {
 /** An input for mutations affecting `Author` */
 export type AuthorInput = {
   authorId: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
+  fullName: Scalars['String'];
   publicationAuthorsUsingAuthorId?: Maybe<PublicationAuthorAuthorIdFkeyInverseInput>;
 };
 
@@ -3418,7 +3432,7 @@ export type CreateBookInput = {
 export type BookInput = {
   publicationId?: Maybe<Scalars['String']>;
   isbn13?: Maybe<Scalars['String']>;
-  title: Scalars['String'];
+  bookTitle: Scalars['String'];
   imageUrl?: Maybe<Scalars['String']>;
   languageCode?: Maybe<Scalars['String']>;
   publisher?: Maybe<Scalars['String']>;
@@ -3460,12 +3474,15 @@ export type CreatePublicationInput = {
 /** An input for mutations affecting `Publication` */
 export type PublicationInput = {
   publicationId: Scalars['String'];
+  accountId?: Maybe<Scalars['UUID']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
+  title: Scalars['String'];
+  additionalMeta?: Maybe<Scalars['JSON']>;
+  accountToAccountId?: Maybe<PublicationAccountIdFkeyInput>;
   bookUsingPublicationId?: Maybe<BookPublicationIdFkeyInverseInput>;
   annotationsUsingPublicationId?: Maybe<AnnotationPublicationIdFkeyInverseInput>;
   publicationAuthorsUsingPublicationId?: Maybe<PublicationAuthorPublicationIdFkeyInverseInput>;
-  accountPublicationsUsingPublicationId?: Maybe<AccountPublicationPublicationIdFkeyInverseInput>;
 };
 
 /** The output of our create `Publication` mutation. */
@@ -3477,6 +3494,8 @@ export type CreatePublicationPayload = {
   publication?: Maybe<Publication>;
   /** Our root query field type. Allows us to run any query from our mutation payload. */
   query?: Maybe<Query>;
+  /** Reads a single `Account` that is related to this `Publication`. */
+  accountByAccountId?: Maybe<Account>;
   /** An edge for our `Publication`. May be used by Relay 1. */
   publicationEdge?: Maybe<PublicationsEdge>;
 };
@@ -3537,7 +3556,7 @@ export type CreateTagInput = {
 /** An input for mutations affecting `Tag` */
 export type TagInput = {
   tagId: Scalars['String'];
-  name: Scalars['String'];
+  tagName: Scalars['String'];
   accountId?: Maybe<Scalars['UUID']>;
   accountToAccountId?: Maybe<TagAccountIdFkeyInput>;
   annotationTagsUsingTagId?: Maybe<AnnotationTagTagIdFkeyInverseInput>;
@@ -3611,49 +3630,6 @@ export type UpdateAccountByEmailInput = {
   email: Scalars['String'];
 };
 
-/** All input for the `updateAccountPublication` mutation. */
-export type UpdateAccountPublicationInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
-  clientMutationId?: Maybe<Scalars['String']>;
-  /** The globally unique `ID` which will identify a single `AccountPublication` to be updated. */
-  id: Scalars['ID'];
-  /** An object where the defined keys will be set on the `AccountPublication` being updated. */
-  accountPublicationPatch: AccountPublicationPatch;
-};
-
-/** The output of our update `AccountPublication` mutation. */
-export type UpdateAccountPublicationPayload = {
-  __typename?: 'UpdateAccountPublicationPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
-  clientMutationId?: Maybe<Scalars['String']>;
-  /** The `AccountPublication` that was updated by this mutation. */
-  accountPublication?: Maybe<AccountPublication>;
-  /** Our root query field type. Allows us to run any query from our mutation payload. */
-  query?: Maybe<Query>;
-  /** Reads a single `Account` that is related to this `AccountPublication`. */
-  accountByAccountId?: Maybe<Account>;
-  /** Reads a single `Publication` that is related to this `AccountPublication`. */
-  publicationByPublicationId?: Maybe<Publication>;
-  /** An edge for our `AccountPublication`. May be used by Relay 1. */
-  accountPublicationEdge?: Maybe<AccountPublicationsEdge>;
-};
-
-
-/** The output of our update `AccountPublication` mutation. */
-export type UpdateAccountPublicationPayloadAccountPublicationEdgeArgs = {
-  orderBy?: Maybe<Array<AccountPublicationsOrderBy>>;
-};
-
-/** All input for the `updateAccountPublicationByAccountIdAndPublicationId` mutation. */
-export type UpdateAccountPublicationByAccountIdAndPublicationIdInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
-  clientMutationId?: Maybe<Scalars['String']>;
-  /** An object where the defined keys will be set on the `AccountPublication` being updated. */
-  accountPublicationPatch: AccountPublicationPatch;
-  accountId: Scalars['UUID'];
-  publicationId: Scalars['String'];
-};
-
 /** All input for the `updateAnnotation` mutation. */
 export type UpdateAnnotationInput = {
   /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
@@ -3694,6 +3670,32 @@ export type UpdateAnnotationByAnnotationIdInput = {
   /** An object where the defined keys will be set on the `Annotation` being updated. */
   annotationPatch: AnnotationPatch;
   annotationId: Scalars['String'];
+};
+
+/** All input for the `updateAnnotationByAnnotationIdAndPublicationIdAndAccountIdAndHighlightLocationAndHighlightText` mutation. */
+export type UpdateAnnotationByAnnotationIdAndPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextInput = {
+  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** An object where the defined keys will be set on the `Annotation` being updated. */
+  annotationPatch: AnnotationPatch;
+  annotationId: Scalars['String'];
+  publicationId: Scalars['String'];
+  accountId: Scalars['UUID'];
+  highlightLocation: Scalars['JSON'];
+  highlightText: Scalars['String'];
+};
+
+/** All input for the `updateAnnotationByAnnotationIdAndPublicationIdAndAccountIdAndNoteLocationAndNoteText` mutation. */
+export type UpdateAnnotationByAnnotationIdAndPublicationIdAndAccountIdAndNoteLocationAndNoteTextInput = {
+  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** An object where the defined keys will be set on the `Annotation` being updated. */
+  annotationPatch: AnnotationPatch;
+  annotationId: Scalars['String'];
+  publicationId: Scalars['String'];
+  accountId: Scalars['UUID'];
+  noteLocation: Scalars['JSON'];
+  noteText: Scalars['String'];
 };
 
 /** All input for the `updateAnnotationTag` mutation. */
@@ -3777,6 +3779,15 @@ export type UpdateAuthorByAuthorIdInput = {
   authorId: Scalars['String'];
 };
 
+/** All input for the `updateAuthorByFullName` mutation. */
+export type UpdateAuthorByFullNameInput = {
+  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** An object where the defined keys will be set on the `Author` being updated. */
+  authorPatch: AuthorPatch;
+  fullName: Scalars['String'];
+};
+
 /** All input for the `updateBook` mutation. */
 export type UpdateBookInput = {
   /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
@@ -3817,15 +3828,6 @@ export type UpdateBookByPublicationIdInput = {
   publicationId: Scalars['String'];
 };
 
-/** All input for the `updateBookByTitle` mutation. */
-export type UpdateBookByTitleInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
-  clientMutationId?: Maybe<Scalars['String']>;
-  /** An object where the defined keys will be set on the `Book` being updated. */
-  bookPatch: BookPatch;
-  title: Scalars['String'];
-};
-
 /** All input for the `updatePublication` mutation. */
 export type UpdatePublicationInput = {
   /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
@@ -3845,6 +3847,8 @@ export type UpdatePublicationPayload = {
   publication?: Maybe<Publication>;
   /** Our root query field type. Allows us to run any query from our mutation payload. */
   query?: Maybe<Query>;
+  /** Reads a single `Account` that is related to this `Publication`. */
+  accountByAccountId?: Maybe<Account>;
   /** An edge for our `Publication`. May be used by Relay 1. */
   publicationEdge?: Maybe<PublicationsEdge>;
 };
@@ -3862,6 +3866,16 @@ export type UpdatePublicationByPublicationIdInput = {
   /** An object where the defined keys will be set on the `Publication` being updated. */
   publicationPatch: PublicationPatch;
   publicationId: Scalars['String'];
+};
+
+/** All input for the `updatePublicationByAccountIdAndTitle` mutation. */
+export type UpdatePublicationByAccountIdAndTitleInput = {
+  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** An object where the defined keys will be set on the `Publication` being updated. */
+  publicationPatch: PublicationPatch;
+  accountId: Scalars['UUID'];
+  title: Scalars['String'];
 };
 
 /** All input for the `updatePublicationAuthor` mutation. */
@@ -3947,6 +3961,16 @@ export type UpdateTagByTagIdInput = {
   tagId: Scalars['String'];
 };
 
+/** All input for the `updateTagByTagNameAndAccountId` mutation. */
+export type UpdateTagByTagNameAndAccountIdInput = {
+  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** An object where the defined keys will be set on the `Tag` being updated. */
+  tagPatch: TagPatch;
+  tagName: Scalars['String'];
+  accountId: Scalars['UUID'];
+};
+
 /** All input for the `deleteAccount` mutation. */
 export type DeleteAccountInput = {
   /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
@@ -3989,46 +4013,6 @@ export type DeleteAccountByEmailInput = {
   email: Scalars['String'];
 };
 
-/** All input for the `deleteAccountPublication` mutation. */
-export type DeleteAccountPublicationInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
-  clientMutationId?: Maybe<Scalars['String']>;
-  /** The globally unique `ID` which will identify a single `AccountPublication` to be deleted. */
-  id: Scalars['ID'];
-};
-
-/** The output of our delete `AccountPublication` mutation. */
-export type DeleteAccountPublicationPayload = {
-  __typename?: 'DeleteAccountPublicationPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
-  clientMutationId?: Maybe<Scalars['String']>;
-  /** The `AccountPublication` that was deleted by this mutation. */
-  accountPublication?: Maybe<AccountPublication>;
-  deletedAccountPublicationId?: Maybe<Scalars['ID']>;
-  /** Our root query field type. Allows us to run any query from our mutation payload. */
-  query?: Maybe<Query>;
-  /** Reads a single `Account` that is related to this `AccountPublication`. */
-  accountByAccountId?: Maybe<Account>;
-  /** Reads a single `Publication` that is related to this `AccountPublication`. */
-  publicationByPublicationId?: Maybe<Publication>;
-  /** An edge for our `AccountPublication`. May be used by Relay 1. */
-  accountPublicationEdge?: Maybe<AccountPublicationsEdge>;
-};
-
-
-/** The output of our delete `AccountPublication` mutation. */
-export type DeleteAccountPublicationPayloadAccountPublicationEdgeArgs = {
-  orderBy?: Maybe<Array<AccountPublicationsOrderBy>>;
-};
-
-/** All input for the `deleteAccountPublicationByAccountIdAndPublicationId` mutation. */
-export type DeleteAccountPublicationByAccountIdAndPublicationIdInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
-  clientMutationId?: Maybe<Scalars['String']>;
-  accountId: Scalars['UUID'];
-  publicationId: Scalars['String'];
-};
-
 /** All input for the `deleteAnnotation` mutation. */
 export type DeleteAnnotationInput = {
   /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
@@ -4066,6 +4050,28 @@ export type DeleteAnnotationByAnnotationIdInput = {
   /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
   clientMutationId?: Maybe<Scalars['String']>;
   annotationId: Scalars['String'];
+};
+
+/** All input for the `deleteAnnotationByAnnotationIdAndPublicationIdAndAccountIdAndHighlightLocationAndHighlightText` mutation. */
+export type DeleteAnnotationByAnnotationIdAndPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextInput = {
+  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  clientMutationId?: Maybe<Scalars['String']>;
+  annotationId: Scalars['String'];
+  publicationId: Scalars['String'];
+  accountId: Scalars['UUID'];
+  highlightLocation: Scalars['JSON'];
+  highlightText: Scalars['String'];
+};
+
+/** All input for the `deleteAnnotationByAnnotationIdAndPublicationIdAndAccountIdAndNoteLocationAndNoteText` mutation. */
+export type DeleteAnnotationByAnnotationIdAndPublicationIdAndAccountIdAndNoteLocationAndNoteTextInput = {
+  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  clientMutationId?: Maybe<Scalars['String']>;
+  annotationId: Scalars['String'];
+  publicationId: Scalars['String'];
+  accountId: Scalars['UUID'];
+  noteLocation: Scalars['JSON'];
+  noteText: Scalars['String'];
 };
 
 /** All input for the `deleteAnnotationTag` mutation. */
@@ -4143,6 +4149,13 @@ export type DeleteAuthorByAuthorIdInput = {
   authorId: Scalars['String'];
 };
 
+/** All input for the `deleteAuthorByFullName` mutation. */
+export type DeleteAuthorByFullNameInput = {
+  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  clientMutationId?: Maybe<Scalars['String']>;
+  fullName: Scalars['String'];
+};
+
 /** All input for the `deleteBook` mutation. */
 export type DeleteBookInput = {
   /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
@@ -4180,13 +4193,6 @@ export type DeleteBookByPublicationIdInput = {
   publicationId: Scalars['String'];
 };
 
-/** All input for the `deleteBookByTitle` mutation. */
-export type DeleteBookByTitleInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
-  clientMutationId?: Maybe<Scalars['String']>;
-  title: Scalars['String'];
-};
-
 /** All input for the `deletePublication` mutation. */
 export type DeletePublicationInput = {
   /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
@@ -4205,6 +4211,8 @@ export type DeletePublicationPayload = {
   deletedPublicationId?: Maybe<Scalars['ID']>;
   /** Our root query field type. Allows us to run any query from our mutation payload. */
   query?: Maybe<Query>;
+  /** Reads a single `Account` that is related to this `Publication`. */
+  accountByAccountId?: Maybe<Account>;
   /** An edge for our `Publication`. May be used by Relay 1. */
   publicationEdge?: Maybe<PublicationsEdge>;
 };
@@ -4220,6 +4228,14 @@ export type DeletePublicationByPublicationIdInput = {
   /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
   clientMutationId?: Maybe<Scalars['String']>;
   publicationId: Scalars['String'];
+};
+
+/** All input for the `deletePublicationByAccountIdAndTitle` mutation. */
+export type DeletePublicationByAccountIdAndTitleInput = {
+  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  clientMutationId?: Maybe<Scalars['String']>;
+  accountId: Scalars['UUID'];
+  title: Scalars['String'];
 };
 
 /** All input for the `deletePublicationAuthor` mutation. */
@@ -4297,4 +4313,12 @@ export type DeleteTagByTagIdInput = {
   /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
   clientMutationId?: Maybe<Scalars['String']>;
   tagId: Scalars['String'];
+};
+
+/** All input for the `deleteTagByTagNameAndAccountId` mutation. */
+export type DeleteTagByTagNameAndAccountIdInput = {
+  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  clientMutationId?: Maybe<Scalars['String']>;
+  tagName: Scalars['String'];
+  accountId: Scalars['UUID'];
 };
