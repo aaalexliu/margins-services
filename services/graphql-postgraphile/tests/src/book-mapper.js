@@ -95,6 +95,10 @@ class BookMapper {
         const authorResponses = await Promise
             .all(authors.map((author) => this.findOrCreateAuthor(author, publicationId)));
         console.log('author responses', authorResponses);
+        return {
+            publicationId,
+            authorIds: authorResponses.map(author => author.authorId)
+        };
     }
     async findBookByTitle(book) {
         const title = book.title;
