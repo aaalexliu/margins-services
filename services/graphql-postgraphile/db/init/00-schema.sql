@@ -68,7 +68,7 @@ CREATE INDEX annotation_account_id_index ON annotation (account_id);
 
 CREATE TABLE author (
   "author_id" char(24) PRIMARY KEY CHECK (is_valid_mongo_id(author_id)),
-  "name" text UNIQUE NOT NULL
+  "full_name" text UNIQUE NOT NULL
 );
 
 CREATE TABLE publication_author (
