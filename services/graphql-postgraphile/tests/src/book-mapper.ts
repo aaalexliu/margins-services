@@ -4,6 +4,7 @@ import { ObjectID } from 'mongodb';
 import {
   CreatePublicationInput,
   CreateAuthorInput,
+  CreatePublicationAuthorInput,
 } from '../../__generated__/types';
 
 
@@ -71,7 +72,7 @@ const GET_AUTHOR = gql`
 const CONNECT_AUTHOR = gql`
   mutation ConnectAuthorToPublication($authorAndPublication: CreatePublicationAuthorInput!) {
     __typename
-    createPublicationAuthor(input: {publicationAuthor: $authorAndPublication) {
+    createPublicationAuthor(input: $authorAndPublication) {
       publicationAuthor {
         authorId
         publicationId
@@ -129,7 +130,7 @@ export default class BookMapper {
     return objectId.toHexString();
   }
 
-  async findOrCreateBook(book: Book): BookResponse {
+  async findOrCreateBook(book: Book) {
     let publicationId;
     let bookResponse = await this.findBookByTitle(book);
     if (!bookResponse) {
@@ -140,11 +141,8 @@ export default class BookMapper {
     const authors = book.authors;
     publicationId = bookResponse.publicationId;
     // const bookPublicationId = this.getBookPublicationId(bookMutationVars);
-    const authorResponses = await Promise.all(authors.map((author) => {
-        const authorMutationVars = this.createAuthorInput(author, bookPublicationId);
-        return this.graphQLClient.request(CREATE_AUTHOR, authorMutationVars);
-      })
-    );
+    const authorResponses = await Promise
+      .all(authors.map((author) => this.findOrCreateAuthor(author, publicationId));
     console.log(authorResponses);
   }
 
@@ -208,12 +206,29 @@ export default class BookMapper {
   async findOrCreateAuthor(name: string, publicationId: string) {
     let author = await this.findAuthor(name);
     if (author) {
-
+      const connectAuthorResponse = await this.connectAuthorAndPublication(author.authorId, publicationId);
+      if (connectAuthorResponse) return author;
+      else return `error in linking existing author ${author}`;
     }
+
+    author = await this.createAuthor(name, publicationId);
+    return author;
   }
 
-  async connectAuthorAndPublication(authorId: string, publicationId) {
+  async connectAuthorAndPublication(authorId: string, publicationId: string) {
+    const connectAuthorPublicationVar = this.createPublicationAuthorInput(authorId, publicationId);
+    const response = await this.graphQLClient.request(CONNECT_AUTHOR, connectAuthorPublicationVar);
+    console.log('connectAuthorAndPublication response', response);
+    return response.data;
+  }
 
+  createPublicationAuthorInput(authorId: string, publicationId: string): CreatePublicationAuthorInput {
+    return {
+      publicationAuthor: {
+        authorId,
+        publicationId
+      }
+    }
   }
 
   async findAuthor(name: string) {
