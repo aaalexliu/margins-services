@@ -40,18 +40,17 @@ class AccountMapper {
     }
     async findOrCreateCognitoAccount(cognitoAccount) {
         const findResponse = await this.findCognitoAccount(cognitoAccount);
-        console.log('find response', findResponse);
         if (findResponse)
             return findResponse;
         const createResponse = await this.createAccountFromCognito(cognitoAccount);
-        console.log('create response', createResponse);
         return createResponse;
     }
     async findCognitoAccount(cognitoAccount) {
         const accountId = cognitoAccount.sub;
         const response = await this.graphQLClient
             .request(GET_ACCOUNT, { accountId });
-        return response.data;
+        console.log('find account response', response);
+        return response.accountByAccountId;
     }
     async createAccountFromCognito(cognitoAccount) {
         const account = {
@@ -65,9 +64,10 @@ class AccountMapper {
     }
     async createAccount(account) {
         const accountInputVar = this.createAccountInput(account);
-        const response = await this.graphQLClient.request(CREATE_ACCOUNT, accountInputVar);
-        console.log(response);
-        return response.data;
+        const response = await this.graphQLClient
+            .request(CREATE_ACCOUNT, accountInputVar);
+        console.log('create account response', response);
+        return response.createAccount.account;
     }
     createAccountInput(account) {
         return {

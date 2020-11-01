@@ -1,7 +1,7 @@
 import { GraphQLClient, gql } from 'graphql-request';
 
 import {
-  CreateAccountInput,
+  CreateAccountInput, CreateAccountPayload,
 } from '../../__generated__/types';
 
 const CREATE_ACCOUNT = gql`
@@ -78,11 +78,9 @@ export default class AccountMapper {
 
   async findOrCreateCognitoAccount(cognitoAccount: CognitoAccount) {
     const findResponse = await this.findCognitoAccount(cognitoAccount);
-    console.log('find response', findResponse);
     if (findResponse) return findResponse;
     
     const createResponse = await this.createAccountFromCognito(cognitoAccount);
-    console.log('create response', createResponse);
     return createResponse;
   }
 
@@ -90,7 +88,8 @@ export default class AccountMapper {
     const accountId = cognitoAccount.sub;
     const response = await this.graphQLClient
       .request<any, AccountIdVar>(GET_ACCOUNT, { accountId });
-    return response.data;
+    console.log('find account response', response);
+    return response.accountByAccountId;
   }
 
   async createAccountFromCognito(cognitoAccount: CognitoAccount) {
@@ -106,10 +105,11 @@ export default class AccountMapper {
 
   async createAccount(account: Account) {
     const accountInputVar = this.createAccountInput(account);
-    const response = await this.graphQLClient.request(CREATE_ACCOUNT, accountInputVar);
-    console.log(response);
+    const response: {createAccount: CreateAccountPayload} = await this.graphQLClient
+      .request(CREATE_ACCOUNT, accountInputVar);
+    console.log('create account response', response);
 
-    return response.data;
+    return response.createAccount.account;
   }
 
   createAccountInput(account: Account): AccountInputVar {
