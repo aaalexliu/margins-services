@@ -142,7 +142,7 @@ export default class BookMapper {
     publicationId = bookResponse.publicationId;
     // const bookPublicationId = this.getBookPublicationId(bookMutationVars);
     const authorResponses = await Promise
-      .all(authors.map((author) => this.findOrCreateAuthor(author, publicationId));
+      .all(authors.map((author) => this.findOrCreateAuthor(author, publicationId)));
     console.log(authorResponses);
   }
 
