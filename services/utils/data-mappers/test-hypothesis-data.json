@@ -1,0 +1,2482 @@
+[[
+  {
+    "id": "AR9mOAnSEeupWOfH6dLE4A",
+    "authority": "hypothes.is",
+    "url": "https://www.politico.com/news/magazine/2020/10/08/senior-citizens-trump-biden-2020-voters-428131",
+    "created": "2020-10-09T01:51:53",
+    "updated": "2020-10-09T01:51:53",
+    "title": "Why Senior Citizens Are Flipping on Trump",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": " isn’t good for President Trump.",
+    "exact": "There’s also the geographic issue where older people live — the states with the highest percentage of people over 60. In Florida, the power of older voters and the way this pandemic has changed the way they think about things has a big impact. A lot of the states that Trump won in 2016 in the so-called “Rust Belt” also have disproportionately older people in them.",
+    "suffix": "As a matter of practical experie",
+    "start": 7216,
+    "end": 7582,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.politico.com/news/magazine/2020/10/08/senior-citizens-trump-biden-2020-voters-428131",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[2]/main[1]/div[1]/section[5]/div[1]/div[2]/div[1]/div[1]/div[1]/p[5]/b[1]",
+            "startContainer": "/div[2]/main[1]/div[1]/section[5]/div[1]/div[2]/div[1]/div[1]/div[1]/p[4]"
+          },
+          {
+            "end": 7582,
+            "type": "TextPositionSelector",
+            "start": 7216
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "There’s also the geographic issue where older people live — the states with the highest percentage of people over 60. In Florida, the power of older voters and the way this pandemic has changed the way they think about things has a big impact. A lot of the states that Trump won in 2016 in the so-called “Rust Belt” also have disproportionately older people in them.",
+            "prefix": " isn’t good for President Trump.",
+            "suffix": "As a matter of practical experie"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Why Senior Citizens Are Flipping on Trump"
+      ]
+    }
+  },
+  {
+    "id": "-4fENgnREeuTBU8xiC1KrQ",
+    "authority": "hypothes.is",
+    "url": "https://www.politico.com/news/magazine/2020/10/08/senior-citizens-trump-biden-2020-voters-428131",
+    "created": "2020-10-09T01:51:43",
+    "updated": "2020-10-09T01:51:43",
+    "title": "Why Senior Citizens Are Flipping on Trump",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "ho’s been infected or have died.",
+    "exact": "There’s a feeling of vulnerability with older people in terms of just being reliant on their Social Security, or having a fear of losing their jobs — which is obviously even more the case during the pandemic. Many older adults have lost their jobs, and it’s much more difficult to find a job again when you’re in your 50s or older due to age discrimination, among other things. Health care has always been a top issue for older voters. Even with Medicare coverage, people see the high cost of drugs, the high co-payments they have, some of the inaccessibility issues.",
+    "suffix": "These are real pocketbook, kitch",
+    "start": 6149,
+    "end": 6716,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.politico.com/news/magazine/2020/10/08/senior-citizens-trump-biden-2020-voters-428131",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[2]/main[1]/div[1]/section[5]/div[1]/div[2]/div[1]/div[1]/div[1]/p[3]",
+            "startContainer": "/div[2]/main[1]/div[1]/section[5]/div[1]/div[2]/div[1]/div[1]/div[1]/p[2]"
+          },
+          {
+            "end": 6716,
+            "type": "TextPositionSelector",
+            "start": 6149
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "There’s a feeling of vulnerability with older people in terms of just being reliant on their Social Security, or having a fear of losing their jobs — which is obviously even more the case during the pandemic. Many older adults have lost their jobs, and it’s much more difficult to find a job again when you’re in your 50s or older due to age discrimination, among other things. Health care has always been a top issue for older voters. Even with Medicare coverage, people see the high cost of drugs, the high co-payments they have, some of the inaccessibility issues.",
+            "prefix": "ho’s been infected or have died.",
+            "suffix": "These are real pocketbook, kitch"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Why Senior Citizens Are Flipping on Trump"
+      ]
+    }
+  },
+  {
+    "id": "8UuwVAnREeuSCEtlqjcD1Q",
+    "authority": "hypothes.is",
+    "url": "https://www.politico.com/news/magazine/2020/10/08/senior-citizens-trump-biden-2020-voters-428131",
+    "created": "2020-10-09T01:51:26",
+    "updated": "2020-10-09T01:51:26",
+    "title": "Why Senior Citizens Are Flipping on Trump",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "me that did even four years ago.",
+    "exact": "A majority of voters ages 65 and up haven’t voted for a Democratic presidential candidate since Al Gore — it’s been two decades — and the trend has been that people get more conservative as they get older. The two things really changing that in this election are: one, that Trump doesn’t fit the mold of most conservatives in terms of traditional beliefs and fiscal responsibility, things that people have typically associated with Republicans and with older voters, and, two, Covid-19.\n                        \n                        \n                        \n        \n            ",
+    "suffix": "\n        \n    \n                 ",
+    "start": 4835,
+    "end": 5418,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.politico.com/news/magazine/2020/10/08/senior-citizens-trump-biden-2020-voters-428131",
+        "selector": [
+          {
+            "end": 5418,
+            "type": "TextPositionSelector",
+            "start": 4835
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "A majority of voters ages 65 and up haven’t voted for a Democratic presidential candidate since Al Gore — it’s been two decades — and the trend has been that people get more conservative as they get older. The two things really changing that in this election are: one, that Trump doesn’t fit the mold of most conservatives in terms of traditional beliefs and fiscal responsibility, things that people have typically associated with Republicans and with older voters, and, two, Covid-19.\n                        \n                        \n                        \n        \n            ",
+            "prefix": "me that did even four years ago.",
+            "suffix": "\n        \n    \n                 "
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Why Senior Citizens Are Flipping on Trump"
+      ]
+    }
+  },
+  {
+    "id": "6xoRWAnREeuoV7efMfr5Nw",
+    "authority": "hypothes.is",
+    "url": "https://www.politico.com/news/magazine/2020/10/08/senior-citizens-trump-biden-2020-voters-428131",
+    "created": "2020-10-09T01:51:16",
+    "updated": "2020-10-09T01:51:16",
+    "title": "Why Senior Citizens Are Flipping on Trump",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "at changed between 2016 and now?",
+    "exact": "Nora Super: Ten thousand people turn 65 every day in America. And Baby Boomers — they go from age 56 to 72 — that’s a huge number of people. But then as you look at the differences between people who are at the tail end of the baby boom — like I am — and those who were on the leading edge — who are old enough to have taken part in the March on Washington, the Vietnam War, etc. — the issues that engage “older” voters today aren’t necessarily the same that did even four years ago.",
+    "suffix": "A majority of voters ages 65 and",
+    "start": 4352,
+    "end": 4835,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.politico.com/news/magazine/2020/10/08/senior-citizens-trump-biden-2020-voters-428131",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[2]/main[1]/div[1]/section[3]/div[1]/div[2]/div[1]/div[1]/div[1]/p[8]",
+            "startContainer": "/div[2]/main[1]/div[1]/section[3]/div[1]/div[2]/div[1]/div[1]/div[1]/p[7]/b[1]"
+          },
+          {
+            "end": 4835,
+            "type": "TextPositionSelector",
+            "start": 4352
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Nora Super: Ten thousand people turn 65 every day in America. And Baby Boomers — they go from age 56 to 72 — that’s a huge number of people. But then as you look at the differences between people who are at the tail end of the baby boom — like I am — and those who were on the leading edge — who are old enough to have taken part in the March on Washington, the Vietnam War, etc. — the issues that engage “older” voters today aren’t necessarily the same that did even four years ago.",
+            "prefix": "at changed between 2016 and now?",
+            "suffix": "A majority of voters ages 65 and"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Why Senior Citizens Are Flipping on Trump"
+      ]
+    }
+  },
+  {
+    "id": "8_KUpAnQEeuoULMX5TTU7A",
+    "authority": "hypothes.is",
+    "url": "https://www.washingtonpost.com/technology/2020/10/08/michigan-plot-kidnapping-boogaloo-socialmedia/",
+    "created": "2020-10-09T01:44:21",
+    "updated": "2020-10-09T01:44:21",
+    "title": "Michigan kidnapping plot, like so many other extremist crimes, foreshadowed on social media",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "ly encountering them online.ADAD",
+    "exact": "“After you’re exposed to ironic violence for an extended period of time, the irony fades away. Then it’s just violence,” said Alex Goldenberg, lead intelligence analyst for the Network Contagion Research Institute, which studies online extremism and has warned about the dangers posed by the Boogaloo.",
+    "suffix": "SITE Intelligence Group, meanwhi",
+    "start": 8360,
+    "end": 8661,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.washingtonpost.com/technology/2020/10/08/michigan-plot-kidnapping-boogaloo-socialmedia/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[2]/div[10]/main[1]/article[1]/div[2]/div[2]/section[1]/div[29]/p[1]",
+            "startContainer": "/div[2]/div[10]/main[1]/article[1]/div[2]/div[2]/section[1]/div[28]/p[1]"
+          },
+          {
+            "end": 8661,
+            "type": "TextPositionSelector",
+            "start": 8360
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "“After you’re exposed to ironic violence for an extended period of time, the irony fades away. Then it’s just violence,” said Alex Goldenberg, lead intelligence analyst for the Network Contagion Research Institute, which studies online extremism and has warned about the dangers posed by the Boogaloo.",
+            "prefix": "ly encountering them online.ADAD",
+            "suffix": "SITE Intelligence Group, meanwhi"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Michigan kidnapping plot, like so many other extremist crimes, foreshadowed on social media"
+      ]
+    }
+  },
+  {
+    "id": "2WFfHAnQEeu1LE9eUV5hFQ",
+    "authority": "hypothes.is",
+    "url": "https://www.washingtonpost.com/technology/2020/10/08/michigan-plot-kidnapping-boogaloo-socialmedia/",
+    "created": "2020-10-09T01:43:36",
+    "updated": "2020-10-09T01:43:36",
+    "title": "Michigan kidnapping plot, like so many other extremist crimes, foreshadowed on social media",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": " by independent researchers.ADAD",
+    "exact": "When a security guard was gunned down in May outside the federal courthouse in Oakland, Calif., investigators quickly linked his accused killer, Air Force Sgt. Steven Carrillo, to the Boogaloo movement, which spread extensively on Facebook and other social media before sites cracked down on them.",
+    "suffix": "Carrillo, according to court doc",
+    "start": 6485,
+    "end": 6782,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.washingtonpost.com/technology/2020/10/08/michigan-plot-kidnapping-boogaloo-socialmedia/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[2]/div[10]/main[1]/article[1]/div[2]/div[2]/section[1]/div[19]/p[1]",
+            "startContainer": "/div[2]/div[10]/main[1]/article[1]/div[2]/div[2]/section[1]/div[18]/p[1]"
+          },
+          {
+            "end": 6782,
+            "type": "TextPositionSelector",
+            "start": 6485
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "When a security guard was gunned down in May outside the federal courthouse in Oakland, Calif., investigators quickly linked his accused killer, Air Force Sgt. Steven Carrillo, to the Boogaloo movement, which spread extensively on Facebook and other social media before sites cracked down on them.",
+            "prefix": " by independent researchers.ADAD",
+            "suffix": "Carrillo, according to court doc"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Michigan kidnapping plot, like so many other extremist crimes, foreshadowed on social media"
+      ]
+    }
+  },
+  {
+    "id": "0HRGHAnQEeuwZNdnqaLJ0w",
+    "authority": "hypothes.is",
+    "url": "https://www.washingtonpost.com/technology/2020/10/08/michigan-plot-kidnapping-boogaloo-socialmedia/",
+    "created": "2020-10-09T01:43:21",
+    "updated": "2020-10-09T01:43:21",
+    "title": "Michigan kidnapping plot, like so many other extremist crimes, foreshadowed on social media",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "en holding massive firearms.ADAD",
+    "exact": "“Social media companies have been allowing these communities to build and grow, ignoring the mounting evidence that memes, posts and images encouraging violence can and do translate into actual violence,” said Cindy Otis, a former CIA analyst and vice president of analysis for the Alethea Group, which tracks online threats and discovered the Wolverines page. “Not only have many of these Michigan pages and groups been on Facebook for years, the Facebook algorithm actively recommended other militia-related groups and pages to join, allowing each page and group to expand their reach. ”",
+    "suffix": "As Trump warns of leftist violen",
+    "start": 3139,
+    "end": 3728,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.washingtonpost.com/technology/2020/10/08/michigan-plot-kidnapping-boogaloo-socialmedia/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[2]/div[10]/main[1]/article[1]/div[2]/div[2]/section[1]/div[12]/p[1]/span[1]/a[1]",
+            "startContainer": "/div[2]/div[10]/main[1]/article[1]/div[2]/div[2]/section[1]/div[11]/p[1]"
+          },
+          {
+            "end": 3728,
+            "type": "TextPositionSelector",
+            "start": 3139
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "“Social media companies have been allowing these communities to build and grow, ignoring the mounting evidence that memes, posts and images encouraging violence can and do translate into actual violence,” said Cindy Otis, a former CIA analyst and vice president of analysis for the Alethea Group, which tracks online threats and discovered the Wolverines page. “Not only have many of these Michigan pages and groups been on Facebook for years, the Facebook algorithm actively recommended other militia-related groups and pages to join, allowing each page and group to expand their reach. ”",
+            "prefix": "en holding massive firearms.ADAD",
+            "suffix": "As Trump warns of leftist violen"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Michigan kidnapping plot, like so many other extremist crimes, foreshadowed on social media"
+      ]
+    }
+  },
+  {
+    "id": "cPtJggl3Eeu75Mu8uMxUlA",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T15:03:36",
+    "updated": "2020-10-08T15:03:36",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "at Amazon unveiled in September.",
+    "exact": "Could New World become the franchise the company has been after all these years? It’s up against some tough competition. There are only a handful of successful MMORPGs (World of Warcraft, Final Fantasy XIV, The Elder Scrolls Online, among others), and their fanbases have been playing some of them for years and years. It’s a notoriously tricky genre to break into. And it’s a reminder, too, of the strange alchemy required to make that rarest of things—a title that earns not only billions of dollars but also the allegiance of millions of discerning players. As one former Amazon employee told me, “There is some magic in making games. It’s not a science. No matter how big your pockets are, unless you’re building games because you want to build games, you’re not going to have success.”",
+    "suffix": "More From WIRED GamesXbox has al",
+    "start": 31091,
+    "end": 31881,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 790,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[15]/div[1]/p[12]",
+            "startContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[15]/div[1]/p[12]"
+          },
+          {
+            "end": 31881,
+            "type": "TextPositionSelector",
+            "start": 31091
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Could New World become the franchise the company has been after all these years? It’s up against some tough competition. There are only a handful of successful MMORPGs (World of Warcraft, Final Fantasy XIV, The Elder Scrolls Online, among others), and their fanbases have been playing some of them for years and years. It’s a notoriously tricky genre to break into. And it’s a reminder, too, of the strange alchemy required to make that rarest of things—a title that earns not only billions of dollars but also the allegiance of millions of discerning players. As one former Amazon employee told me, “There is some magic in making games. It’s not a science. No matter how big your pockets are, unless you’re building games because you want to build games, you’re not going to have success.”",
+            "prefix": "at Amazon unveiled in September.",
+            "suffix": "More From WIRED GamesXbox has al"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "PGHHqgl3EeuSDwMSrd3aRQ",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T15:02:08",
+    "updated": "2020-10-08T15:02:08",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "id it release Crucible on Steam?",
+    "exact": "“Today we embark on a journey we have been looking forward to for a long time,” the pro streamer Asmongold says as he  loads up a beta build of New World on Twitch in late August. There’s a swell of orchestral music. “I don’t know how this game is going to go. I’ve heard a lot of good things. I’ve heard some bad things. But what I have known is that the game is going to be at least fun for probably 45 minutes, because we’ll be able to figure out all the things that it’s not good at doing.”",
+    "suffix": "Most PopularGearA Literal Child ",
+    "start": 26926,
+    "end": 27420,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "end": 27420,
+            "type": "TextPositionSelector",
+            "start": 26926
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "“Today we embark on a journey we have been looking forward to for a long time,” the pro streamer Asmongold says as he  loads up a beta build of New World on Twitch in late August. There’s a swell of orchestral music. “I don’t know how this game is going to go. I’ve heard a lot of good things. I’ve heard some bad things. But what I have known is that the game is going to be at least fun for probably 45 minutes, because we’ll be able to figure out all the things that it’s not good at doing.”",
+            "prefix": "id it release Crucible on Steam?",
+            "suffix": "Most PopularGearA Literal Child "
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "KjcghAl3EeuPsBsPo4wM1g",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T15:01:37",
+    "updated": "2020-10-08T15:01:37",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "imeline for a refreshed release.",
+    "exact": "“To be thrust into that environment with the hard tech stack, the toxic political environment, people getting fired left and right, time pressure to release quickly, and never having shipped an original product before, you’re going to get something that’s half-finished and half-baked,” one former employee told me. And it was strange that Amazon hadn’t gotten its own distribution platform together in time. The company operates the biggest online marketplace in the world; it has distributed everything from anime videos to zinc supplements. So why did it release Crucible on Steam?",
+    "suffix": "“Today we embark on a journey we",
+    "start": 26342,
+    "end": 26926,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[13]/div[1]/p[7]/span[1]",
+            "startContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[13]/div[1]/p[6]"
+          },
+          {
+            "end": 26926,
+            "type": "TextPositionSelector",
+            "start": 26342
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "“To be thrust into that environment with the hard tech stack, the toxic political environment, people getting fired left and right, time pressure to release quickly, and never having shipped an original product before, you’re going to get something that’s half-finished and half-baked,” one former employee told me. And it was strange that Amazon hadn’t gotten its own distribution platform together in time. The company operates the biggest online marketplace in the world; it has distributed everything from anime videos to zinc supplements. So why did it release Crucible on Steam?",
+            "prefix": "imeline for a refreshed release.",
+            "suffix": "“Today we embark on a journey we"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "9aXizgl2Eeuv6PNeC-EarQ",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T15:00:09",
+    "updated": "2020-10-08T15:00:09",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "the risk and do simpler things.”",
+    "exact": "Instead, Amazon pushed down harder on the accelerator. Breakaway leadership rolled onto New World. The company set up another studio, run by John Smedley, and continued poaching industry talent. In a press release at the time, Amazon said its “ambitious new project” would tap “into the power of the AWS Cloud and Twitch to connect players around the globe in a thrilling new game world.”",
+    "suffix": "Two sources told me that employe",
+    "start": 21255,
+    "end": 21643,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[11]/div[1]/p[3]",
+            "startContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[11]/div[1]/p[2]"
+          },
+          {
+            "end": 21643,
+            "type": "TextPositionSelector",
+            "start": 21255
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Instead, Amazon pushed down harder on the accelerator. Breakaway leadership rolled onto New World. The company set up another studio, run by John Smedley, and continued poaching industry talent. In a press release at the time, Amazon said its “ambitious new project” would tap “into the power of the AWS Cloud and Twitch to connect players around the globe in a thrilling new game world.”",
+            "prefix": "the risk and do simpler things.”",
+            "suffix": "Two sources told me that employe"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "8_bxhAl2EeuG38tvC-KnzQ",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T15:00:06",
+    "updated": "2020-10-08T15:00:06",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": " in a thrilling new game world.”",
+    "exact": "Two sources told me that employees were nervous to question the company’s strategy, in part because they were afraid of losing their high-paying jobs and stock. (Amazon has a peculiar promotion system that puts some percentage of employees on the chopping block every year.) The executives, for their part, barreled on. “The only thing that frightens these people is Jeff Bezos,” a former employee told me. New executives came and went, each, according to a former employee, promising to “shake this baby up.” The result was a feeling of aimlessness.",
+    "suffix": "Amazon’s New World is set in a s",
+    "start": 21643,
+    "end": 22193,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "end": 22193,
+            "type": "TextPositionSelector",
+            "start": 21643
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Two sources told me that employees were nervous to question the company’s strategy, in part because they were afraid of losing their high-paying jobs and stock. (Amazon has a peculiar promotion system that puts some percentage of employees on the chopping block every year.) The executives, for their part, barreled on. “The only thing that frightens these people is Jeff Bezos,” a former employee told me. New executives came and went, each, according to a former employee, promising to “shake this baby up.” The result was a feeling of aimlessness.",
+            "prefix": " in a thrilling new game world.”",
+            "suffix": "Amazon’s New World is set in a s"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "wkNhaAl2EeufxW9ckUYeug",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T14:58:43",
+    "updated": "2020-10-08T14:58:43",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "at didn’t work, they wore coats.",
+    "exact": "As developers continued work on Breakaway and Crucible, multiple sources said, they kept crashing against the fortress of Amazon’s corporate ideologies. Executives set deadlines that would have been too ambitious even for a studio that wasn’t also building its own engine. Moreover, Amazon’s obsession with documents, spreadsheets, and data wasn’t nurturing a creative environment. For example, the company’s famous “six-pager”—a data-based planning document with very specific writing guidelines—cannot include any filler and must be legible to readers entirely unfamiliar with the subject matter. You try succinctly describing competitive game mechanics to a non-gamer in a way that gets them psyched.",
+    "suffix": "By the summer of 2017, Breakaway",
+    "start": 18419,
+    "end": 19122,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[9]/div[1]/p[6]",
+            "startContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[9]/div[1]/p[5]"
+          },
+          {
+            "end": 19122,
+            "type": "TextPositionSelector",
+            "start": 18419
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "As developers continued work on Breakaway and Crucible, multiple sources said, they kept crashing against the fortress of Amazon’s corporate ideologies. Executives set deadlines that would have been too ambitious even for a studio that wasn’t also building its own engine. Moreover, Amazon’s obsession with documents, spreadsheets, and data wasn’t nurturing a creative environment. For example, the company’s famous “six-pager”—a data-based planning document with very specific writing guidelines—cannot include any filler and must be legible to readers entirely unfamiliar with the subject matter. You try succinctly describing competitive game mechanics to a non-gamer in a way that gets them psyched.",
+            "prefix": "at didn’t work, they wore coats.",
+            "suffix": "By the summer of 2017, Breakaway"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "fRjoBgl2Eeu9wDv9myNrCw",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T14:56:47",
+    "updated": "2020-10-08T14:56:47",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "illar of the game’s development.",
+    "exact": "The remaining three games in Amazon’s lineup were designed in part to showcase Twitch. Breakaway’s website, for instance, proclaimed that it was “made by streamers, for streamers.” Viewers would have a god’s-eye view of the playing field, and they’d be able to use in-game currency to place bets on the outcome of the matches. Crucible and New World would have similar features. This, plus the Lumberyard engine, was how Amazon would win at games.",
+    "suffix": "The company prepared to announce",
+    "start": 14821,
+    "end": 15268,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[7]/div[1]/p[4]",
+            "startContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[7]/div[1]/p[3]"
+          },
+          {
+            "end": 15268,
+            "type": "TextPositionSelector",
+            "start": 14821
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "The remaining three games in Amazon’s lineup were designed in part to showcase Twitch. Breakaway’s website, for instance, proclaimed that it was “made by streamers, for streamers.” Viewers would have a god’s-eye view of the playing field, and they’d be able to use in-game currency to place bets on the outcome of the matches. Crucible and New World would have similar features. This, plus the Lumberyard engine, was how Amazon would win at games.",
+            "prefix": "illar of the game’s development.",
+            "suffix": "The company prepared to announce"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "db9nxAl2EeuyfsNeDG2cvg",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T14:56:35",
+    "updated": "2020-10-08T14:56:35",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "t in Crucible.Courtesy of Amazon",
+    "exact": "Each game would “showcase specific things only Amazon can do,” one former employee said. Project Nova would be the company’s big cloud-computing play. Bezos told his executives to build something “so mind-bogglingly awesome that there should be no doubt in anyone’s mind why they should use AWS,” the former employee recalled. The phrase “computationally ridiculous” was thrown around. Think: 10,000 players duking it out on one server. Massive scale—what staffers called the “10k initiative”—became a pillar of the game’s development.",
+    "suffix": "The remaining three games in Ama",
+    "start": 14286,
+    "end": 14821,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[7]/div[1]/p[3]",
+            "startContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[7]/div[1]/p[2]"
+          },
+          {
+            "end": 14821,
+            "type": "TextPositionSelector",
+            "start": 14286
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Each game would “showcase specific things only Amazon can do,” one former employee said. Project Nova would be the company’s big cloud-computing play. Bezos told his executives to build something “so mind-bogglingly awesome that there should be no doubt in anyone’s mind why they should use AWS,” the former employee recalled. The phrase “computationally ridiculous” was thrown around. Think: 10,000 players duking it out on one server. Massive scale—what staffers called the “10k initiative”—became a pillar of the game’s development.",
+            "prefix": "t in Crucible.Courtesy of Amazon",
+            "suffix": "The remaining three games in Ama"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "VRecMAl2EeuKkiNoAk8ycQ",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T14:55:40",
+    "updated": "2020-10-08T14:55:40",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "eryard was ready for prime time.",
+    "exact": "Meanwhile, Amazon was scooping up the games industry’s top talent: Portal’s Kim Swift, Far Cry 2’s Clint Hocking, Left 4 Dead’s Tom Leonard, System Shock 2’s Ian Vogel. Later, it would also hire EverQuest’s John Smedley. Amazon was hard to turn down: According to multiple former employees, it paid significantly more than a typical game studio, and it offered stock, which was rocketing upward in value.",
+    "suffix": "Most PopularGearA Literal Child ",
+    "start": 12920,
+    "end": 13324,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "end": 13324,
+            "type": "TextPositionSelector",
+            "start": 12920
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Meanwhile, Amazon was scooping up the games industry’s top talent: Portal’s Kim Swift, Far Cry 2’s Clint Hocking, Left 4 Dead’s Tom Leonard, System Shock 2’s Ian Vogel. Later, it would also hire EverQuest’s John Smedley. Amazon was hard to turn down: According to multiple former employees, it paid significantly more than a typical game studio, and it offered stock, which was rocketing upward in value.",
+            "prefix": "eryard was ready for prime time.",
+            "suffix": "Most PopularGearA Literal Child "
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "TaJpYgl2Eeu_Qjfklb3o3g",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T14:55:27",
+    "updated": "2020-10-08T14:55:27",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": " referred to as “talent Tetris.”",
+    "exact": "Development slowed by as much as 50 percent. “They called it the Lumberyard tax,” one former employee said. Another told me, “We don’t even have a hammer. How are we supposed to build this house? ‘Well, you’re going to have to wait for the hammer to be built.’ ” Even in 2015, sources said, whispers abounded that it would be a while before Lumberyard was ready for prime time.",
+    "suffix": "Meanwhile, Amazon was scooping u",
+    "start": 12543,
+    "end": 12920,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[5]/div[1]/p[9]",
+            "startContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[5]/div[1]/p[8]"
+          },
+          {
+            "end": 12920,
+            "type": "TextPositionSelector",
+            "start": 12543
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Development slowed by as much as 50 percent. “They called it the Lumberyard tax,” one former employee said. Another told me, “We don’t even have a hammer. How are we supposed to build this house? ‘Well, you’re going to have to wait for the hammer to be built.’ ” Even in 2015, sources said, whispers abounded that it would be a while before Lumberyard was ready for prime time.",
+            "prefix": " referred to as “talent Tetris.”",
+            "suffix": "Meanwhile, Amazon was scooping u"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "SCHM0Al2EeuIOc9zOyVSKw",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T14:55:18",
+    "updated": "2020-10-08T14:55:18",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "tools, so why not a game engine?",
+    "exact": "Frazzini’s engineers in Seattle began rebuilding CryEngine piece by piece. “The engine was a nightmare,” one former employee said. “No one on the development team liked working with it.” Even some basic functions, like rotating a camera in the game or testing individual pieces of software one by one, didn’t really work. Engineers were moved off games and onto Lumberyard in a process sometimes referred to as “talent Tetris.”",
+    "suffix": "Development slowed by as much as",
+    "start": 12116,
+    "end": 12543,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[5]/div[1]/p[8]",
+            "startContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[5]/div[1]/p[7]"
+          },
+          {
+            "end": 12543,
+            "type": "TextPositionSelector",
+            "start": 12116
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Frazzini’s engineers in Seattle began rebuilding CryEngine piece by piece. “The engine was a nightmare,” one former employee said. “No one on the development team liked working with it.” Even some basic functions, like rotating a camera in the game or testing individual pieces of software one by one, didn’t really work. Engineers were moved off games and onto Lumberyard in a process sometimes referred to as “talent Tetris.”",
+            "prefix": "tools, so why not a game engine?",
+            "suffix": "Development slowed by as much as"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "QeUF5Al2Eeu_QavlUcAmiQ",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T14:55:08",
+    "updated": "2020-10-08T14:55:08",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "mes industry,” the source added.",
+    "exact": "In a way, Amazon was, as usual, following its unique logic. Across the company, employees are required to use in-house software for most tasks, partly for security reasons and partly because it’s the culture. There is no Gmail, no Trello, and, until recently, no Slack—only Amazon’s custom-coded alternatives. Lumberyard was no exception. Amazon had made its own versions of all those tools, so why not a game engine?",
+    "suffix": "Frazzini’s engineers in Seattle ",
+    "start": 11699,
+    "end": 12116,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[5]/div[1]/p[7]",
+            "startContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[5]/div[1]/p[6]"
+          },
+          {
+            "end": 12116,
+            "type": "TextPositionSelector",
+            "start": 11699
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "In a way, Amazon was, as usual, following its unique logic. Across the company, employees are required to use in-house software for most tasks, partly for security reasons and partly because it’s the culture. There is no Gmail, no Trello, and, until recently, no Slack—only Amazon’s custom-coded alternatives. Lumberyard was no exception. Amazon had made its own versions of all those tools, so why not a game engine?",
+            "prefix": "mes industry,” the source added.",
+            "suffix": "Frazzini’s engineers in Seattle "
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "OG0MHgl2EeuzvEuTM5s1xw",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T14:54:52",
+    "updated": "2020-10-08T14:54:52",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "tch. We’ll make all this money.”",
+    "exact": "But developing an engine and a game at the same time would be like repairing an airliner in mid-flight. It would mean planning out features that the engine might not be able to implement for weeks, months, or years to come. “What’s missing is the sanity check of someone with experience in the games industry,” the source added.",
+    "suffix": "In a way, Amazon was, as usual, ",
+    "start": 11371,
+    "end": 11699,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[5]/div[1]/p[6]",
+            "startContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[5]/div[1]/p[5]"
+          },
+          {
+            "end": 11699,
+            "type": "TextPositionSelector",
+            "start": 11371
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "But developing an engine and a game at the same time would be like repairing an airliner in mid-flight. It would mean planning out features that the engine might not be able to implement for weeks, months, or years to come. “What’s missing is the sanity check of someone with experience in the games industry,” the source added.",
+            "prefix": "tch. We’ll make all this money.”",
+            "suffix": "In a way, Amazon was, as usual, "
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "NI7vwgl2Eeu6EKPGjGPZgg",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T14:54:45",
+    "updated": "2020-10-08T14:54:45",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "software a new name: Lumberyard.",
+    "exact": "While Twitch turned out to be the “best decision Amazon ever made when it came to games,” one former employee said, Lumberyard proved one of its worst. “It’s one of those things that, on paper, sounds good,” another source told me. “We’ll have our own engine. It will feed into AWS. We’ll use it to build our games, and we’ll feed those games into Twitch. We’ll make all this money.”",
+    "suffix": "But developing an engine and a g",
+    "start": 10988,
+    "end": 11371,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[5]/div[1]/p[5]",
+            "startContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[5]/div[1]/p[4]"
+          },
+          {
+            "end": 11371,
+            "type": "TextPositionSelector",
+            "start": 10988
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "While Twitch turned out to be the “best decision Amazon ever made when it came to games,” one former employee said, Lumberyard proved one of its worst. “It’s one of those things that, on paper, sounds good,” another source told me. “We’ll have our own engine. It will feed into AWS. We’ll use it to build our games, and we’ll feed those games into Twitch. We’ll make all this money.”",
+            "prefix": "software a new name: Lumberyard.",
+            "suffix": "But developing an engine and a g"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "J5Z2ZAl2Eeuf8Se8_-IZDw",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T14:54:23",
+    "updated": "2020-10-08T14:54:23",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "ing tips, reviews, and features.",
+    "exact": "But Frazzini wasn’t done. He still needed his game engine. In the spring of 2015, Amazon turned to a German studio called Crytek, which had produced a successful first-person shooter using its own software architecture, CryEngine. Crytek was in dire financial straits, according to Kotaku, struggling even to pay its employees. Amazon came to the rescue, reportedly sinking between $50 million and $70 million into a CryEngine license. The company gave the software a new name: Lumberyard.",
+    "suffix": "While Twitch turned out to be th",
+    "start": 10499,
+    "end": 10988,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[5]/div[1]/p[4]",
+            "startContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[5]/div[1]/p[3]"
+          },
+          {
+            "end": 10988,
+            "type": "TextPositionSelector",
+            "start": 10499
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "But Frazzini wasn’t done. He still needed his game engine. In the spring of 2015, Amazon turned to a German studio called Crytek, which had produced a successful first-person shooter using its own software architecture, CryEngine. Crytek was in dire financial straits, according to Kotaku, struggling even to pay its employees. Amazon came to the rescue, reportedly sinking between $50 million and $70 million into a CryEngine license. The company gave the software a new name: Lumberyard.",
+            "prefix": "ing tips, reviews, and features.",
+            "suffix": "While Twitch turned out to be th"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "ID7rlAl2EeuXuuu6lwHOtA",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T14:54:11",
+    "updated": "2020-10-08T14:54:11",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "ished the appeal of the Fire TV.",
+    "exact": "In August of 2014, Amazon made a splurge purchase that executives believed would fill out its utopian vision for gaming. For a gargantuan $970 million, it bought up Twitch, now the most popular game-streaming service, with more than 50 million hours watched daily. The calculation, according to two sources familiar with the deal, was that Amazon could leverage Twitch both to sell other publishers’ games and advertise its own. It could also hype up Prime subscriptions through the service. And it would gain access to a mother lode of data about what players and viewers liked best about particular games—what kept them coming back (and spending money) again and again.",
+    "suffix": "Sign Up TodaySign up for our Gam",
+    "start": 9721,
+    "end": 10392,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[5]/div[1]/div[1]/div[1]/a[1]",
+            "startContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[5]/div[1]/p[2]"
+          },
+          {
+            "end": 10392,
+            "type": "TextPositionSelector",
+            "start": 9721
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "In August of 2014, Amazon made a splurge purchase that executives believed would fill out its utopian vision for gaming. For a gargantuan $970 million, it bought up Twitch, now the most popular game-streaming service, with more than 50 million hours watched daily. The calculation, according to two sources familiar with the deal, was that Amazon could leverage Twitch both to sell other publishers’ games and advertise its own. It could also hype up Prime subscriptions through the service. And it would gain access to a mother lode of data about what players and viewers liked best about particular games—what kept them coming back (and spending money) again and again.",
+            "prefix": "ished the appeal of the Fire TV.",
+            "suffix": "Sign Up TodaySign up for our Gam"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "E0e-rAl2EeuDG3sdgZVIGg",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T14:53:49",
+    "updated": "2020-10-08T14:53:49",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "company’s other services. Bingo.",
+    "exact": "Over the next 18 months, Amazon transformed itself into a would-be gaming giant. In early 2014, the company acquired Double Helix Games, a studio based in Irvine, California, that employed about 75 people. Its head, Patrick Gilmore, had led production on numerous successful titles, including 2013’s Killer Instinct.",
+    "suffix": "Most PopularGearA Literal Child ",
+    "start": 8495,
+    "end": 8811,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "end": 8811,
+            "type": "TextPositionSelector",
+            "start": 8495
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Over the next 18 months, Amazon transformed itself into a would-be gaming giant. In early 2014, the company acquired Double Helix Games, a studio based in Irvine, California, that employed about 75 people. Its head, Patrick Gilmore, had led production on numerous successful titles, including 2013’s Killer Instinct.",
+            "prefix": "company’s other services. Bingo.",
+            "suffix": "Most PopularGearA Literal Child "
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "Cgdvrgl2EeuI4e9Zu3Ki5w",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T14:53:34",
+    "updated": "2020-10-08T14:53:34",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "of making a big-budget AAA game.",
+    "exact": "But Amazon Game Studios would do none of that. Instead, it would try to transform its quaint little hamlet into a Jetsons-style cityscape overnight. It would cobble together its own game engine and wrangle all the data and code on its own AWS servers. The games themselves (Amazon, of course, planned to develop several AAA titles simultaneously) would also serve as advertisements for the company’s other services. Bingo.",
+    "suffix": "Over the next 18 months, Amazon ",
+    "start": 8073,
+    "end": 8495,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[3]/div[1]/p[9]",
+            "startContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[3]/div[1]/p[8]"
+          },
+          {
+            "end": 8495,
+            "type": "TextPositionSelector",
+            "start": 8073
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "But Amazon Game Studios would do none of that. Instead, it would try to transform its quaint little hamlet into a Jetsons-style cityscape overnight. It would cobble together its own game engine and wrangle all the data and code on its own AWS servers. The games themselves (Amazon, of course, planned to develop several AAA titles simultaneously) would also serve as advertisements for the company’s other services. Bingo.",
+            "prefix": "of making a big-budget AAA game.",
+            "suffix": "Over the next 18 months, Amazon "
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "_BEEqgl1EeuGmVc6u0X-dQ",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T14:53:10",
+    "updated": "2020-10-08T14:53:10",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "to learn the particular market.”",
+    "exact": "Frazzini reported to Andy Jassy, the head of Amazon Web Services, the company’s cloud-computing arm, and drew his budget from AWS’s ever-refreshing coffers. With Jassy’s support, Frazzini set about realizing the boss’s vision. His approach, according to one former employee familiar with his thinking, went like this: “I have an unlimited amount of money. I can pay the best people whatever they want to come work here. And so we should just do all of the things at once. Why waste time?”",
+    "suffix": "Here again, Amazon seemed to be ",
+    "start": 7114,
+    "end": 7602,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[3]/div[1]/p[7]",
+            "startContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[3]/div[1]/p[6]"
+          },
+          {
+            "end": 7602,
+            "type": "TextPositionSelector",
+            "start": 7114
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Frazzini reported to Andy Jassy, the head of Amazon Web Services, the company’s cloud-computing arm, and drew his budget from AWS’s ever-refreshing coffers. With Jassy’s support, Frazzini set about realizing the boss’s vision. His approach, according to one former employee familiar with his thinking, went like this: “I have an unlimited amount of money. I can pay the best people whatever they want to come work here. And so we should just do all of the things at once. Why waste time?”",
+            "prefix": "to learn the particular market.”",
+            "suffix": "Here again, Amazon seemed to be "
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "7-gL9gl1EeumwzPQYiU4TA",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T14:52:50",
+    "updated": "2020-10-08T14:52:50",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "d has been a passionate gamer.”)",
+    "exact": "Frazzini’s seeming lack of experience might have raised eyebrows at most studios, but at Amazon it wasn’t so unusual. The philosophy there, one former employee told me, “is that any product manager can go between any business—from groceries to film to games to Kindle. The skillset is interchangeable. They just have to learn the particular market.”",
+    "suffix": "Frazzini reported to Andy Jassy,",
+    "start": 6765,
+    "end": 7114,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[3]/div[1]/p[6]",
+            "startContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[3]/div[1]/p[5]"
+          },
+          {
+            "end": 7114,
+            "type": "TextPositionSelector",
+            "start": 6765
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Frazzini’s seeming lack of experience might have raised eyebrows at most studios, but at Amazon it wasn’t so unusual. The philosophy there, one former employee told me, “is that any product manager can go between any business—from groceries to film to games to Kindle. The skillset is interchangeable. They just have to learn the particular market.”",
+            "prefix": "d has been a passionate gamer.”)",
+            "suffix": "Frazzini reported to Andy Jassy,"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "4_MfPgl1EeuVM-eJ3xh0ow",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T14:52:30",
+    "updated": "2020-10-08T14:52:30",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "has been, to make great games.”)",
+    "exact": "Soon, though, Amazon executives began thinking bigger. Word among employees, two sources told me, was that Jeff Bezos, the CEO, wanted to “win at games.” Mike Frazzini, who had volunteered to lead the company’s gaming initiative, was tasked with building a billion-dollar franchise. A game that huge wouldn’t just sell a few extra Kindles; it would draw in money all across the Amazon empire.",
+    "suffix": "Frazzini was a trusted executive",
+    "start": 5843,
+    "end": 6235,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[3]/div[1]/p[4]",
+            "startContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[3]/div[1]/p[3]"
+          },
+          {
+            "end": 6235,
+            "type": "TextPositionSelector",
+            "start": 5843
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Soon, though, Amazon executives began thinking bigger. Word among employees, two sources told me, was that Jeff Bezos, the CEO, wanted to “win at games.” Mike Frazzini, who had volunteered to lead the company’s gaming initiative, was tasked with building a billion-dollar franchise. A game that huge wouldn’t just sell a few extra Kindles; it would draw in money all across the Amazon empire.",
+            "prefix": "has been, to make great games.”)",
+            "suffix": "Frazzini was a trusted executive"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "08XS5gl1Eeu-XyetmcxeWQ",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T14:52:03",
+    "updated": "2020-10-08T14:52:03",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "ey AreGilad EdelmanAdvertisement",
+    "exact": "Amazon made its first sizable bet on gaming in 2008, when it acquired a small developer with a dozen or so PC and Mac titles to its name. The company hung around the low-limit tables for the next few years, releasing a kid-friendly Facebook game starring a family of foxes in 2012—its first under the banner of Amazon Game Studios. ",
+    "suffix": "At the time, one source said, th",
+    "start": 5094,
+    "end": 5426,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[3]/div[1]/p[2]",
+            "startContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[3]/div[1]/p[1]/span[1]"
+          },
+          {
+            "end": 5426,
+            "type": "TextPositionSelector",
+            "start": 5094
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Amazon made its first sizable bet on gaming in 2008, when it acquired a small developer with a dozen or so PC and Mac titles to its name. The company hung around the low-limit tables for the next few years, releasing a kid-friendly Facebook game starring a family of foxes in 2012—its first under the banner of Amazon Game Studios. ",
+            "prefix": "ey AreGilad EdelmanAdvertisement",
+            "suffix": "At the time, one source said, th"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "y34-XAl1EeuC_pdK-4z3UA",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T14:51:49",
+    "updated": "2020-10-08T14:51:49",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "ames by listening to customers.”",
+    "exact": "But six former employees of Amazon Game Studios, most of whom had left the company by 2019, told a different story. (All spoke to me on condition of anonymity.) “There’s this hubris,” one said, echoing a common refrain. “We’re Amazon. We can do it all. We can spend our way to success.”",
+    "suffix": "Most PopularGearA Literal Child ",
+    "start": 4477,
+    "end": 4763,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "end": 4763,
+            "type": "TextPositionSelector",
+            "start": 4477
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "But six former employees of Amazon Game Studios, most of whom had left the company by 2019, told a different story. (All spoke to me on condition of anonymity.) “There’s this hubris,” one said, echoing a common refrain. “We’re Amazon. We can do it all. We can spend our way to success.”",
+            "prefix": "ames by listening to customers.”",
+            "suffix": "Most PopularGearA Literal Child "
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "s2MLwgl1EeuZ0VsZV1MqYg",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T14:51:08",
+    "updated": "2020-10-08T14:51:08",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": ", and investigations from WIRED.",
+    "exact": "Any veteran of the video games industry will tell you that good games are products of miracle. Think about it: A symphony of idiosyncratic, often underpaid artists, coders, designers, sound engineers, marketers, writers, and producers must all unite in their vision for a commercial art product. Anything and everything could go wrong—and it has, explosively, even at the Activision-Blizzards, the Biowares, and the Rockstars. No amount of money and personnel can ensure success. Blockbusters can flop, and indie titles, some even made by a single developer, can sell millions.",
+    "suffix": "Yet Amazon’s total inability to ",
+    "start": 3143,
+    "end": 3720,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[1]/div[1]/p[7]",
+            "startContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[1]/div[1]/p[6]"
+          },
+          {
+            "end": 3720,
+            "type": "TextPositionSelector",
+            "start": 3143
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Any veteran of the video games industry will tell you that good games are products of miracle. Think about it: A symphony of idiosyncratic, often underpaid artists, coders, designers, sound engineers, marketers, writers, and producers must all unite in their vision for a commercial art product. Anything and everything could go wrong—and it has, explosively, even at the Activision-Blizzards, the Biowares, and the Rockstars. No amount of money and personnel can ensure success. Blockbusters can flop, and indie titles, some even made by a single developer, can sell millions.",
+            "prefix": ", and investigations from WIRED.",
+            "suffix": "Yet Amazon’s total inability to "
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "pesKgAl1EeuuPI-OgJTT2w",
+    "authority": "hypothes.is",
+    "url": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+    "created": "2020-10-08T14:50:46",
+    "updated": "2020-10-08T14:50:46",
+    "title": "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "estimated $100 billion industry.",
+    "exact": "There was just one problem: Breakaway wasn’t fun. It was stressful, actually—too onerous a combination of fast and thinky—and just unfamiliar enough to put people off. “The core gameplay was confusing,” one former Amazon Game Studios employee recalled. “It was hard to track what was happening.” YouTube videos of the esports matches were viewed, on average, just north of 100 times. Amazon couldn’t even find enough people to beta test the game for free. Within nine months of the Battle on the High Seas, Breakaway had been canceled. The company announced the news on Reddit, in a post that elicited 34 comments. The game died with barely a whimper.",
+    "suffix": "Sign Up TodaySign up for our Lon",
+    "start": 2382,
+    "end": 3033,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wired.com/story/amazon-wants-to-win-at-games-so-why-hasnt-it/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]",
+            "startContainer": "/div[1]/div[1]/main[1]/article[1]/div[2]/div[1]/div[1]/div[1]/div[1]/p[5]"
+          },
+          {
+            "end": 3033,
+            "type": "TextPositionSelector",
+            "start": 2382
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "There was just one problem: Breakaway wasn’t fun. It was stressful, actually—too onerous a combination of fast and thinky—and just unfamiliar enough to put people off. “The core gameplay was confusing,” one former Amazon Game Studios employee recalled. “It was hard to track what was happening.” YouTube videos of the esports matches were viewed, on average, just north of 100 times. Amazon couldn’t even find enough people to beta test the game for free. Within nine months of the Battle on the High Seas, Breakaway had been canceled. The company announced the news on Reddit, in a post that elicited 34 comments. The game died with barely a whimper.",
+            "prefix": "estimated $100 billion industry.",
+            "suffix": "Sign Up TodaySign up for our Lon"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Amazon Wants to ‘Win at Games.’ So Why Hasn’t It?"
+      ]
+    }
+  },
+  {
+    "id": "bwuj9AkkEeuQ3EcB7rZlPw",
+    "authority": "hypothes.is",
+    "url": "https://medium.com/the-graphqlhub/your-first-graphql-server-3c766ab4f0a2",
+    "created": "2020-10-08T05:09:25",
+    "updated": "2020-10-08T05:09:25",
+    "title": "Your First GraphQL Server",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "QL would have no way of knowing.",
+    "exact": "The meaningful difference between a mutation and a query is that mutations are processed serially, but queries make no such guarantee (in fact, GraphQL encourages servers to exploit the inherent parallelism of independent queries). The GraphQL spec gives this example of a set of mutation queries that must be processed by the server in order:",
+    "suffix": "{  first: changeTheNumber(newNum",
+    "start": 8941,
+    "end": 9284,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://medium.com/the-graphqlhub/your-first-graphql-server-3c766ab4f0a2",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/article[1]/div[1]/section[1]/div[1]/div[1]/pre[13]/span[1]",
+            "startContainer": "/div[1]/div[1]/article[1]/div[1]/section[1]/div[1]/div[1]/p[38]"
+          },
+          {
+            "end": 9284,
+            "type": "TextPositionSelector",
+            "start": 8941
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "The meaningful difference between a mutation and a query is that mutations are processed serially, but queries make no such guarantee (in fact, GraphQL encourages servers to exploit the inherent parallelism of independent queries). The GraphQL spec gives this example of a set of mutation queries that must be processed by the server in order:",
+            "prefix": "QL would have no way of knowing.",
+            "suffix": "{  first: changeTheNumber(newNum"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Your First GraphQL Server"
+      ]
+    }
+  },
+  {
+    "id": "oISi6gkMEeu7h6tThkQLXQ",
+    "authority": "hypothes.is",
+    "url": "https://www.wsj.com/articles/pandemic-hastens-shift-to-asset-light-economy-11602087201",
+    "created": "2020-10-08T02:19:00",
+    "updated": "2020-10-08T02:19:00",
+    "title": "Pandemic Hastens Shift to Asset-Light Economy",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "Mr. Thomas estimates.\n\n\n\n\n      ",
+    "exact": "He calculates that in the last 10 years, the 10% of companies with the highest market-to-book ratios returned 18% a year on average, while the cheapest 10% returned less than 5%. Some of this reflects the performance of a handful of gigantic tech stocks, but this year high market-to-book-value companies have outperformed regardless of size.",
+    "suffix": "\n\n\n\n\n\n      \n      \n      \n     ",
+    "start": 168867,
+    "end": 169209,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wsj.com/articles/pandemic-hastens-shift-to-asset-light-economy-11602087201",
+        "selector": [
+          {
+            "end": 169209,
+            "type": "TextPositionSelector",
+            "start": 168867
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "He calculates that in the last 10 years, the 10% of companies with the highest market-to-book ratios returned 18% a year on average, while the cheapest 10% returned less than 5%. Some of this reflects the performance of a handful of gigantic tech stocks, but this year high market-to-book-value companies have outperformed regardless of size.",
+            "prefix": "Mr. Thomas estimates.\n\n\n\n\n      ",
+            "suffix": "\n\n\n\n\n\n      \n      \n      \n     "
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Pandemic Hastens Shift to Asset-Light Economy"
+      ]
+    }
+  },
+  {
+    "id": "nxDiogkMEeuo1r8WQauLZg",
+    "authority": "hypothes.is",
+    "url": "https://www.wsj.com/articles/pandemic-hastens-shift-to-asset-light-economy-11602087201",
+    "created": "2020-10-08T02:18:57",
+    "updated": "2020-10-08T02:18:57",
+    "title": "Pandemic Hastens Shift to Asset-Light Economy",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "\n      \n      \n       \n\n\n\n      ",
+    "exact": "In the industrial era, investors sought out companies trading for less than their book value—the assets on its balance sheet minus debt and other liabilities. Today, most value comes from intangible assets that typically don’t appear in book value: intellectual property such as patents and software, brands, and user networks. Between 1995 and 2018, intangible assets rose from 68% to 84% of the enterprise value (which includes equity and debt) of companies in Standard & Poor’s 500 stock index, Mr. Thomas estimates.\n\n\n\n\n      ",
+    "suffix": "He calculates that in the last 1",
+    "start": 168337,
+    "end": 168867,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wsj.com/articles/pandemic-hastens-shift-to-asset-light-economy-11602087201",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[5]/div[9]/div[3]/article[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[6]/div[1]/p[6]",
+            "startContainer": "/div[5]/div[9]/div[3]/article[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[6]/div[1]/p[5]"
+          },
+          {
+            "end": 168867,
+            "type": "TextPositionSelector",
+            "start": 168337
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "In the industrial era, investors sought out companies trading for less than their book value—the assets on its balance sheet minus debt and other liabilities. Today, most value comes from intangible assets that typically don’t appear in book value: intellectual property such as patents and software, brands, and user networks. Between 1995 and 2018, intangible assets rose from 68% to 84% of the enterprise value (which includes equity and debt) of companies in Standard & Poor’s 500 stock index, Mr. Thomas estimates.\n\n\n\n\n      ",
+            "prefix": "\n      \n      \n       \n\n\n\n      ",
+            "suffix": "He calculates that in the last 1"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Pandemic Hastens Shift to Asset-Light Economy"
+      ]
+    }
+  },
+  {
+    "id": "nLUr7gkMEeuVAleAptlKEQ",
+    "authority": "hypothes.is",
+    "url": "https://www.wsj.com/articles/pandemic-hastens-shift-to-asset-light-economy-11602087201",
+    "created": "2020-10-08T02:18:53",
+    "updated": "2020-10-08T02:18:53",
+    "title": "Pandemic Hastens Shift to Asset-Light Economy",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "ctric-vehicle market.\n\n\n\n\n      ",
+    "exact": "Carvana’s competition isn’t sitting still either. CarMax is building up its own online-sales operation to complement in-store sales, while startup\n\n\n\n\n\n\n            Vroom Inc.\n\n\n      is even less asset-intensive, relying largely on third-party reconditioning centers rather than its own. Mr. Montani said Carvana’s current valuation implies it will be the largest used-car dealer by 2030. But achieving that size, he said, will require more physical assets, including stores to cater to customers who still want to buy in person. Ultimately, the business models of Carvana and CarMax may converge, he said.\n\n\n\n\n      ",
+    "suffix": "Write to Greg Ip at greg.ip@wsj.",
+    "start": 181505,
+    "end": 182123,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wsj.com/articles/pandemic-hastens-shift-to-asset-light-economy-11602087201",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[5]/div[9]/div[3]/article[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[6]/div[1]/p[13]/strong[1]",
+            "startContainer": "/div[5]/div[9]/div[3]/article[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[6]/div[1]/p[12]"
+          },
+          {
+            "end": 182123,
+            "type": "TextPositionSelector",
+            "start": 181505
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Carvana’s competition isn’t sitting still either. CarMax is building up its own online-sales operation to complement in-store sales, while startup\n\n\n\n\n\n\n            Vroom Inc.\n\n\n      is even less asset-intensive, relying largely on third-party reconditioning centers rather than its own. Mr. Montani said Carvana’s current valuation implies it will be the largest used-car dealer by 2030. But achieving that size, he said, will require more physical assets, including stores to cater to customers who still want to buy in person. Ultimately, the business models of Carvana and CarMax may converge, he said.\n\n\n\n\n      ",
+            "prefix": "ctric-vehicle market.\n\n\n\n\n      ",
+            "suffix": "Write to Greg Ip at greg.ip@wsj."
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Pandemic Hastens Shift to Asset-Light Economy"
+      ]
+    }
+  },
+  {
+    "id": "lTXIpgkMEeumgltZ9iEgSw",
+    "authority": "hypothes.is",
+    "url": "https://www.wsj.com/articles/pandemic-hastens-shift-to-asset-light-economy-11602087201",
+    "created": "2020-10-08T02:18:41",
+    "updated": "2020-10-08T02:18:41",
+    "title": "Pandemic Hastens Shift to Asset-Light Economy",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "   \n\n\n\n      \n\n\n\n\n\n\n            ",
+    "exact": "Walt Disney Co.\n\n\n      ’s dependence on assets such as resorts and cruise ships, not to mention theaters to show its movies, has left its revenue battered by the pandemic. But it now has an asset-light offset: a rapidly growing streaming business consisting of Disney Plus, Hulu and ESPN Plus with 100 million combined subscribers. Streaming lessens Disney’s dependence on theaters, broadcasting licenses and cable television to get its intellectual property in front of subscribers. It enabled Disney to offer its big-budget movie “Mulan” for downloading when many U.S. theaters were closed. In January, the market valued that streaming business at $108 billion, according to Barclays analysts, about half of the current market value of\n\n\n\n\n\n\n            Netflix Inc.,\n\n\n      a pure streaming play.\n\n\n\n\n      ",
+    "suffix": "The stock market may be right th",
+    "start": 180282,
+    "end": 181094,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wsj.com/articles/pandemic-hastens-shift-to-asset-light-economy-11602087201",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[5]/div[9]/div[3]/article[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[6]/div[1]/p[11]",
+            "startContainer": "/div[5]/div[9]/div[3]/article[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[6]/div[1]/p[10]/a[1]"
+          },
+          {
+            "end": 181094,
+            "type": "TextPositionSelector",
+            "start": 180282
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Walt Disney Co.\n\n\n      ’s dependence on assets such as resorts and cruise ships, not to mention theaters to show its movies, has left its revenue battered by the pandemic. But it now has an asset-light offset: a rapidly growing streaming business consisting of Disney Plus, Hulu and ESPN Plus with 100 million combined subscribers. Streaming lessens Disney’s dependence on theaters, broadcasting licenses and cable television to get its intellectual property in front of subscribers. It enabled Disney to offer its big-budget movie “Mulan” for downloading when many U.S. theaters were closed. In January, the market valued that streaming business at $108 billion, according to Barclays analysts, about half of the current market value of\n\n\n\n\n\n\n            Netflix Inc.,\n\n\n      a pure streaming play.\n\n\n\n\n      ",
+            "prefix": "   \n\n\n\n      \n\n\n\n\n\n\n            ",
+            "suffix": "The stock market may be right th"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Pandemic Hastens Shift to Asset-Light Economy"
+      ]
+    }
+  },
+  {
+    "id": "jwHpBgkMEeu7hkNvOjqWQw",
+    "authority": "hypothes.is",
+    "url": "https://www.wsj.com/articles/pandemic-hastens-shift-to-asset-light-economy-11602087201",
+    "created": "2020-10-08T02:18:30",
+    "updated": "2020-10-08T02:18:30",
+    "title": "Pandemic Hastens Shift to Asset-Light Economy",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": " glass storage tower.\n\n\n\n\n      ",
+    "exact": "The appeal  of asset-light could also explain some of the extraordinary value assigned to\n\n\n\n\n\n\n            Tesla Inc.\n\n\n      Much of Tesla’s value is in its autonomous driving software, which costs a lot to develop but very little to install, thus yielding fat margins. In a May report,\n\n\n\n\n\n\n            Morgan Stanley\n\n\n      said Tesla’s full self-driving package (now an $8,000 option) could account for 6% of sales yet nearly 25% of gross profit by 2025.\n\n\n\n\n\n      \n      \n      \n          \n      \n      \n        ",
+    "suffix": "\n      \n\n    \n      \n          T",
+    "start": 179305,
+    "end": 179826,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wsj.com/articles/pandemic-hastens-shift-to-asset-light-economy-11602087201",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 9,
+            "startOffset": 0,
+            "endContainer": "/div[5]/div[9]/div[3]/article[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[6]/div[1]/div[7]/figure[1]/div[1]",
+            "startContainer": "/div[5]/div[9]/div[3]/article[1]/main[1]/div[1]/div[1]/div[1]/div[1]/div[6]/div[1]/p[9]"
+          },
+          {
+            "end": 179826,
+            "type": "TextPositionSelector",
+            "start": 179305
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "The appeal  of asset-light could also explain some of the extraordinary value assigned to\n\n\n\n\n\n\n            Tesla Inc.\n\n\n      Much of Tesla’s value is in its autonomous driving software, which costs a lot to develop but very little to install, thus yielding fat margins. In a May report,\n\n\n\n\n\n\n            Morgan Stanley\n\n\n      said Tesla’s full self-driving package (now an $8,000 option) could account for 6% of sales yet nearly 25% of gross profit by 2025.\n\n\n\n\n\n      \n      \n      \n          \n      \n      \n        ",
+            "prefix": " glass storage tower.\n\n\n\n\n      ",
+            "suffix": "\n      \n\n    \n      \n          T"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Pandemic Hastens Shift to Asset-Light Economy"
+      ]
+    }
+  },
+  {
+    "id": "EJ26JAimEeuEQgtkhao2uQ",
+    "authority": "hypothes.is",
+    "url": "https://www.clever-cloud.com/blog/engineering/2015/05/20/why-auto-increment-is-a-terrible-idea/",
+    "created": "2020-10-07T14:04:50",
+    "updated": "2020-10-07T14:04:50",
+    "title": "Why Auto Increment Is A Terrible Idea",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "e semantic, not just technical.\n",
+    "exact": "The UUIDv4 generation algorithm is well documented and available virtually\nanywhere, so you can generate whole entities without ever talking to the\ndatabase. This makes the code simpler and clearer as you don't have to handle\npartially-created entities, and you can test your entity-generation code\nwithout having to talk to a giant blob of mutable state over the network.\n",
+    "suffix": "Also, serial is a 32 bit integer",
+    "start": 8299,
+    "end": 8672,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.clever-cloud.com/blog/engineering/2015/05/20/why-auto-increment-is-a-terrible-idea/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/section[1]/div[2]/article[1]/div[2]/section[1]/p[35]",
+            "startContainer": "/section[1]/div[2]/article[1]/div[2]/section[1]/p[34]"
+          },
+          {
+            "end": 8672,
+            "type": "TextPositionSelector",
+            "start": 8299
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "The UUIDv4 generation algorithm is well documented and available virtually\nanywhere, so you can generate whole entities without ever talking to the\ndatabase. This makes the code simpler and clearer as you don't have to handle\npartially-created entities, and you can test your entity-generation code\nwithout having to talk to a giant blob of mutable state over the network.\n",
+            "prefix": "e semantic, not just technical.\n",
+            "suffix": "Also, serial is a 32 bit integer"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Why Auto Increment Is A Terrible Idea"
+      ]
+    }
+  },
+  {
+    "id": "CO_QyAimEeuLpQvWcqh8RA",
+    "authority": "hypothes.is",
+    "url": "https://www.clever-cloud.com/blog/engineering/2015/05/20/why-auto-increment-is-a-terrible-idea/",
+    "created": "2020-10-07T14:04:37",
+    "updated": "2020-10-07T14:04:37",
+    "title": "Why Auto Increment Is A Terrible Idea",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "serves some extra explanations.\n",
+    "exact": "Sequences are mutable state, you need atomicity on get-and-increment, to\npreserve uniqueness. So everytime you need to insert an entity, you need the\nDB to give you its primary key. The entities in your code are incomplete until\nyou talk to the DB. Since a sequential key is technical, not semantic, this\ncan usually be handled by your ORM (or data mapper, ORMs are bad, m'kay?).\nWhen inserting several related entities, this can cause additional problems,\nbecause you're not only lacking the primary keys, but also the foreign keys\ntoo, which are semantic, not just technical.\n",
+    "suffix": "The UUIDv4 generation algorithm ",
+    "start": 7721,
+    "end": 8299,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.clever-cloud.com/blog/engineering/2015/05/20/why-auto-increment-is-a-terrible-idea/",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/section[1]/div[2]/article[1]/div[2]/section[1]/p[34]",
+            "startContainer": "/section[1]/div[2]/article[1]/div[2]/section[1]/p[33]"
+          },
+          {
+            "end": 8299,
+            "type": "TextPositionSelector",
+            "start": 7721
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Sequences are mutable state, you need atomicity on get-and-increment, to\npreserve uniqueness. So everytime you need to insert an entity, you need the\nDB to give you its primary key. The entities in your code are incomplete until\nyou talk to the DB. Since a sequential key is technical, not semantic, this\ncan usually be handled by your ORM (or data mapper, ORMs are bad, m'kay?).\nWhen inserting several related entities, this can cause additional problems,\nbecause you're not only lacking the primary keys, but also the foreign keys\ntoo, which are semantic, not just technical.\n",
+            "prefix": "serves some extra explanations.\n",
+            "suffix": "The UUIDv4 generation algorithm "
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "Why Auto Increment Is A Terrible Idea"
+      ]
+    }
+  },
+  {
+    "id": "eWGP_AiZEeuE2ZPrh-hCqQ",
+    "authority": "hypothes.is",
+    "url": "https://medium.com/better-programming/uuid-generation-snowflake-identifiers-unique-2aed8b1771bc",
+    "created": "2020-10-07T12:34:42",
+    "updated": "2020-10-07T12:34:42",
+    "title": "What Are Snowflake IDs?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "ducing infrastructure.Conclusion",
+    "exact": "Generating unique identifiers is a necessity for all applications that eventually need to persist data.In this article three commonly used approaches were discussed: UUIDs — generating IDs locally, persistence layer driven IDs — centrally creating IDs, and Snowflake IDs — generating IDs as a network service.",
+    "suffix": "Choosing a strategy for generati",
+    "start": 8295,
+    "end": 8604,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://medium.com/better-programming/uuid-generation-snowflake-identifiers-unique-2aed8b1771bc",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 206,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/article[1]/div[1]/section[5]/div[1]/div[1]/p[2]",
+            "startContainer": "/div[1]/div[1]/article[1]/div[1]/section[5]/div[1]/div[1]/p[1]"
+          },
+          {
+            "end": 8604,
+            "type": "TextPositionSelector",
+            "start": 8295
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Generating unique identifiers is a necessity for all applications that eventually need to persist data.In this article three commonly used approaches were discussed: UUIDs — generating IDs locally, persistence layer driven IDs — centrally creating IDs, and Snowflake IDs — generating IDs as a network service.",
+            "prefix": "ducing infrastructure.Conclusion",
+            "suffix": "Choosing a strategy for generati"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "What Are Snowflake IDs?"
+      ]
+    }
+  },
+  {
+    "id": "UTX3DAiZEeum_wtfOpSj-A",
+    "authority": "hypothes.is",
+    "url": "https://medium.com/better-programming/uuid-generation-snowflake-identifiers-unique-2aed8b1771bc",
+    "created": "2020-10-07T12:33:34",
+    "updated": "2020-10-07T12:33:34",
+    "title": "What Are Snowflake IDs?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "-generated Ids (image by author)",
+    "exact": "As you may notice, performance is still degraded by the roundtrips to the ID server, however, this additional delay is considerably less than flushing an object to an RDBMS as it doesn’t involve complex database operations.",
+    "suffix": "An ID server provides a middle-g",
+    "start": 7876,
+    "end": 8099,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://medium.com/better-programming/uuid-generation-snowflake-identifiers-unique-2aed8b1771bc",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/article[1]/div[1]/section[4]/div[1]/div[1]/p[8]",
+            "startContainer": "/div[1]/div[1]/article[1]/div[1]/section[4]/div[1]/div[1]/p[7]"
+          },
+          {
+            "end": 8099,
+            "type": "TextPositionSelector",
+            "start": 7876
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "As you may notice, performance is still degraded by the roundtrips to the ID server, however, this additional delay is considerably less than flushing an object to an RDBMS as it doesn’t involve complex database operations.",
+            "prefix": "-generated Ids (image by author)",
+            "suffix": "An ID server provides a middle-g"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "What Are Snowflake IDs?"
+      ]
+    }
+  },
+  {
+    "id": "MO7lOgiZEeu3wfNDG28kUA",
+    "authority": "hypothes.is",
+    "url": "https://medium.com/better-programming/uuid-generation-snowflake-identifiers-unique-2aed8b1771bc",
+    "created": "2020-10-07T12:32:40",
+    "updated": "2020-10-07T12:32:40",
+    "title": "What Are Snowflake IDs?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "de generate Id (image by author)",
+    "exact": "The above extra roundtrip to the RDBMS may slow down your application and can make your code look needlessly more complex, however, modern ORM frameworks can help you do this in a standardised way, irrespectively of the underlying RDBMS product you’re using.",
+    "suffix": "ID servers, or Snowflake IDsAn I",
+    "start": 5513,
+    "end": 5771,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://medium.com/better-programming/uuid-generation-snowflake-identifiers-unique-2aed8b1771bc",
+        "selector": [
+          {
+            "end": 5771,
+            "type": "TextPositionSelector",
+            "start": 5513
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "The above extra roundtrip to the RDBMS may slow down your application and can make your code look needlessly more complex, however, modern ORM frameworks can help you do this in a standardised way, irrespectively of the underlying RDBMS product you’re using.",
+            "prefix": "de generate Id (image by author)",
+            "suffix": "ID servers, or Snowflake IDsAn I"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "What Are Snowflake IDs?"
+      ]
+    }
+  },
+  {
+    "id": "J_hq5giZEeuHcpsPr5LLIw",
+    "authority": "hypothes.is",
+    "url": "https://medium.com/better-programming/uuid-generation-snowflake-identifiers-unique-2aed8b1771bc",
+    "created": "2020-10-07T12:32:25",
+    "updated": "2020-10-07T12:32:25",
+    "title": "What Are Snowflake IDs?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "out uniqueness remains the same.",
+    "exact": "Persistence layer generated IDs alleviate the problem of having to generate unique IDs in application code. However, if you operate a large database cluster with a very busy application in front, this approach may not be performant-enough for your needs.",
+    "suffix": "Another practical issue when usi",
+    "start": 4628,
+    "end": 4882,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://medium.com/better-programming/uuid-generation-snowflake-identifiers-unique-2aed8b1771bc",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/article[1]/div[1]/section[3]/div[1]/div[1]/p[3]",
+            "startContainer": "/div[1]/div[1]/article[1]/div[1]/section[3]/div[1]/div[1]/p[2]"
+          },
+          {
+            "end": 4882,
+            "type": "TextPositionSelector",
+            "start": 4628
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Persistence layer generated IDs alleviate the problem of having to generate unique IDs in application code. However, if you operate a large database cluster with a very busy application in front, this approach may not be performant-enough for your needs.",
+            "prefix": "out uniqueness remains the same.",
+            "suffix": "Another practical issue when usi"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "What Are Snowflake IDs?"
+      ]
+    }
+  },
+  {
+    "id": "JdskfgiZEeu9j0-XYhLWGg",
+    "authority": "hypothes.is",
+    "url": "https://medium.com/better-programming/uuid-generation-snowflake-identifiers-unique-2aed8b1771bc",
+    "created": "2020-10-07T12:32:22",
+    "updated": "2020-10-07T12:32:22",
+    "title": "What Are Snowflake IDs?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "erformant-enough for your needs.",
+    "exact": "Another practical issue when using persistence layer generated IDs is that the generated ID is not known to your code without a roundtrip to the database:",
+    "suffix": "<img alt=\"Image for post\" class=",
+    "start": 4882,
+    "end": 5036,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://medium.com/better-programming/uuid-generation-snowflake-identifiers-unique-2aed8b1771bc",
+        "selector": [
+          {
+            "end": 5036,
+            "type": "TextPositionSelector",
+            "start": 4882
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Another practical issue when using persistence layer generated IDs is that the generated ID is not known to your code without a roundtrip to the database:",
+            "prefix": "erformant-enough for your needs.",
+            "suffix": "<img alt=\"Image for post\" class="
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "What Are Snowflake IDs?"
+      ]
+    }
+  },
+  {
+    "id": "kd10ogiYEeuEeQsUoKL9Dg",
+    "authority": "hypothes.is",
+    "url": "https://medium.com/better-programming/uuid-generation-snowflake-identifiers-unique-2aed8b1771bc",
+    "created": "2020-10-07T12:28:13",
+    "updated": "2020-10-07T12:28:13",
+    "title": "What Are Snowflake IDs?",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "hoto by Aaron Burden on Unsplash",
+    "exact": "Generating unique identifiers is a task all programmers have had to deal with at some point in the course of an application’s development lifecycle. Unique IDs allow us to properly identify data objects, persist them, retrieve them, and have them participate in complex relational patterns.",
+    "suffix": "But how are these unique IDs gen",
+    "start": 1113,
+    "end": 1403,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://medium.com/better-programming/uuid-generation-snowflake-identifiers-unique-2aed8b1771bc",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[1]/div[1]/article[1]/div[1]/section[1]/div[1]/div[1]/p[2]",
+            "startContainer": "/div[1]/div[1]/article[1]/div[1]/section[1]/div[1]/div[1]/p[1]"
+          },
+          {
+            "end": 1403,
+            "type": "TextPositionSelector",
+            "start": 1113
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Generating unique identifiers is a task all programmers have had to deal with at some point in the course of an application’s development lifecycle. Unique IDs allow us to properly identify data objects, persist them, retrieve them, and have them participate in complex relational patterns.",
+            "prefix": "hoto by Aaron Burden on Unsplash",
+            "suffix": "But how are these unique IDs gen"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "What Are Snowflake IDs?"
+      ]
+    }
+  },
+  {
+    "id": "qnStTgfmEeudBzOHKjOvzg",
+    "authority": "hypothes.is",
+    "url": "https://www.wsj.com/articles/i-never-thought-id-write-this-i-am-a-female-bodybuilder-11598274003",
+    "created": "2020-10-06T15:14:44",
+    "updated": "2020-10-06T15:14:44",
+    "title": "I Never Thought I’d Write This: I Am a Female Bodybuilder",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "      \n      \n       \n\n\n\n       ",
+    "exact": "I found support in a Facebook group for women bodybuilders that I joined as part of my work with my coach. She put together YouTube videos of workouts that could be done with basic home equipment. These women became my friends and teammates, even though I had met few of them in person. On Fridays, we would post pictures of ourselves flexing with the hashtag #flexfriday and cheer each other on. “Look at them guns!” wrote one.  ",
+    "suffix": "Being part of a group of support",
+    "start": 158116,
+    "end": 158546,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wsj.com/articles/i-never-thought-id-write-this-i-am-a-female-bodybuilder-11598274003",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[9]/div[3]/article[1]/main[1]/div[2]/div[1]/div[1]/div[1]/div[6]/div[2]/p[21]",
+            "startContainer": "/div[9]/div[3]/article[1]/main[1]/div[2]/div[1]/div[1]/div[1]/div[6]/div[2]/p[20]"
+          },
+          {
+            "end": 158546,
+            "type": "TextPositionSelector",
+            "start": 158116
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "I found support in a Facebook group for women bodybuilders that I joined as part of my work with my coach. She put together YouTube videos of workouts that could be done with basic home equipment. These women became my friends and teammates, even though I had met few of them in person. On Fridays, we would post pictures of ourselves flexing with the hashtag #flexfriday and cheer each other on. “Look at them guns!” wrote one.  ",
+            "prefix": "      \n      \n       \n\n\n\n       ",
+            "suffix": "Being part of a group of support"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "I Never Thought I’d Write This: I Am a Female Bodybuilder"
+      ]
+    }
+  },
+  {
+    "id": "mZHixgfmEeuYgVPkufxGPg",
+    "authority": "hypothes.is",
+    "url": "https://www.wsj.com/articles/i-never-thought-id-write-this-i-am-a-female-bodybuilder-11598274003",
+    "created": "2020-10-06T15:14:16",
+    "updated": "2020-10-06T15:14:16",
+    "title": "I Never Thought I’d Write This: I Am a Female Bodybuilder",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": " And then I decided: Who cares? ",
+    "exact": "I realized I wanted to own my appearance, my hard-earned muscles, and celebrate them. That belonged to me. I felt good about being a part of a community that applauded and encouraged the work that went into it. ",
+    "suffix": "I signed up for a competition th",
+    "start": 156404,
+    "end": 156615,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wsj.com/articles/i-never-thought-id-write-this-i-am-a-female-bodybuilder-11598274003",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[9]/div[3]/article[1]/main[1]/div[2]/div[1]/div[1]/div[1]/div[6]/div[2]/p[17]",
+            "startContainer": "/div[9]/div[3]/article[1]/main[1]/div[2]/div[1]/div[1]/div[1]/div[6]/div[2]/p[16]"
+          },
+          {
+            "end": 156615,
+            "type": "TextPositionSelector",
+            "start": 156404
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "I realized I wanted to own my appearance, my hard-earned muscles, and celebrate them. That belonged to me. I felt good about being a part of a community that applauded and encouraged the work that went into it. ",
+            "prefix": " And then I decided: Who cares? ",
+            "suffix": "I signed up for a competition th"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "I Never Thought I’d Write This: I Am a Female Bodybuilder"
+      ]
+    }
+  },
+  {
+    "id": "lg5qUgfmEeulqiu1GLlsNA",
+    "authority": "hypothes.is",
+    "url": "https://www.wsj.com/articles/i-never-thought-id-write-this-i-am-a-female-bodybuilder-11598274003",
+    "created": "2020-10-06T15:14:10",
+    "updated": "2020-10-06T15:14:10",
+    "title": "I Never Thought I’d Write This: I Am a Female Bodybuilder",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "o, seriously,” I heard her say. ",
+    "exact": "My coaches encouraged me to enter a competition. I wasn’t sure. I had seen pictures and thought the fake tans were cheesy. The poses were a little too sexy. What would I tell my mother? What would my colleagues at The Wall Street Journal think? ",
+    "suffix": "And then I decided: Who cares? I",
+    "start": 156128,
+    "end": 156373,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wsj.com/articles/i-never-thought-id-write-this-i-am-a-female-bodybuilder-11598274003",
+        "selector": [
+          {
+            "type": "RangeSelector",
+            "endOffset": 0,
+            "startOffset": 0,
+            "endContainer": "/div[9]/div[3]/article[1]/main[1]/div[2]/div[1]/div[1]/div[1]/div[6]/div[2]/p[15]",
+            "startContainer": "/div[9]/div[3]/article[1]/main[1]/div[2]/div[1]/div[1]/div[1]/div[6]/div[2]/p[14]"
+          },
+          {
+            "end": 156373,
+            "type": "TextPositionSelector",
+            "start": 156128
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "My coaches encouraged me to enter a competition. I wasn’t sure. I had seen pictures and thought the fake tans were cheesy. The poses were a little too sexy. What would I tell my mother? What would my colleagues at The Wall Street Journal think? ",
+            "prefix": "o, seriously,” I heard her say. ",
+            "suffix": "And then I decided: Who cares? I"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "I Never Thought I’d Write This: I Am a Female Bodybuilder"
+      ]
+    }
+  },
+  {
+    "id": "koVAfAfmEeuR4A8X_97lqg",
+    "authority": "hypothes.is",
+    "url": "https://www.wsj.com/articles/i-never-thought-id-write-this-i-am-a-female-bodybuilder-11598274003",
+    "created": "2020-10-06T15:14:04",
+    "updated": "2020-10-06T15:14:04",
+    "title": "I Never Thought I’d Write This: I Am a Female Bodybuilder",
+    "refs": [],
+    "isReply": false,
+    "isPagenote": false,
+    "user": "alexsiqingliu",
+    "displayName": "Alex Liu",
+    "text": "",
+    "prefix": "ors down, would watch my girls. ",
+    "exact": "The training helped me outside the gym, too. The drudgery—weighing my food, lifting barbells—made me feel tougher and more confident. I came back to my desk with a wave of new ideas and fresh creativity. My work got better. My children were proud of me. One day at preschool pickup, I heard my daughter tell a friend that her mommy looked like Wonder Woman. “No, seriously,” I heard her say.",
+    "suffix": " My coaches encouraged me to ent",
+    "start": 155736,
+    "end": 156127,
+    "tags": [],
+    "group": "__world__",
+    "target": [
+      {
+        "source": "https://www.wsj.com/articles/i-never-thought-id-write-this-i-am-a-female-bodybuilder-11598274003",
+        "selector": [
+          {
+            "end": 156127,
+            "type": "TextPositionSelector",
+            "start": 155736
+          },
+          {
+            "type": "TextQuoteSelector",
+            "exact": "The training helped me outside the gym, too. The drudgery—weighing my food, lifting barbells—made me feel tougher and more confident. I came back to my desk with a wave of new ideas and fresh creativity. My work got better. My children were proud of me. One day at preschool pickup, I heard my daughter tell a friend that her mommy looked like Wonder Woman. “No, seriously,” I heard her say.",
+            "prefix": "ors down, would watch my girls. ",
+            "suffix": " My coaches encouraged me to ent"
+          }
+        ]
+      }
+    ],
+    "document": {
+      "title": [
+        "I Never Thought I’d Write This: I Am a Female Bodybuilder"
+      ]
+    }
+  }
+]]
