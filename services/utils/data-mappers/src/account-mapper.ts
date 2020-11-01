@@ -2,7 +2,7 @@ import { GraphQLClient, gql } from 'graphql-request';
 
 import {
   CreateAccountInput, CreateAccountPayload,
-} from '../../__generated__/types';
+} from '../__generated__/types';
 
 import DataMapper from './data-mapper';
 

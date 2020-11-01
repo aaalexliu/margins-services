@@ -4,7 +4,7 @@ import {
   CreatePublicationInput,
   CreateAuthorInput,
   CreatePublicationAuthorInput,
-} from '../../__generated__/types';
+} from '../__generated__/types';
 
 import DataMapper from './data-mapper';
 

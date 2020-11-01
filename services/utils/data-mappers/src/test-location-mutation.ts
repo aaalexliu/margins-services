@@ -4,7 +4,7 @@ dotenv.config();
 
 import {
   CreateAnnotationInput
-} from '../../__generated__/types'
+} from '../__generated__/types'
 
 async function main() {
   const endpoint = 'http://ec2-34-232-69-157.compute-1.amazonaws.com:8080/graphql';

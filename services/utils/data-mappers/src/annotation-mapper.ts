@@ -4,7 +4,7 @@ import {
   AnnotationInput,
   CreateAccountInput,
   CreateAnnotationInput
-} from '../../__generated__/types';
+} from '../__generated__/types';
 
 import DataMapper from './data-mapper';
 

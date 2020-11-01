@@ -1,0 +1,15 @@
+overwrite: true
+schema:
+  - ${GRAPHQL_ENDPOINT}:
+      headers:
+        Authorization: ${GRAPHQL_AUTH_HEADING}
+documents: null
+generates:
+  __generated__/types.ts:
+    plugins:
+      - "typescript"
+    config:
+      enumsAsTypes: true
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"
