@@ -1,7 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const graphql_request_1 = require("graphql-request");
-const mongodb_1 = require("mongodb");
+const data_mapper_1 = __importDefault(require("./data-mapper"));
 const CREATE_AUTHOR = graphql_request_1.gql `
   mutation CreateAuthor($authorInput: CreateAuthorInput!) {
     createAuthor(input: $authorInput) {
@@ -69,18 +72,10 @@ const CONNECT_AUTHOR = graphql_request_1.gql `
     }
   }
 `;
-class BookMapper {
+class BookMapper extends data_mapper_1.default {
     constructor(endpoint, authToken, accountId) {
-        this.graphQLClient = new graphql_request_1.GraphQLClient(endpoint, {
-            headers: {
-                authorization: `BEARER ${authToken}`
-            }
-        });
+        super(endpoint, authToken);
         this.accountId = accountId;
-    }
-    generateObjectId() {
-        const objectId = new mongodb_1.ObjectID();
-        return objectId.toHexString();
     }
     async findOrCreateBook(book) {
         let publicationId;

@@ -4,6 +4,8 @@ import {
   CreateAccountInput, CreateAccountPayload,
 } from '../../__generated__/types';
 
+import DataMapper from './data-mapper';
+
 const CREATE_ACCOUNT = gql`
   mutation CreateAccount($accountInput: CreateAccountInput!) {
     createAccount(input: $accountInput) {
@@ -65,15 +67,10 @@ interface CognitoAccount {
   'cognito:groups': [string]
 }
 
-export default class AccountMapper {
-  graphQLClient: GraphQLClient;
+export default class AccountMapper extends DataMapper{
 
   constructor(endpoint: string, authToken: string) {
-    this.graphQLClient = new GraphQLClient(endpoint, {
-      headers: {
-        authorization: `BEARER ${authToken}`
-      }
-    });
+    super(endpoint, authToken);
   }
 
   async findOrCreateCognitoAccount(cognitoAccount: CognitoAccount) {

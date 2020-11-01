@@ -1,6 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const graphql_request_1 = require("graphql-request");
+const data_mapper_1 = __importDefault(require("./data-mapper"));
 const CREATE_ACCOUNT = graphql_request_1.gql `
   mutation CreateAccount($accountInput: CreateAccountInput!) {
     createAccount(input: $accountInput) {
@@ -30,13 +34,9 @@ const GET_ACCOUNT = graphql_request_1.gql `
     }
   }
 `;
-class AccountMapper {
+class AccountMapper extends data_mapper_1.default {
     constructor(endpoint, authToken) {
-        this.graphQLClient = new graphql_request_1.GraphQLClient(endpoint, {
-            headers: {
-                authorization: `BEARER ${authToken}`
-            }
-        });
+        super(endpoint, authToken);
     }
     async findOrCreateCognitoAccount(cognitoAccount) {
         const findResponse = await this.findCognitoAccount(cognitoAccount);

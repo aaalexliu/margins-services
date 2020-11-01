@@ -1,5 +1,4 @@
 import { GraphQLClient, gql }  from 'graphql-request';
-import { ObjectID } from 'mongodb';
 
 import {
   CreatePublicationInput,
@@ -7,7 +6,7 @@ import {
   CreatePublicationAuthorInput,
 } from '../../__generated__/types';
 
-
+import DataMapper from './data-mapper';
 
 const CREATE_AUTHOR = gql`
   mutation CreateAuthor($authorInput: CreateAuthorInput!) {
@@ -112,22 +111,12 @@ interface BookResponse {
   title?: string
 }
 
-export default class BookMapper {
-  graphQLClient: GraphQLClient;
+export default class BookMapper extends DataMapper{
   accountId: string;
 
   constructor(endpoint: string, authToken: string, accountId: string) {
-    this.graphQLClient = new GraphQLClient(endpoint, {
-      headers: {
-        authorization: `BEARER ${authToken}`
-      }
-    });
+    super(endpoint, authToken);
     this.accountId = accountId;
-  }
-
-  generateObjectId(): string {
-    const objectId = new ObjectID();
-    return objectId.toHexString();
   }
 
   async findOrCreateBook(book: Book) {

@@ -1,11 +1,12 @@
 import { GraphQLClient, gql }  from 'graphql-request';
-import { ObjectID } from 'mongodb';
 
 import {
   AnnotationInput,
   CreateAccountInput,
   CreateAnnotationInput
 } from '../../__generated__/types';
+
+import DataMapper from './data-mapper';
 
 const MUTATION_CREATE_ANNOTATION = gql`
   mutation CreateAnnotation($inputAnnotation: CreateAnnotationInput!) {
@@ -39,24 +40,14 @@ interface AnnotationMutationVars {
   inputAnnotation: CreateAnnotationInput
 }
 
-export default class AnnotationMapper {
-  graphQLClient: GraphQLClient;
+export default class AnnotationMapper extends DataMapper{
   publicationId: string;
   accountId: string;
 
   constructor(endpoint: string, authToken: string, accountId: string, publicationId: string) {
-    this.graphQLClient = new GraphQLClient(endpoint, {
-      headers: {
-        authorization: `BEARER ${authToken}`
-      }
-    })
+    super(endpoint, authToken);
     this.publicationId = publicationId;
     this.accountId = accountId;
-  }
-
-  generateObjectId(): string {
-    const objectId = new ObjectID();
-    return objectId.toHexString();
   }
 
   async createAnnotation(annotation: Annotation) {

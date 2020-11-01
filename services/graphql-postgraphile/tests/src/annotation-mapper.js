@@ -1,7 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const graphql_request_1 = require("graphql-request");
-const mongodb_1 = require("mongodb");
+const data_mapper_1 = __importDefault(require("./data-mapper"));
 const MUTATION_CREATE_ANNOTATION = graphql_request_1.gql `
   mutation CreateAnnotation($inputAnnotation: CreateAnnotationInput!) {
     __typename
@@ -16,19 +19,11 @@ const MUTATION_CREATE_ANNOTATION = graphql_request_1.gql `
     }
   }
 `;
-class AnnotationMapper {
+class AnnotationMapper extends data_mapper_1.default {
     constructor(endpoint, authToken, accountId, publicationId) {
-        this.graphQLClient = new graphql_request_1.GraphQLClient(endpoint, {
-            headers: {
-                authorization: `BEARER ${authToken}`
-            }
-        });
+        super(endpoint, authToken);
         this.publicationId = publicationId;
         this.accountId = accountId;
-    }
-    generateObjectId() {
-        const objectId = new mongodb_1.ObjectID();
-        return objectId.toHexString();
     }
     async createAnnotation(annotation) {
         const annotationVars = this.createAnnotationInput(annotation);

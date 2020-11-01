@@ -58,9 +58,11 @@ CREATE TABLE annotation (
   "recorded_at" timestamp with time zone,
   "created_at" timestamp with time zone DEFAULT now(),
   "updated_at" timestamp with time zone DEFAULT now(),
+  "edited_highlight_text" text,
+  "edited_note_text" text,
   "extra_edits" jsonb,
-  UNIQUE(publication_id, account_id, highlight_location, highlight_text),
-  UNIQUE(publication_id, account_id, note_location, note_text)
+  CONSTRAINT no_duplicate_highlights UNIQUE(publication_id, account_id, highlight_location, highlight_text),
+  CONSTRAINT no_duplicate_notes UNIQUE(publication_id, account_id, note_location, note_text)
 );
 
 CREATE INDEX annotation_publication_id_index ON annotation (publication_id);

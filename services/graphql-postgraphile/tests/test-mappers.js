@@ -1,4 +1,6 @@
+const AccountMapper = require('./src/account-mapper').default;
 const BookMapper = require('./src/book-mapper').default;
+const AnnotationMapper = require('./src/annotation-mapper').default;
 require('dotenv').config();
 
 const testBook = {
@@ -8,67 +10,115 @@ const testBook = {
 
 const testNotes = [
   {
-    "noteType": "NOTE",
-    "location": {
+    "noteLocation": {
       "kindleLocation": 41,
       "page": "ix",
       "section": "Author’s Note"
     },
-    "text": "Test empty note"
+    "noteText": "Test empty note"
   },
   {
-    "noteType": "HIGHLIGHT",
-    "location": {
+    "highlightLocation": {
       "kindleLocation": 58,
       "page": "1",
       "section": "Introduction"
     },
-    "text": "Ifirst walked into the Hunts Point neighborhood of the Bronx because I was told not to. I was told it was too dangerous, too poor, and that I was too white. I was told “nobody goes there for anything other than drugs and prostitutes.” The people directly telling me this were my colleagues (other bankers), my neighbors (other wealthy Brooklynites), and my friends (other academics). All, like me, successful, well-educated people who had opinions on the Bronx but had never really been there."
-  },
-  {
-    "noteType": "NOTE",
-    "location": {
+    "color": "yellow",
+    "highlightText": "Ifirst walked into the Hunts Point neighborhood of the Bronx because I was told not to. I was told it was too dangerous, too poor, and that I was too white. I was told “nobody goes there for anything other than drugs and prostitutes.” The people directly telling me this were my colleagues (other bankers), my neighbors (other wealthy Brooklynites), and my friends (other academics). All, like me, successful, well-educated people who had opinions on the Bronx but had never really been there.",
+    "noteLocation": {
       "kindleLocation": 61,
       "page": "1",
       "section": "Introduction"
     },
-    "text": "Test empty note 2"
+    "noteText": "Test empty note 2"
   },
-  {
-    "noteType": "HIGHLIGHT",
-    "location": {
-      "kindleLocation": 420,
-      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
-      "page": "46",
-      "section": "New York City"
-    },
-    "text": "We had compassion for those left behind but thought that our job was to provide them an opportunity (no matter how small) to get where we were. We didn’t think about changing our definition of success. It didn’t occur to us that what we valued—getting more education and owning more stuff—wasn’t what everyone else wanted."
-  },
-  {
-    "noteType": "NOTE",
-    "location": {
-      "kindleLocation": 422,
-      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
-      "page": "46",
-      "section": "New York City"
-    },
-    "text": "different definition of success"
-  },
-  {
-    "noteType": "HIGHLIGHT",
-    "location": {
-      "kindleLocation": 422,
-      "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
-      "page": "46",
-      "section": "New York City"
-    },
-    "text": "In the front row, growing the economy and increasing efficiency were goals most of us, whether Democrat or Republican, put first and agreed on. We believed in free trade, globalization, and deregulation. Our metrics for success became how high the stock market got, how large the profits were, how efficient the company was. If certain communities, towns, and people, suffered in this, it was all for the greater good in the name of progress."
-  }
+  // {
+  //   "highlightLocation": {
+  //     "kindleLocation": 72,
+  //     "page": "2",
+  //     "section": "Introduction"
+  //   },
+  //   "color": "yellow",
+  //   "highlightText": "The walks, the portraits, the stories I heard, the places they took me, became a process of learning in a different kind of way. Not from textbooks, or statistics, or spreadsheets, or PowerPoint presentations, or classrooms, or speeches, or documentaries—but from people.",
+  //   "noteLocation": {
+  //     "kindleLocation": 74,
+  //     "page": "2",
+  //     "section": "Introduction"
+  //   },
+  //   "noteText": ""
+  // },
+  // {
+  //   "highlightLocation": {
+  //     "kindleLocation": 76,
+  //     "page": "2",
+  //     "section": "Introduction"
+  //   },
+  //   "color": "yellow",
+  //   "highlightText": "This was a slow and shocking revelation to me, one I kept trying to fight. I certainly already knew I was privileged. I had a PhD in theoretical physics. I worked as a bond trader at a big Wall Street firm. I lived in the best part of Brooklyn. I sent my kids to private school. But like most successful and well-educated people, especially those in NYC, I considered myself open-minded, considered, and reflective about my privilege. I read three papers daily, I watched documentaries on our social problems, and I voted for and supported policies that I felt recognized and addressed my privilege. I gave money and time to charities that focused on poverty and injustice. I understood I was selfish, but I rationalized. Aren’t we all selfish? Besides, I am far less selfish than others, look at how I vote (progressive), what I believe in (equality), and who my colleagues are (people of all races from all places)."
+  // },
+  // {
+  //   "highlightLocation": {
+  //     "kindleLocation": 337,
+  //     "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+  //     "page": "39",
+  //     "section": "New York City"
+  //   },
+  //   "color": "yellow",
+  //   "highlightText": "As the factories, jobs, and many of the people left, those remaining in Portsmouth have done their best to keep the city together, hold tightly to the past, and stay proud. That pride is reflected in the murals, a well-intentioned attempt to sell Portsmouth as a quaint place to visit, but they are also a distraction masking a larger decline."
+  // },
+  // {
+  //   "highlightLocation": {
+  //     "kindleLocation": 341,
+  //     "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+  //     "page": "40",
+  //     "section": "New York City"
+  //   },
+  //   "color": "blue",
+  //   "highlightText": "Our country is split into two worlds. In one, the downtowns are filled with nightlife, restaurants, well-maintained bike paths, and pedestrian crosswalks. You can tell you’re in this world by the kinds of grocery stores there are and by how many and what kind of vegetables they stock. You can tell by whether the convenience stores carry diet drinks.",
+  //   "noteLocation": {
+  //     "kindleLocation": 343,
+  //     "chapter": "One: If You Want to Understand the Country, Visit McDonald’s",
+  //     "page": "40",
+  //     "section": "New York City"
+  //   },
+  //   "noteText": "nice whole foods dig"
+  // },
 ];
 
-const bookMapper = new BookMapper(
-  process.env.GRAPHQL_ENDPOINT,
-  process.env.GRAPHQL_JWT,
-  process.env.ACCOUNT_ID
-);
-bookMapper.createBook(testBook);
+const GRAPHQL_ENDPOINT =   process.env.GRAPHQL_ENDPOINT;
+const GRAPHQL_JWT = process.env.GRAPHQL_JWT;
+const ACCOUNT_ID = process.env.ACCOUNT_ID;
+
+const mockCognitoPayload = {
+  sub: '46d3f3d1-879b-4314-9301-ae470c5a2062',
+  email: 'uilxela7@gmail.com',
+  emailVerified: true,
+  'cognito:groups': ['margins_account']
+};
+
+(async () => {
+  const accountMapper = new AccountMapper(GRAPHQL_ENDPOINT, GRAPHQL_JWT);
+  let accountRes = await accountMapper.findOrCreateCognitoAccount(mockCognitoPayload);
+  console.log(accountRes);
+
+  const bookMapper = new BookMapper(
+    GRAPHQL_ENDPOINT,
+    GRAPHQL_JWT,
+    ACCOUNT_ID
+  );
+  let bookRes = await bookMapper.findOrCreateBook(testBook);
+  console.log('test script book response', bookRes);
+
+  const annotationMapper = new AnnotationMapper(
+    GRAPHQL_ENDPOINT,
+    GRAPHQL_JWT,
+    ACCOUNT_ID,
+    bookRes.publicationId
+  );
+
+  const noteResponses = await Promise.all(testNotes.map(note => {
+    return annotationMapper.createAnnotation(note);
+  }));
+  console.log(noteResponses);
+})();
+
