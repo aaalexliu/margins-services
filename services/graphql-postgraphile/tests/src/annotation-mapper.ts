@@ -7,15 +7,16 @@ import {
   CreateAnnotationInput
 } from '../../__generated__/types';
 
-const CREATE_ANNOTATION_MUTATION = gql`
+const MUTATION_CREATE_ANNOTATION = gql`
   mutation CreateAnnotation($inputAnnotation: CreateAnnotationInput!) {
     __typename
     createAnnotation(input: $inputAnnotation) {
       annotation {
         annotationId
-        location
-        noteType
-        higlightText
+        highlightLocation
+        highlightText
+        noteLocation
+        noteText
       }
     }
   }
@@ -53,14 +54,40 @@ export default class AnnotationMapper {
     this.accountId = accountId;
   }
 
+  generateObjectId(): string {
+    const objectId = new ObjectID();
+    return objectId.toHexString();
+  }
+
   async createAnnotation(annotation: Annotation) {
     const annotationVars: AnnotationMutationVars = this.createAnnotationInput(annotation);
-    const response = this.executeCreateAnnotation(annotationVars);
-    console.log(JSON.stringify(response, null, 2));
+    try {
+      const annotationResponse = await this.graphQLClient.request(MUTATION_CREATE_ANNOTATION, annotationVars);
+      console.log('create annotation response', annotationResponse);
+      return annotationResponse.createAnnotation.annotation;
+    } catch(error) {
+      console.log('catching create annotation error for duplicates');
+      const firstError = error.response.errors[0];
+      if (firstError.message === 'duplicate key value violates unique constraint "no_duplicate_notes"') {
+        return {
+          duplicateMessage:  'annotation with note text and location already exists',
+          duplicateAnnotation: annotation
+        }
+      }
+      if (firstError.message === 'duplicate key value violates unique constraint "no_duplicate_highlights"') {
+        return {
+          duplicateMessage: `annotation with highlight text and location already exists`,
+          duplicateAnnotation: annotation
+        }
+      }
+      console.log('unexpected create annotation error message');
+      console.log(error);
+      throw error;
+    }
   }
 
   createAnnotationInput(annotation: Annotation): AnnotationMutationVars {
-    const annotationId = (new ObjectID()).toHexString();
+    const annotationId = this.generateObjectId();
     if ('noteLocation' in annotation) annotation.noteLocation = JSON.stringify(annotation.noteLocation);
     if ('highlightLocation' in annotation) annotation.highlightLocation = JSON.stringify(annotation.highlightLocation);
 
@@ -76,13 +103,6 @@ export default class AnnotationMapper {
     }
   }
 
-  async executeCreateAnnotation(variables: AnnotationMutationVars) {
-    try {
-      const data = await this.graphQLClient.request(CREATE_ANNOTATION_MUTATION, variables)
-      return data;
-    } catch (error) {
-      console.error(JSON.stringify(error, undefined, 2))
-    }
-  }
-
+  // need to implement update annotation method when highlight is the same but note is different
+  
 }
