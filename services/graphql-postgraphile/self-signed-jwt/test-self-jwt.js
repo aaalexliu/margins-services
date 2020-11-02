@@ -29,7 +29,7 @@ const publicJwk = JSON.parse(
 );
 console.log(publicJwk);
 
-const privateKey = fs.readFileSync('private.pem');
+const privateKey = fs.readFileSync('private.pem', 'utf8');
 const token = jwt.sign(
   {
     sub: "46d3f3d1-879b-4314-9301-ae470c5a2062",
