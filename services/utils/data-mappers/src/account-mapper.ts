@@ -64,7 +64,7 @@ interface CognitoAccount {
   sub: string,
   email: string,
   emailVerified: boolean,
-  'cognito:groups': [string]
+  'cognito:groups': string[]
 }
 
 export default class AccountMapper extends DataMapper{
