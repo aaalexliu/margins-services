@@ -1,0 +1,9 @@
+{
+  "name": "parse-kindle-email",
+  "version": "1.0.0",
+  "main": "app.js",
+  "license": "MIT",
+  "devDependencies": {
+    "aws-sdk": "^2.783.0"
+  }
+}

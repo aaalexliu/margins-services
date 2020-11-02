@@ -104,7 +104,7 @@ export default class AccountMapper extends DataMapper{
     const accountInputVar = this.createAccountInput(account);
     const response: {createAccount: CreateAccountPayload} = await this.graphQLClient
       .request(CREATE_ACCOUNT, accountInputVar);
-    console.log('create account response', response);
+    // console.log('create account response', response);
 
     return response.createAccount.account;
   }

@@ -16,7 +16,7 @@ module.exports = {
   },
 
   // Create source maps
-  devtool: "source-map",
+  devtool: process.env.NODE_ENV === "development" ? "source-map" : false,
 
   // Resolve .ts and .js extensions
   resolve: {

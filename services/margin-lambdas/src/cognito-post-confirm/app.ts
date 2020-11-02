@@ -81,7 +81,7 @@ function createCognitoAccountInput(event) {
   return {
     sub: user.sub,
     email: user.email,
-    emailVerified: user.email_verified,
+    emailVerified: user.email_verified === 'true',
     'cognito:groups': ['margins_account']
   }
 }
