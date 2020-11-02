@@ -22,6 +22,7 @@
     "prewatch": "rimraf .aws-sam .vscode",
     "watch": "webpack-cli -w",
     "test-reject-unregistered": "sam local invoke SESLambda -e src/reject-unregistered-emails/tests/sample-ses-event.json --debug",
-    "test-post-confirm": "sam local invoke CognitoPostConfirmLambda -e src/cognito-post-confirm/tests/sample-cognito-confirm-event.json --debug"
+    "test-post-confirm": "sam local invoke CognitoPostConfirmLambda -e src/cognito-post-confirm/tests/sample-cognito-confirm-event.json --debug",
+    "test-parse-email": "sam local invoke S3ParseKindleEmailLambda -e src/parse-kindle-email/tests/sample-s3-event.json --debug"
   }
 }
