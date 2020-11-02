@@ -1,0 +1,14 @@
+{
+  "name": "cognito-post-confirm",
+  "version": "1.0.0",
+  "main": "app.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jsonwebtoken": "^8.5.0",
+    "aws-sdk": "^2.783.0"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "jsonwebtoken": "^8.5.1"
+  }
+}
