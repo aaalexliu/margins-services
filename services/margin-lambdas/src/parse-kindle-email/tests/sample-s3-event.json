@@ -1,0 +1,32 @@
+{
+  "Records": [
+    {
+      "eventVersion": "2.1",
+      "eventSource": "aws:s3",
+      "awsRegion": "us-east-1",
+      "eventTime": "2020-11-02T12: 51: 00.159Z",
+      "eventName": "ObjectCreated:Put",
+      "userIdentity": { "principalId": "AWS:AIDAIE26RTG3F45XIHQFI" },
+      "requestParameters": { "sourceIPAddress": "10.123.58.149" },
+      "responseElements": {
+        "x-amz-request-id": "DEEA933BD7E49D38",
+        "x-amz-id-2": "UJQlsXQ1dTMe6IWE0z6wsAuT7yO2tOPh05x3u+LGSIhsZAuLeCaeZOk2vRJ312g6ZKf2/wkz1fNo+ezC4kYhwN4P0WvVo1QJ"
+      },
+      "s3": {
+        "s3SchemaVersion": "1.0",
+        "configurationId": "kindleEmailReceived",
+        "bucket": {
+          "name": "margins.me-uploads",
+          "ownerIdentity": { "principalId": "A1HVU20D3LI5R6" },
+          "arn": "arn:aws:s3: : :margins.me-uploads"
+        },
+        "object": {
+          "key": "kindle-email/dtu6b1bkib6ukbbngosmdpa7emadrmoin5ou7n81",
+          "size": 50987,
+          "eTag": "e0fcbb427e16eb701ab2af32881b1f08",
+          "sequencer": "005FA000B5D106F20D"
+        }
+      }
+    }
+  ]
+}

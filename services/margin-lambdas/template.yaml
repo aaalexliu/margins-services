@@ -72,6 +72,28 @@ Resources:
               - cognito-idp:Admin*
             Resource: !Ref CognitoUserPoolArn
       Timeout: 30
+  S3ParseKindleEmailLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/parse-kindle-email
+      Handler: app.lambdaHandler
+      Runtime: nodejs12.x
+      FunctionName: S3ParseKindleEmailLambda
+      Timeout: 30
+      Policies:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: ListObjectsInBucket
+            Effect: Allow
+            Action:
+            - s3:ListBucket
+            Resource:
+            - arn:aws:s3:::margins.me-uploads
+          - Sid: AllObjectActions
+            Effect: Allow
+            Action: s3:*Object
+            Resource:
+            - arn:aws:s3:::margins.me-uploads/*
 
 ## ALLOW COGNITO TO INVOKE
 #   - Version: '2012-10-17'
