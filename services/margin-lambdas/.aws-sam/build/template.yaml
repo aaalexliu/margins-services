@@ -3,9 +3,17 @@ Transform: 'AWS::Serverless-2016-10-31'
 Description: |
   margins.me-annotation-utils
   Sample SAM Template for margins.me-annotation-utils
-Globals:
-  Function:
-    Timeout: 100
+Parameters:
+  CognitoUserPoolId:
+    Type: String
+  CognitoUserPoolArn:
+    Type: String
+  AWSAccountId:
+    Type: String
+  GraphqlEndpoint:
+    Type: String
+  PrivateKey:
+    Type: String
 Resources:
   SESLambda:
     Type: 'AWS::Serverless::Function'
@@ -13,8 +21,30 @@ Resources:
       CodeUri: SESLambda
       Handler: app.lambdaHandler
       Runtime: nodejs12.x
+      FunctionName: SESRejectUnregisteredEmails
       Policies:
         - AmazonCognitoReadOnly
       Environment:
         Variables:
-          COGNITO_USER_POOL_ID: us-east-1_jcGG3tVBb
+          COGNITO_USER_POOL_ID: !<!Ref> CognitoUserPoolId
+      Timeout: 30
+  CognitoPostConfirmLambda:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      CodeUri: CognitoPostConfirmLambda
+      Handler: app.lambdaHandler
+      Runtime: nodejs12.x
+      FunctionName: CognitoPostConfirmLambda
+      Environment:
+        Variables:
+          GRAPHQL_ENDPOINT: !<!Ref> GraphqlEndpoint
+          PRIVATE_KEY: !<!Ref> PrivateKey
+      Policies:
+        - Version: 2012-10-17
+          Statement:
+            Sid: AllowCognitoAdminActions
+            Effect: Allow
+            Action:
+              - 'cognito-idp:Admin*'
+            Resource: !<!Ref> CognitoUserPoolArn
+      Timeout: 30
