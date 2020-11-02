@@ -1,0 +1,1 @@
+export { default as KindleConverter } from './src/kindle-converter';
