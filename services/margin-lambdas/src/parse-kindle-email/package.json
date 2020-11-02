@@ -5,5 +5,9 @@
   "license": "MIT",
   "devDependencies": {
     "aws-sdk": "^2.783.0"
+  },
+  "dependencies": {
+    "@types/mailparser": "^2.7.4",
+    "mailparser": "^3.0.0"
   }
 }
