@@ -1,10 +1,10 @@
 {
-  "name": "hello_world",
+  "name": "reject_unregistered_emails",
   "version": "1.0.0",
-  "description": "hello world sample for NodeJS",
+  "description": "reject unregistered emails in SES",
   "main": "app.js",
-  "repository": "https://github.com/awslabs/aws-sam-cli/tree/develop/samcli/local/init/templates/cookiecutter-aws-sam-hello-nodejs",
-  "author": "SAM CLI",
+  "repository": "",
+  "author": "Alex Liu",
   "license": "MIT",
   "dependencies": {},
   "scripts": {
