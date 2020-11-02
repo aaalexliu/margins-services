@@ -35,8 +35,19 @@ module.exports = {
   mode: process.env.NODE_ENV || "production",
 
   // Add the TypeScript loader
+  // adding pem to files - DOESN'T WORK
   module: {
-    rules: [{ test: /\.tsx?$/, loader: "ts-loader" }]
+    rules: [
+      { test: /\.tsx?$/, loader: "ts-loader" },
+      // {
+      //   test: /\.pem$/i,
+      //   loader: 'file-loader',
+      //   options: {
+      //     name: '[path][name].[ext]',
+      //     // outputPath: './aws'
+      //   }
+      // },
+    ]
   },
 
   // Add the AWS SAM Webpack plugin

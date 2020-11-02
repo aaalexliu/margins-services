@@ -22,9 +22,21 @@ Description: >
 #         NEW_VAR: hello
   
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
-Globals:
-  Function:
-    Timeout: 100
+# Globals:
+#   Function:
+#     Timeout: 30
+
+Parameters:
+  CognitoUserPoolId:
+    Type: String
+  CognitoUserPoolArn:
+    Type: String
+  AWSAccountId:
+    Type: String
+  GraphqlEndpoint:
+    Type: String
+  PrivateKey:
+    Type: String
 
 Resources:
   SESLambda:
@@ -33,11 +45,67 @@ Resources:
       CodeUri: src/reject-unregistered-emails
       Handler: app.lambdaHandler
       Runtime: nodejs12.x
+      FunctionName: SESRejectUnregisteredEmails
       Policies:
         - AmazonCognitoReadOnly
       Environment:
         Variables:
-          COGNITO_USER_POOL_ID: us-east-1_jcGG3tVBb
+          COGNITO_USER_POOL_ID: !Ref CognitoUserPoolId
+      Timeout: 30
+  CognitoPostConfirmLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/cognito-post-confirm
+      Handler: app.lambdaHandler
+      Runtime: nodejs12.x
+      FunctionName: CognitoPostConfirmLambda
+      Environment:
+        Variables:
+          GRAPHQL_ENDPOINT: !Ref GraphqlEndpoint
+          PRIVATE_KEY: !Ref PrivateKey
+      Policies:
+        - Version: 2012-10-17
+          Statement:
+            Sid: AllowCognitoAdminActions
+            Effect: Allow
+            Action:
+              - cognito-idp:Admin*
+            Resource: !Ref CognitoUserPoolArn
+      Timeout: 30
+
+## ALLOW COGNITO TO INVOKE
+#   - Version: '2012-10-17'
+#     Statement:
+#       Sid: AllowCognitoPostConfirmationTrigger
+#       Effect: Allow
+#       Principal:
+#         Service: cognito-idp.amazonaws.com
+#       Action: lambda:InvokeFunction
+#       Resource: !Sub "arn:aws:lambda:us-east-1:${AWSAccountId}:function:CognitoPostConfirmLambda"
+#       Condition:
+#         ArnLike:
+#           AWS:SourceArn: !Ref CognitoUserPoolArn
+
+## ALLOW SES TO INVOKE
+# {
+# "Version": "2012-10-17",
+# "Id": "default",
+# "Statement": [
+#   {
+#     "Sid": "allowSesInvoke",
+#     "Effect": "Allow",
+#     "Principal": {
+#       "Service": "ses.amazonaws.com"
+#     },
+#     "Action": "lambda:InvokeFunction",
+#     "Resource": "arn:aws:lambda:us-east-1:516851544810:function:sam-test-SESLambda-D7BP58TEQ5KN",
+#     "Condition": {
+#       "StringEquals": {
+#         "AWS:SourceAccount": "516851544810"
+#       }
+#     }
+#   }
+# }
 
 # Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function

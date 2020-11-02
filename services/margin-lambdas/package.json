@@ -3,6 +3,7 @@
     "@types/aws-lambda": "^8.10.64",
     "@types/jest": "^26.0.15",
     "aws-sam-webpack-plugin": "^0.6.0",
+    "file-loader": "^6.2.0",
     "ts-loader": "^8.0.7",
     "typescript": "^4.0.3",
     "webpack": "^5.2.0",
@@ -20,6 +21,7 @@
     "prebuild": "rimraf .aws-sam .vscode",
     "prewatch": "rimraf .aws-sam .vscode",
     "watch": "webpack-cli -w",
-    "test-reject-unregistered": "sam local invoke SESLambda -e src/reject-unregistered-emails/tests/sample-ses-event.json"
+    "test-reject-unregistered": "sam local invoke SESLambda -e src/reject-unregistered-emails/tests/sample-ses-event.json --debug",
+    "test-post-confirm": "sam local invoke CognitoPostConfirmLambda -e src/cognito-post-confirm/tests/sample-cognito-confirm-event.json --debug"
   }
 }
