@@ -17,8 +17,8 @@ const CREATE_AUTHOR = graphql_request_1.gql `
   }
 `;
 const CREATE_PUBLICATION = graphql_request_1.gql `
-  mutation CreatePublication($bookInput: CreatePublicationInput!) {
-    createPublication(input: $bookInput) {
+  mutation CreatePublication($publicationInput: CreatePublicationInput!) {
+    createPublication(input: $publicationInput) {
       __typename
       publication {
         createdAt
@@ -133,6 +133,7 @@ class PublicationMapper extends data_mapper_1.default {
         let author = await this.findAuthor(fullName);
         if (author) {
             const connectAuthorResponse = await this.connectAuthorAndPublication(author.authorId, publicationId);
+            console.log(connectAuthorResponse);
             if (connectAuthorResponse)
                 return author;
             else
