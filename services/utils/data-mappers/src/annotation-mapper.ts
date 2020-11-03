@@ -23,6 +23,29 @@ const MUTATION_CREATE_ANNOTATION = gql`
   }
 `
 
+const QUERY_ALL_ANNOTATIONS = gql`
+  query AllAnnotationByPublication($annotationCondition: AnnotationCondition!) {
+    __typename
+    allAnnotations(condition: $annotationCondition) {
+      nodes {
+        annotationId
+        highlightLocation
+        highlightText
+        color
+        noteLocation
+        noteText
+      }
+    }
+  }
+`;
+
+interface AllAnnotationsQueryVar {
+  annotationCondition: {
+    publicationId: string,
+    accountId: string
+  }
+}
+
 interface Highlight {
   highlightText: string,
   color: string,
@@ -93,6 +116,21 @@ export default class AnnotationMapper extends DataMapper{
       }
     }
   }
+
+  async getAllAnnotationsFromPublication() {
+    const allAnnotationsQueryVar: AllAnnotationsQueryVar = {
+      annotationCondition: {
+        publicationId: this.publicationId,
+        accountId: this.accountId
+      }
+    };
+    const allAnnotationsRes = await this.graphQLClient
+      .request(QUERY_ALL_ANNOTATIONS, allAnnotationsQueryVar);
+    
+    return allAnnotationsRes.allAnnotations.nodes
+  }
+
+
 
   // need to implement update annotation method when highlight is the same but note is different
   
