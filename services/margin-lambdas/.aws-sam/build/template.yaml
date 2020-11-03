@@ -55,7 +55,11 @@ Resources:
       Handler: app.lambdaHandler
       Runtime: nodejs12.x
       FunctionName: S3ParseKindleEmailLambda
-      Timeout: 30
+      Timeout: 100
+      Environment:
+        Variables:
+          GRAPHQL_ENDPOINT: !<!Ref> GraphqlEndpoint
+          PRIVATE_KEY: !<!Ref> PrivateKey
       Policies:
         Version: 2012-10-17
         Statement:

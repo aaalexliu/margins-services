@@ -68,7 +68,7 @@ exports.lambdaHandler = async (event, context, callback) => {
     // console.log(a.split('n').join('\n'));
     const graphqlJwt = generateJWT(event.userName);
     const accountMapper = new data_mappers_1.AccountMapper(process.env.GRAPHQL_ENDPOINT, graphqlJwt);
-    const cognitoAccount = createCognitoAccountInput(event);
+    const cognitoAccount = getAccountFromEvent(event);
     const createAccountPromise = accountMapper.createAccountFromCognito(cognitoAccount);
     allPromises.push(createAccountPromise);
     console.log('full event object');
@@ -77,7 +77,7 @@ exports.lambdaHandler = async (event, context, callback) => {
     console.log(responses);
     callback(null, event);
 };
-function createCognitoAccountInput(event) {
+function getAccountFromEvent(event) {
     const user = event.request.userAttributes;
     return {
         sub: user.sub,
@@ -118,11 +118,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.AnnotationMapper = exports.BookMapper = exports.AccountMapper = void 0;
+exports.AnnotationMapper = exports.PublicationMapper = exports.AccountMapper = void 0;
 var account_mapper_1 = __webpack_require__(37796);
 Object.defineProperty(exports, "AccountMapper", ({ enumerable: true, get: function () { return __importDefault(account_mapper_1).default; } }));
-var book_mapper_1 = __webpack_require__(36123);
-Object.defineProperty(exports, "BookMapper", ({ enumerable: true, get: function () { return __importDefault(book_mapper_1).default; } }));
+var publication_mapper_1 = __webpack_require__(80037);
+Object.defineProperty(exports, "PublicationMapper", ({ enumerable: true, get: function () { return __importDefault(publication_mapper_1).default; } }));
 var annotation_mapper_1 = __webpack_require__(3593);
 Object.defineProperty(exports, "AnnotationMapper", ({ enumerable: true, get: function () { return __importDefault(annotation_mapper_1).default; } }));
 
@@ -157,7 +157,7 @@ const CREATE_ACCOUNT = graphql_request_1.gql `
     }
   }
 `;
-const GET_ACCOUNT = graphql_request_1.gql `
+const GET_ACCOUNT_BY_ID = graphql_request_1.gql `
   query GetAccountByAccountId($accountId: UUID!) {
     accountByAccountId(accountId: $accountId) {
       accountId
@@ -166,6 +166,14 @@ const GET_ACCOUNT = graphql_request_1.gql `
       group
       fullName
       firstName
+    }
+  }
+`;
+const GET_ACCOUNT_BY_EMAIL = graphql_request_1.gql `
+  query GetAccountByEmail($email: String!) {
+    accountByEmail(email: $email) {
+      accountId
+      email
     }
   }
 `;
@@ -183,7 +191,7 @@ class AccountMapper extends data_mapper_1.default {
     async findCognitoAccount(cognitoAccount) {
         const accountId = cognitoAccount.sub;
         const response = await this.graphQLClient
-            .request(GET_ACCOUNT, { accountId });
+            .request(GET_ACCOUNT_BY_ID, { accountId });
         console.log('find account response', response);
         return response.accountByAccountId;
     }
@@ -212,6 +220,10 @@ class AccountMapper extends data_mapper_1.default {
                 }
             }
         };
+    }
+    async findAccountByEmail(email) {
+        const accountRes = await this.graphQLClient.request(GET_ACCOUNT_BY_EMAIL, { email });
+        return accountRes.accountByEmail;
     }
 }
 exports.default = AccountMapper;
@@ -264,6 +276,36 @@ const MUTATION_CREATE_ANNOTATION = graphql_request_1.gql `
     }
   }
 `;
+const QUERY_ALL_ANNOTATIONS = graphql_request_1.gql `
+  query AllAnnotationByPublication($annotationCondition: AnnotationCondition!) {
+    __typename
+    allAnnotations(condition: $annotationCondition) {
+      nodes {
+        annotationId
+        highlightLocation
+        highlightText
+        color
+        noteLocation
+        noteText
+      }
+    }
+  }
+`;
+const MUTATION_UPDATE_ANNOTATION_BY_HIGHLIGHT = graphql_request_1.gql `
+  mutation MyMutation($updateAnnotationByNote: UpdateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextInput!) {
+    __typename
+    updateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightText(input: $updateAnnotationByNote) {
+      annotation {
+        annotationId
+        highlightLocation
+        highlightText
+        color
+        noteLocation
+        noteText
+      }
+    }
+  }
+`;
 class AnnotationMapper extends data_mapper_1.default {
     constructor(endpoint, authToken, accountId, publicationId) {
         super(endpoint, authToken);
@@ -274,7 +316,7 @@ class AnnotationMapper extends data_mapper_1.default {
         const annotationVars = this.createAnnotationInput(annotation);
         try {
             const annotationResponse = await this.graphQLClient.request(MUTATION_CREATE_ANNOTATION, annotationVars);
-            console.log('create annotation response', annotationResponse);
+            // console.log('create annotation response', annotationResponse);
             return annotationResponse.createAnnotation.annotation;
         }
         catch (error) {
@@ -297,19 +339,57 @@ class AnnotationMapper extends data_mapper_1.default {
             throw error;
         }
     }
-    createAnnotationInput(annotation) {
-        const annotationId = this.generateObjectId();
+    stringifyLocation(annotation) {
         if ('noteLocation' in annotation)
             annotation.noteLocation = JSON.stringify(annotation.noteLocation);
         if ('highlightLocation' in annotation)
             annotation.highlightLocation = JSON.stringify(annotation.highlightLocation);
+        return annotation;
+    }
+    createAnnotationInput(annotation) {
+        const annotationId = this.generateObjectId();
+        const stringifedAnnotation = this.stringifyLocation(annotation);
         return {
             inputAnnotation: {
                 annotation: {
-                    ...annotation,
+                    ...stringifedAnnotation,
                     annotationId,
                     publicationId: this.publicationId,
                     accountId: this.accountId
+                }
+            }
+        };
+    }
+    async getAllAnnotationsFromPublication() {
+        const allAnnotationsQueryVar = {
+            annotationCondition: {
+                publicationId: this.publicationId,
+                accountId: this.accountId
+            }
+        };
+        const allAnnotationsRes = await this.graphQLClient
+            .request(QUERY_ALL_ANNOTATIONS, allAnnotationsQueryVar);
+        return allAnnotationsRes.allAnnotations.nodes;
+    }
+    async updateAnnotationByHighlight(annotation) {
+        const updateAnnotationByHighlightVar = this.createUpdateAnnotationByHiglightVar(annotation);
+        const updateResponse = await this.graphQLClient
+            .request(MUTATION_UPDATE_ANNOTATION_BY_HIGHLIGHT, updateAnnotationByHighlightVar);
+        return updateResponse
+            .updateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightText
+            .annotation;
+    }
+    createUpdateAnnotationByHiglightVar(annotation) {
+        const stringifedAnnotation = this.stringifyLocation(annotation);
+        return {
+            updateAnnotationByNote: {
+                publicationId: this.publicationId,
+                accountId: this.accountId,
+                highlightText: stringifedAnnotation.highlightText,
+                highlightLocation: stringifedAnnotation.highlightLocation,
+                annotationPatch: {
+                    noteText: stringifedAnnotation.noteText,
+                    noteLocation: stringifedAnnotation.noteLocation,
                 }
             }
         };
@@ -320,7 +400,33 @@ exports.default = AnnotationMapper;
 
 /***/ }),
 
-/***/ 36123:
+/***/ 8438:
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const graphql_request_1 = __webpack_require__(46752);
+const mongodb_1 = __webpack_require__(49090);
+class DataMapper {
+    constructor(endpoint, authToken) {
+        this.graphQLClient = new graphql_request_1.GraphQLClient(endpoint, {
+            headers: {
+                authorization: `BEARER ${authToken}`
+            }
+        });
+    }
+    generateObjectId() {
+        const objectId = new mongodb_1.ObjectID();
+        return objectId.toHexString();
+    }
+}
+exports.default = DataMapper;
+
+
+/***/ }),
+
+/***/ 80037:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -342,27 +448,16 @@ const CREATE_AUTHOR = graphql_request_1.gql `
     } 
   }
 `;
-const CREATE_BOOK = graphql_request_1.gql `
-  mutation CreatePublication($bookInput: CreatePublicationInput!) {
-    createPublication(input: $bookInput) {
+const CREATE_PUBLICATION = graphql_request_1.gql `
+  mutation CreatePublication($publicationInput: CreatePublicationInput!) {
+    createPublication(input: $publicationInput) {
       __typename
       publication {
         createdAt
         id
         updatedAt
         publicationId
-        bookByPublicationId {
-          description
-          id
-          imageUrl
-          isbn13
-          languageCode
-          publicationDate
-          publicationId
-          publisher
-          bookTitle
-          bookType
-        }
+        title
       }
     }
   }
@@ -398,21 +493,21 @@ const CONNECT_AUTHOR = graphql_request_1.gql `
     }
   }
 `;
-class BookMapper extends data_mapper_1.default {
+class PublicationMapper extends data_mapper_1.default {
     constructor(endpoint, authToken, accountId) {
         super(endpoint, authToken);
         this.accountId = accountId;
     }
-    async findOrCreateBook(book) {
+    async findOrCreatePublication(publication) {
         let publicationId;
-        let bookResponse = await this.findBookByTitle(book);
-        if (!bookResponse) {
-            bookResponse = await this.createBook(book);
+        let publicationResponse = await this.findPublicationByTitle(publication);
+        if (!publicationResponse) {
+            publicationResponse = await this.createPublication(publication);
         }
         // find or create authors if successful
-        const authors = book.authors;
-        publicationId = bookResponse.publicationId;
-        // const bookPublicationId = this.getBookPublicationId(bookMutationVars);
+        const authors = publication.authors;
+        publicationId = publicationResponse.publicationId;
+        // const bookPublicationId = this.getBookPublicationId(publicationMutationVar);
         const authorResponses = await Promise
             .all(authors.map((author) => this.findOrCreateAuthor(author, publicationId)));
         console.log('author responses', authorResponses);
@@ -421,8 +516,8 @@ class BookMapper extends data_mapper_1.default {
             authorIds: authorResponses.map(author => author.authorId)
         };
     }
-    async findBookByTitle(book) {
-        const title = book.title;
+    async findPublicationByTitle(publication) {
+        const title = publication.title;
         const GetPublicationVar = this.createGetPublicationVar(title);
         const response = await this.graphQLClient.request(GET_PUBLICATION, GetPublicationVar);
         console.log('get publication response', response);
@@ -434,42 +529,43 @@ class BookMapper extends data_mapper_1.default {
             accountId: this.accountId
         };
     }
-    async createBook(book) {
-        const bookMutationVars = this.createBookInput(book);
+    async createPublication(publication) {
+        const publicationMutationVar = this.createPublicationInput(publication);
         try {
-            const bookResponse = await this.graphQLClient.request(CREATE_BOOK, bookMutationVars);
-            console.log('create book response', bookResponse);
-            return bookResponse.createPublication.publication;
+            const publicationResponse = await this.graphQLClient.request(CREATE_PUBLICATION, publicationMutationVar);
+            console.log('create publication response', publicationResponse);
+            return publicationResponse.createPublication.publication;
         }
         catch (error) {
             console.error(JSON.stringify(error, null, 2));
         }
     }
-    createBookInput(book) {
+    createPublicationInput(publication) {
         const publicationId = this.generateObjectId();
         // authors willl be added in separate mutation
-        // right now no need for all the book specific info - don't have it anyway in most cases
-        // in the future will make sure to fully populate book with info from google books api
+        // right now no need for all the publication specific info - don't have it anyway in most cases
+        // in the future will make sure to fully populate publication with info from google books api
         // that way all the info will be valid and hopefully not conflict
-        const bookNoAuthors = Object.assign({}, book);
-        delete bookNoAuthors.authors;
+        const publicationNoAuthors = Object.assign({}, publication);
+        delete publicationNoAuthors.authors;
         return {
-            bookInput: {
+            publicationInput: {
                 publication: {
                     publicationId,
                     accountId: this.accountId,
-                    title: book.title,
+                    title: publication.title,
                 }
             }
         };
     }
-    // getBookPublicationId(input: BookInputVar): string {
+    // getBookPublicationId(input: PublicationInputVar): string {
     //   return input.bookInput.publication.publicationId;
     // }
     async findOrCreateAuthor(fullName, publicationId) {
         let author = await this.findAuthor(fullName);
         if (author) {
             const connectAuthorResponse = await this.connectAuthorAndPublication(author.authorId, publicationId);
+            console.log(connectAuthorResponse);
             if (connectAuthorResponse)
                 return author;
             else
@@ -486,8 +582,8 @@ class BookMapper extends data_mapper_1.default {
             return response;
         }
         catch (error) {
-            console.log('catching..');
-            console.log(error.response);
+            // console.log('catching...');
+            // console.log(error.response)
             const errors = error.response.errors;
             if (errors[0].message === `duplicate key value violates unique constraint "publication_author_pkey"`) {
                 return `relation between author: ${authorId} and publication ${publicationId} already exists`;
@@ -534,33 +630,7 @@ class BookMapper extends data_mapper_1.default {
         };
     }
 }
-exports.default = BookMapper;
-
-
-/***/ }),
-
-/***/ 8438:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const graphql_request_1 = __webpack_require__(46752);
-const mongodb_1 = __webpack_require__(49090);
-class DataMapper {
-    constructor(endpoint, authToken) {
-        this.graphQLClient = new graphql_request_1.GraphQLClient(endpoint, {
-            headers: {
-                authorization: `BEARER ${authToken}`
-            }
-        });
-    }
-    generateObjectId() {
-        const objectId = new mongodb_1.ObjectID();
-        return objectId.toHexString();
-    }
-}
-exports.default = DataMapper;
+exports.default = PublicationMapper;
 
 
 /***/ }),
