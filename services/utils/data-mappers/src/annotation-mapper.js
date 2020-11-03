@@ -19,6 +19,36 @@ const MUTATION_CREATE_ANNOTATION = graphql_request_1.gql `
     }
   }
 `;
+const QUERY_ALL_ANNOTATIONS = graphql_request_1.gql `
+  query AllAnnotationByPublication($annotationCondition: AnnotationCondition!) {
+    __typename
+    allAnnotations(condition: $annotationCondition) {
+      nodes {
+        annotationId
+        highlightLocation
+        highlightText
+        color
+        noteLocation
+        noteText
+      }
+    }
+  }
+`;
+const MUTATION_UPDATE_ANNOTATION_BY_HIGHLIGHT = graphql_request_1.gql `
+  mutation MyMutation($updateAnnotationByNote: UpdateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextInput!) {
+    __typename
+    updateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightText(input: $updateAnnotationByNote) {
+      annotation {
+        annotationId
+        highlightLocation
+        highlightText
+        color
+        noteLocation
+        noteText
+      }
+    }
+  }
+`;
 class AnnotationMapper extends data_mapper_1.default {
     constructor(endpoint, authToken, accountId, publicationId) {
         super(endpoint, authToken);
@@ -52,19 +82,57 @@ class AnnotationMapper extends data_mapper_1.default {
             throw error;
         }
     }
-    createAnnotationInput(annotation) {
-        const annotationId = this.generateObjectId();
+    stringifyLocation(annotation) {
         if ('noteLocation' in annotation)
             annotation.noteLocation = JSON.stringify(annotation.noteLocation);
         if ('highlightLocation' in annotation)
             annotation.highlightLocation = JSON.stringify(annotation.highlightLocation);
+        return annotation;
+    }
+    createAnnotationInput(annotation) {
+        const annotationId = this.generateObjectId();
+        const stringifedAnnotation = this.stringifyLocation(annotation);
         return {
             inputAnnotation: {
                 annotation: {
-                    ...annotation,
+                    ...stringifedAnnotation,
                     annotationId,
                     publicationId: this.publicationId,
                     accountId: this.accountId
+                }
+            }
+        };
+    }
+    async getAllAnnotationsFromPublication() {
+        const allAnnotationsQueryVar = {
+            annotationCondition: {
+                publicationId: this.publicationId,
+                accountId: this.accountId
+            }
+        };
+        const allAnnotationsRes = await this.graphQLClient
+            .request(QUERY_ALL_ANNOTATIONS, allAnnotationsQueryVar);
+        return allAnnotationsRes.allAnnotations.nodes;
+    }
+    async updateAnnotationByHighlight(annotation) {
+        const updateAnnotationByHighlightVar = this.createUpdateAnnotationByHiglightVar(annotation);
+        const updateResponse = await this.graphQLClient
+            .request(MUTATION_UPDATE_ANNOTATION_BY_HIGHLIGHT, updateAnnotationByHighlightVar);
+        return updateResponse
+            .updateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightText
+            .annotation;
+    }
+    createUpdateAnnotationByHiglightVar(annotation) {
+        const stringifedAnnotation = this.stringifyLocation(annotation);
+        return {
+            updateAnnotationByNote: {
+                publicationId: this.publicationId,
+                accountId: this.accountId,
+                highlightText: stringifedAnnotation.highlightText,
+                highlightLocation: stringifedAnnotation.highlightLocation,
+                annotationPatch: {
+                    noteText: stringifedAnnotation.noteText,
+                    noteLocation: stringifedAnnotation.noteLocation,
                 }
             }
         };

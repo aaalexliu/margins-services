@@ -85,6 +85,22 @@ const testNotes = [
   // },
 ];
 
+const annotationToUpdate = {
+  "highlightLocation": {
+    "kindleLocation": 72,
+    "page": "2",
+    "section": "Introduction"
+  },
+  "color": "yellow",
+  "highlightText": "The walks, the portraits, the stories I heard, the places they took me, became a process of learning in a different kind of way. Not from textbooks, or statistics, or spreadsheets, or PowerPoint presentations, or classrooms, or speeches, or documentaries—but from people.",
+  "noteLocation": {
+    "kindleLocation": 74,
+    "page": "2",
+    "section": "Introduction"
+  },
+  "noteText": "TEST SHOULD BE UPDATED"
+};
+
 const GRAPHQL_ENDPOINT =   process.env.GRAPHQL_ENDPOINT;
 const GRAPHQL_JWT = process.env.GRAPHQL_JWT;
 const ACCOUNT_ID = process.env.ACCOUNT_ID;
@@ -120,5 +136,11 @@ const mockCognitoPayload = {
     return annotationMapper.createAnnotation(note);
   }));
   console.log(noteResponses);
+
+  const allAnnotations = await annotationMapper.getAllAnnotationsFromPublication();
+  console.log('get all annotations response:\n', allAnnotations);
+
+  const updateResponse = await annotationMapper.updateAnnotationByHighlight(annotationToUpdate);
+  console.log('update annotation by highlight response: \n', updateResponse);
 })();
 

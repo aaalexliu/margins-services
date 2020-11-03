@@ -2,8 +2,8 @@ import { GraphQLClient, gql }  from 'graphql-request';
 
 import {
   AnnotationInput,
-  CreateAccountInput,
-  CreateAnnotationInput
+  CreateAnnotationInput,
+  UpdateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextInput
 } from '../__generated__/types';
 
 import DataMapper from './data-mapper';
@@ -22,6 +22,10 @@ const MUTATION_CREATE_ANNOTATION = gql`
     }
   }
 `
+
+interface AnnotationMutationVars {
+  inputAnnotation: CreateAnnotationInput
+}
 
 const QUERY_ALL_ANNOTATIONS = gql`
   query AllAnnotationByPublication($annotationCondition: AnnotationCondition!) {
@@ -46,6 +50,26 @@ interface AllAnnotationsQueryVar {
   }
 }
 
+const MUTATION_UPDATE_ANNOTATION_BY_HIGHLIGHT = gql`
+  mutation MyMutation($updateAnnotationByNote: UpdateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextInput!) {
+    __typename
+    updateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightText(input: $updateAnnotationByNote) {
+      annotation {
+        annotationId
+        highlightLocation
+        highlightText
+        color
+        noteLocation
+        noteText
+      }
+    }
+  }
+`;
+
+interface UpdateAnnotationsByHiglightVar {
+  updateAnnotationByNote: UpdateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextInput
+}
+
 interface Highlight {
   highlightText: string,
   color: string,
@@ -57,11 +81,7 @@ interface Note {
   noteLocation: any
 }
 
-type Annotation = Highlight | Note;
-
-interface AnnotationMutationVars {
-  inputAnnotation: CreateAnnotationInput
-}
+type Annotation = Highlight & Note;
 
 export default class AnnotationMapper extends DataMapper{
   publicationId: string;
@@ -100,15 +120,19 @@ export default class AnnotationMapper extends DataMapper{
     }
   }
 
-  createAnnotationInput(annotation: Annotation): AnnotationMutationVars {
-    const annotationId = this.generateObjectId();
+  stringifyLocation(annotation: Annotation) {
     if ('noteLocation' in annotation) annotation.noteLocation = JSON.stringify(annotation.noteLocation);
     if ('highlightLocation' in annotation) annotation.highlightLocation = JSON.stringify(annotation.highlightLocation);
+    return annotation;
+  }
 
+  createAnnotationInput(annotation: Annotation): AnnotationMutationVars {
+    const annotationId = this.generateObjectId();
+    const stringifedAnnotation = this.stringifyLocation(annotation);
     return {
       inputAnnotation: {
         annotation: {
-          ...annotation,
+          ...stringifedAnnotation,
           annotationId,
           publicationId: this.publicationId,
           accountId: this.accountId
@@ -130,8 +154,32 @@ export default class AnnotationMapper extends DataMapper{
     return allAnnotationsRes.allAnnotations.nodes
   }
 
+  async updateAnnotationByHighlight(annotation: Annotation) {
+    const updateAnnotationByHighlightVar = this.createUpdateAnnotationByHiglightVar(annotation);
+    const updateResponse = await this.graphQLClient
+      .request(MUTATION_UPDATE_ANNOTATION_BY_HIGHLIGHT, updateAnnotationByHighlightVar);
+    return updateResponse
+      .updateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightText
+      .annotation;
+  }
 
+  createUpdateAnnotationByHiglightVar(annotation: Annotation): UpdateAnnotationsByHiglightVar {
+    const stringifedAnnotation = this.stringifyLocation(annotation);
+    return {
+      updateAnnotationByNote: {
+        publicationId: this.publicationId,
+        accountId: this.accountId,
+        highlightText: stringifedAnnotation.highlightText,
+        highlightLocation: stringifedAnnotation.highlightLocation,
+        annotationPatch: {
+          noteText: stringifedAnnotation.noteText,
+          noteLocation: stringifedAnnotation.noteLocation,
+        }
+      }
+    }
+  }
 
   // need to implement update annotation method when highlight is the same but note is different
   
 }
+
