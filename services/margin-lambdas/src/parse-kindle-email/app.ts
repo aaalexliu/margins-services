@@ -3,10 +3,15 @@ import AWS from'aws-sdk';
 import * as util from 'util';
 import { simpleParser } from 'mailparser';
 import { KindleConverter } from '../../../utils/kindle-html-converter/';
-// const sharp = require('sharp');
+import jwt from 'jsonwebtoken';
+import { AccountMapper, PublicationMapper,
+  AnnotationMapper} from '../../../utils/data-mappers';
+import { compareAnnotations, parseAnnotationsFromGraphql} from '../../../utils/compare-annotations';
 
 // get reference to S3 client
 const s3 = new AWS.S3();
+
+const authToken = generateJWT();
 
 exports.lambdaHandler = async (event, context, callback) => {
 
@@ -20,65 +25,78 @@ exports.lambdaHandler = async (event, context, callback) => {
     const dstBucket = srcBucket;
     // const dstKey    = "resized-" + srcKey;
 
-    // // Infer the image type from the file suffix.
-    // const typeMatch = srcKey.match(/\.([^.]*)$/);
-    // if (!typeMatch) {
-    //     console.log("Could not determine the image type.");
-    //     return;
-    // }
-
-    // // Check that the image type is supported  
-    // const imageType = typeMatch[1].toLowerCase();
-    // if (imageType != "jpg" && imageType != "png") {
-    //     console.log(`Unsupported image type: ${imageType}`);
-    //     return;
-    // }
-
     // download the email from s3 bucket
-    let email;
+    let s3email;
     try {
         const params = {
             Bucket: srcBucket,
             Key: srcKey
         };
-        const emailResponse = await s3.getObject(params).promise();
-        email = emailResponse.Body;
+        const s3emailResponse = await s3.getObject(params).promise();
+        s3email = s3emailResponse.Body;
 
     } catch (error) {
         console.log(error);
         return;
     }
-    console.log(email);
+    console.log(s3email);
 
-    const parsedMail = await simpleParser(email);
+    const parsedMail = await simpleParser(s3email);
+
+    const senderEmail = parsedMail.from.value[0].address;
+
+    const accountMapper = new AccountMapper(process.env.GRAPHQL_ENDPOINT, authToken);
+    const account = await accountMapper.findAccountByEmail(senderEmail);
+    console.log('find account response: \n', account);
+
     const attachment = getAttachment(parsedMail);
     // console.log(attachment);
-
     const kindleConverter = new KindleConverter(attachment);
-    const bookInfo = kindleConverter.getBookInfo();
+    const bookInfo = await kindleConverter.getBookInfo();
     console.log('book info', bookInfo);
 
-    const bookNotes = kindleConverter.getBookNotes();
-    console.log('book notes', bookNotes);
+    const publicationMapper = new PublicationMapper(
+      process.env.GRAPHQL_ENDPOINT,
+      authToken,
+      account.accountId
+    );
 
-    // Upload the thumbnail image to the destination bucket
-    // try {
-    //     const destparams = {
-    //         Bucket: dstBucket,
-    //         Key: dstKey,
-    //         Body: buffer,
-    //         ContentType: "application/json; charset=utf-8"
-    //     };
+    const bookResponse = await publicationMapper.findOrCreatePublication(bookInfo);
+    // console.log('book response: \n', bookResponse);
 
-    //     const putResult = await s3.putObject(destparams).promise(); 
-        
-    // } catch (error) {
-    //     console.log(error);
-    //     return;
-    // } 
-        
-    // console.log('Successfully resized ' + srcBucket + '/' + srcKey +
-    //     ' and uploaded to ' + dstBucket + '/' + dstKey); 
+    const annotationMapper = new AnnotationMapper(
+      process.env.GRAPHQL_ENDPOINT,
+      authToken,
+      account.accountId,
+      bookResponse.publicationId
+    );
+    let currentAnnotations = await annotationMapper.getAllAnnotationsFromPublication();
+    console.log('current annotations count: ', currentAnnotations.length);
+    currentAnnotations = parseAnnotationsFromGraphql(currentAnnotations);
+    const newAnnotations = kindleConverter.getBookNotes();
+    // console.log('parsed new annotations', newAnnotations);
+    
+    const {annotationsToCreate, annotationsToUpdate} = compareAnnotations(currentAnnotations, newAnnotations);
+    console.log('create annotations count:', annotationsToCreate.length);
+    console.log('update annotations count: ', annotationsToUpdate.length);
+    // console.log(annotationsToUpdate);
+
+    const createAnnotationsPromises = annotationsToCreate.map(annotation => {
+      return annotationMapper.createAnnotation(annotation);
+    });
+    const updatedAnnotationsPromises = annotationsToUpdate.map(annotation => {
+      return annotationMapper.updateAnnotationByHighlight(annotation);
+    });
+
+    let createRes, updateRes;
+    try {
+      createRes = await Promise.all(createAnnotationsPromises);
+      updateRes = await Promise.all(updatedAnnotationsPromises);
+    } catch (errors) {
+      console.log(errors);
+    }
+    // console.log(createRes);
+    // console.log(updateRes);
 };
 
 function getAttachment(mail) {
@@ -91,4 +109,27 @@ function getAttachment(mail) {
   }
 
   return new Error("No valid HTML attachment");
+}
+
+function generateJWT() {
+  const key = process.env.PRIVATE_KEY;
+  // console.log('key', key);
+  // console.log('rejoined');
+  // console.log(key.split('\\n').join('\n'));
+  const token = jwt.sign(
+    {
+      "cognito:groups": [
+        "margins_postgraphile"
+      ],
+    },
+    key,
+    {
+      algorithm: 'RS256',
+      issuer: 'www.margins.me',
+      audience: 'www.margins.me/graphql',
+      expiresIn: '1h',
+      keyid: '8676a8a1-9b9b-4a91-9016-063569707baf'
+    },
+  );
+  return token;
 }

@@ -18,7 +18,7 @@
         "bucket": {
           "name": "margins.me-uploads",
           "ownerIdentity": { "principalId": "A1HVU20D3LI5R6" },
-          "arn": "arn:aws:s3: : :margins.me-uploads"
+          "arn": "arn:aws:s3:::margins.me-uploads"
         },
         "object": {
           "key": "kindle-email/dtu6b1bkib6ukbbngosmdpa7emadrmoin5ou7n81",
