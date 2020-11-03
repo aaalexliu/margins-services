@@ -66,7 +66,7 @@ class AccountMapper extends data_mapper_1.default {
         const accountInputVar = this.createAccountInput(account);
         const response = await this.graphQLClient
             .request(CREATE_ACCOUNT, accountInputVar);
-        console.log('create account response', response);
+        // console.log('create account response', response);
         return response.createAccount.account;
     }
     createAccountInput(account) {

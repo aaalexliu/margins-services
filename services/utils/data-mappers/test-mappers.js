@@ -1,5 +1,5 @@
 const AccountMapper = require('./src/account-mapper').default;
-const BookMapper = require('./src/book-mapper').default;
+const PublicationMapper = require('./src/publication-mapper').default;
 const AnnotationMapper = require('./src/annotation-mapper').default;
 require('dotenv').config();
 
@@ -101,12 +101,12 @@ const mockCognitoPayload = {
   let accountRes = await accountMapper.findOrCreateCognitoAccount(mockCognitoPayload);
   console.log(accountRes);
 
-  const bookMapper = new BookMapper(
+  const publicationMapper = new PublicationMapper(
     GRAPHQL_ENDPOINT,
     GRAPHQL_JWT,
     ACCOUNT_ID
   );
-  let bookRes = await bookMapper.findOrCreateBook(testBook);
+  let bookRes = await publicationMapper.findOrCreatePublication(testBook);
   console.log('test script book response', bookRes);
 
   const annotationMapper = new AnnotationMapper(

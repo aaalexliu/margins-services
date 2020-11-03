@@ -16,7 +16,7 @@ const CREATE_AUTHOR = graphql_request_1.gql `
     } 
   }
 `;
-const CREATE_BOOK = graphql_request_1.gql `
+const CREATE_PUBLICATION = graphql_request_1.gql `
   mutation CreatePublication($bookInput: CreatePublicationInput!) {
     createPublication(input: $bookInput) {
       __typename
@@ -25,18 +25,7 @@ const CREATE_BOOK = graphql_request_1.gql `
         id
         updatedAt
         publicationId
-        bookByPublicationId {
-          description
-          id
-          imageUrl
-          isbn13
-          languageCode
-          publicationDate
-          publicationId
-          publisher
-          bookTitle
-          bookType
-        }
+        title
       }
     }
   }
@@ -72,21 +61,21 @@ const CONNECT_AUTHOR = graphql_request_1.gql `
     }
   }
 `;
-class BookMapper extends data_mapper_1.default {
+class PublicationMapper extends data_mapper_1.default {
     constructor(endpoint, authToken, accountId) {
         super(endpoint, authToken);
         this.accountId = accountId;
     }
-    async findOrCreateBook(book) {
+    async findOrCreatePublication(publication) {
         let publicationId;
-        let bookResponse = await this.findBookByTitle(book);
-        if (!bookResponse) {
-            bookResponse = await this.createBook(book);
+        let publicationResponse = await this.findPublicationByTitle(publication);
+        if (!publicationResponse) {
+            publicationResponse = await this.createPublication(publication);
         }
         // find or create authors if successful
-        const authors = book.authors;
-        publicationId = bookResponse.publicationId;
-        // const bookPublicationId = this.getBookPublicationId(bookMutationVars);
+        const authors = publication.authors;
+        publicationId = publicationResponse.publicationId;
+        // const bookPublicationId = this.getBookPublicationId(publicationMutationVar);
         const authorResponses = await Promise
             .all(authors.map((author) => this.findOrCreateAuthor(author, publicationId)));
         console.log('author responses', authorResponses);
@@ -95,8 +84,8 @@ class BookMapper extends data_mapper_1.default {
             authorIds: authorResponses.map(author => author.authorId)
         };
     }
-    async findBookByTitle(book) {
-        const title = book.title;
+    async findPublicationByTitle(publication) {
+        const title = publication.title;
         const GetPublicationVar = this.createGetPublicationVar(title);
         const response = await this.graphQLClient.request(GET_PUBLICATION, GetPublicationVar);
         console.log('get publication response', response);
@@ -108,36 +97,36 @@ class BookMapper extends data_mapper_1.default {
             accountId: this.accountId
         };
     }
-    async createBook(book) {
-        const bookMutationVars = this.createBookInput(book);
+    async createPublication(publication) {
+        const publicationMutationVar = this.createPublicationInput(publication);
         try {
-            const bookResponse = await this.graphQLClient.request(CREATE_BOOK, bookMutationVars);
-            console.log('create book response', bookResponse);
-            return bookResponse.createPublication.publication;
+            const publicationResponse = await this.graphQLClient.request(CREATE_PUBLICATION, publicationMutationVar);
+            console.log('create publication response', publicationResponse);
+            return publicationResponse.createPublication.publication;
         }
         catch (error) {
             console.error(JSON.stringify(error, null, 2));
         }
     }
-    createBookInput(book) {
+    createPublicationInput(publication) {
         const publicationId = this.generateObjectId();
         // authors willl be added in separate mutation
-        // right now no need for all the book specific info - don't have it anyway in most cases
-        // in the future will make sure to fully populate book with info from google books api
+        // right now no need for all the publication specific info - don't have it anyway in most cases
+        // in the future will make sure to fully populate publication with info from google books api
         // that way all the info will be valid and hopefully not conflict
-        const bookNoAuthors = Object.assign({}, book);
-        delete bookNoAuthors.authors;
+        const publicationNoAuthors = Object.assign({}, publication);
+        delete publicationNoAuthors.authors;
         return {
-            bookInput: {
+            publicationInput: {
                 publication: {
                     publicationId,
                     accountId: this.accountId,
-                    title: book.title,
+                    title: publication.title,
                 }
             }
         };
     }
-    // getBookPublicationId(input: BookInputVar): string {
+    // getBookPublicationId(input: PublicationInputVar): string {
     //   return input.bookInput.publication.publicationId;
     // }
     async findOrCreateAuthor(fullName, publicationId) {
@@ -208,5 +197,5 @@ class BookMapper extends data_mapper_1.default {
         };
     }
 }
-exports.default = BookMapper;
-//# sourceMappingURL=book-mapper.js.map
+exports.default = PublicationMapper;
+//# sourceMappingURL=publication-mapper.js.map
