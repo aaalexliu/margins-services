@@ -17,7 +17,7 @@ const graphqlRes = [
   }
 ];
 
-const newNotes = [
+const newAnnotations = [
   {
     "noteLocation": {
       "kindleLocation": 41,
@@ -45,45 +45,76 @@ const newNotes = [
 
 const deepEqual = require('deep-equal');
 
-function parseHiglightString(note) {
+function parseAnnotation(annotation) {
   return {
-    highlightLocation: note.highlightLocation ? JSON.parse(note.highlightLocation) : null,
-    highlightText: note.highlightText ? note.highlightText : null,
+    highlightLocation: annotation.highlightLocation ? JSON.parse(annotation.highlightLocation) : null,
+    highlightText: annotation.highlightText ? annotation.highlightText : null,
+    noteLocation: annotation.noteLocation? JSON.parse(annotation.noteLocation) : null,
+    noteText: annotation.noteText? annotation.noteText : null,
   }
 }
 
-function getHighlight(note) {
+function getHighlight(annotation) {
   return {
-    highlightLocation: note.highlightLocation,
-    highlightText: note.highlightText,
+    highlightLocation: annotation.highlightLocation,
+    highlightText: annotation.highlightText,
   }
 }
 
-const currentHighlights = graphqlRes.map(note => parseHiglightString(note));
-const notMatched = [];
+function parseAnnotationNodes(annotationNodes) {
+  return annotationNodes.map(annotation => {
+    const parsed = parseAnnotation(annotation);
+    console.log(parsed);
+    // if no parent highlight, return null. this is so orphane notes are never
+    // matched with a current highlight, and therefore there is always an attempt to create.
+    // duplicate orphan notes will be caught by postgres unique constraint
+    // unsure if note location is a stable reference and how granular the location number is,
+    // so there might be two different notes with the same location. don't want to overwrite that,
+    // so default is to always create and only reject on noteLocation + noteText as a unique identifier
+    if (parsed.highlightLocation === null && parsed.highlightText === null) return null;
+    return parsed;
+  })
+  .filter(annotation => annotation);
+}
 
-for(let i = 0, newLength = newNotes.length; i < newLength; i++) {
-  let newHighlight = getHighlight(newNotes[i]);
-  let matchIndex;
-  for (let j = 0, currLength = currentHighlights.length; j < currLength; j++) {
-    console.log('comparing new:\n', newHighlight, '\nand curr:\n', currentHighlights[j]);
-    // ok since in javascript null === null, but in postgress null !== null, which makes more sense
-    // here relying on the fact that non-existent object properties are undefined, whereas response will be null
-    // therefore if an annotation doesn't have a parent highlight, which will result in undefined
-    // it will fail to match with any returned annotations, which will have null
-    const isEqual = deepEqual(newHighlight, currentHighlights[j], {strict: true});
+
+const currentAnnotations = parseAnnotationNodes(graphqlRes);
+const annotationsToCreate = [];
+const annotationsToUpdate = [];
+
+for(let i = 0, newLength = newAnnotations.length; i < newLength; i++) {
+  let newHighlight = getHighlight(newAnnotations[i]);
+  let matchIndex = -1;;
+  for (let j = 0, currLength = currentAnnotations.length; j < currLength; j++) {
+    const currentHighlight = getHighlight(currentAnnotations[j]);
+
+    console.log('comparing new:\n', newHighlight, '\nand curr:\n', currentHighlight);
+    const isEqual = deepEqual(newHighlight, currentHighlight, {strict: true});
     console.log('deep equal result', isEqual);
     if (isEqual) {
       matchIndex = j;
       break;
     }
   }
-  if (!matchIndex) {
-    notMatched.push(newNotes[i]);
+  if (matchIndex === -1) {
+    annotationsToCreate.push(newAnnotations[i]);
   } else {
-    currentHighlights.splice(matchIndex, 1);
+    const[matchedAnnotation] = currentAnnotations.splice(matchIndex, 1);
+    //assuming that if same highlight, note location should always be the same
+    //also being conservative with overwriting metadata, if the user changes a note
+    //probably didn't mean to change the note location
+
+    console.log(matchedAnnotation)
+    if (matchedAnnotation.noteText !== newAnnotations[i].noteText) annotationsToUpdate.push(newAnnotations[i]);
   }
 }
 
-console.log('not mached notes:\n', notMatched);
+console.log('annotations to create:\n', annotationsToCreate);
+console.log('annotations to update:\n', annotationsToUpdate);
 
+// KEEPING THIS NOTE, BUT NOT RELEVANT ANYMORE
+
+// ok since in javascript null === null, but in postgress null !== null, which makes more sense
+// here relying on the fact that non-existent object properties are undefined, whereas response will be null
+// therefore if an annotation doesn't have a parent highlight, which will result in undefined
+// it will fail to match with any returned annotations, which will have null.
