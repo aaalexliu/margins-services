@@ -7,7 +7,9 @@
     "aws-sdk": "^2.783.0"
   },
   "dependencies": {
+    "@types/deep-equal": "^1.0.1",
     "@types/mailparser": "^2.7.4",
+    "deep-equal": "^2.0.4",
     "mailparser": "^3.0.0"
   }
 }
