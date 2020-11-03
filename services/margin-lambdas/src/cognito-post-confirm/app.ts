@@ -63,7 +63,7 @@ exports.lambdaHandler = async (event, context, callback) => {
 
   const graphqlJwt = generateJWT(event.userName);
   const accountMapper = new AccountMapper(process.env.GRAPHQL_ENDPOINT, graphqlJwt);
-  const cognitoAccount = createCognitoAccountInput(event);
+  const cognitoAccount = getAccountFromEvent(event);
   const createAccountPromise = accountMapper.createAccountFromCognito(cognitoAccount);
   allPromises.push(createAccountPromise);
 
@@ -76,7 +76,7 @@ exports.lambdaHandler = async (event, context, callback) => {
   callback(null, event);
 };
 
-function createCognitoAccountInput(event) {
+function getAccountFromEvent(event) {
   const user = event.request.userAttributes;
   return {
     sub: user.sub,
