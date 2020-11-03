@@ -32,21 +32,21 @@ const testNotes = [
     },
     "noteText": "Test empty note 2"
   },
-  // {
-  //   "highlightLocation": {
-  //     "kindleLocation": 72,
-  //     "page": "2",
-  //     "section": "Introduction"
-  //   },
-  //   "color": "yellow",
-  //   "highlightText": "The walks, the portraits, the stories I heard, the places they took me, became a process of learning in a different kind of way. Not from textbooks, or statistics, or spreadsheets, or PowerPoint presentations, or classrooms, or speeches, or documentaries—but from people.",
-  //   "noteLocation": {
-  //     "kindleLocation": 74,
-  //     "page": "2",
-  //     "section": "Introduction"
-  //   },
-  //   "noteText": ""
-  // },
+  {
+    "highlightLocation": {
+      "kindleLocation": 72,
+      "page": "2",
+      "section": "Introduction"
+    },
+    "color": "yellow",
+    "highlightText": "The walks, the portraits, the stories I heard, the places they took me, became a process of learning in a different kind of way. Not from textbooks, or statistics, or spreadsheets, or PowerPoint presentations, or classrooms, or speeches, or documentaries—but from people.",
+    "noteLocation": {
+      "kindleLocation": 74,
+      "page": "2",
+      "section": "Introduction"
+    },
+    "noteText": "test note 3"
+  },
   // {
   //   "highlightLocation": {
   //     "kindleLocation": 76,
