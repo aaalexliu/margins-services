@@ -1,0 +1,13 @@
+{
+  "name": "compare-annotations",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "deep-equal": "^2.0.4"
+  },
+  "devDependencies": {
+    "@types/deep-equal": "^1.0.1",
+    "typescript": "^4.0.5"
+  }
+}

@@ -1,0 +1,1 @@
+export { compareAnnotations, parseAnnotationNodes } from './src/compare-annotations';
