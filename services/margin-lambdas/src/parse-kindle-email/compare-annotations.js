@@ -14,6 +14,14 @@ const graphqlRes = [
     "color": "yellow",
     "noteLocation": "{\"page\":\"1\",\"section\":\"Introduction\",\"kindleLocation\":61}",
     "noteText": "Test empty note 2"
+  },
+  {
+    "highlightLocation": "{\"page\":\"2\",\"section\":\"Introduction\",\"kindleLocation\":72}",
+    "highlightText": "The walks, the portraits, the stories I heard, the places they took me, became a process of learning in a different kind of way. Not from textbooks, or statistics, or spreadsheets, or PowerPoint presentations, or classrooms, or speeches, or documentaries—but from people.",
+    "createdAt": "2020-11-03T05:49:29.661109+00:00",
+    "color": "yellow",
+    "noteLocation": "{\"page\":\"2\",\"section\":\"Introduction\",\"kindleLocation\":74}",
+    "noteText": "test note 3"
   }
 ];
 
@@ -40,7 +48,31 @@ const newAnnotations = [
       "section": "Introduction"
     },
     "noteText": "Test empty note 2"
-  }
+  },
+  {
+    "highlightLocation": {
+      "kindleLocation": 72,
+      "page": "2",
+      "section": "Introduction"
+    },
+    "color": "yellow",
+    "highlightText": "The walks, the portraits, the stories I heard, the places they took me, became a process of learning in a different kind of way. Not from textbooks, or statistics, or spreadsheets, or PowerPoint presentations, or classrooms, or speeches, or documentaries—but from people.",
+    "noteLocation": {
+      "kindleLocation": 74,
+      "page": "2",
+      "section": "Introduction"
+    },
+    "noteText": "TEST SHOULD BE UPDATED"
+  },
+  {
+    "highlightLocation": {
+      "kindleLocation": 76,
+      "page": "2",
+      "section": "Introduction"
+    },
+    "color": "yellow",
+    "higlightText": "TEST SHOULD BE CREATED"
+  },
 ];
 
 const deepEqual = require('deep-equal');
