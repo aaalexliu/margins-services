@@ -1,1 +1,1 @@
-export { compareAnnotations, parseAnnotationNodes } from './src/compare-annotations';
+export { compareAnnotations, parseAnnotationsFromGraphql } from './src/compare-annotations';

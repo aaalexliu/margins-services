@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.compareAnnotations = exports.parseAnnotationNodes = void 0;
+exports.compareAnnotations = exports.parseAnnotationsFromGraphql = void 0;
 const deep_equal_1 = __importDefault(require("deep-equal"));
 function parseAnnotation(annotation) {
     return {
@@ -19,7 +19,7 @@ function getHighlight(annotation) {
         highlightText: annotation.highlightText,
     };
 }
-function parseAnnotationNodes(annotationNodes) {
+function parseAnnotationsFromGraphql(annotationNodes) {
     return annotationNodes.map(annotation => {
         const parsed = parseAnnotation(annotation);
         console.log(parsed);
@@ -35,7 +35,7 @@ function parseAnnotationNodes(annotationNodes) {
     })
         .filter(annotation => annotation);
 }
-exports.parseAnnotationNodes = parseAnnotationNodes;
+exports.parseAnnotationsFromGraphql = parseAnnotationsFromGraphql;
 function compareAnnotations(currentAnnotations, newAnnotations) {
     const annotationsToCreate = [];
     const annotationsToUpdate = [];
@@ -148,7 +148,7 @@ const newAnnotations = [
         "higlightText": "TEST SHOULD BE CREATED"
     },
 ];
-const currentAnnotations = parseAnnotationNodes(graphqlRes);
+const currentAnnotations = parseAnnotationsFromGraphql(graphqlRes);
 const { annotationsToCreate, annotationsToUpdate } = compareAnnotations(currentAnnotations, newAnnotations);
 console.log('annotations to create:\n', annotationsToCreate);
 console.log('annotations to update:\n', annotationsToUpdate);

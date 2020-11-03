@@ -17,7 +17,7 @@ function getHighlight(annotation) {
   }
 }
 
-export function parseAnnotationNodes(annotationNodes) {
+export function parseAnnotationsFromGraphql(annotationNodes) {
   return annotationNodes.map(annotation => {
     const parsed = parseAnnotation(annotation);
     console.log(parsed);
@@ -150,7 +150,7 @@ const newAnnotations = [
   },
 ];
 
-const currentAnnotations = parseAnnotationNodes(graphqlRes);
+const currentAnnotations = parseAnnotationsFromGraphql(graphqlRes);
 const {annotationsToCreate, annotationsToUpdate} = compareAnnotations(currentAnnotations, newAnnotations);
 
 console.log('annotations to create:\n', annotationsToCreate);
