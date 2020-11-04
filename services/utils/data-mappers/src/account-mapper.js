@@ -22,7 +22,7 @@ const CREATE_ACCOUNT = graphql_request_1.gql `
     }
   }
 `;
-const GET_ACCOUNT = graphql_request_1.gql `
+const GET_ACCOUNT_BY_ID = graphql_request_1.gql `
   query GetAccountByAccountId($accountId: UUID!) {
     accountByAccountId(accountId: $accountId) {
       accountId
@@ -31,6 +31,14 @@ const GET_ACCOUNT = graphql_request_1.gql `
       group
       fullName
       firstName
+    }
+  }
+`;
+const GET_ACCOUNT_BY_EMAIL = graphql_request_1.gql `
+  query GetAccountByEmail($email: String!) {
+    accountByEmail(email: $email) {
+      accountId
+      email
     }
   }
 `;
@@ -48,7 +56,7 @@ class AccountMapper extends data_mapper_1.default {
     async findCognitoAccount(cognitoAccount) {
         const accountId = cognitoAccount.sub;
         const response = await this.graphQLClient
-            .request(GET_ACCOUNT, { accountId });
+            .request(GET_ACCOUNT_BY_ID, { accountId });
         console.log('find account response', response);
         return response.accountByAccountId;
     }
@@ -77,6 +85,10 @@ class AccountMapper extends data_mapper_1.default {
                 }
             }
         };
+    }
+    async findAccountByEmail(email) {
+        const accountRes = await this.graphQLClient.request(GET_ACCOUNT_BY_EMAIL, { email });
+        return accountRes.accountByEmail;
     }
 }
 exports.default = AccountMapper;

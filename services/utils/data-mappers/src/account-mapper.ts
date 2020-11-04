@@ -24,7 +24,11 @@ const CREATE_ACCOUNT = gql`
   }
 `;
 
-const GET_ACCOUNT = gql`
+interface AccountInputVar {
+  accountInput: CreateAccountInput
+}
+
+const GET_ACCOUNT_BY_ID = gql`
   query GetAccountByAccountId($accountId: UUID!) {
     accountByAccountId(accountId: $accountId) {
       accountId
@@ -41,9 +45,14 @@ interface AccountIdVar {
   accountId: string
 }
 
-interface AccountInputVar {
-  accountInput: CreateAccountInput
-}
+const GET_ACCOUNT_BY_EMAIL = gql`
+  query GetAccountByEmail($email: String!) {
+    accountByEmail(email: $email) {
+      accountId
+      email
+    }
+  }
+`;
 
 interface Account {
   accountId: string,
@@ -84,7 +93,7 @@ export default class AccountMapper extends DataMapper{
   async findCognitoAccount(cognitoAccount: CognitoAccount) {
     const accountId = cognitoAccount.sub;
     const response = await this.graphQLClient
-      .request<any, AccountIdVar>(GET_ACCOUNT, { accountId });
+      .request<any, AccountIdVar>(GET_ACCOUNT_BY_ID, { accountId });
     console.log('find account response', response);
     return response.accountByAccountId;
   }
@@ -117,6 +126,11 @@ export default class AccountMapper extends DataMapper{
         }
       }
     }
+  }
+
+  async findAccountByEmail(email: string) {
+    const accountRes = await this.graphQLClient.request(GET_ACCOUNT_BY_EMAIL, { email });
+    return accountRes.accountByEmail;
   }
 }
 
