@@ -166,7 +166,9 @@ FOR EACH ROW EXECUTE PROCEDURE insert_created_at();
 -- ROLES
 -- margins_postgraphile will have the union of all privileges granted to
 -- margins_anonymous and margins_account
-CREATE ROLE margins_postgraphile WITH LOGIN PASSWORD 'margins_postgraphile';
+
+-- enable superuser to allow server side functions to bypass RLS
+CREATE ROLE margins_postgraphile WITH SUPERUSER LOGIN PASSWORD 'margins_postgraphile';
 
 CREATE ROLE margins_anonymous;
 
