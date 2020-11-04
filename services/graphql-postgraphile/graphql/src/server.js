@@ -92,8 +92,8 @@ app.use(
     pgSettings: req => {
       const settings = {};
       if (req.user) {
-        settings['margins.account_id'] = req.user.sub;
-        settings['role'] = req.user['cognito:groups'][0];
+        if (req.user.sub) settings['margins.account_id'] = req.user.sub;
+        if (req.user['cognito:groups'][0]) settings['role'] = req.user['cognito:groups'][0];
       }
       return settings;
     }
