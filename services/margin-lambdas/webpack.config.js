@@ -35,9 +35,9 @@ module.exports = {
   mode: process.env.NODE_ENV || "production",
 
   // let's see if disabling minifcation makes things faster
-  optimization: {
-    minimize: false
-  },
+  // optimization: {
+  //   minimize: false
+  // },
   // also try caching. holy sh filesystem caching made dropped from originally 50 seconds to 5 seconds yessss
   cache: {
     type: 'filesystem',
