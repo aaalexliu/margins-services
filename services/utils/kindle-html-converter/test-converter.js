@@ -1,4 +1,4 @@
-const { KindleConverter } = require('./build/kindle-converter');
+const { KindleConverter } = require('./src/kindle-converter');
 const fs = require('fs');
 
 const myArgs = process.argv.slice(2);

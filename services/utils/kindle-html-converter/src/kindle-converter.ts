@@ -33,11 +33,13 @@ interface BookInfo {
 
 const HIGHLIGHT = 'HIGHLIGHT';
 const NOTE = 'NOTE';
+const BOOKMARK = 'BOOKMARK';
 
 export class KindleConverter {
   
   highlightRegex = /highlight/i;
   noteRegex = /note/i;
+  bookmarkRegex = /bookmark/i;
   highlightColorRegex = /highlight_(?<color>\w+)/
   //page regex captures words because of possible roman numeral pages
   pageRegex = /(page)?\s*(?<pageLocation>\w+)\s*/i
@@ -96,6 +98,8 @@ export class KindleConverter {
       let noteHeading = this.parseNoteHeading(
         noteHeadingElement.text().trim()
       );
+      // skip is noteheading is bookmark
+      if (noteHeading.noteType === BOOKMARK) continue;
       // console.log('parsed note heading', noteHeading);
 
       // if kindle notes have section headings, include them in all following notes.
@@ -163,6 +167,8 @@ export class KindleConverter {
     // Highlight (pink) - Page 17 · Location 284
     // 标注(黄色) - One: If You Want to Understand the Country, Visit McDonald’s > 第 38 页·位置 313
 
+    // found that there is also a bookmark note heading. added both translation and regex.
+
     // for some reason there are line breaks and multiple spaces in heading. stripping them
     const cleanHeading = heading.replace(/\s\s+/g, ' ');
 
@@ -194,13 +200,15 @@ export class KindleConverter {
     tempNoteType = this.translateNoteType(tempNoteType);
     if (this.highlightRegex.test(tempNoteType)) return HIGHLIGHT;
     if (this.noteRegex.test(tempNoteType)) return NOTE;
+    if (this.bookmarkRegex.test(tempNoteType)) return BOOKMARK;
     throw new Error(`Not valid kindle note - invalid note type: ${noteType}`);
   }
 
   translateNoteType(noteType: string): string {
     let translated = noteType
       .replace(/标注/, HIGHLIGHT)
-      .replace(/笔记/, NOTE);
+      .replace(/笔记/, NOTE)
+      .replace(/书签/, BOOKMARK);
     // console.log(translated);
     return translated;
   }
