@@ -150,8 +150,8 @@ class PublicationMapper extends data_mapper_1.default {
             return response;
         }
         catch (error) {
-            console.log('catching..');
-            console.log(error.response);
+            // console.log('catching...');
+            // console.log(error.response)
             const errors = error.response.errors;
             if (errors[0].message === `duplicate key value violates unique constraint "publication_author_pkey"`) {
                 return `relation between author: ${authorId} and publication ${publicationId} already exists`;
