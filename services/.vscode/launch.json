@@ -1,0 +1,27 @@
+{
+  "configurations": [
+  {
+    "name": "Attach",
+    "port": 9229,
+    "request": "attach",
+    "skipFiles": [
+      "<node_internals>/**"
+    ],
+    "type": "pwa-node"
+  },
+    {
+      "type": "aws-sam",
+      "request": "direct-invoke",
+      "name": "margin-lambdas:S3ParseKindleEmailLambda",
+      "invokeTarget": {
+        "target": "template",
+        "templatePath": "margin-lambdas/template.yaml",
+        "logicalId": "S3ParseKindleEmailLambda"
+      },
+      "lambda": {
+        "payload": {},
+        "environmentVariables": {}
+      }
+    }
+  ]
+}
