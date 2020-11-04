@@ -119,7 +119,7 @@ function generateJWT() {
   const token = jwt.sign(
     {
       "cognito:groups": [
-        "margins_postgraphile"
+        "margins_lambda"
       ],
     },
     key,
