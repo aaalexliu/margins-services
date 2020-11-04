@@ -59,7 +59,7 @@ class AnnotationMapper extends data_mapper_1.default {
         const annotationVars = this.createAnnotationInput(annotation);
         try {
             const annotationResponse = await this.graphQLClient.request(MUTATION_CREATE_ANNOTATION, annotationVars);
-            console.log('create annotation response', annotationResponse);
+            // console.log('create annotation response', annotationResponse);
             return annotationResponse.createAnnotation.annotation;
         }
         catch (error) {

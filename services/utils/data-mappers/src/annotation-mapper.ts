@@ -97,7 +97,7 @@ export default class AnnotationMapper extends DataMapper{
     const annotationVars: AnnotationMutationVars = this.createAnnotationInput(annotation);
     try {
       const annotationResponse = await this.graphQLClient.request(MUTATION_CREATE_ANNOTATION, annotationVars);
-      console.log('create annotation response', annotationResponse);
+      // console.log('create annotation response', annotationResponse);
       return annotationResponse.createAnnotation.annotation;
     } catch(error) {
       console.log('catching create annotation error for duplicates');
@@ -177,9 +177,6 @@ export default class AnnotationMapper extends DataMapper{
         }
       }
     }
-  }
-
-  // need to implement update annotation method when highlight is the same but note is different
-  
+  }  
 }
 
