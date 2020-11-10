@@ -4386,12 +4386,12 @@ export type CreateAnnotationMutation = (
   )> }
 );
 
-export type AllAnnotationByPublicationQueryVariables = Exact<{
+export type GetAllAnnotationsByPublicationQueryVariables = Exact<{
   annotationCondition: AnnotationCondition;
 }>;
 
 
-export type AllAnnotationByPublicationQuery = (
+export type GetAllAnnotationsByPublicationQuery = (
   { __typename: 'Query' }
   & { allAnnotations?: Maybe<(
     { __typename?: 'AnnotationsConnection' }
@@ -4402,12 +4402,12 @@ export type AllAnnotationByPublicationQuery = (
   )> }
 );
 
-export type MyMutationMutationVariables = Exact<{
-  updateAnnotationByNote: UpdateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextInput;
+export type UpdateAnnotationByHighlightMutationVariables = Exact<{
+  updateAnnotation: UpdateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextInput;
 }>;
 
 
-export type MyMutationMutation = (
+export type UpdateAnnotationByHighlightMutation = (
   { __typename: 'Mutation' }
   & { updateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightText?: Maybe<(
     { __typename?: 'UpdateAnnotationPayload' }
@@ -4561,8 +4561,8 @@ export const CreateAnnotationDocument = gql`
   }
 }
     `;
-export const AllAnnotationByPublicationDocument = gql`
-    query AllAnnotationByPublication($annotationCondition: AnnotationCondition!) {
+export const GetAllAnnotationsByPublicationDocument = gql`
+    query GetAllAnnotationsByPublication($annotationCondition: AnnotationCondition!) {
   __typename
   allAnnotations(condition: $annotationCondition) {
     nodes {
@@ -4576,11 +4576,11 @@ export const AllAnnotationByPublicationDocument = gql`
   }
 }
     `;
-export const MyMutationDocument = gql`
-    mutation MyMutation($updateAnnotationByNote: UpdateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextInput!) {
+export const UpdateAnnotationByHighlightDocument = gql`
+    mutation UpdateAnnotationByHighlight($updateAnnotation: UpdateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextInput!) {
   __typename
   updateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightText(
-    input: $updateAnnotationByNote
+    input: $updateAnnotation
   ) {
     annotation {
       annotationId
@@ -4683,11 +4683,11 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     CreateAnnotation(variables: CreateAnnotationMutationVariables): Promise<CreateAnnotationMutation> {
       return withWrapper(() => client.request<CreateAnnotationMutation>(print(CreateAnnotationDocument), variables));
     },
-    AllAnnotationByPublication(variables: AllAnnotationByPublicationQueryVariables): Promise<AllAnnotationByPublicationQuery> {
-      return withWrapper(() => client.request<AllAnnotationByPublicationQuery>(print(AllAnnotationByPublicationDocument), variables));
+    GetAllAnnotationsByPublication(variables: GetAllAnnotationsByPublicationQueryVariables): Promise<GetAllAnnotationsByPublicationQuery> {
+      return withWrapper(() => client.request<GetAllAnnotationsByPublicationQuery>(print(GetAllAnnotationsByPublicationDocument), variables));
     },
-    MyMutation(variables: MyMutationMutationVariables): Promise<MyMutationMutation> {
-      return withWrapper(() => client.request<MyMutationMutation>(print(MyMutationDocument), variables));
+    UpdateAnnotationByHighlight(variables: UpdateAnnotationByHighlightMutationVariables): Promise<UpdateAnnotationByHighlightMutation> {
+      return withWrapper(() => client.request<UpdateAnnotationByHighlightMutation>(print(UpdateAnnotationByHighlightDocument), variables));
     },
     CreateAuthor(variables: CreateAuthorMutationVariables): Promise<CreateAuthorMutation> {
       return withWrapper(() => client.request<CreateAuthorMutation>(print(CreateAuthorDocument), variables));

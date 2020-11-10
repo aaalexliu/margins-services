@@ -20,7 +20,7 @@ const MUTATION_CREATE_ANNOTATION = graphql_request_1.gql `
   }
 `;
 const QUERY_ALL_ANNOTATIONS = graphql_request_1.gql `
-  query AllAnnotationByPublication($annotationCondition: AnnotationCondition!) {
+  query GetAllAnnotationsByPublication($annotationCondition: AnnotationCondition!) {
     __typename
     allAnnotations(condition: $annotationCondition) {
       nodes {
@@ -35,9 +35,9 @@ const QUERY_ALL_ANNOTATIONS = graphql_request_1.gql `
   }
 `;
 const MUTATION_UPDATE_ANNOTATION_BY_HIGHLIGHT = graphql_request_1.gql `
-  mutation MyMutation($updateAnnotationByNote: UpdateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextInput!) {
+  mutation UpdateAnnotationByHighlight($updateAnnotation: UpdateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextInput!) {
     __typename
-    updateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightText(input: $updateAnnotationByNote) {
+    updateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightText(input: $updateAnnotation) {
       annotation {
         annotationId
         highlightLocation
@@ -58,7 +58,7 @@ class AnnotationMapper extends data_mapper_1.default {
     async createAnnotation(annotation) {
         const annotationVars = this.createAnnotationInput(annotation);
         try {
-            const annotationResponse = await this.graphQLClient.request(MUTATION_CREATE_ANNOTATION, annotationVars);
+            const annotationResponse = await this.sdk.CreateAnnotation(annotationVars);
             // console.log('create annotation response', annotationResponse);
             return annotationResponse.createAnnotation.annotation;
         }
@@ -110,14 +110,12 @@ class AnnotationMapper extends data_mapper_1.default {
                 accountId: this.accountId
             }
         };
-        const allAnnotationsRes = await this.graphQLClient
-            .request(QUERY_ALL_ANNOTATIONS, allAnnotationsQueryVar);
+        const allAnnotationsRes = await this.sdk.GetAllAnnotationsByPublication(allAnnotationsQueryVar);
         return allAnnotationsRes.allAnnotations.nodes;
     }
     async updateAnnotationByHighlight(annotation) {
         const updateAnnotationByHighlightVar = this.createUpdateAnnotationByHiglightVar(annotation);
-        const updateResponse = await this.graphQLClient
-            .request(MUTATION_UPDATE_ANNOTATION_BY_HIGHLIGHT, updateAnnotationByHighlightVar);
+        const updateResponse = await this.sdk.UpdateAnnotationByHighlight(updateAnnotationByHighlightVar);
         return updateResponse
             .updateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightText
             .annotation;
@@ -125,7 +123,7 @@ class AnnotationMapper extends data_mapper_1.default {
     createUpdateAnnotationByHiglightVar(annotation) {
         const stringifedAnnotation = this.stringifyLocation(annotation);
         return {
-            updateAnnotationByNote: {
+            updateAnnotation: {
                 publicationId: this.publicationId,
                 accountId: this.accountId,
                 highlightText: stringifedAnnotation.highlightText,

@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getSdk = exports.CreateAnnotationForLocationTestingDocument = exports.ConnectAuthorToPublicationDocument = exports.GetAuthorByFullNameDocument = exports.GetPublicationByAccountAndTitleDocument = exports.CreatePublicationDocument = exports.CreateAuthorDocument = exports.MyMutationDocument = exports.AllAnnotationByPublicationDocument = exports.CreateAnnotationDocument = exports.GetAccountByEmailDocument = exports.GetAccountByAccountIdDocument = exports.CreateAccountDocument = void 0;
+exports.getSdk = exports.CreateAnnotationForLocationTestingDocument = exports.ConnectAuthorToPublicationDocument = exports.GetAuthorByFullNameDocument = exports.GetPublicationByAccountAndTitleDocument = exports.CreatePublicationDocument = exports.CreateAuthorDocument = exports.UpdateAnnotationByHighlightDocument = exports.GetAllAnnotationsByPublicationDocument = exports.CreateAnnotationDocument = exports.GetAccountByEmailDocument = exports.GetAccountByAccountIdDocument = exports.CreateAccountDocument = void 0;
 const graphql_1 = require("graphql");
 const graphql_tag_1 = __importDefault(require("graphql-tag"));
 exports.CreateAccountDocument = graphql_tag_1.default `
@@ -57,8 +57,8 @@ exports.CreateAnnotationDocument = graphql_tag_1.default `
   }
 }
     `;
-exports.AllAnnotationByPublicationDocument = graphql_tag_1.default `
-    query AllAnnotationByPublication($annotationCondition: AnnotationCondition!) {
+exports.GetAllAnnotationsByPublicationDocument = graphql_tag_1.default `
+    query GetAllAnnotationsByPublication($annotationCondition: AnnotationCondition!) {
   __typename
   allAnnotations(condition: $annotationCondition) {
     nodes {
@@ -72,11 +72,11 @@ exports.AllAnnotationByPublicationDocument = graphql_tag_1.default `
   }
 }
     `;
-exports.MyMutationDocument = graphql_tag_1.default `
-    mutation MyMutation($updateAnnotationByNote: UpdateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextInput!) {
+exports.UpdateAnnotationByHighlightDocument = graphql_tag_1.default `
+    mutation UpdateAnnotationByHighlight($updateAnnotation: UpdateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextInput!) {
   __typename
   updateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightText(
-    input: $updateAnnotationByNote
+    input: $updateAnnotation
   ) {
     annotation {
       annotationId
@@ -175,11 +175,11 @@ function getSdk(client, withWrapper = defaultWrapper) {
         CreateAnnotation(variables) {
             return withWrapper(() => client.request(graphql_1.print(exports.CreateAnnotationDocument), variables));
         },
-        AllAnnotationByPublication(variables) {
-            return withWrapper(() => client.request(graphql_1.print(exports.AllAnnotationByPublicationDocument), variables));
+        GetAllAnnotationsByPublication(variables) {
+            return withWrapper(() => client.request(graphql_1.print(exports.GetAllAnnotationsByPublicationDocument), variables));
         },
-        MyMutation(variables) {
-            return withWrapper(() => client.request(graphql_1.print(exports.MyMutationDocument), variables));
+        UpdateAnnotationByHighlight(variables) {
+            return withWrapper(() => client.request(graphql_1.print(exports.UpdateAnnotationByHighlightDocument), variables));
         },
         CreateAuthor(variables) {
             return withWrapper(() => client.request(graphql_1.print(exports.CreateAuthorDocument), variables));
