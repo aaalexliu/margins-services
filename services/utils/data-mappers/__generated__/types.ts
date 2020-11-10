@@ -4445,7 +4445,7 @@ export type CreatePublicationMutation = (
     { __typename: 'CreatePublicationPayload' }
     & { publication?: Maybe<(
       { __typename?: 'Publication' }
-      & Pick<Publication, 'createdAt' | 'id' | 'updatedAt' | 'publicationId' | 'title'>
+      & Pick<Publication, 'createdAt' | 'id' | 'updatedAt' | 'publicationId' | 'title' | 'accountId'>
     )> }
   )> }
 );
@@ -4614,6 +4614,7 @@ export const CreatePublicationDocument = gql`
       updatedAt
       publicationId
       title
+      accountId
     }
   }
 }

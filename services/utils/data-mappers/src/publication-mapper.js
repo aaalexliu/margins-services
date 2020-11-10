@@ -20,12 +20,13 @@ const CREATE_PUBLICATION = graphql_request_1.gql `
   mutation CreatePublication($publicationInput: CreatePublicationInput!) {
     createPublication(input: $publicationInput) {
       __typename
-      publication {
+    publication {
         createdAt
         id
         updatedAt
         publicationId
         title
+        accountId
       }
     }
   }
@@ -61,6 +62,10 @@ const CONNECT_AUTHOR = graphql_request_1.gql `
     }
   }
 `;
+// interface PublicationResponse {
+//   publicationId: string,
+//   title?: string
+// }
 class PublicationMapper extends data_mapper_1.default {
     constructor(endpoint, authToken, accountId) {
         super(endpoint, authToken);
@@ -87,7 +92,7 @@ class PublicationMapper extends data_mapper_1.default {
     async findPublicationByTitle(publication) {
         const title = publication.title;
         const GetPublicationVar = this.createGetPublicationVar(title);
-        const response = await this.graphQLClient.request(GET_PUBLICATION, GetPublicationVar);
+        const response = await this.sdk.GetPublicationByAccountAndTitle(GetPublicationVar);
         console.log('get publication response', response);
         return response.publicationByAccountIdAndTitle;
     }
@@ -98,9 +103,9 @@ class PublicationMapper extends data_mapper_1.default {
         };
     }
     async createPublication(publication) {
-        const publicationMutationVar = this.createPublicationInput(publication);
+        const publicationMutationVar = this.createPublicationMutationVars(publication);
         try {
-            const publicationResponse = await this.graphQLClient.request(CREATE_PUBLICATION, publicationMutationVar);
+            const publicationResponse = await this.sdk.CreatePublication(publicationMutationVar);
             console.log('create publication response', publicationResponse);
             return publicationResponse.createPublication.publication;
         }
@@ -108,7 +113,7 @@ class PublicationMapper extends data_mapper_1.default {
             console.error(JSON.stringify(error, null, 2));
         }
     }
-    createPublicationInput(publication) {
+    createPublicationMutationVars(publication) {
         const publicationId = this.generateObjectId();
         // authors willl be added in separate mutation
         // right now no need for all the publication specific info - don't have it anyway in most cases
@@ -134,18 +139,15 @@ class PublicationMapper extends data_mapper_1.default {
         if (author) {
             const connectAuthorResponse = await this.connectAuthorAndPublication(author.authorId, publicationId);
             console.log(connectAuthorResponse);
-            if (connectAuthorResponse)
-                return author;
-            else
-                return `error in linking existing author ${author}`;
+            return author;
         }
         author = await this.createAuthor(fullName, publicationId);
         return author;
     }
     async connectAuthorAndPublication(authorId, publicationId) {
-        const connectAuthorPublicationVar = this.createPublicationAuthorInput(authorId, publicationId);
+        const connectAuthorPublicationVar = this.createAuthorPublicationVariables(authorId, publicationId);
         try {
-            const response = await this.graphQLClient.request(CONNECT_AUTHOR, connectAuthorPublicationVar);
+            const response = await this.sdk.ConnectAuthorToPublication(connectAuthorPublicationVar);
             console.log('connectAuthorAndPublication response', response);
             return response;
         }
@@ -159,7 +161,7 @@ class PublicationMapper extends data_mapper_1.default {
             throw error;
         }
     }
-    createPublicationAuthorInput(authorId, publicationId) {
+    createAuthorPublicationVariables(authorId, publicationId) {
         return {
             authorAndPublication: {
                 publicationAuthor: {
@@ -170,18 +172,17 @@ class PublicationMapper extends data_mapper_1.default {
         };
     }
     async findAuthor(fullName) {
-        const getAuthorVar = { fullName };
-        const authorResponse = await this.graphQLClient.request(GET_AUTHOR, getAuthorVar);
+        const authorResponse = await this.sdk.GetAuthorByFullName({ fullName });
         console.log('find author response', authorResponse);
         return authorResponse.authorByFullName;
     }
     async createAuthor(fullName, publicationId) {
-        const createAuthorVar = this.createAuthorInput(fullName, publicationId);
-        const authorResponse = await this.graphQLClient.request(CREATE_AUTHOR, createAuthorVar);
+        const createAuthorVar = this.createAuthorVariables(fullName, publicationId);
+        const authorResponse = await this.sdk.CreateAuthor(createAuthorVar);
         console.log('create author response', authorResponse);
         return authorResponse.createAuthor.author;
     }
-    createAuthorInput(fullName, publicationId) {
+    createAuthorVariables(fullName, publicationId) {
         const authorId = this.generateObjectId();
         return {
             authorInput: {

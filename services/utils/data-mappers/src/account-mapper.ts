@@ -1,7 +1,10 @@
 import { GraphQLClient, gql } from 'graphql-request';
 
 import {
-  CreateAccountInput, CreateAccountPayload,
+  CreateAccountMutationVariables,
+  AccountInput,
+  CreateAccountPayload,
+  GetAccountByEmailDocument
 } from '../__generated__/types';
 
 import DataMapper from './data-mapper';
@@ -24,10 +27,6 @@ const CREATE_ACCOUNT = gql`
   }
 `;
 
-interface AccountInputVar {
-  accountInput: CreateAccountInput
-}
-
 const GET_ACCOUNT_BY_ID = gql`
   query GetAccountByAccountId($accountId: UUID!) {
     accountByAccountId(accountId: $accountId) {
@@ -41,10 +40,6 @@ const GET_ACCOUNT_BY_ID = gql`
   }
 `;
 
-interface AccountIdVar {
-  accountId: string
-}
-
 const GET_ACCOUNT_BY_EMAIL = gql`
   query GetAccountByEmail($email: String!) {
     accountByEmail(email: $email) {
@@ -53,13 +48,6 @@ const GET_ACCOUNT_BY_EMAIL = gql`
     }
   }
 `;
-
-interface Account {
-  accountId: string,
-  email: string,
-  emailVerified: boolean,
-  group: string
-}
 
 // omit 'id' from imported Account type, since it's generated
 // server side to adhere to the relay specification
@@ -92,8 +80,7 @@ export default class AccountMapper extends DataMapper{
 
   async findCognitoAccount(cognitoAccount: CognitoAccount) {
     const accountId = cognitoAccount.sub;
-    const response = await this.graphQLClient
-      .request<any, AccountIdVar>(GET_ACCOUNT_BY_ID, { accountId });
+    const response = await this.sdk.GetAccountByAccountId({accountId});
     console.log('find account response', response);
     return response.accountByAccountId;
   }
@@ -109,16 +96,15 @@ export default class AccountMapper extends DataMapper{
     return response;
   }
 
-  async createAccount(account: Account) {
+  async createAccount(account: AccountInput) {
     const accountInputVar = this.createAccountInput(account);
-    const response: {createAccount: CreateAccountPayload} = await this.graphQLClient
-      .request(CREATE_ACCOUNT, accountInputVar);
+    const response = await this.sdk.CreateAccount(accountInputVar)
     // console.log('create account response', response);
 
     return response.createAccount.account;
   }
 
-  createAccountInput(account: Account): AccountInputVar {
+  createAccountInput(account: AccountInput): CreateAccountMutationVariables {
     return {
       accountInput: {
         account: {
@@ -129,7 +115,7 @@ export default class AccountMapper extends DataMapper{
   }
 
   async findAccountByEmail(email: string) {
-    const accountRes = await this.graphQLClient.request(GET_ACCOUNT_BY_EMAIL, { email });
+    const accountRes = await this.sdk.GetAccountByEmail({email})
     return accountRes.accountByEmail;
   }
 }

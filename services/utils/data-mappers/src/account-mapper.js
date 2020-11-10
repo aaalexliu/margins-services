@@ -55,8 +55,7 @@ class AccountMapper extends data_mapper_1.default {
     }
     async findCognitoAccount(cognitoAccount) {
         const accountId = cognitoAccount.sub;
-        const response = await this.graphQLClient
-            .request(GET_ACCOUNT_BY_ID, { accountId });
+        const response = await this.sdk.GetAccountByAccountId({ accountId });
         console.log('find account response', response);
         return response.accountByAccountId;
     }
@@ -72,8 +71,7 @@ class AccountMapper extends data_mapper_1.default {
     }
     async createAccount(account) {
         const accountInputVar = this.createAccountInput(account);
-        const response = await this.graphQLClient
-            .request(CREATE_ACCOUNT, accountInputVar);
+        const response = await this.sdk.CreateAccount(accountInputVar);
         // console.log('create account response', response);
         return response.createAccount.account;
     }
@@ -87,7 +85,7 @@ class AccountMapper extends data_mapper_1.default {
         };
     }
     async findAccountByEmail(email) {
-        const accountRes = await this.graphQLClient.request(GET_ACCOUNT_BY_EMAIL, { email });
+        const accountRes = await this.sdk.GetAccountByEmail({ email });
         return accountRes.accountByEmail;
     }
 }

@@ -110,6 +110,7 @@ exports.CreatePublicationDocument = graphql_tag_1.default `
       updatedAt
       publicationId
       title
+      accountId
     }
   }
 }
