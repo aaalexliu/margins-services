@@ -12115,7 +12115,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "TagTagTagNameAccountIdKeyConnect",
+                  "name": "TagNoDuplicateTagsPerAccountConnect",
                   "ofType": null
                 }
               }
@@ -12169,7 +12169,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "TagTagTagNameAccountIdKeyDelete",
+                  "name": "TagNoDuplicateTagsPerAccountDelete",
                   "ofType": null
                 }
               }
@@ -12223,7 +12223,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "TagOnTagForTagAccountIdFkeyUsingTagTagNameAccountIdKeyUpdate",
+                  "name": "TagOnTagForTagAccountIdFkeyUsingNoDuplicateTagsPerAccountUpdate",
                   "ofType": null
                 }
               }
@@ -12298,7 +12298,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "TagTagTagNameAccountIdKeyConnect",
+        "name": "TagNoDuplicateTagsPerAccountConnect",
         "description": "The fields on `tag` to look up the row to connect.",
         "fields": null,
         "inputFields": [
@@ -12387,7 +12387,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "TagTagTagNameAccountIdKeyDelete",
+        "name": "TagNoDuplicateTagsPerAccountDelete",
         "description": "The fields on `tag` to look up the row to delete.",
         "fields": null,
         "inputFields": [
@@ -14126,7 +14126,7 @@
             "description": "The primary key(s) for `tag` for the far side of the relationship.",
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "TagTagTagNameAccountIdKeyConnect",
+              "name": "TagNoDuplicateTagsPerAccountConnect",
               "ofType": null
             },
             "defaultValue": null
@@ -14156,7 +14156,7 @@
             "description": "The primary key(s) for `tag` for the far side of the relationship.",
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "TagTagTagNameAccountIdKeyDelete",
+              "name": "TagNoDuplicateTagsPerAccountDelete",
               "ofType": null
             },
             "defaultValue": null
@@ -14186,7 +14186,7 @@
             "description": "The primary key(s) and patch data for `tag` for the far side of the relationship.",
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "TagOnAnnotationTagForAnnotationTagTagIdFkeyUsingTagTagNameAccountIdKeyUpdate",
+              "name": "TagOnAnnotationTagForAnnotationTagTagIdFkeyUsingNoDuplicateTagsPerAccountUpdate",
               "ofType": null
             },
             "defaultValue": null
@@ -14308,7 +14308,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "TagOnAnnotationTagForAnnotationTagTagIdFkeyUsingTagTagNameAccountIdKeyUpdate",
+        "name": "TagOnAnnotationTagForAnnotationTagTagIdFkeyUsingNoDuplicateTagsPerAccountUpdate",
         "description": "The fields on `tag` to look up the row to update.",
         "fields": null,
         "inputFields": [
@@ -15280,7 +15280,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "TagOnTagForTagAccountIdFkeyUsingTagTagNameAccountIdKeyUpdate",
+        "name": "TagOnTagForTagAccountIdFkeyUsingNoDuplicateTagsPerAccountUpdate",
         "description": "The fields on `tag` to look up the row to update.",
         "fields": null,
         "inputFields": [

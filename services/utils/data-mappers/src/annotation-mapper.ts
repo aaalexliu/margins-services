@@ -4,6 +4,7 @@ import {
   CreateAnnotationMutationVariables,
   GetAllAnnotationsByPublicationQueryVariables,
   UpdateAnnotationByHighlightMutationVariables,
+  CreateTagMutationVariables
 } from '../__generated__/types';
 
 import DataMapper from './data-mapper';
@@ -54,6 +55,51 @@ const MUTATION_UPDATE_ANNOTATION_BY_HIGHLIGHT = gql`
   }
 `;
 
+const MUTATION_CREATE_TAG = gql`
+  mutation CreateTag($inputTag: CreateTagInput!) {
+    __typename
+    createTag(input: $inputTag) {
+      tag {
+        id
+        tagId
+        tagName
+      }
+    }
+  }
+`;
+
+const QUERY_ALL_TAGS_FOR_ACCOUNT = gql`
+  query GetAllTagsForAccount($accountId: UUID!) {
+    __typename
+    allTags(condition: {accountId: $accountId}) {
+      nodes {
+        tagId
+        id
+        tagName
+      }
+    }
+  }
+`;
+
+const MUTATION_ADD_TAG_TO_ANNOTATION = gql`
+  mutation AddTagToAnnotation($annotationId: String!, $tagId: String!) {
+    __typename
+    createAnnotationTag(
+      input: {
+        annotationTag: {
+          annotationId: $annotationId
+          tagId: $tagId
+        }
+      }
+    ) {
+      annotationTag {
+        annotationId
+        tagId
+      }
+    }
+  }
+`;
+
 interface Highlight {
   highlightText: string,
   color: string,
@@ -65,24 +111,38 @@ interface Note {
   noteLocation: any
 }
 
-type Annotation = Highlight & Note;
+interface Tagged {
+  tags?: string[]
+}
+
+type Annotation = Highlight & Note & Tagged;
 
 export default class AnnotationMapper extends DataMapper {
   publicationId: string;
   accountId: string;
+  tagLookupTable: any;
 
   constructor(endpoint: string, authToken: string, accountId: string, publicationId: string) {
     super(endpoint, authToken);
     this.publicationId = publicationId;
     this.accountId = accountId;
+    this.tagLookupTable = undefined;
   }
 
   async createAnnotation(annotation: Annotation) {
     const annotationVars = this.createAnnotationInput(annotation);
     try {
       const annotationResponse = await this.sdk.CreateAnnotation(annotationVars);
+      const createdAnnotation: any = annotationResponse.createAnnotation.annotation;
+      const tags = annotation.tags;
+      if (tags != undefined && createdAnnotation.annotationId != undefined) {
+        const tagResponses = await Promise.all(tags.map(tag => {
+          return this.addTagToAnnotation(tag, createdAnnotation.annotationId)
+        }));
+        createdAnnotation.tags = tagResponses.map(tag => tag.tagId);
+      }
       // console.log('create annotation response', annotationResponse);
-      return annotationResponse.createAnnotation.annotation;
+      return createdAnnotation;
     } catch(error) {
       console.log('catching create annotation error for duplicates');
       const firstError = error.response.errors[0];
@@ -112,8 +172,10 @@ export default class AnnotationMapper extends DataMapper {
 
   createAnnotationInput(annotation: Annotation): CreateAnnotationMutationVariables {
     const annotationId = this.generateObjectId();
-    const stringifedAnnotation = this.stringifyLocation(annotation);
-    return {
+    const annotationCopy = Object.assign({}, annotation);
+    delete annotationCopy.tags;
+    const stringifedAnnotation = this.stringifyLocation(annotationCopy);
+     return {
       inputAnnotation: {
         annotation: {
           ...stringifedAnnotation,
@@ -140,9 +202,15 @@ export default class AnnotationMapper extends DataMapper {
   async updateAnnotationByHighlight(annotation: Annotation) {
     const updateAnnotationByHighlightVar = this.createUpdateAnnotationByHiglightVar(annotation);
     const updateResponse = await this.sdk.UpdateAnnotationByHighlight(updateAnnotationByHighlightVar);
-    return updateResponse
+    const updatedAnnotation = updateResponse
       .updateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightText
       .annotation;
+    if (annotation.tags != undefined) {
+      const tagResponses = await 
+        Promise.all(annotation.tags.map(tag => this.addTagToAnnotation(tag, updatedAnnotation.annotationId)));
+      console.log(tagResponses);
+    }
+    return updatedAnnotation;
   }
 
   createUpdateAnnotationByHiglightVar(annotation: Annotation): UpdateAnnotationByHighlightMutationVariables {
@@ -159,6 +227,66 @@ export default class AnnotationMapper extends DataMapper {
         }
       }
     }
-  }  
+  }
+
+  async addTagToAnnotation(tag: string, annotationId: string) {
+    const tagId = await this.findOrCreateTag(tag);
+    try {
+      const addTagToAnnotationResponse = await this.sdk.AddTagToAnnotation({annotationId, tagId});
+      return addTagToAnnotationResponse.createAnnotationTag.annotationTag;
+    } catch (error){
+      console.log('catching add annotation tag error for duplicates');
+      const firstError = error.response.errors[0];
+      if (firstError.message === 'duplicate key value violates unique constraint "annotation_tag_pkey"') {
+        return {
+          tagId,
+          duplicate: `tag ${tag} already exists on annotation ${annotationId}`
+        }
+      }
+      console.log('unexpected add annotation tag error message');
+      console.log(error);
+      throw error;
+    }
+  }
+
+  async loadTagLookupTable() {
+    const allTagsResponse = await this.sdk.GetAllTagsForAccount({accountId: this.accountId});
+    this.tagLookupTable = allTagsResponse.allTags.nodes
+      .reduce((acc, tag) => {
+        acc[tag.tagName] = tag;
+        return acc;
+      }, {});
+  }
+
+  async findOrCreateTag(tag: string) {
+    if (typeof this.tagLookupTable !== 'object') await this.loadTagLookupTable();
+    console.log(this.tagLookupTable);
+    if (this.tagLookupTable[tag] == undefined) {
+      const createdTag = await this.createTag(tag);
+      return createdTag.tagId
+    }
+    return this.tagLookupTable[tag].tagId;
+  }
+
+  async createTag(tag: string) {
+    const createTagVars = this.createTagInput(tag);
+    const tagResponse = await this.sdk.CreateTag(createTagVars);
+    const createdTag = tagResponse.createTag.tag;
+    this.tagLookupTable[createdTag.tagName] = createdTag;
+    return createdTag;
+  }
+
+  createTagInput(tag: string): CreateTagMutationVariables {
+    const tagId = this.generateObjectId();
+    return {
+      inputTag: {
+        tag: {
+          tagId,
+          tagName: tag,
+          accountId: this.accountId,
+        }
+      }
+    } 
+  }
 }
 

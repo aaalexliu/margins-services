@@ -2177,19 +2177,19 @@ export type TagAccountIdFkeyInverseInput = {
   /** The primary key(s) for `tag` for the far side of the relationship. */
   connectByTagId?: Maybe<Array<TagTagPkeyConnect>>;
   /** The primary key(s) for `tag` for the far side of the relationship. */
-  connectByTagNameAndAccountId?: Maybe<Array<TagTagTagNameAccountIdKeyConnect>>;
+  connectByTagNameAndAccountId?: Maybe<Array<TagNoDuplicateTagsPerAccountConnect>>;
   /** The primary key(s) for `tag` for the far side of the relationship. */
   connectById?: Maybe<Array<TagNodeIdConnect>>;
   /** The primary key(s) for `tag` for the far side of the relationship. */
   deleteByTagId?: Maybe<Array<TagTagPkeyDelete>>;
   /** The primary key(s) for `tag` for the far side of the relationship. */
-  deleteByTagNameAndAccountId?: Maybe<Array<TagTagTagNameAccountIdKeyDelete>>;
+  deleteByTagNameAndAccountId?: Maybe<Array<TagNoDuplicateTagsPerAccountDelete>>;
   /** The primary key(s) for `tag` for the far side of the relationship. */
   deleteById?: Maybe<Array<TagNodeIdDelete>>;
   /** The primary key(s) and patch data for `tag` for the far side of the relationship. */
   updateByTagId?: Maybe<Array<TagOnTagForTagAccountIdFkeyUsingTagPkeyUpdate>>;
   /** The primary key(s) and patch data for `tag` for the far side of the relationship. */
-  updateByTagNameAndAccountId?: Maybe<Array<TagOnTagForTagAccountIdFkeyUsingTagTagNameAccountIdKeyUpdate>>;
+  updateByTagNameAndAccountId?: Maybe<Array<TagOnTagForTagAccountIdFkeyUsingNoDuplicateTagsPerAccountUpdate>>;
   /** The primary key(s) and patch data for `tag` for the far side of the relationship. */
   updateById?: Maybe<Array<AccountOnTagForTagAccountIdFkeyNodeIdUpdate>>;
   /** A `TagInput` object that will be created and connected to this object. */
@@ -2202,7 +2202,7 @@ export type TagTagPkeyConnect = {
 };
 
 /** The fields on `tag` to look up the row to connect. */
-export type TagTagTagNameAccountIdKeyConnect = {
+export type TagNoDuplicateTagsPerAccountConnect = {
   tagName: Scalars['String'];
   accountId: Scalars['UUID'];
 };
@@ -2219,7 +2219,7 @@ export type TagTagPkeyDelete = {
 };
 
 /** The fields on `tag` to look up the row to delete. */
-export type TagTagTagNameAccountIdKeyDelete = {
+export type TagNoDuplicateTagsPerAccountDelete = {
   tagName: Scalars['String'];
   accountId: Scalars['UUID'];
 };
@@ -2493,19 +2493,19 @@ export type AnnotationTagTagIdFkeyInput = {
   /** The primary key(s) for `tag` for the far side of the relationship. */
   connectByTagId?: Maybe<TagTagPkeyConnect>;
   /** The primary key(s) for `tag` for the far side of the relationship. */
-  connectByTagNameAndAccountId?: Maybe<TagTagTagNameAccountIdKeyConnect>;
+  connectByTagNameAndAccountId?: Maybe<TagNoDuplicateTagsPerAccountConnect>;
   /** The primary key(s) for `tag` for the far side of the relationship. */
   connectById?: Maybe<TagNodeIdConnect>;
   /** The primary key(s) for `tag` for the far side of the relationship. */
   deleteByTagId?: Maybe<TagTagPkeyDelete>;
   /** The primary key(s) for `tag` for the far side of the relationship. */
-  deleteByTagNameAndAccountId?: Maybe<TagTagTagNameAccountIdKeyDelete>;
+  deleteByTagNameAndAccountId?: Maybe<TagNoDuplicateTagsPerAccountDelete>;
   /** The primary key(s) for `tag` for the far side of the relationship. */
   deleteById?: Maybe<TagNodeIdDelete>;
   /** The primary key(s) and patch data for `tag` for the far side of the relationship. */
   updateByTagId?: Maybe<TagOnAnnotationTagForAnnotationTagTagIdFkeyUsingTagPkeyUpdate>;
   /** The primary key(s) and patch data for `tag` for the far side of the relationship. */
-  updateByTagNameAndAccountId?: Maybe<TagOnAnnotationTagForAnnotationTagTagIdFkeyUsingTagTagNameAccountIdKeyUpdate>;
+  updateByTagNameAndAccountId?: Maybe<TagOnAnnotationTagForAnnotationTagTagIdFkeyUsingNoDuplicateTagsPerAccountUpdate>;
   /** The primary key(s) and patch data for `tag` for the far side of the relationship. */
   updateById?: Maybe<AnnotationTagOnAnnotationTagForAnnotationTagTagIdFkeyNodeIdUpdate>;
   /** A `TagInput` object that will be created and connected to this object. */
@@ -2528,7 +2528,7 @@ export type UpdateTagOnAnnotationTagForAnnotationTagTagIdFkeyPatch = {
 };
 
 /** The fields on `tag` to look up the row to update. */
-export type TagOnAnnotationTagForAnnotationTagTagIdFkeyUsingTagTagNameAccountIdKeyUpdate = {
+export type TagOnAnnotationTagForAnnotationTagTagIdFkeyUsingNoDuplicateTagsPerAccountUpdate = {
   /** An object where the defined keys will be set on the `tag` being updated. */
   tagPatch: UpdateTagOnAnnotationTagForAnnotationTagTagIdFkeyPatch;
   tagName: Scalars['String'];
@@ -2668,7 +2668,7 @@ export type AnnotationTagTagIdFkeyAnnotationTagCreateInput = {
 };
 
 /** The fields on `tag` to look up the row to update. */
-export type TagOnTagForTagAccountIdFkeyUsingTagTagNameAccountIdKeyUpdate = {
+export type TagOnTagForTagAccountIdFkeyUsingNoDuplicateTagsPerAccountUpdate = {
   /** An object where the defined keys will be set on the `tag` being updated. */
   tagPatch: UpdateTagOnTagForTagAccountIdFkeyPatch;
   tagName: Scalars['String'];
@@ -4418,6 +4418,55 @@ export type UpdateAnnotationByHighlightMutation = (
   )> }
 );
 
+export type CreateTagMutationVariables = Exact<{
+  inputTag: CreateTagInput;
+}>;
+
+
+export type CreateTagMutation = (
+  { __typename: 'Mutation' }
+  & { createTag?: Maybe<(
+    { __typename?: 'CreateTagPayload' }
+    & { tag?: Maybe<(
+      { __typename?: 'Tag' }
+      & Pick<Tag, 'id' | 'tagId' | 'tagName'>
+    )> }
+  )> }
+);
+
+export type GetAllTagsForAccountQueryVariables = Exact<{
+  accountId: Scalars['UUID'];
+}>;
+
+
+export type GetAllTagsForAccountQuery = (
+  { __typename: 'Query' }
+  & { allTags?: Maybe<(
+    { __typename?: 'TagsConnection' }
+    & { nodes: Array<Maybe<(
+      { __typename?: 'Tag' }
+      & Pick<Tag, 'tagId' | 'id' | 'tagName'>
+    )>> }
+  )> }
+);
+
+export type AddTagToAnnotationMutationVariables = Exact<{
+  annotationId: Scalars['String'];
+  tagId: Scalars['String'];
+}>;
+
+
+export type AddTagToAnnotationMutation = (
+  { __typename: 'Mutation' }
+  & { createAnnotationTag?: Maybe<(
+    { __typename?: 'CreateAnnotationTagPayload' }
+    & { annotationTag?: Maybe<(
+      { __typename?: 'AnnotationTag' }
+      & Pick<AnnotationTag, 'annotationId' | 'tagId'>
+    )> }
+  )> }
+);
+
 export type CreateAuthorMutationVariables = Exact<{
   authorInput: CreateAuthorInput;
 }>;
@@ -4593,6 +4642,43 @@ export const UpdateAnnotationByHighlightDocument = gql`
   }
 }
     `;
+export const CreateTagDocument = gql`
+    mutation CreateTag($inputTag: CreateTagInput!) {
+  __typename
+  createTag(input: $inputTag) {
+    tag {
+      id
+      tagId
+      tagName
+    }
+  }
+}
+    `;
+export const GetAllTagsForAccountDocument = gql`
+    query GetAllTagsForAccount($accountId: UUID!) {
+  __typename
+  allTags(condition: {accountId: $accountId}) {
+    nodes {
+      tagId
+      id
+      tagName
+    }
+  }
+}
+    `;
+export const AddTagToAnnotationDocument = gql`
+    mutation AddTagToAnnotation($annotationId: String!, $tagId: String!) {
+  __typename
+  createAnnotationTag(
+    input: {annotationTag: {annotationId: $annotationId, tagId: $tagId}}
+  ) {
+    annotationTag {
+      annotationId
+      tagId
+    }
+  }
+}
+    `;
 export const CreateAuthorDocument = gql`
     mutation CreateAuthor($authorInput: CreateAuthorInput!) {
   createAuthor(input: $authorInput) {
@@ -4688,6 +4774,15 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     UpdateAnnotationByHighlight(variables: UpdateAnnotationByHighlightMutationVariables): Promise<UpdateAnnotationByHighlightMutation> {
       return withWrapper(() => client.request<UpdateAnnotationByHighlightMutation>(print(UpdateAnnotationByHighlightDocument), variables));
+    },
+    CreateTag(variables: CreateTagMutationVariables): Promise<CreateTagMutation> {
+      return withWrapper(() => client.request<CreateTagMutation>(print(CreateTagDocument), variables));
+    },
+    GetAllTagsForAccount(variables: GetAllTagsForAccountQueryVariables): Promise<GetAllTagsForAccountQuery> {
+      return withWrapper(() => client.request<GetAllTagsForAccountQuery>(print(GetAllTagsForAccountDocument), variables));
+    },
+    AddTagToAnnotation(variables: AddTagToAnnotationMutationVariables): Promise<AddTagToAnnotationMutation> {
+      return withWrapper(() => client.request<AddTagToAnnotationMutation>(print(AddTagToAnnotationDocument), variables));
     },
     CreateAuthor(variables: CreateAuthorMutationVariables): Promise<CreateAuthorMutation> {
       return withWrapper(() => client.request<CreateAuthorMutation>(print(CreateAuthorDocument), variables));
