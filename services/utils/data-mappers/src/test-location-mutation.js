@@ -30,14 +30,15 @@ async function main() {
         },
     });
     const mutation = graphql_request_1.gql `
-    mutation MyMutation($inputAnnotation: CreateAnnotationInput!) {
+    mutation CreateAnnotationForLocationTesting($inputAnnotation: CreateAnnotationInput!) {
       __typename
       createAnnotation(input: $inputAnnotation) {
         annotation {
           annotationId
-          location
-          noteType
-          text
+          highlightLocation
+          highlightText
+          noteText
+          noteLocation
         }
       }
     }

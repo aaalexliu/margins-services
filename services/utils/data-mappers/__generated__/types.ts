@@ -1,3 +1,6 @@
+import { GraphQLClient } from 'graphql-request';
+import { print } from 'graphql';
+import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
@@ -682,6 +685,8 @@ export type Annotation = Node & {
   recordedAt?: Maybe<Scalars['Datetime']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
+  editedHighlightText?: Maybe<Scalars['String']>;
+  editedNoteText?: Maybe<Scalars['String']>;
   extraEdits?: Maybe<Scalars['JSON']>;
   /** Reads a single `Publication` that is related to this `Annotation`. */
   publicationByPublicationId?: Maybe<Publication>;
@@ -1902,6 +1907,8 @@ export type UpdateAnnotationOnAnnotationForAnnotationAccountIdFkeyPatch = {
   recordedAt?: Maybe<Scalars['Datetime']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
+  editedHighlightText?: Maybe<Scalars['String']>;
+  editedNoteText?: Maybe<Scalars['String']>;
   extraEdits?: Maybe<Scalars['JSON']>;
   publicationToPublicationId?: Maybe<AnnotationPublicationIdFkeyInput>;
   accountToAccountId?: Maybe<AnnotationAccountIdFkeyInput>;
@@ -2109,6 +2116,8 @@ export type UpdateAnnotationOnAnnotationForAnnotationPublicationIdFkeyPatch = {
   recordedAt?: Maybe<Scalars['Datetime']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
+  editedHighlightText?: Maybe<Scalars['String']>;
+  editedNoteText?: Maybe<Scalars['String']>;
   extraEdits?: Maybe<Scalars['JSON']>;
   publicationToPublicationId?: Maybe<AnnotationPublicationIdFkeyInput>;
   accountToAccountId?: Maybe<AnnotationAccountIdFkeyInput>;
@@ -2436,6 +2445,8 @@ export type UpdateAnnotationOnAnnotationTagForAnnotationTagAnnotationIdFkeyPatch
   recordedAt?: Maybe<Scalars['Datetime']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
+  editedHighlightText?: Maybe<Scalars['String']>;
+  editedNoteText?: Maybe<Scalars['String']>;
   extraEdits?: Maybe<Scalars['JSON']>;
   publicationToPublicationId?: Maybe<AnnotationPublicationIdFkeyInput>;
   accountToAccountId?: Maybe<AnnotationAccountIdFkeyInput>;
@@ -2613,6 +2624,8 @@ export type AnnotationPatch = {
   recordedAt?: Maybe<Scalars['Datetime']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
+  editedHighlightText?: Maybe<Scalars['String']>;
+  editedNoteText?: Maybe<Scalars['String']>;
   extraEdits?: Maybe<Scalars['JSON']>;
   publicationToPublicationId?: Maybe<AnnotationPublicationIdFkeyInput>;
   accountToAccountId?: Maybe<AnnotationAccountIdFkeyInput>;
@@ -2631,6 +2644,8 @@ export type AnnotationTagAnnotationIdFkeyAnnotationCreateInput = {
   recordedAt?: Maybe<Scalars['Datetime']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
+  editedHighlightText?: Maybe<Scalars['String']>;
+  editedNoteText?: Maybe<Scalars['String']>;
   extraEdits?: Maybe<Scalars['JSON']>;
   publicationToPublicationId?: Maybe<AnnotationPublicationIdFkeyInput>;
   accountToAccountId?: Maybe<AnnotationAccountIdFkeyInput>;
@@ -2746,6 +2761,8 @@ export type AnnotationPublicationIdFkeyAnnotationCreateInput = {
   recordedAt?: Maybe<Scalars['Datetime']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
+  editedHighlightText?: Maybe<Scalars['String']>;
+  editedNoteText?: Maybe<Scalars['String']>;
   extraEdits?: Maybe<Scalars['JSON']>;
   publicationToPublicationId?: Maybe<AnnotationPublicationIdFkeyInput>;
   accountToAccountId?: Maybe<AnnotationAccountIdFkeyInput>;
@@ -3201,6 +3218,8 @@ export type AnnotationAccountIdFkeyAnnotationCreateInput = {
   recordedAt?: Maybe<Scalars['Datetime']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
+  editedHighlightText?: Maybe<Scalars['String']>;
+  editedNoteText?: Maybe<Scalars['String']>;
   extraEdits?: Maybe<Scalars['JSON']>;
   publicationToPublicationId?: Maybe<AnnotationPublicationIdFkeyInput>;
   accountToAccountId?: Maybe<AnnotationAccountIdFkeyInput>;
@@ -3306,6 +3325,8 @@ export type AnnotationInput = {
   recordedAt?: Maybe<Scalars['Datetime']>;
   createdAt?: Maybe<Scalars['Datetime']>;
   updatedAt?: Maybe<Scalars['Datetime']>;
+  editedHighlightText?: Maybe<Scalars['String']>;
+  editedNoteText?: Maybe<Scalars['String']>;
   extraEdits?: Maybe<Scalars['JSON']>;
   publicationToPublicationId?: Maybe<AnnotationPublicationIdFkeyInput>;
   accountToAccountId?: Maybe<AnnotationAccountIdFkeyInput>;
@@ -4306,3 +4327,385 @@ export type DeleteTagByTagNameAndAccountIdInput = {
   tagName: Scalars['String'];
   accountId: Scalars['UUID'];
 };
+
+export type CreateAccountMutationVariables = Exact<{
+  accountInput: CreateAccountInput;
+}>;
+
+
+export type CreateAccountMutation = (
+  { __typename?: 'Mutation' }
+  & { createAccount?: Maybe<(
+    { __typename: 'CreateAccountPayload' }
+    & { account?: Maybe<(
+      { __typename?: 'Account' }
+      & Pick<Account, 'accountId' | 'email' | 'createdAt' | 'emailVerified' | 'firstName' | 'fullName' | 'updatedAt' | 'lastName'>
+    )> }
+  )> }
+);
+
+export type GetAccountByAccountIdQueryVariables = Exact<{
+  accountId: Scalars['UUID'];
+}>;
+
+
+export type GetAccountByAccountIdQuery = (
+  { __typename?: 'Query' }
+  & { accountByAccountId?: Maybe<(
+    { __typename?: 'Account' }
+    & Pick<Account, 'accountId' | 'email' | 'emailVerified' | 'group' | 'fullName' | 'firstName'>
+  )> }
+);
+
+export type GetAccountByEmailQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type GetAccountByEmailQuery = (
+  { __typename?: 'Query' }
+  & { accountByEmail?: Maybe<(
+    { __typename?: 'Account' }
+    & Pick<Account, 'accountId' | 'email'>
+  )> }
+);
+
+export type CreateAnnotationMutationVariables = Exact<{
+  inputAnnotation: CreateAnnotationInput;
+}>;
+
+
+export type CreateAnnotationMutation = (
+  { __typename: 'Mutation' }
+  & { createAnnotation?: Maybe<(
+    { __typename?: 'CreateAnnotationPayload' }
+    & { annotation?: Maybe<(
+      { __typename?: 'Annotation' }
+      & Pick<Annotation, 'annotationId' | 'highlightLocation' | 'highlightText' | 'noteLocation' | 'noteText'>
+    )> }
+  )> }
+);
+
+export type AllAnnotationByPublicationQueryVariables = Exact<{
+  annotationCondition: AnnotationCondition;
+}>;
+
+
+export type AllAnnotationByPublicationQuery = (
+  { __typename: 'Query' }
+  & { allAnnotations?: Maybe<(
+    { __typename?: 'AnnotationsConnection' }
+    & { nodes: Array<Maybe<(
+      { __typename?: 'Annotation' }
+      & Pick<Annotation, 'annotationId' | 'highlightLocation' | 'highlightText' | 'color' | 'noteLocation' | 'noteText'>
+    )>> }
+  )> }
+);
+
+export type MyMutationMutationVariables = Exact<{
+  updateAnnotationByNote: UpdateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextInput;
+}>;
+
+
+export type MyMutationMutation = (
+  { __typename: 'Mutation' }
+  & { updateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightText?: Maybe<(
+    { __typename?: 'UpdateAnnotationPayload' }
+    & { annotation?: Maybe<(
+      { __typename?: 'Annotation' }
+      & Pick<Annotation, 'annotationId' | 'highlightLocation' | 'highlightText' | 'color' | 'noteLocation' | 'noteText'>
+    )> }
+  )> }
+);
+
+export type CreateAuthorMutationVariables = Exact<{
+  authorInput: CreateAuthorInput;
+}>;
+
+
+export type CreateAuthorMutation = (
+  { __typename?: 'Mutation' }
+  & { createAuthor?: Maybe<(
+    { __typename: 'CreateAuthorPayload' }
+    & { author?: Maybe<(
+      { __typename?: 'Author' }
+      & Pick<Author, 'authorId' | 'fullName'>
+    )> }
+  )> }
+);
+
+export type CreatePublicationMutationVariables = Exact<{
+  publicationInput: CreatePublicationInput;
+}>;
+
+
+export type CreatePublicationMutation = (
+  { __typename?: 'Mutation' }
+  & { createPublication?: Maybe<(
+    { __typename: 'CreatePublicationPayload' }
+    & { publication?: Maybe<(
+      { __typename?: 'Publication' }
+      & Pick<Publication, 'createdAt' | 'id' | 'updatedAt' | 'publicationId' | 'title'>
+    )> }
+  )> }
+);
+
+export type GetPublicationByAccountAndTitleQueryVariables = Exact<{
+  accountId: Scalars['UUID'];
+  title: Scalars['String'];
+}>;
+
+
+export type GetPublicationByAccountAndTitleQuery = (
+  { __typename: 'Query' }
+  & { publicationByAccountIdAndTitle?: Maybe<(
+    { __typename?: 'Publication' }
+    & Pick<Publication, 'publicationId' | 'title' | 'accountId' | 'additionalMeta'>
+  )> }
+);
+
+export type GetAuthorByFullNameQueryVariables = Exact<{
+  fullName: Scalars['String'];
+}>;
+
+
+export type GetAuthorByFullNameQuery = (
+  { __typename: 'Query' }
+  & { authorByFullName?: Maybe<(
+    { __typename?: 'Author' }
+    & Pick<Author, 'authorId' | 'fullName'>
+  )> }
+);
+
+export type ConnectAuthorToPublicationMutationVariables = Exact<{
+  authorAndPublication: CreatePublicationAuthorInput;
+}>;
+
+
+export type ConnectAuthorToPublicationMutation = (
+  { __typename: 'Mutation' }
+  & { createPublicationAuthor?: Maybe<(
+    { __typename?: 'CreatePublicationAuthorPayload' }
+    & { publicationAuthor?: Maybe<(
+      { __typename?: 'PublicationAuthor' }
+      & Pick<PublicationAuthor, 'authorId' | 'publicationId'>
+    )> }
+  )> }
+);
+
+export type CreateAnnotationForLocationTestingMutationVariables = Exact<{
+  inputAnnotation: CreateAnnotationInput;
+}>;
+
+
+export type CreateAnnotationForLocationTestingMutation = (
+  { __typename: 'Mutation' }
+  & { createAnnotation?: Maybe<(
+    { __typename?: 'CreateAnnotationPayload' }
+    & { annotation?: Maybe<(
+      { __typename?: 'Annotation' }
+      & Pick<Annotation, 'annotationId' | 'highlightLocation' | 'highlightText' | 'noteText' | 'noteLocation'>
+    )> }
+  )> }
+);
+
+
+export const CreateAccountDocument = gql`
+    mutation CreateAccount($accountInput: CreateAccountInput!) {
+  createAccount(input: $accountInput) {
+    __typename
+    account {
+      accountId
+      email
+      createdAt
+      emailVerified
+      firstName
+      fullName
+      updatedAt
+      lastName
+    }
+  }
+}
+    `;
+export const GetAccountByAccountIdDocument = gql`
+    query GetAccountByAccountId($accountId: UUID!) {
+  accountByAccountId(accountId: $accountId) {
+    accountId
+    email
+    emailVerified
+    group
+    fullName
+    firstName
+  }
+}
+    `;
+export const GetAccountByEmailDocument = gql`
+    query GetAccountByEmail($email: String!) {
+  accountByEmail(email: $email) {
+    accountId
+    email
+  }
+}
+    `;
+export const CreateAnnotationDocument = gql`
+    mutation CreateAnnotation($inputAnnotation: CreateAnnotationInput!) {
+  __typename
+  createAnnotation(input: $inputAnnotation) {
+    annotation {
+      annotationId
+      highlightLocation
+      highlightText
+      noteLocation
+      noteText
+    }
+  }
+}
+    `;
+export const AllAnnotationByPublicationDocument = gql`
+    query AllAnnotationByPublication($annotationCondition: AnnotationCondition!) {
+  __typename
+  allAnnotations(condition: $annotationCondition) {
+    nodes {
+      annotationId
+      highlightLocation
+      highlightText
+      color
+      noteLocation
+      noteText
+    }
+  }
+}
+    `;
+export const MyMutationDocument = gql`
+    mutation MyMutation($updateAnnotationByNote: UpdateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextInput!) {
+  __typename
+  updateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightText(
+    input: $updateAnnotationByNote
+  ) {
+    annotation {
+      annotationId
+      highlightLocation
+      highlightText
+      color
+      noteLocation
+      noteText
+    }
+  }
+}
+    `;
+export const CreateAuthorDocument = gql`
+    mutation CreateAuthor($authorInput: CreateAuthorInput!) {
+  createAuthor(input: $authorInput) {
+    __typename
+    author {
+      authorId
+      fullName
+    }
+  }
+}
+    `;
+export const CreatePublicationDocument = gql`
+    mutation CreatePublication($publicationInput: CreatePublicationInput!) {
+  createPublication(input: $publicationInput) {
+    __typename
+    publication {
+      createdAt
+      id
+      updatedAt
+      publicationId
+      title
+    }
+  }
+}
+    `;
+export const GetPublicationByAccountAndTitleDocument = gql`
+    query GetPublicationByAccountAndTitle($accountId: UUID!, $title: String!) {
+  __typename
+  publicationByAccountIdAndTitle(accountId: $accountId, title: $title) {
+    publicationId
+    title
+    accountId
+    additionalMeta
+  }
+}
+    `;
+export const GetAuthorByFullNameDocument = gql`
+    query GetAuthorByFullName($fullName: String!) {
+  __typename
+  authorByFullName(fullName: $fullName) {
+    authorId
+    fullName
+  }
+}
+    `;
+export const ConnectAuthorToPublicationDocument = gql`
+    mutation ConnectAuthorToPublication($authorAndPublication: CreatePublicationAuthorInput!) {
+  __typename
+  createPublicationAuthor(input: $authorAndPublication) {
+    publicationAuthor {
+      authorId
+      publicationId
+    }
+  }
+}
+    `;
+export const CreateAnnotationForLocationTestingDocument = gql`
+    mutation CreateAnnotationForLocationTesting($inputAnnotation: CreateAnnotationInput!) {
+  __typename
+  createAnnotation(input: $inputAnnotation) {
+    annotation {
+      annotationId
+      highlightLocation
+      highlightText
+      noteText
+      noteLocation
+    }
+  }
+}
+    `;
+
+export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction();
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    CreateAccount(variables: CreateAccountMutationVariables): Promise<CreateAccountMutation> {
+      return withWrapper(() => client.request<CreateAccountMutation>(print(CreateAccountDocument), variables));
+    },
+    GetAccountByAccountId(variables: GetAccountByAccountIdQueryVariables): Promise<GetAccountByAccountIdQuery> {
+      return withWrapper(() => client.request<GetAccountByAccountIdQuery>(print(GetAccountByAccountIdDocument), variables));
+    },
+    GetAccountByEmail(variables: GetAccountByEmailQueryVariables): Promise<GetAccountByEmailQuery> {
+      return withWrapper(() => client.request<GetAccountByEmailQuery>(print(GetAccountByEmailDocument), variables));
+    },
+    CreateAnnotation(variables: CreateAnnotationMutationVariables): Promise<CreateAnnotationMutation> {
+      return withWrapper(() => client.request<CreateAnnotationMutation>(print(CreateAnnotationDocument), variables));
+    },
+    AllAnnotationByPublication(variables: AllAnnotationByPublicationQueryVariables): Promise<AllAnnotationByPublicationQuery> {
+      return withWrapper(() => client.request<AllAnnotationByPublicationQuery>(print(AllAnnotationByPublicationDocument), variables));
+    },
+    MyMutation(variables: MyMutationMutationVariables): Promise<MyMutationMutation> {
+      return withWrapper(() => client.request<MyMutationMutation>(print(MyMutationDocument), variables));
+    },
+    CreateAuthor(variables: CreateAuthorMutationVariables): Promise<CreateAuthorMutation> {
+      return withWrapper(() => client.request<CreateAuthorMutation>(print(CreateAuthorDocument), variables));
+    },
+    CreatePublication(variables: CreatePublicationMutationVariables): Promise<CreatePublicationMutation> {
+      return withWrapper(() => client.request<CreatePublicationMutation>(print(CreatePublicationDocument), variables));
+    },
+    GetPublicationByAccountAndTitle(variables: GetPublicationByAccountAndTitleQueryVariables): Promise<GetPublicationByAccountAndTitleQuery> {
+      return withWrapper(() => client.request<GetPublicationByAccountAndTitleQuery>(print(GetPublicationByAccountAndTitleDocument), variables));
+    },
+    GetAuthorByFullName(variables: GetAuthorByFullNameQueryVariables): Promise<GetAuthorByFullNameQuery> {
+      return withWrapper(() => client.request<GetAuthorByFullNameQuery>(print(GetAuthorByFullNameDocument), variables));
+    },
+    ConnectAuthorToPublication(variables: ConnectAuthorToPublicationMutationVariables): Promise<ConnectAuthorToPublicationMutation> {
+      return withWrapper(() => client.request<ConnectAuthorToPublicationMutation>(print(ConnectAuthorToPublicationDocument), variables));
+    },
+    CreateAnnotationForLocationTesting(variables: CreateAnnotationForLocationTestingMutationVariables): Promise<CreateAnnotationForLocationTestingMutation> {
+      return withWrapper(() => client.request<CreateAnnotationForLocationTestingMutation>(print(CreateAnnotationForLocationTestingDocument), variables));
+    }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

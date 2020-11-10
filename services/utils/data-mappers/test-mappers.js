@@ -138,7 +138,7 @@ const mockCognitoPayload = {
   console.log(noteResponses);
 
   const allAnnotations = await annotationMapper.getAllAnnotationsFromPublication();
-  console.log('get all annotations response:\n', allAnnotations);
+  // console.log('get all annotations response:\n', allAnnotations);
 
   const updateResponse = await annotationMapper.updateAnnotationByHighlight(annotationToUpdate);
   console.log('update annotation by highlight response: \n', updateResponse);

@@ -1,13 +1,15 @@
-overwrite: true
 schema:
   - ${GRAPHQL_ENDPOINT}:
       headers:
         Authorization: ${GRAPHQL_AUTH_HEADING}
-documents: null
+documents: ['./src/**/*.tsx', './src/**/*.ts']
+overwrite: true
 generates:
   __generated__/types.ts:
     plugins:
-      - "typescript"
+      - typescript
+      - typescript-operations
+      - typescript-graphql-request
     config:
       enumsAsTypes: true
   ./graphql.schema.json:
