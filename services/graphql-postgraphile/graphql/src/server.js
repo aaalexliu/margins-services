@@ -23,7 +23,7 @@ const jwtSecret = (req, header, payload, done) => {
   console.log(header);
   console.log(payload);
   if (issuer === COGNITO_DOMAIN) {
-    console.log('procesing cognito token')
+    console.log('proccesing cognito token')
     return jwksRsa.expressJwtSecret({
         cache: true,
         rateLimit: true,
@@ -32,7 +32,7 @@ const jwtSecret = (req, header, payload, done) => {
       })(req, header, payload, done);
   }
   if (issuer === 'www.margins.me') {
-    console.log('procesing lambda token');
+    console.log('proccesing lambda token');
     const kid = header.kid;
     if (!kid) { return done(new Error('no kid'));}
     if (kid !== selfJwk.kid) { return done(new Error('no matching kid'));}
@@ -95,6 +95,7 @@ app.use(
         if (req.user.sub) settings['margins.account_id'] = req.user.sub;
         if (req.user['cognito:groups'][0]) settings['role'] = req.user['cognito:groups'][0];
       }
+      console.log('settings:\n', settings);
       return settings;
     }
   })

@@ -170,13 +170,17 @@ FOR EACH ROW EXECUTE PROCEDURE insert_created_at();
 -- enable superuser to allow server side functions to bypass RLS
 CREATE ROLE margins_postgraphile WITH SUPERUSER LOGIN PASSWORD 'margins_postgraphile';
 
-CREATE ROLE margins_anonymous;
+CREATE ROLE margins_lambda WITH SUPERUSER;
 
-GRANT margins_anonymous TO margins_postgraphile;
+CREATE ROLE margins_anonymous;
 
 CREATE ROLE margins_account;
 
+GRANT margins_anonymous TO margins_postgraphile;
 GRANT margins_account TO margins_postgraphile;
+-- GRANT margins_anonymous TO margins_lambda;
+GRANT margins_account TO margins_lambda;
+GRANT margins_lambda TO margins_postgraphile;
 
 -- set search path for all roles, not inherited
 -- possible issue with postgraphile serach path? since it creates other schemas? we'll see
@@ -184,6 +188,8 @@ GRANT margins_account TO margins_postgraphile;
 ALTER ROLE margins_admin SET search_path=margins_public, public, "$account";
 
 ALTER ROLE margins_postgraphile SET search_path=margins_public, public, "$account";
+
+ALTER ROLE margins_lambda SET search_path=margins_public, public, "$account";
 
 ALTER ROLE margins_account SET search_path=margins_public, public, "$account";
 
