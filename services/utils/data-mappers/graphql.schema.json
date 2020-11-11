@@ -1359,23 +1359,9 @@
             "deprecationReason": null
           },
           {
-            "name": "tagByTagNameAndAccountId",
+            "name": "tagByAccountIdAndTagName",
             "description": null,
             "args": [
-              {
-                "name": "tagName",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null
-              },
               {
                 "name": "accountId",
                 "description": null,
@@ -1385,6 +1371,20 @@
                   "ofType": {
                     "kind": "SCALAR",
                     "name": "UUID",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "tagName",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
                     "ofType": null
                   }
                 },
@@ -5083,18 +5083,6 @@
             "deprecationReason": null
           },
           {
-            "name": "TAG_NAME_ASC",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "TAG_NAME_DESC",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "ACCOUNT_ID_ASC",
             "description": null,
             "isDeprecated": false,
@@ -5130,16 +5118,6 @@
           {
             "name": "tagId",
             "description": "Checks for equality with the object’s `tagId` field.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "tagName",
-            "description": "Checks for equality with the object’s `tagName` field.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -7920,7 +7898,7 @@
             "deprecationReason": null
           },
           {
-            "name": "updateTagByTagNameAndAccountId",
+            "name": "updateTagByAccountIdAndTagName",
             "description": "Updates a single `Tag` using a unique key and a patch.",
             "args": [
               {
@@ -7931,7 +7909,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "UpdateTagByTagNameAndAccountIdInput",
+                    "name": "UpdateTagByAccountIdAndTagNameInput",
                     "ofType": null
                   }
                 },
@@ -8514,7 +8492,7 @@
             "deprecationReason": null
           },
           {
-            "name": "deleteTagByTagNameAndAccountId",
+            "name": "deleteTagByAccountIdAndTagName",
             "description": "Deletes a single `Tag` using a unique key.",
             "args": [
               {
@@ -8525,7 +8503,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "DeleteTagByTagNameAndAccountIdInput",
+                    "name": "DeleteTagByAccountIdAndTagNameInput",
                     "ofType": null
                   }
                 },
@@ -12105,7 +12083,7 @@
             "defaultValue": null
           },
           {
-            "name": "connectByTagNameAndAccountId",
+            "name": "connectByAccountIdAndTagName",
             "description": "The primary key(s) for `tag` for the far side of the relationship.",
             "type": {
               "kind": "LIST",
@@ -12159,7 +12137,7 @@
             "defaultValue": null
           },
           {
-            "name": "deleteByTagNameAndAccountId",
+            "name": "deleteByAccountIdAndTagName",
             "description": "The primary key(s) for `tag` for the far side of the relationship.",
             "type": {
               "kind": "LIST",
@@ -12213,7 +12191,7 @@
             "defaultValue": null
           },
           {
-            "name": "updateByTagNameAndAccountId",
+            "name": "updateByAccountIdAndTagName",
             "description": "The primary key(s) and patch data for `tag` for the far side of the relationship.",
             "type": {
               "kind": "LIST",
@@ -12303,20 +12281,6 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "tagName",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "defaultValue": null
-          },
-          {
             "name": "accountId",
             "description": null,
             "type": {
@@ -12325,6 +12289,20 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "UUID",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "tagName",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               }
             },
@@ -12392,20 +12370,6 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "tagName",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "defaultValue": null
-          },
-          {
             "name": "accountId",
             "description": null,
             "type": {
@@ -12414,6 +12378,20 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "UUID",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "tagName",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               }
             },
@@ -14122,7 +14100,7 @@
             "defaultValue": null
           },
           {
-            "name": "connectByTagNameAndAccountId",
+            "name": "connectByAccountIdAndTagName",
             "description": "The primary key(s) for `tag` for the far side of the relationship.",
             "type": {
               "kind": "INPUT_OBJECT",
@@ -14152,7 +14130,7 @@
             "defaultValue": null
           },
           {
-            "name": "deleteByTagNameAndAccountId",
+            "name": "deleteByAccountIdAndTagName",
             "description": "The primary key(s) for `tag` for the far side of the relationship.",
             "type": {
               "kind": "INPUT_OBJECT",
@@ -14182,7 +14160,7 @@
             "defaultValue": null
           },
           {
-            "name": "updateByTagNameAndAccountId",
+            "name": "updateByAccountIdAndTagName",
             "description": "The primary key(s) and patch data for `tag` for the far side of the relationship.",
             "type": {
               "kind": "INPUT_OBJECT",
@@ -14327,20 +14305,6 @@
             "defaultValue": null
           },
           {
-            "name": "tagName",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "defaultValue": null
-          },
-          {
             "name": "accountId",
             "description": null,
             "type": {
@@ -14349,6 +14313,20 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "UUID",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "tagName",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               }
             },
@@ -15299,20 +15277,6 @@
             "defaultValue": null
           },
           {
-            "name": "tagName",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "defaultValue": null
-          },
-          {
             "name": "accountId",
             "description": null,
             "type": {
@@ -15321,6 +15285,20 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "UUID",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "tagName",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               }
             },
@@ -22807,8 +22785,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "UpdateTagByTagNameAndAccountIdInput",
-        "description": "All input for the `updateTagByTagNameAndAccountId` mutation.",
+        "name": "UpdateTagByAccountIdAndTagNameInput",
+        "description": "All input for the `updateTagByAccountIdAndTagName` mutation.",
         "fields": null,
         "inputFields": [
           {
@@ -22836,20 +22814,6 @@
             "defaultValue": null
           },
           {
-            "name": "tagName",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "defaultValue": null
-          },
-          {
             "name": "accountId",
             "description": null,
             "type": {
@@ -22858,6 +22822,20 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "UUID",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "tagName",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               }
             },
@@ -24559,8 +24537,8 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "DeleteTagByTagNameAndAccountIdInput",
-        "description": "All input for the `deleteTagByTagNameAndAccountId` mutation.",
+        "name": "DeleteTagByAccountIdAndTagNameInput",
+        "description": "All input for the `deleteTagByAccountIdAndTagName` mutation.",
         "fields": null,
         "inputFields": [
           {
@@ -24574,20 +24552,6 @@
             "defaultValue": null
           },
           {
-            "name": "tagName",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "defaultValue": null
-          },
-          {
             "name": "accountId",
             "description": null,
             "type": {
@@ -24596,6 +24560,20 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "UUID",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "tagName",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               }
             },

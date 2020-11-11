@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getSdk = exports.CreateAnnotationForLocationTestingDocument = exports.ConnectAuthorToPublicationDocument = exports.GetAuthorByFullNameDocument = exports.GetPublicationByAccountAndTitleDocument = exports.CreatePublicationDocument = exports.CreateAuthorDocument = exports.AddTagToAnnotationDocument = exports.GetTagByNameAndAccountIdDocument = exports.GetAllTagsForAccountDocument = exports.CreateTagDocument = exports.UpdateAnnotationByHighlightDocument = exports.GetAllAnnotationsByPublicationDocument = exports.CreateAnnotationDocument = exports.GetAccountByEmailDocument = exports.GetAccountByAccountIdDocument = exports.CreateAccountDocument = void 0;
+exports.getSdk = exports.CreateAnnotationForLocationTestingDocument = exports.ConnectAuthorToPublicationDocument = exports.GetAuthorByFullNameDocument = exports.GetPublicationByAccountAndTitleDocument = exports.CreatePublicationDocument = exports.CreateAuthorDocument = exports.AddTagToAnnotationDocument = exports.GetTagByAccountIdAndNameDocument = exports.GetAllTagsForAccountDocument = exports.CreateTagDocument = exports.UpdateAnnotationByHighlightDocument = exports.GetAllAnnotationsByPublicationDocument = exports.CreateAnnotationDocument = exports.GetAccountByEmailDocument = exports.GetAccountByAccountIdDocument = exports.CreateAccountDocument = void 0;
 const graphql_1 = require("graphql");
 const graphql_tag_1 = __importDefault(require("graphql-tag"));
 exports.CreateAccountDocument = graphql_tag_1.default `
@@ -119,9 +119,9 @@ exports.GetAllTagsForAccountDocument = graphql_tag_1.default `
   }
 }
     `;
-exports.GetTagByNameAndAccountIdDocument = graphql_tag_1.default `
-    query GetTagByNameAndAccountId($accountId: UUID!, $tagName: String!) {
-  tagByTagNameAndAccountId(accountId: $accountId, tagName: $tagName) {
+exports.GetTagByAccountIdAndNameDocument = graphql_tag_1.default `
+    query GetTagByAccountIdAndName($accountId: UUID!, $tagName: String!) {
+  tagByAccountIdAndTagName(accountId: $accountId, tagName: $tagName) {
     tagId
     tagName
   }
@@ -238,8 +238,8 @@ function getSdk(client, withWrapper = defaultWrapper) {
         GetAllTagsForAccount(variables) {
             return withWrapper(() => client.request(graphql_1.print(exports.GetAllTagsForAccountDocument), variables));
         },
-        GetTagByNameAndAccountId(variables) {
-            return withWrapper(() => client.request(graphql_1.print(exports.GetTagByNameAndAccountIdDocument), variables));
+        GetTagByAccountIdAndName(variables) {
+            return withWrapper(() => client.request(graphql_1.print(exports.GetTagByAccountIdAndNameDocument), variables));
         },
         AddTagToAnnotation(variables) {
             return withWrapper(() => client.request(graphql_1.print(exports.AddTagToAnnotationDocument), variables));

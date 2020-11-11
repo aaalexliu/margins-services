@@ -80,8 +80,8 @@ const QUERY_ALL_TAGS_FOR_ACCOUNT = graphql_request_1.gql `
   }
 `;
 const QUERY_GET_TAG_BY_NAME = graphql_request_1.gql `
-  query GetTagByNameAndAccountId($accountId: UUID!, $tagName: String!) {
-    tagByTagNameAndAccountId(accountId: $accountId, tagName: $tagName) {
+  query GetTagByAccountIdAndName($accountId: UUID!, $tagName: String!) {
+     tagByAccountIdAndTagName(accountId: $accountId, tagName: $tagName) {
       tagId
       tagName
     }
@@ -262,10 +262,10 @@ class AnnotationMapper extends data_mapper_1.default {
             const firstError = error.response.errors[0];
             // console.log(firstError);
             if (firstError.message === 'duplicate key value violates unique constraint "no_duplicate_tags_per_account"') {
-                const { tagByTagNameAndAccountId } = await this.sdk.GetTagByNameAndAccountId({ accountId: this.accountId, tagName: tag });
-                console.log('found tag:\n', tagByTagNameAndAccountId);
-                this.tagLookupTable[tagByTagNameAndAccountId.tagName] = tagByTagNameAndAccountId;
-                return tagByTagNameAndAccountId;
+                const { tagByAccountIdAndTagName } = await this.sdk.GetTagByAccountIdAndName({ accountId: this.accountId, tagName: tag });
+                console.log('found tag:\n', tagByAccountIdAndTagName);
+                this.tagLookupTable[tagByAccountIdAndTagName.tagName] = tagByAccountIdAndTagName;
+                return tagByAccountIdAndTagName;
             }
             console.log('unexpected create tag error');
             throw error;

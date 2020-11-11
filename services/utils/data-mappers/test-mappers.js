@@ -57,7 +57,7 @@ const testNotes = [
 const annotationToUpdate = {
   "highlightLocation": {
     "kindleLocation": 72,
-    "page": "2",
+
     "section": "Introduction"
   },
   "color": "yellow",
