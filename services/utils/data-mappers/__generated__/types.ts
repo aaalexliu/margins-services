@@ -4398,6 +4398,13 @@ export type GetAllAnnotationsByPublicationQuery = (
     & { nodes: Array<Maybe<(
       { __typename?: 'Annotation' }
       & Pick<Annotation, 'annotationId' | 'highlightLocation' | 'highlightText' | 'color' | 'noteLocation' | 'noteText'>
+      & { tagsByAnnotationTagAnnotationIdAndTagId: (
+        { __typename?: 'AnnotationTagsByAnnotationTagAnnotationIdAndTagIdManyToManyConnection' }
+        & { nodes: Array<Maybe<(
+          { __typename?: 'Tag' }
+          & Pick<Tag, 'tagId' | 'tagName'>
+        )>> }
+      ) }
     )>> }
   )> }
 );
@@ -4447,6 +4454,20 @@ export type GetAllTagsForAccountQuery = (
       { __typename?: 'Tag' }
       & Pick<Tag, 'tagId' | 'id' | 'tagName'>
     )>> }
+  )> }
+);
+
+export type GetTagByNameAndAccountIdQueryVariables = Exact<{
+  accountId: Scalars['UUID'];
+  tagName: Scalars['String'];
+}>;
+
+
+export type GetTagByNameAndAccountIdQuery = (
+  { __typename?: 'Query' }
+  & { tagByTagNameAndAccountId?: Maybe<(
+    { __typename?: 'Tag' }
+    & Pick<Tag, 'tagId' | 'tagName'>
   )> }
 );
 
@@ -4621,6 +4642,12 @@ export const GetAllAnnotationsByPublicationDocument = gql`
       color
       noteLocation
       noteText
+      tagsByAnnotationTagAnnotationIdAndTagId {
+        nodes {
+          tagId
+          tagName
+        }
+      }
     }
   }
 }
@@ -4663,6 +4690,14 @@ export const GetAllTagsForAccountDocument = gql`
       id
       tagName
     }
+  }
+}
+    `;
+export const GetTagByNameAndAccountIdDocument = gql`
+    query GetTagByNameAndAccountId($accountId: UUID!, $tagName: String!) {
+  tagByTagNameAndAccountId(accountId: $accountId, tagName: $tagName) {
+    tagId
+    tagName
   }
 }
     `;
@@ -4780,6 +4815,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     GetAllTagsForAccount(variables: GetAllTagsForAccountQueryVariables): Promise<GetAllTagsForAccountQuery> {
       return withWrapper(() => client.request<GetAllTagsForAccountQuery>(print(GetAllTagsForAccountDocument), variables));
+    },
+    GetTagByNameAndAccountId(variables: GetTagByNameAndAccountIdQueryVariables): Promise<GetTagByNameAndAccountIdQuery> {
+      return withWrapper(() => client.request<GetTagByNameAndAccountIdQuery>(print(GetTagByNameAndAccountIdDocument), variables));
     },
     AddTagToAnnotation(variables: AddTagToAnnotationMutationVariables): Promise<AddTagToAnnotationMutation> {
       return withWrapper(() => client.request<AddTagToAnnotationMutation>(print(AddTagToAnnotationDocument), variables));

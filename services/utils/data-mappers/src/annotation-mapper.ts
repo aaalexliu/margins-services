@@ -34,6 +34,12 @@ const QUERY_ALL_ANNOTATIONS = gql`
         color
         noteLocation
         noteText
+        tagsByAnnotationTagAnnotationIdAndTagId {
+          nodes {
+            tagId
+            tagName
+          }
+        }
       }
     }
   }
@@ -77,6 +83,15 @@ const QUERY_ALL_TAGS_FOR_ACCOUNT = gql`
         id
         tagName
       }
+    }
+  }
+`;
+
+const QUERY_GET_TAG_BY_NAME = gql`
+  query GetTagByNameAndAccountId($accountId: UUID!, $tagName: String!) {
+    tagByTagNameAndAccountId(accountId: $accountId, tagName: $tagName) {
+      tagId
+      tagName
     }
   }
 `;
@@ -139,7 +154,7 @@ export default class AnnotationMapper extends DataMapper {
         const tagResponses = await Promise.all(tags.map(tag => {
           return this.addTagToAnnotation(tag, createdAnnotation.annotationId)
         }));
-        createdAnnotation.tags = tagResponses.map(tag => tag.tagId);
+        createdAnnotation.tags = tagResponses;
       }
       // console.log('create annotation response', annotationResponse);
       return createdAnnotation;
@@ -205,11 +220,12 @@ export default class AnnotationMapper extends DataMapper {
     const updatedAnnotation = updateResponse
       .updateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightText
       .annotation;
-    if (annotation.tags != undefined) {
-      const tagResponses = await 
-        Promise.all(annotation.tags.map(tag => this.addTagToAnnotation(tag, updatedAnnotation.annotationId)));
-      console.log(tagResponses);
-    }
+    // console.log('updated annotations tags: ', annotation.tags);
+    // if (annotation.tags != undefined) {
+    //   const tagResponses = await 
+    //     Promise.all(annotation.tags.map(tag => this.addTagToAnnotation(tag, updatedAnnotation.annotationId)));
+    //   updatedAnnotation['tags'] = tagResponses;
+    // }
     return updatedAnnotation;
   }
 
@@ -230,7 +246,7 @@ export default class AnnotationMapper extends DataMapper {
   }
 
   async addTagToAnnotation(tag: string, annotationId: string) {
-    const tagId = await this.findOrCreateTag(tag);
+    const tagId = await this.getTagId(tag);
     try {
       const addTagToAnnotationResponse = await this.sdk.AddTagToAnnotation({annotationId, tagId});
       return addTagToAnnotationResponse.createAnnotationTag.annotationTag;
@@ -258,22 +274,40 @@ export default class AnnotationMapper extends DataMapper {
       }, {});
   }
 
-  async findOrCreateTag(tag: string) {
+  async getTagId(tag: string) {
     if (typeof this.tagLookupTable !== 'object') await this.loadTagLookupTable();
-    console.log(this.tagLookupTable);
+    console.log('current lookuptable:\n', this.tagLookupTable);
+    console.log('tag: ', tag, ' lookup:', this.tagLookupTable[tag]);
     if (this.tagLookupTable[tag] == undefined) {
-      const createdTag = await this.createTag(tag);
-      return createdTag.tagId
+      const tagResponse = await this.findOrCreateTag(tag);
+      return tagResponse.tagId
     }
-    return this.tagLookupTable[tag].tagId;
+    const matchedTag = this.tagLookupTable[tag];
+    return matchedTag.tagId;
   }
 
-  async createTag(tag: string) {
+  async findOrCreateTag(tag: string) {
+    
     const createTagVars = this.createTagInput(tag);
-    const tagResponse = await this.sdk.CreateTag(createTagVars);
-    const createdTag = tagResponse.createTag.tag;
-    this.tagLookupTable[createdTag.tagName] = createdTag;
-    return createdTag;
+      // this.tagLookupTable[tag] = this.sdk.CreateTag(createTagVars);
+    try {
+      const { createTag } = await this.sdk.CreateTag(createTagVars)
+      this.tagLookupTable[createTag.tag.tagName] = createTag.tag;
+      return createTag.tag;
+    } catch (error) {
+      console.log('catching create tag errors');
+      const firstError = error.response.errors[0];
+      // console.log(firstError);
+      if (firstError.message === 'duplicate key value violates unique constraint "no_duplicate_tags_per_account"') {
+        const {tagByTagNameAndAccountId} = await
+          this.sdk.GetTagByNameAndAccountId({accountId: this.accountId, tagName: tag});
+        console.log('found tag:\n', tagByTagNameAndAccountId);
+        this.tagLookupTable[tagByTagNameAndAccountId.tagName] = tagByTagNameAndAccountId;
+        return tagByTagNameAndAccountId;
+      }
+      console.log('unexpected create tag error');
+      throw error;
+    }
   }
 
   createTagInput(tag: string): CreateTagMutationVariables {

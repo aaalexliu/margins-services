@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getSdk = exports.CreateAnnotationForLocationTestingDocument = exports.ConnectAuthorToPublicationDocument = exports.GetAuthorByFullNameDocument = exports.GetPublicationByAccountAndTitleDocument = exports.CreatePublicationDocument = exports.CreateAuthorDocument = exports.UpdateAnnotationByHighlightDocument = exports.GetAllAnnotationsByPublicationDocument = exports.CreateAnnotationDocument = exports.GetAccountByEmailDocument = exports.GetAccountByAccountIdDocument = exports.CreateAccountDocument = void 0;
+exports.getSdk = exports.CreateAnnotationForLocationTestingDocument = exports.ConnectAuthorToPublicationDocument = exports.GetAuthorByFullNameDocument = exports.GetPublicationByAccountAndTitleDocument = exports.CreatePublicationDocument = exports.CreateAuthorDocument = exports.AddTagToAnnotationDocument = exports.GetTagByNameAndAccountIdDocument = exports.GetAllTagsForAccountDocument = exports.CreateTagDocument = exports.UpdateAnnotationByHighlightDocument = exports.GetAllAnnotationsByPublicationDocument = exports.CreateAnnotationDocument = exports.GetAccountByEmailDocument = exports.GetAccountByAccountIdDocument = exports.CreateAccountDocument = void 0;
 const graphql_1 = require("graphql");
 const graphql_tag_1 = __importDefault(require("graphql-tag"));
 exports.CreateAccountDocument = graphql_tag_1.default `
@@ -68,6 +68,12 @@ exports.GetAllAnnotationsByPublicationDocument = graphql_tag_1.default `
       color
       noteLocation
       noteText
+      tagsByAnnotationTagAnnotationIdAndTagId {
+        nodes {
+          tagId
+          tagName
+        }
+      }
     }
   }
 }
@@ -85,6 +91,51 @@ exports.UpdateAnnotationByHighlightDocument = graphql_tag_1.default `
       color
       noteLocation
       noteText
+    }
+  }
+}
+    `;
+exports.CreateTagDocument = graphql_tag_1.default `
+    mutation CreateTag($inputTag: CreateTagInput!) {
+  __typename
+  createTag(input: $inputTag) {
+    tag {
+      id
+      tagId
+      tagName
+    }
+  }
+}
+    `;
+exports.GetAllTagsForAccountDocument = graphql_tag_1.default `
+    query GetAllTagsForAccount($accountId: UUID!) {
+  __typename
+  allTags(condition: {accountId: $accountId}) {
+    nodes {
+      tagId
+      id
+      tagName
+    }
+  }
+}
+    `;
+exports.GetTagByNameAndAccountIdDocument = graphql_tag_1.default `
+    query GetTagByNameAndAccountId($accountId: UUID!, $tagName: String!) {
+  tagByTagNameAndAccountId(accountId: $accountId, tagName: $tagName) {
+    tagId
+    tagName
+  }
+}
+    `;
+exports.AddTagToAnnotationDocument = graphql_tag_1.default `
+    mutation AddTagToAnnotation($annotationId: String!, $tagId: String!) {
+  __typename
+  createAnnotationTag(
+    input: {annotationTag: {annotationId: $annotationId, tagId: $tagId}}
+  ) {
+    annotationTag {
+      annotationId
+      tagId
     }
   }
 }
@@ -180,6 +231,18 @@ function getSdk(client, withWrapper = defaultWrapper) {
         },
         UpdateAnnotationByHighlight(variables) {
             return withWrapper(() => client.request(graphql_1.print(exports.UpdateAnnotationByHighlightDocument), variables));
+        },
+        CreateTag(variables) {
+            return withWrapper(() => client.request(graphql_1.print(exports.CreateTagDocument), variables));
+        },
+        GetAllTagsForAccount(variables) {
+            return withWrapper(() => client.request(graphql_1.print(exports.GetAllTagsForAccountDocument), variables));
+        },
+        GetTagByNameAndAccountId(variables) {
+            return withWrapper(() => client.request(graphql_1.print(exports.GetTagByNameAndAccountIdDocument), variables));
+        },
+        AddTagToAnnotation(variables) {
+            return withWrapper(() => client.request(graphql_1.print(exports.AddTagToAnnotationDocument), variables));
         },
         CreateAuthor(variables) {
             return withWrapper(() => client.request(graphql_1.print(exports.CreateAuthorDocument), variables));
