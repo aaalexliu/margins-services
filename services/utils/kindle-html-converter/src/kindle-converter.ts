@@ -124,12 +124,14 @@ export class KindleConverter {
         
       } else if (noteHeading.noteType === NOTE ) {
         annotation = this.createNote(noteHeading, noteText);
+
+        annotation['tags'] = this.extractTags(noteText);
         // check if noteType is note. if previous noteType is highlight, assume that note
         // is child note of highlight. if previous noteType is note, assume orphan note and add
         // with current kindle export format, no way to indepedently determine whether
         // noteType note is orphan or child
         let prevNote = allAnnotations.slice(-1)[0];
-        if (prevNote && prevNote.highlightText) {
+        if (prevNote && prevNote.highlightText && prevNote.noteText == undefined) {
           Object.assign(prevNote, annotation);
           continue;
         }
@@ -138,6 +140,12 @@ export class KindleConverter {
     }
 
     return allAnnotations;
+  }
+
+  extractTags(noteText: string) {
+    const tagRegex = /(?:(^|\s)@(?<tagName>\w+))/g;
+    const tagNames = [...noteText.matchAll(tagRegex)].map(match => match.groups.tagName);
+    return tagNames;
   }
 
   createHighlight(noteHeading, noteHeadingElement, text): Highlight {

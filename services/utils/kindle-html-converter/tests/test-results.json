@@ -1,0 +1,70 @@
+{
+  "bookInfo": {
+    "title": "testPublication1",
+    "authors": [
+      "testAuthor1",
+      "testAuthor2"
+    ]
+  },
+  "bookNotes": [
+    {
+      "noteLocation": {
+        "kindleLocation": 41,
+        "page": "ix",
+        "section": "Author’s Note"
+      },
+      "noteText": "testEmptyNote1",
+      "tags": []
+    },
+    {
+      "highlightLocation": {
+        "kindleLocation": 58,
+        "page": "1",
+        "section": "Introduction"
+      },
+      "color": "yellow",
+      "highlightText": "testHighlight1",
+      "noteLocation": {
+        "kindleLocation": 61,
+        "page": "1",
+        "section": "Introduction"
+      },
+      "noteText": "@testTag1 testNote1",
+      "tags": [
+        "testTag1"
+      ]
+    },
+    {
+      "highlightLocation": {
+        "kindleLocation": 72,
+        "page": "2",
+        "section": "Introduction"
+      },
+      "color": "yellow",
+      "highlightText": "testHiglight2",
+      "noteLocation": {
+        "kindleLocation": 74,
+        "page": "2",
+        "section": "Introduction"
+      },
+      "noteText": "testNote2 @testTag1 @testTag2",
+      "tags": [
+        "testTag1",
+        "testTag2"
+      ]
+    },
+    {
+      "noteLocation": {
+        "kindleLocation": 76,
+        "page": "2",
+        "section": "Introduction"
+      },
+      "noteText": "testEmptyNote2 @testTag3 @testTag2 @testTag1",
+      "tags": [
+        "testTag3",
+        "testTag2",
+        "testTag1"
+      ]
+    }
+  ]
+}

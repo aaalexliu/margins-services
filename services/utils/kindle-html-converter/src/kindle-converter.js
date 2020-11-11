@@ -77,12 +77,13 @@ class KindleConverter {
             }
             else if (noteHeading.noteType === NOTE) {
                 annotation = this.createNote(noteHeading, noteText);
+                annotation['tags'] = this.extractTags(noteText);
                 // check if noteType is note. if previous noteType is highlight, assume that note
                 // is child note of highlight. if previous noteType is note, assume orphan note and add
                 // with current kindle export format, no way to indepedently determine whether
                 // noteType note is orphan or child
                 let prevNote = allAnnotations.slice(-1)[0];
-                if (prevNote && prevNote.highlightText) {
+                if (prevNote && prevNote.highlightText && prevNote.noteText == undefined) {
                     Object.assign(prevNote, annotation);
                     continue;
                 }
@@ -90,6 +91,11 @@ class KindleConverter {
             allAnnotations.push(annotation);
         }
         return allAnnotations;
+    }
+    extractTags(noteText) {
+        const tagRegex = /(?:(^|\s)@(?<tagName>\w+))/g;
+        const tagNames = [...noteText.matchAll(tagRegex)].map(match => match.groups.tagName);
+        return tagNames;
     }
     createHighlight(noteHeading, noteHeadingElement, text) {
         let highlightClass = noteHeadingElement.find("span[class^='highlight_']").attr('class');
@@ -115,6 +121,7 @@ class KindleConverter {
         // Highlight (yellow) - One: If You Want to Understand the Country, Visit McDonald’s > Page 37 · Location 310
         // Highlight (pink) - Page 17 · Location 284
         // 标注(黄色) - One: If You Want to Understand the Country, Visit McDonald’s > 第 38 页·位置 313
+        // found that there is also a bookmark note heading. added both translation and regex.
         // for some reason there are line breaks and multiple spaces in heading. stripping them
         const cleanHeading = heading.replace(/\s\s+/g, ' ');
         const headingRegex = /(?<noteType>.+) -( (?<chapter>.+) >)?( (?<page>.+)·)?([^0-9]*(?<location>[0-9]+))$/;
