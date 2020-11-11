@@ -1,12 +1,25 @@
 
 import deepEqual from 'deep-equal';
+// import { GetAllAnnotationsByPublicationQuery } from '../../data-mappers/__generated__/types';
+// tagsByAnnotationTagAnnotationIdAndTagId": {
+//   "nodes": [
+//     {
+//       "tagId": "5fab42de08c3082e852481fb",
+//       "tagName": "testTag1"
+//     }
+//   ]
+// }
 
-function parseAnnotation(annotation) {
+
+function parseAnnotation(annotation ) {
+  let tags = annotation.tagsByAnnotationTagAnnotationIdAndTagId?.nodes?.map(node => node.tagName);
   return {
+    annotationId: annotation.annotationId,
     highlightLocation: annotation.highlightLocation != null ? JSON.parse(annotation.highlightLocation) : null,
     highlightText: annotation.highlightText != null ? annotation.highlightText : null,
     noteLocation: annotation.noteLocation != null ? JSON.parse(annotation.noteLocation) : null,
     noteText: annotation.noteText != null ? annotation.noteText : null,
+    tags: tags ? tags : [],
   }
 }
 
@@ -38,6 +51,7 @@ export function parseAnnotationsFromGraphql(annotationNodes) {
 export function compareAnnotations(currentAnnotations, newAnnotations) {
   const annotationsToCreate = [];
   const annotationsToUpdate = [];
+  const annotationsToAddTags = [];
 
   for(let i = 0, newLength = newAnnotations.length; i < newLength; i++) {
     let newHighlight = getHighlight(newAnnotations[i]);
@@ -62,17 +76,26 @@ export function compareAnnotations(currentAnnotations, newAnnotations) {
       //probably didn't mean to change the note location
 
       // console.log(matchedAnnotation)
-      if (typeof matchedAnnotation.noteText === 'string' &&
-          typeof newAnnotations[i].noteText === 'string') {
-        if (matchedAnnotation.noteText !== newAnnotations[i].noteText) annotationsToUpdate.push(newAnnotations[i]);
-      } else {
-        if (matchedAnnotation.noteText != newAnnotations[i].noteText) annotationsToUpdate.push(newAnnotations[i]);
+      // undefined != undefined >> false
+      // undefined != null >> false
+      // undefined != '' >> true
+      if (matchedAnnotation.noteText != newAnnotations[i].noteText) {
+        annotationsToUpdate.push({
+          annotationId: matchedAnnotation.annotationId,
+          ...newAnnotations[i]
+        });
+      }
+
+      if (newAnnotations[i].tags != undefined) {
+        matchedAnnotation['tags'] = newAnnotations[i].tags;
+        annotationsToAddTags.push(matchedAnnotation);
       }
     }
   }
 
   return {
     annotationsToCreate,
-    annotationsToUpdate
+    annotationsToUpdate,
+    annotationsToAddTags
   }
 }
