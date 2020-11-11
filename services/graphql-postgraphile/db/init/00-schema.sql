@@ -87,10 +87,10 @@ CREATE TABLE tag (
   "tag_id" char(24) PRIMARY KEY CHECK (is_valid_mongo_id(tag_id)),
   "tag_name" text NOT NULL,
   "account_id" uuid NOT NULL REFERENCES account (account_id) ON DELETE CASCADE,
-  UNIQUE(tag_name, account_id)
+  CONSTRAINT no_duplicate_tags_per_account UNIQUE(account_id, tag_name)
 );
 
-CREATE INDEX tag_account_id ON tag (account_id);
+-- CREATE INDEX tag_account_id ON tag (account_id);
 
 CREATE TABLE annotation_tag (
   "annotation_id" char(24) REFERENCES annotation (annotation_id) ON DELETE CASCADE NOT NULL,
