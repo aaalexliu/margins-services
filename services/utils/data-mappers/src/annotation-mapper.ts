@@ -276,8 +276,8 @@ export default class AnnotationMapper extends DataMapper {
 
   async getTagId(tag: string) {
     if (typeof this.tagLookupTable !== 'object') await this.loadTagLookupTable();
-    console.log('current lookuptable:\n', this.tagLookupTable);
-    console.log('tag: ', tag, ' lookup:', this.tagLookupTable[tag]);
+    // console.log('current lookuptable:\n', this.tagLookupTable);
+    // console.log('tag: ', tag, ' lookup:', this.tagLookupTable[tag]);
     if (this.tagLookupTable[tag] == undefined) {
       const tagResponse = await this.findOrCreateTag(tag);
       return tagResponse.tagId
@@ -303,7 +303,7 @@ export default class AnnotationMapper extends DataMapper {
           this.sdk.GetTagByAccountIdAndName({accountId: this.accountId, tagName: tag});
         console.log('found tag:\n',  tagByAccountIdAndTagName);
         this.tagLookupTable[ tagByAccountIdAndTagName.tagName] =  tagByAccountIdAndTagName;
-        return  tagByAccountIdAndTagName;
+        return tagByAccountIdAndTagName;
       }
       console.log('unexpected create tag error');
       throw error;

@@ -18,7 +18,8 @@ const testNotes = [
       "page": "ix",
       "section": "Author’s Note"
     },
-    "noteText": "testEmptyNote1"
+    "noteText": "testEmptyNote1",
+    "tags": []
   },
   {
     "highlightLocation": {
@@ -33,8 +34,10 @@ const testNotes = [
       "page": "1",
       "section": "Introduction"
     },
-    "noteText": "testNote1",
-    "tags": ["testTag1"]
+    "noteText": "@testTag1 testNote1",
+    "tags": [
+      "testTag1"
+    ]
   },
   {
     "highlightLocation": {
@@ -49,9 +52,34 @@ const testNotes = [
       "page": "2",
       "section": "Introduction"
     },
-    "noteText": "testNote2",
-    "tags": ["testTag1", "testTag2"]
+    "noteText": "testNote2 @testTag1 @testTag2",
+    "tags": [
+      "testTag1",
+      "testTag2"
+    ]
   },
+  {
+    "noteLocation": {
+      "kindleLocation": 76,
+      "page": "2",
+      "section": "Introduction"
+    },
+    "noteText": "testEmptyNote2 @testTag3 @testTag2 @testTag1",
+    "tags": [
+      "testTag3",
+      "testTag2",
+      "testTag1"
+    ]
+  },
+  {
+    "highlightLocation": {
+      "kindleLocation": 100,
+      "page": "3",
+      "section": "Introduction"
+    },
+    "color": "yellow",
+    "highlightText": "testHighlight3"
+  }
 ];
 
 const annotationToUpdate = {
