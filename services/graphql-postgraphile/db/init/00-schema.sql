@@ -234,9 +234,13 @@ STABLE;
 -- set local jwt.claims.role to 'account';
 -- set local jwt.claims.account_id to 2;
 ALTER TABLE account ENABLE ROW LEVEL SECURITY;
-
--- ALTER TABLE publication ENABLE ROW LEVEL SECURITY;
-
 CREATE POLICY account_allow_if_owner ON account FOR ALL USING (account_id = current_account_id ());
 
--- CREATE POLICY publication_allow_if_owner ON publication FOR ALL USING (account_id = current_account_id ());
+ALTER TABLE publication ENABLE ROW LEVEL SECURITY;
+CREATE POLICY publication_allow_if_owner ON publication FOR ALL USING (account_id = current_account_id ());
+
+ALTER TABLE annotation ENABLE ROW LEVEL SECURITY;
+CREATE POLICY annotation_allow_if_owner ON annotation FOR ALL USING (account_id = current_account_id ());
+
+ALTER TABLE tag ENABLE ROW LEVEL SECURITY;
+CREATE POLICY tag_allow_if_owner ON tag FOR ALL USING (account_id = current_account_id ());
