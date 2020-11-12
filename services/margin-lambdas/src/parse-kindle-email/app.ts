@@ -76,9 +76,17 @@ exports.lambdaHandler = async (event, context, callback) => {
     const newAnnotations = kindleConverter.getBookNotes();
     // console.log('parsed new annotations', newAnnotations);
     
-    const {annotationsToCreate, annotationsToUpdate} = compareAnnotations(currentAnnotations, newAnnotations);
+    const {
+      annotationsToCreate,
+      annotationsToUpdate,
+      annotationsToAddTags
+    } = compareAnnotations(currentAnnotations, newAnnotations);
     console.log('create annotations count:', annotationsToCreate.length);
+    // console.log('create annotations:\n', annotationsToCreate);
     console.log('update annotations count: ', annotationsToUpdate.length);
+    // console.log('update annotations:\n', annotationsToUpdate);
+    console.log('annotations to add tags count', annotationsToAddTags.length);
+    // console.log('annotations to add tags:\n', annotationsToAddTags);
     // console.log(annotationsToUpdate);
 
     const createAnnotationsPromises = annotationsToCreate.map(annotation => {
@@ -88,10 +96,18 @@ exports.lambdaHandler = async (event, context, callback) => {
       return annotationMapper.updateAnnotationByHighlight(annotation);
     });
 
-    let createRes, updateRes;
+    const addTagsPromises = annotationsToAddTags.flatMap(annotation => {
+      return annotation.tags.map(tag => {
+        return annotationMapper
+         .addTagToAnnotation(tag, annotation.annotationId);
+      });
+    });
+
+    let createRes, updateRes, tagsRes;
     try {
       createRes = await Promise.all(createAnnotationsPromises);
       updateRes = await Promise.all(updatedAnnotationsPromises);
+      tagsRes = await Promise.all(addTagsPromises);
     } catch (errors) {
       console.log(errors);
     }
