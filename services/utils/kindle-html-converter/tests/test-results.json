@@ -41,7 +41,7 @@
         "section": "Introduction"
       },
       "color": "yellow",
-      "highlightText": "testHiglight2",
+      "highlightText": "testHighlight2",
       "noteLocation": {
         "kindleLocation": 74,
         "page": "2",
@@ -65,6 +65,15 @@
         "testTag2",
         "testTag1"
       ]
+    },
+    {
+      "highlightLocation": {
+        "kindleLocation": 100,
+        "page": "3",
+        "section": "Introduction"
+      },
+      "color": "yellow",
+      "highlightText": "testHighlight3"
     }
   ]
 }
