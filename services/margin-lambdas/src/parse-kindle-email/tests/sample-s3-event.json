@@ -21,10 +21,10 @@
           "arn": "arn:aws:s3:::margins.me-uploads"
         },
         "object": {
-          "key": "kindle-email/dc01qq2943kmk33dnom5a7ur5b5o5d4k1q41k901",
-          "size": 10156,
-          "eTag": "12ec5f1532087d16c256540d6a5e4200",
-          "sequencer": "005FAC8607958712B3"
+          "key": "kindle-email/ml1ocpgg9n0cbh9e2p9aud4frgun84t8d4jb92g1",
+          "size": 10154,
+          "eTag": "da99fe3267eeb6b4ec75fdfcdf1b71f5",
+          "sequencer": "005FB86ECEDF361677"
         }
       }
     }

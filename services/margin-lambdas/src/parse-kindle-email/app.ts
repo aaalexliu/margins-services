@@ -16,7 +16,7 @@ const authToken = generateJWT();
 exports.lambdaHandler = async (event, context, callback) => {
 
     // Read options from the event parameter.
-    console.log("Reading options from event:\n", util.inspect(event, {depth: 5}));
+    // console.log("Reading options from event:\n", util.inspect(event, {depth: 5}));
     const srcBucket = event.Records[0].s3.bucket.name;
     console.log('s3 event record');
     console.log(event.Records[0].s3)
@@ -48,6 +48,10 @@ exports.lambdaHandler = async (event, context, callback) => {
     const accountMapper = new AccountMapper(process.env.GRAPHQL_ENDPOINT, authToken);
     const account = await accountMapper.findAccountByEmail(senderEmail);
     console.log('find account response: \n', account);
+    if (account == null) {
+      console.log('no account found, aborting');
+      return;
+    }
 
     const attachment = getAttachment(parsedMail);
     // console.log(attachment);
