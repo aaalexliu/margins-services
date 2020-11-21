@@ -39,7 +39,7 @@ const testNotes = [
       "page": "1",
       "section": "Introduction"
     },
-    "noteText": "@testTag1 testNote1",
+    "noteText": "#testTag1 testNote1",
     "tags": [
       "testTag1"
     ]
@@ -57,7 +57,7 @@ const testNotes = [
       "page": "2",
       "section": "Introduction"
     },
-    "noteText": "testNote2 @testTag1 @testTag2",
+    "noteText": "testNote2 #testTag1 #testTag2",
     "tags": [
       "testTag1",
       "testTag2"
@@ -69,7 +69,7 @@ const testNotes = [
       "page": "2",
       "section": "Introduction"
     },
-    "noteText": "testEmptyNote2 @testTag3 @testTag2 @testTag1",
+    "noteText": "testEmptyNote2 #testTag3 #testTag2 #testTag1",
     "tags": [
       "testTag3",
       "testTag2",
@@ -99,11 +99,7 @@ const testNotes = [
       "page": "2",
       "section": "Introduction"
     },
-    "noteText": "real life experience",
-    "tags": [
-      "testTag1",
-      "testTag2"
-    ]
+    "noteText": "real life experience"
   },
 ];
 
@@ -123,8 +119,8 @@ const annotationToUpdate = {
   "noteText": "testUpdate1"
 };
 
-// const GRAPHQL_ENDPOINT = process.env.GRAPHQL_ENDPOINT;
-const GRAPHQL_ENDPOINT = process.env.LOCAL_GRAPHQL_ENDPOINT;
+const GRAPHQL_ENDPOINT = process.env.GRAPHQL_ENDPOINT;
+// const GRAPHQL_ENDPOINT = process.env.LOCAL_GRAPHQL_ENDPOINT;
 const GRAPHQL_JWT = process.env.GRAPHQL_JWT;
 const ACCOUNT_ID = process.env.ACCOUNT_ID;
 
@@ -205,12 +201,12 @@ async function addBookAndAnnotations(testBook, testNotes) {
   let accountRes = await accountMapper.findOrCreateCognitoAccount(mockCognitoPayload);
   console.log(accountRes);
 
-  for (let i = 0, n= 1; i < n; i++) {
-    await addBookAndAnnotations({
-      title: `testPublication${i}`,
-      authors: ['testAuthor1', 'testAuthor2', 'Author A. Author']
-    }, testNotes);
-  }
+  // for (let i = 0, n= 1; i < n; i++) {
+  //   await addBookAndAnnotations({
+  //     title: `testPublication${i}`,
+  //     authors: ['testAuthor1', 'testAuthor2', 'Author A. Author']
+  //   }, testNotes);
+  // }
   
   // const allAnnotations = await annotationMapper.getAllAnnotationsFromPublication();
   // console.log('get all annotations response:\n', allAnnotations);
