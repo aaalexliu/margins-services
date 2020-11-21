@@ -6,9 +6,14 @@ const { parseAnnotationsFromGraphql, compareAnnotations } = require('../compare-
 const util =require('util');
 
 
+// const testBook = {
+//   title: 'testPublication1',
+//   authors: [ 'testAuthor1', 'testAuthor2' ]
+// };
+
 const testBook = {
-  title: 'testPublication1',
-  authors: [ 'testAuthor1', 'testAuthor2' ]
+  title: 'testPublication2',
+  authors: [ 'testAuthor1', 'testAuthor2', 'testAuthor3' ]
 };
 
 const testNotes = [
@@ -79,7 +84,27 @@ const testNotes = [
     },
     "color": "yellow",
     "highlightText": "testHighlight3"
-  }
+  },
+  {
+    "highlightLocation": {
+      "kindleLocation": 200,
+      "page": "3",
+      "section": "Introduction",
+      "chapter": "New York McDonalds"
+    },
+    "color": "yellow",
+    "highlightText": "The walks, the portraits, the stories I heard, the places they took me, became a process of learning in a different kind of way. Not from textbooks, or statistics, or spreadsheets, or PowerPoint presentations, or classrooms, or speeches, or documentaries—but from people.",
+    "noteLocation": {
+      "kindleLocation": 74,
+      "page": "2",
+      "section": "Introduction"
+    },
+    "noteText": "real life experience",
+    "tags": [
+      "testTag1",
+      "testTag2"
+    ]
+  },
 ];
 
 const annotationToUpdate = {
@@ -98,7 +123,8 @@ const annotationToUpdate = {
   "noteText": "testUpdate1"
 };
 
-const GRAPHQL_ENDPOINT =   process.env.GRAPHQL_ENDPOINT;
+// const GRAPHQL_ENDPOINT = process.env.GRAPHQL_ENDPOINT;
+const GRAPHQL_ENDPOINT = process.env.LOCAL_GRAPHQL_ENDPOINT;
 const GRAPHQL_JWT = process.env.GRAPHQL_JWT;
 const ACCOUNT_ID = process.env.ACCOUNT_ID;
 
@@ -109,11 +135,7 @@ const mockCognitoPayload = {
   'cognito:groups': ['margins_account']
 };
 
-(async () => {
-  const accountMapper = new AccountMapper(GRAPHQL_ENDPOINT, GRAPHQL_JWT);
-  let accountRes = await accountMapper.findOrCreateCognitoAccount(mockCognitoPayload);
-  console.log(accountRes);
-
+async function addBookAndAnnotations(testBook, testNotes) {
   const publicationMapper = new PublicationMapper(
     GRAPHQL_ENDPOINT,
     GRAPHQL_JWT,
@@ -176,6 +198,20 @@ const mockCognitoPayload = {
   console.log('create tags response:\n', util.inspect(createRes, {depth: 5}));
   console.log('add tags response:\n', util.inspect(tagsRes, {depth: 5}));
 
+}
+
+(async () => {
+  const accountMapper = new AccountMapper(GRAPHQL_ENDPOINT, GRAPHQL_JWT);
+  let accountRes = await accountMapper.findOrCreateCognitoAccount(mockCognitoPayload);
+  console.log(accountRes);
+
+  for (let i = 0, n= 1; i < n; i++) {
+    await addBookAndAnnotations({
+      title: `testPublication${i}`,
+      authors: ['testAuthor1', 'testAuthor2', 'Author A. Author']
+    }, testNotes);
+  }
+  
   // const allAnnotations = await annotationMapper.getAllAnnotationsFromPublication();
   // console.log('get all annotations response:\n', allAnnotations);
 })();
