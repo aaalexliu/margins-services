@@ -112,6 +112,9 @@ class AnnotationMapper extends data_mapper_1.default {
         this.accountId = accountId;
         this.tagLookupTable = undefined;
     }
+    // right now with the logic of default creating notes, duplicate notes are erroring out and not
+    // having tags added. not sure if i should fix this, since new tags would automatically create
+    // a new note
     async createAnnotation(annotation) {
         const annotationVars = this.createAnnotationInput(annotation);
         try {
@@ -240,8 +243,8 @@ class AnnotationMapper extends data_mapper_1.default {
     async getTagId(tag) {
         if (typeof this.tagLookupTable !== 'object')
             await this.loadTagLookupTable();
-        console.log('current lookuptable:\n', this.tagLookupTable);
-        console.log('tag: ', tag, ' lookup:', this.tagLookupTable[tag]);
+        // console.log('current lookuptable:\n', this.tagLookupTable);
+        // console.log('tag: ', tag, ' lookup:', this.tagLookupTable[tag]);
         if (this.tagLookupTable[tag] == undefined) {
             const tagResponse = await this.findOrCreateTag(tag);
             return tagResponse.tagId;

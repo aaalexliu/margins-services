@@ -144,6 +144,9 @@ export default class AnnotationMapper extends DataMapper {
     this.tagLookupTable = undefined;
   }
 
+  // right now with the logic of default creating notes, duplicate notes are erroring out and not
+  // having tags added. not sure if i should fix this, since new tags would automatically create
+  // a new note
   async createAnnotation(annotation: Annotation) {
     const annotationVars = this.createAnnotationInput(annotation);
     try {
