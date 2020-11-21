@@ -93,7 +93,7 @@ class KindleConverter {
         return allAnnotations;
     }
     extractTags(noteText) {
-        const tagRegex = /(?:(^|\s)@(?<tagName>\w+))/g;
+        const tagRegex = /(?:(^|\s)#(?<tagName>\w+))/g;
         const tagNames = [...noteText.matchAll(tagRegex)].map(match => match.groups.tagName);
         return tagNames;
     }
