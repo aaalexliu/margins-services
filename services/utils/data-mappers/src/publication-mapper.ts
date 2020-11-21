@@ -239,6 +239,7 @@ export default class PublicationMapper extends DataMapper{
         author: {
           authorId,
           fullName,
+          accountId: this.accountId,
           publicationAuthorsUsingAuthorId: {
             create: [{
               publicationId
