@@ -59,19 +59,47 @@ CREATE TABLE annotation (
   "created_at" timestamp with time zone DEFAULT now(),
   "updated_at" timestamp with time zone DEFAULT now(),
   "edited_highlight_text" text,
-  "edited_note_text" text,
   "extra_edits" jsonb,
+  "tsv" tsvector,
   CONSTRAINT no_duplicate_highlights UNIQUE(publication_id, account_id, highlight_location, highlight_text),
   CONSTRAINT no_duplicate_notes UNIQUE(publication_id, account_id, note_location, note_text)
 );
+
+CREATE INDEX index_annotation_tsv ON annotation USING gin(tsv);
+
+CREATE OR REPLACE FUNCTION annotation_tsv_trigger() RETURNS TRIGGER AS $$
+  BEGIN
+    -- NEW.tsv = to_tsvector(
+      -- 'pg_catalog.english',
+      -- SUBSTRING(
+      --   COALESCE(NEW.highlight_text, '') ||
+      --   COALESCE(NEW.note_text, ''),
+      --   1, 500000
+      -- )
+    -- );
+    NEW.tsv = 
+      setweight(to_tsvector(COALESCE(NEW.note_text, '')), 'B') ||
+      setweight(to_tsvector(COALESCE(NEW.edited_highlight_text, '')), 'B') ||
+      setweight(to_tsvector(COALESCE(NEW.highlight_text, '')), 'C');
+    RETURN NEW;
+  END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER annotation_tsv_update
+BEFORE INSERT OR UPDATE ON annotation
+FOR EACH ROW EXECUTE PROCEDURE annotation_tsv_trigger();
 
 CREATE INDEX annotation_publication_id_index ON annotation (publication_id);
 CREATE INDEX annotation_account_id_index ON annotation (account_id);
 
 CREATE TABLE author (
   "author_id" char(24) PRIMARY KEY CHECK (is_valid_mongo_id(author_id)),
-  "full_name" text UNIQUE NOT NULL
+  "full_name" text UNIQUE NOT NULL,
+  "account_id" uuid NOT NULL REFERENCES account (account_id) ON DELETE CASCADE,
+  CONSTRAINT no_duplicate_authors_per_account UNIQUE(account_id, full_name)
 );
+
+CREATE INDEX author_name ON author (full_name);
 
 CREATE TABLE publication_author (
   "publication_id" char(24) REFERENCES publication (publication_id) ON DELETE CASCADE NOT NULL,
@@ -89,6 +117,8 @@ CREATE TABLE tag (
   "account_id" uuid NOT NULL REFERENCES account (account_id) ON DELETE CASCADE,
   CONSTRAINT no_duplicate_tags_per_account UNIQUE(account_id, tag_name)
 );
+
+CREATE INDEX tag_name ON tag (tag_name);
 
 -- CREATE INDEX tag_account_id ON tag (account_id);
 

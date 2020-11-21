@@ -3,6 +3,8 @@ const cors = require('cors');
 const { postgraphile, PostGraphileInflectionPlugin } = require("postgraphile");
 const PgManyToManyPlugin = require("@graphile-contrib/pg-many-to-many");
 const PostGraphileNestedMutations = require('postgraphile-plugin-nested-mutations');
+const PostGraphileConnectionFilterPlugin = require('postgraphile-plugin-connection-filter');
+const PostGraphileFulltextFilterPlugin = require('postgraphile-plugin-fulltext-filter');
 // simplifies things but i prefer verbosity makes things clearer
 // const PgSimplifyInflectorPlugin = require("@graphile-contrib/pg-simplify-inflector");
 
@@ -80,7 +82,12 @@ app.use(
     graphiql: true,
     enhanceGraphiql: true,
     allowExplain: (req) => { return true; },
-    appendPlugins: [PostGraphileNestedMutations, PgManyToManyPlugin],
+    appendPlugins: [
+      PostGraphileNestedMutations,
+      PgManyToManyPlugin,
+      PostGraphileConnectionFilterPlugin,
+      PostGraphileFulltextFilterPlugin
+    ],
     ignoreRBAC: false,
     ignoreIndexes: false,
     showErrorStack: "json",
