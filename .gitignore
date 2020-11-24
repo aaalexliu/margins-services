@@ -58,3 +58,6 @@ env.yml
 jwks.json
 # Local Netlify folder
 .netlify
+
+# ignore keys
+.pem
