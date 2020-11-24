@@ -56,3 +56,5 @@ env.yml
 
 # jwks
 jwks.json
+# Local Netlify folder
+.netlify
