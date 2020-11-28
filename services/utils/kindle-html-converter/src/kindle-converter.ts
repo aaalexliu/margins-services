@@ -143,7 +143,7 @@ export class KindleConverter {
   }
 
   extractTags(noteText: string) {
-    const tagRegex = /(?:(^|\s)#(?<tagName>\w+))/g;
+    const tagRegex = /(?:(^|\s)#(?<tagName>[^\s]+))/g;
     const tagNames = [...noteText.matchAll(tagRegex)].map(match => match.groups.tagName);
     return tagNames;
   }

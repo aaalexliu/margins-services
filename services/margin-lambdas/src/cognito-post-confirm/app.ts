@@ -1,11 +1,106 @@
 import AWS from 'aws-sdk';
-import { AccountMapper } from '../../../utils/data-mappers';
+import {
+  AccountMapper,
+  PublicationMapper,
+  AnnotationMapper
+} from '../../../utils/data-mappers';
 import jwt from 'jsonwebtoken';
 
 const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider({
   region: 'us-east-1',
   apiVersion: '2016-04-18',
 });
+
+const ONBOARDING_BOOK = {
+  title: 'Welcome to Margins.me, a Handbook',
+  authors: ['margins.me']
+}
+
+let i = 1;
+
+const ONBOARDING_BOOK = {
+  title: 'Handbook: Welcome to margins.me 👋',
+  authors: ['margins.me']
+}
+
+let i = 1;
+
+const ONBOARDING_NOTES = [
+  {
+    "highlightLocation": {
+      "kindleLocation": i++,
+      "section": "🙌 Welcome 🙌"
+    },
+    "color": "blue",
+    "highlightText": "If this is your first time using margins.me, this is both a fully functional demo and a handbook for current features. Learn how to use margins.me to enrich the life of your 🧠 mind 💭"
+  },
+  // {
+  //   "highlightLocation": {
+  //     "kindleLocation": i++,
+  //     "section": "Annotations",
+  //     "chapter": "Introduction"
+  //   },
+  //   "color": "red",
+  //   "highlightText": "The core of margins.me are annotations, or highlights and notes you've saved"
+  // },
+  {
+    "highlightLocation": {
+      "kindleLocation": i++,
+      "section": "Annotations",
+    },
+    "color": "yellow",
+    "highlightText": "The core of margins.me are your annotations, or your highlights and notes. To edit an annotation, click on the edit button above. From there, you can edit the highlight text, choose a highlight color, enter detailed location metadata, or add a note.",
+    "noteText": "Try and edit me! I'm a note 👀"
+  },
+  {
+    "highlightLocation": {
+      "kindleLocation": i++,
+      "section": "Annotations",
+    },
+    "color": "yellow",
+    "highlightText": "You can also add tags to an annotation by clicking on the `Add Tag` button below. The input will autocomplete existing tags or allow you to create new tags. And to help clean up, if you delete a tag that has no other associated annotations, that tag will be deleted as well.",
+    "tags": [
+      "tag/example"
+    ]
+  },
+  {
+    "highlightLocation": {
+      "kindleLocation": i++,
+      "section": "Importing",
+    },
+    "color": "red",
+    "highlightText": "Importing your annotations works like magic 🔮. Open your notes in the kindle app, hit the export button, select email, and simply send to: kindle@margins.me. Thanks to the graciousness of 👑 God-Emperor Bezos 👑, your email will be processed and billed by the 100ms increment without me having to deploy a single server or container.",
+    "noteText": "Kindle imports also support inline tagging. #your-tag-here will automatically add a tag. To be processed, the `#` must either be at the start of the note, or follow a whitespace character. After the `#`, all consecutive non-whitespace characters will be captured. If you want to know how the sausage is made, here's the regex if you want to test it out: https://regexr.com/5h75m ",
+    "tags": [
+      "your-tag-here"
+    ]
+  },
+  {
+    "highlightLocation": {
+      "kindleLocation": i++,
+      "section": "Navigation",
+    },
+    "color": "orange",
+    "highlightText": "The sidebar offers one-click scrolling to section headers."
+  },
+  {
+    "highlightLocation": {
+      "kindleLocation": i++,
+      "section": "Navigation",
+    },
+    "color": "orange",
+    "highlightText": "By default the app will only load the first 50 annotations. To view more, you can either click load all, or just scroll down - infinite scroll will automatically load the next 50 annotations.",
+    "noteText": "Don't worry about having to load annotations again if you decide to switch to another page! As long as you don't refresh the page, previously retrieved data will be loaded directly from the cache and it'll be ⚡️ lightning ⚡️ fast."
+  },
+  {
+    "highlightLocation": {
+      "kindleLocation": i++,
+      "section": "Navigation",
+    },
+    "color": "orange",
+    "highlightText": "You can also 🔎 search 🔍 through all your annotations with the search bar at the top! Right now, you can only search highlight text and note text, but future implementations will allow for location metadata. When searching, matches in note text are weighted slightly more than matches highlight text, to make sure your notes are surfaced with a higher priority."
+  },
+];
 
 exports.lambdaHandler = async (event, context, callback) => {
   const allPromises = [];
@@ -61,11 +156,30 @@ exports.lambdaHandler = async (event, context, callback) => {
   // console.log(a);
   // console.log(a.split('n').join('\n'));
 
-  const graphqlJwt = generateJWT(event.userName);
-  const accountMapper = new AccountMapper(process.env.GRAPHQL_ENDPOINT, graphqlJwt);
+  const GRAPHQL_JWT = generateJWT(event.userName);
+  const GRAPHQL_ENDPOINT = process.env.GRAPHQL_ENDPOINT;
+
+  const accountMapper = new AccountMapper(GRAPHQL_ENDPOINT, GRAPHQL_JWT);
   const cognitoAccount = getAccountFromEvent(event);
-  const createAccountPromise = accountMapper.createAccountFromCognito(cognitoAccount);
-  allPromises.push(createAccountPromise);
+  const accountRes = await accountMapper.createAccountFromCognito(cognitoAccount);
+  const ACCOUNT_ID = cognitoAccount.sub;
+
+  const publicationMapper = new PublicationMapper(
+    GRAPHQL_ENDPOINT,
+    GRAPHQL_JWT,
+    ACCOUNT_ID
+  );
+
+  const bookRes = await publicationMapper.findOrCreatePublication(testBook);
+  console.log('test script book response', bookRes);
+
+  const annotationMapper = new AnnotationMapper(
+    GRAPHQL_ENDPOINT,
+    GRAPHQL_JWT,
+    ACCOUNT_ID,
+    bookRes.publicationId
+  );
+
 
 
 
