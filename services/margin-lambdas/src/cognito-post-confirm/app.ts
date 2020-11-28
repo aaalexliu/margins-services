@@ -25,7 +25,7 @@ const ONBOARDING_NOTES = [
       "section": "🙌 Welcome 🙌"
     },
     "color": "blue",
-    "highlightText": "If this is your first time using Margins, this is both a fully functional demo and a handbook for current features. Learn how to use Margins to enrich the 💭 life of your mind 💭"
+    "highlightText": "If this is your first time using Margins, this is both a fully functional demo and a handbook for current features."
   },
   // {
   //   "highlightLocation": {
@@ -39,16 +39,16 @@ const ONBOARDING_NOTES = [
   {
     "highlightLocation": {
       "kindleLocation": i++,
-      "section": "Annotations",
+      "section": "Annotations ✍️",
     },
     "color": "yellow",
-    "highlightText": "The core of Margins are your annotations ✍️, or your highlights and notes. To edit an annotation, click on the edit button above. From there, you can edit the highlight text, choose a highlight color, enter detailed location metadata, or add a note.",
+    "highlightText": "The core of Margins is annotations, or your highlights and notes. To edit an annotation, click on the edit button above. From there, you can edit the highlight text, choose a highlight color, enter detailed location metadata, or add a note.",
     "noteText": "Try and edit me! I'm a note 👀"
   },
   {
     "highlightLocation": {
       "kindleLocation": i++,
-      "section": "Annotations",
+      "section": "Annotations ✍️",
     },
     "color": "yellow",
     "highlightText": "You can also add tags to an annotation by clicking on the `Add Tag` button below. The input will autocomplete existing tags or allow you to create new tags. And to help clean up, if you delete a tag that has no other associated annotations, that tag will be deleted as well.",
@@ -71,7 +71,7 @@ const ONBOARDING_NOTES = [
   {
     "highlightLocation": {
       "kindleLocation": i++,
-      "section": "Navigation",
+      "section": "Navigation 🔍",
     },
     "color": "orange",
     "highlightText": "The sidebar offers one-click scrolling to section headers."
@@ -79,7 +79,7 @@ const ONBOARDING_NOTES = [
   {
     "highlightLocation": {
       "kindleLocation": i++,
-      "section": "Navigation",
+      "section": "Navigation 🔍",
     },
     "color": "orange",
     "highlightText": "By default the app will only load the first 50 annotations. To view more, you can either click load all, or just scroll down - infinite scroll will automatically load the next 50 annotations.",
@@ -88,10 +88,10 @@ const ONBOARDING_NOTES = [
   {
     "highlightLocation": {
       "kindleLocation": i++,
-      "section": "Navigation",
+      "section": "Navigation 🔍",
     },
     "color": "orange",
-    "highlightText": "You can also 🔎 search 🔍 through all your annotations with the search bar at the top! Right now, you can only search highlight text and note text, but future implementations will allow for location metadata. When searching, matches in note text are weighted slightly more than matches highlight text, to make sure your notes are surfaced with a higher priority."
+    "highlightText": "You can also 🕵️‍♀️ search 🕵️‍♂️ through all your annotations with the search bar at the top! Right now, you can only search highlight text and note text, but future implementations will allow for location metadata. When searching, matches in note text are weighted slightly more than matches highlight text, to make sure your notes are surfaced with a higher priority."
   },
 ];
 
@@ -164,7 +164,7 @@ exports.lambdaHandler = async (event, context, callback) => {
   );
 
   const bookRes = await publicationMapper.findOrCreatePublication(ONBOARDING_BOOK);
-  console.log('on boarding book response', bookRes);
+  // console.log('on boarding book response', bookRes);
 
   const annotationMapper = new AnnotationMapper(
     GRAPHQL_ENDPOINT,
@@ -177,10 +177,10 @@ exports.lambdaHandler = async (event, context, callback) => {
     return annotationMapper.createAnnotation(annotation);
   });
 
-  console.log('full event object');
-  console.log(event);
+  // console.log('full event object');
+  // console.log(event);
   const responses = await Promise.all(allPromises);
-  console.log(responses);
+  console.log('cognito responses', responses);
   callback(null, event);
 };
 
