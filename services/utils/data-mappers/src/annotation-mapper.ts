@@ -122,8 +122,8 @@ interface Highlight {
 }
 
 interface Note {
-  noteText: string,
-  noteLocation: any
+  noteText?: string,
+  noteLocation?: any
 }
 
 interface Tagged {

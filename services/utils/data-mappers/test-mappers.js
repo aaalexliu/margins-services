@@ -120,8 +120,8 @@ const annotationToUpdate = {
 };
 
 const ONBOARDING_BOOK = {
-  title: 'Handbook: Welcome to margins.me 👋',
-  authors: ['margins.me']
+  title: 'Handbook: Welcome to Margins 👋',
+  authors: ['Margins']
 }
 
 let i = 1;
@@ -133,7 +133,7 @@ const ONBOARDING_NOTES = [
       "section": "🙌 Welcome 🙌"
     },
     "color": "blue",
-    "highlightText": "If this is your first time using margins.me, this is both a fully functional demo and a handbook for current features. Learn how to use margins.me to enrich the life of your 🧠 mind 💭"
+    "highlightText": "If this is your first time using Margins, this is both a fully functional demo and a handbook for current features. Learn how to use Margins to enrich the 💭 life of your mind 💭"
   },
   // {
   //   "highlightLocation": {
@@ -150,7 +150,7 @@ const ONBOARDING_NOTES = [
       "section": "Annotations",
     },
     "color": "yellow",
-    "highlightText": "The core of margins.me are your annotations, or your highlights and notes. To edit an annotation, click on the edit button above. From there, you can edit the highlight text, choose a highlight color, enter detailed location metadata, or add a note.",
+    "highlightText": "The core of Margins are your annotations ✍️, or your highlights and notes. To edit an annotation, click on the edit button above. From there, you can edit the highlight text, choose a highlight color, enter detailed location metadata, or add a note.",
     "noteText": "Try and edit me! I'm a note 👀"
   },
   {
@@ -167,7 +167,7 @@ const ONBOARDING_NOTES = [
   {
     "highlightLocation": {
       "kindleLocation": i++,
-      "section": "Importing",
+      "section": "Importing 📥",
     },
     "color": "red",
     "highlightText": "Importing your annotations works like magic 🔮. Open your notes in the kindle app, hit the export button, select email, and simply send to: kindle@margins.me. Thanks to the graciousness of 👑 God-Emperor Bezos 👑, your email will be processed and billed by the 100ms increment without me having to deploy a single server or container.",
