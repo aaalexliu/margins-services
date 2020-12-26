@@ -11,6 +11,9 @@
 #
 # example.tfvars
 
+## ignore secrets
+secrets.auto.tfvars
+
 psql-command
 .env
 

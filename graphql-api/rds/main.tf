@@ -45,20 +45,20 @@ resource "aws_subnet" "public" {
   }
 }
 
-resource "aws_subnet" "private-1" {
-  vpc_id                  = aws_vpc.vpc.id
-  cidr_block              = "10.0.1.0/24"
-  availability_zone       = "us-east-1a"
+resource "aws_subnet" "private_1" {
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = "10.0.1.0/24"
+  availability_zone = "us-east-1a"
 
   tags = {
     Name = "margins-private-1"
   }
 }
 
-resource "aws_subnet" "private-2" {
-  vpc_id                  = aws_vpc.vpc.id
-  cidr_block              = "10.0.2.0/24"
-  availability_zone       = "us-east-1b"
+resource "aws_subnet" "private_2" {
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = "10.0.2.0/24"
+  availability_zone = "us-east-1b"
 
   tags = {
     Name = "margins-private-2"
@@ -77,46 +77,46 @@ resource "aws_security_group" "public" {
     cidr_blocks = ["0.0.0.0/0"]
     # below is because terraform is throwin errors saying these attributes
     # are required when they're not (as per docs).
-    description = null
+    description      = null
     ipv6_cidr_blocks = null
-    prefix_list_ids = null
-    security_groups = null
-    self = null
+    prefix_list_ids  = null
+    security_groups  = null
+    self             = null
   }]
 
   ingress = [
     {
-      cidr_blocks = [ "0.0.0.0/0" ]
-      description = "open port for ssh"
-      from_port = 22
-      protocol = "tcp"
-      to_port = 22
+      cidr_blocks      = ["0.0.0.0/0"]
+      description      = "open port for ssh"
+      from_port        = 22
+      protocol         = "tcp"
+      to_port          = 22
       ipv6_cidr_blocks = null
-      prefix_list_ids = null
-      security_groups = null
-      self = null
+      prefix_list_ids  = null
+      security_groups  = null
+      self             = null
     },
     {
-      cidr_blocks = [ "0.0.0.0/0" ]
-      description = "open port for http"
-      from_port = 80
-      protocol = "tcp"
-      to_port = 80
+      cidr_blocks      = ["0.0.0.0/0"]
+      description      = "open port for http"
+      from_port        = 80
+      protocol         = "tcp"
+      to_port          = 80
       ipv6_cidr_blocks = null
-      prefix_list_ids = null
-      security_groups = null
-      self = null
+      prefix_list_ids  = null
+      security_groups  = null
+      self             = null
     },
     {
-      cidr_blocks = [ "0.0.0.0/0" ]
-      description = "open port for https"
-      from_port = 443
-      protocol = "tcp"
-      to_port = 443
+      cidr_blocks      = ["0.0.0.0/0"]
+      description      = "open port for https"
+      from_port        = 443
+      protocol         = "tcp"
+      to_port          = 443
       ipv6_cidr_blocks = null
-      prefix_list_ids = null
-      security_groups = null
-      self = null
+      prefix_list_ids  = null
+      security_groups  = null
+      self             = null
     }
   ]
 
@@ -130,15 +130,61 @@ resource "aws_security_group" "private" {
   description = "margins private security group"
   vpc_id      = aws_vpc.vpc.id
 
-  ingress = [ {
-    description = "postgresql access"
-    from_port = 5432
-    to_port = 5432
-    protocol = "-1"
-    security_groups = [ aws_security_group.public.id ]
+  # only allows traffic from web server
+  ingress = [{
+    description      = "postgresql access"
+    from_port        = 5432
+    to_port          = 5432
+    protocol         = "tcp"
+    security_groups  = [aws_security_group.public.id]
     ipv6_cidr_blocks = null
-    prefix_list_ids = null
-    cidr_blocks = null
-    self = null
-  } ]
+    prefix_list_ids  = null
+    cidr_blocks      = null
+    self             = null
+  }]
+
+  # Allow all outbound traffic.
+  egress = [{
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+    # below is because terraform is throwin errors saying these attributes
+    # are required when they're not (as per docs).
+    description      = null
+    ipv6_cidr_blocks = null
+    prefix_list_ids  = null
+    security_groups  = null
+    self             = null
+  }]
+}
+
+resource "aws_db_subnet_group" "default" {
+  name       = "margins-db-subnet"
+  subnet_ids = [aws_subnet.private_1.id, aws_subnet.private_2.id]
+
+  tags = {
+    Name = "margins db subnet group"
+  }
+}
+
+variable "database_password" {
+  type = string
+  sensitive = true
+}
+variable "database_user" {
+  type = string
+  sensitive = true
+}
+resource "aws_db_instance" "default" {
+  identifier                = "margins-rds"
+  allocated_storage         = 10
+  engine                    = "postgres"
+  engine_version            = "10.12"
+  instance_class            = "db.t2.micro"
+  name                      = "margins"
+  username                  = var.database_user
+  password                  = var.database_password
+  db_subnet_group_name      = aws_db_subnet_group.default.id
+  vpc_security_group_ids    = [aws_security_group.private.id]
 }
