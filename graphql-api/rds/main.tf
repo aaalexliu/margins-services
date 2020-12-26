@@ -106,10 +106,39 @@ resource "aws_security_group" "public" {
       prefix_list_ids = null
       security_groups = null
       self = null
+    },
+    {
+      cidr_blocks = [ "0.0.0.0/0" ]
+      description = "open port for https"
+      from_port = 443
+      protocol = "tcp"
+      to_port = 443
+      ipv6_cidr_blocks = null
+      prefix_list_ids = null
+      security_groups = null
+      self = null
     }
   ]
 
   tags = {
     Name = "margins-public-security-group"
   }
+}
+
+resource "aws_security_group" "private" {
+  name        = "margins-private"
+  description = "margins private security group"
+  vpc_id      = aws_vpc.vpc.id
+
+  ingress = [ {
+    description = "postgresql access"
+    from_port = 5432
+    to_port = 5432
+    protocol = "-1"
+    security_groups = [ aws_security_group.public.id ]
+    ipv6_cidr_blocks = null
+    prefix_list_ids = null
+    cidr_blocks = null
+    self = null
+  } ]
 }
