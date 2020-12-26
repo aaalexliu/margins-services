@@ -64,21 +64,52 @@ resource "aws_subnet" "private-2" {
     Name = "margins-private-2"
   }
 }
+resource "aws_security_group" "public" {
+  name        = "margins-public"
+  description = "margins public facing security group"
+  vpc_id      = aws_vpc.vpc.id
 
-# resource "aws_security_group" "default" {
-#   name        = "terraform_security_group"
-#   description = "Terraform example security group"
-#   vpc_id      = aws_vpc.vpc.id
+  # Allow outbound internet access.
+  egress = [{
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+    # below is because terraform is throwin errors saying these attributes
+    # are required when they're not (as per docs).
+    description = null
+    ipv6_cidr_blocks = null
+    prefix_list_ids = null
+    security_groups = null
+    self = null
+  }]
 
-#   # Allow outbound internet access.
-#   egress {
-#     from_port   = 0
-#     to_port     = 0
-#     protocol    = "-1"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
+  ingress = [
+    {
+      cidr_blocks = [ "0.0.0.0/0" ]
+      description = "open port for ssh"
+      from_port = 22
+      protocol = "tcp"
+      to_port = 22
+      ipv6_cidr_blocks = null
+      prefix_list_ids = null
+      security_groups = null
+      self = null
+    },
+    {
+      cidr_blocks = [ "0.0.0.0/0" ]
+      description = "open port for http"
+      from_port = 80
+      protocol = "tcp"
+      to_port = 80
+      ipv6_cidr_blocks = null
+      prefix_list_ids = null
+      security_groups = null
+      self = null
+    }
+  ]
 
-#   tags {
-#     Name = "terraform-example-security-group"
-#   }
-# }
+  tags = {
+    Name = "margins-public-security-group"
+  }
+}
