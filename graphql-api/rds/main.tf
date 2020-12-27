@@ -117,6 +117,17 @@ resource "aws_security_group" "public" {
       prefix_list_ids  = null
       security_groups  = null
       self             = null
+    },
+    {
+      cidr_blocks      = ["0.0.0.0/0"]
+      description      = "open port for express testing"
+      from_port        = 8080
+      protocol         = "tcp"
+      to_port          = 8080
+      ipv6_cidr_blocks = null
+      prefix_list_ids  = null
+      security_groups  = null
+      self             = null
     }
   ]
 
@@ -201,4 +212,16 @@ resource "aws_instance" "web" {
   subnet_id = aws_subnet.public.id
   associate_public_ip_address = true
   key_name = aws_key_pair.deployer.id
+}
+
+data "aws_route53_zone" "api" {
+  name = "api.margins.me."
+}
+
+resource "aws_route53_record" "api" {
+  zone_id = data.aws_route53_zone.api.zone_id
+  name = "api.margins.me"
+  type = "A"
+  ttl = "93600"
+  records = [ aws_instance.web.public_ip ]
 }
