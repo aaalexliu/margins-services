@@ -47,7 +47,25 @@ const token = jwt.sign(
   },
 );
 
-const exportJwt = `GRAPHQL_JWT=${token}`;
+const lambdaToken = jwt.sign(
+  {
+    "cognito:groups": [
+      "margins_lambda"
+    ],
+  },
+  privateKey,
+  {
+    algorithm: 'RS256',
+    issuer: 'www.margins.me',
+    audience: 'www.margins.me/graphql',
+    expiresIn: '7d',
+    keyid: '8676a8a1-9b9b-4a91-9016-063569707baf'
+  },
+);
+
+const exportJwt =
+`GRAPHQL_JWT=${token}
+LAMBDA_JWT=${lambdaToken}`;
 
 fs.writeFileSync('.env', exportJwt, 'utf8');
 
