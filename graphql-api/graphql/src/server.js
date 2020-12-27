@@ -8,6 +8,9 @@ const PostGraphileFulltextFilterPlugin = require('postgraphile-plugin-fulltext-f
 // simplifies things but i prefer verbosity makes things clearer
 // const PgSimplifyInflectorPlugin = require("@graphile-contrib/pg-simplify-inflector");
 
+const isProd = process.env.NODE_ENV === 'production'
+const DATABASE_URL = isProd ? process.env.PROD_DATABASE_URL : process.env.DATABASE_URL;
+const OWNER_URL = isProd ? process.env.PROD_OWNER_URL : process.env.OWNER_URL;
 
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
@@ -57,7 +60,11 @@ const checkJwt = jwt({
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: ['http://localhost:3000', /margins\.me$/ ]
+}
+
+app.use(cors(corsOptions));
 
 // Authentication middleware. When used, the
 // Access Token must exist and be verified against
@@ -77,7 +84,7 @@ app.get('/test-jwt', (req, res, next) => {
 });
 
 app.use(
-  postgraphile(process.env.DATABASE_URL, "margins_public", {
+  postgraphile(DATABASE_URL, "margins_public", {
     watchPg: true,
     graphiql: true,
     enhanceGraphiql: true,
@@ -93,7 +100,7 @@ app.use(
     showErrorStack: "json",
     extendedErrors: ["hint", "detail", "errcode"],
     classicIds: true,
-    ownerConnectionString: process.env.OWNER_URL,
+    ownerConnectionString: OWNER_URL,
     retryOnInitFail: true,
     dynamicJson: false, //truly a pain and breaks spec
     pgSettings: req => {
