@@ -1,3 +1,4 @@
 test-*.json
 *.pem
 self-jwk.json
+migrate.sql
