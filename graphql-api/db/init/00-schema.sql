@@ -197,10 +197,10 @@ FOR EACH ROW EXECUTE PROCEDURE insert_created_at();
 -- margins_postgraphile will have the union of all privileges granted to
 -- margins_anonymous and margins_account
 
--- enable superuser to allow server side functions to bypass RLS
-CREATE ROLE margins_postgraphile WITH SUPERUSER LOGIN PASSWORD 'margins_postgraphile';
+-- server side roles postgraphile and lambda should be able to bypass rls
+CREATE ROLE margins_postgraphile LOGIN PASSWORD 'margins_postgraphile';
 
-CREATE ROLE margins_lambda WITH SUPERUSER;
+CREATE ROLE margins_lambda WITH BYPASSRLS;
 
 CREATE ROLE margins_anonymous;
 
@@ -208,7 +208,7 @@ CREATE ROLE margins_account;
 
 GRANT margins_anonymous TO margins_postgraphile;
 GRANT margins_account TO margins_postgraphile;
--- GRANT margins_anonymous TO margins_lambda;
+GRANT margins_anonymous TO margins_lambda;
 GRANT margins_account TO margins_lambda;
 GRANT margins_lambda TO margins_postgraphile;
 
