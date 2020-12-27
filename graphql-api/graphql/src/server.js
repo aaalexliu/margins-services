@@ -61,7 +61,7 @@ const checkJwt = jwt({
 const app = express();
 
 const corsOptions = {
-  origin: ['http://localhost:3000', /margins\.me$/ ]
+  origin: [ /localhost/, /margins\.me$/ ]
 }
 
 app.use(cors(corsOptions));
