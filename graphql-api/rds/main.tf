@@ -188,3 +188,17 @@ resource "aws_db_instance" "default" {
   db_subnet_group_name      = aws_db_subnet_group.default.id
   vpc_security_group_ids    = [aws_security_group.private.id]
 }
+
+resource "aws_key_pair" "deployer" {
+  key_name = "deployer-key"
+  public_key = file("~/.ssh/alex-ec2.pub")
+}
+
+resource "aws_instance" "web" {
+  ami = "ami-0be2609ba883822ec"
+  instance_type = "t2.micro"
+  vpc_security_group_ids = [ aws_security_group.public.id ]
+  subnet_id = aws_subnet.public.id
+  associate_public_ip_address = true
+  key_name = aws_key_pair.deployer.id
+}
