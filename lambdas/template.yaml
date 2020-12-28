@@ -1,30 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  margins.me-annotation-utils
-
-  Sample SAM Template for margins.me-annotation-utils
-
-# Globals:
-# Function:
-#   Environment:
-#     Variables:
-#       STAGE: Production
-#       TABLE_NAME: global-table
-
-# Resources:
-# MyFunction:
-#   Type: AWS::Serverless::Function
-#   Properties:
-#     Environment:
-#       Variables:
-#         TABLE_NAME: resource-table
-#         NEW_VAR: hello
-  
-# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
-# Globals:
-#   Function:
-#     Timeout: 30
+  margins lambdas
 
 Parameters:
   CognitoUserPoolId:
@@ -112,26 +89,6 @@ Resources:
 #         ArnLike:
 #           AWS:SourceArn: !Ref CognitoUserPoolArn
 
-## ALLOW SES TO INVOKE
-# {
-# "Version": "2012-10-17",
-# "Id": "default",
-# "Statement": [
-#   {
-#     "Sid": "allowSesInvoke",
-#     "Effect": "Allow",
-#     "Principal": {
-#       "Service": "ses.amazonaws.com"
-#     },
-#     "Action": "lambda:InvokeFunction",
-#     "Resource": "arn:aws:lambda:us-east-1:516851544810:function:sam-test-SESLambda-D7BP58TEQ5KN",
-#     "Condition": {
-#       "StringEquals": {
-#         "AWS:SourceAccount": "516851544810"
-#       }
-#     }
-#   }
-# }
 
 # Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
