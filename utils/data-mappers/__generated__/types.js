@@ -16,7 +16,6 @@ exports.CreateAccountDocument = graphql_tag_1.default `
       createdAt
       emailVerified
       firstName
-      fullName
       updatedAt
       lastName
     }
@@ -30,8 +29,6 @@ exports.GetAccountByAccountIdDocument = graphql_tag_1.default `
     email
     emailVerified
     group
-    fullName
-    firstName
   }
 }
     `;

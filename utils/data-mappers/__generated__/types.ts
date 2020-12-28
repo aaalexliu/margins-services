@@ -14,7 +14,10 @@ export type Scalars = {
   Cursor: any;
   /** A universally unique identifier as defined by [RFC 4122](https://tools.ietf.org/html/rfc4122). */
   UUID: any;
-  /** A point in time as described by the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone. */
+  /**
+   * A point in time as described by the [ISO
+   * 8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone.
+   */
   Datetime: any;
   /** A JavaScript object encoded in the JSON format as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
@@ -26,7 +29,10 @@ export type Scalars = {
 /** The root query type which gives access points into the data universe. */
 export type Query = Node & {
   __typename?: 'Query';
-  /** Exposes the root query type nested one level down. This is helpful for Relay 1 which can only query top level fields if they are in a particular form. */
+  /**
+   * Exposes the root query type nested one level down. This is helpful for Relay 1
+   * which can only query top level fields if they are in a particular form.
+   */
   query: Query;
   /** The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`. */
   id: Scalars['ID'];
@@ -393,8 +399,6 @@ export type AccountFilter = {
   accountId?: Maybe<UuidFilter>;
   /** Filter by the object’s `email` field. */
   email?: Maybe<StringFilter>;
-  /** Filter by the object’s `fullName` field. */
-  fullName?: Maybe<StringFilter>;
   /** Checks for all expressions in this list. */
   and?: Maybe<Array<AccountFilter>>;
   /** Checks for any expressions in this list. */
@@ -525,7 +529,6 @@ export type Account = Node & {
   authorsByAccountId: AuthorsConnection;
   /** Reads and enables pagination through a set of `Tag`. */
   tagsByAccountId: TagsConnection;
-  fullName?: Maybe<Scalars['String']>;
   /** Reads and enables pagination through a set of `Publication`. */
   publicationsByAnnotationAccountIdAndPublicationId: AccountPublicationsByAnnotationAccountIdAndPublicationIdManyToManyConnection;
 };
@@ -601,7 +604,10 @@ export type PublicationsOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC';
 
-/** A condition to be used against `Publication` object types. All fields are tested for equality and combined with a logical ‘and.’ */
+/**
+ * A condition to be used against `Publication` object types. All fields are tested
+ * for equality and combined with a logical ‘and.’
+ */
 export type PublicationCondition = {
   /** Checks for equality with the object’s `publicationId` field. */
   publicationId?: Maybe<Scalars['String']>;
@@ -821,7 +827,10 @@ export type AnnotationsOrderBy =
   | 'TSV_RANK_ASC'
   | 'TSV_RANK_DESC';
 
-/** A condition to be used against `Annotation` object types. All fields are tested for equality and combined with a logical ‘and.’ */
+/**
+ * A condition to be used against `Annotation` object types. All fields are tested
+ * for equality and combined with a logical ‘and.’
+ */
 export type AnnotationCondition = {
   /** Checks for equality with the object’s `annotationId` field. */
   annotationId?: Maybe<Scalars['String']>;
@@ -935,7 +944,10 @@ export type AnnotationTagsOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC';
 
-/** A condition to be used against `AnnotationTag` object types. All fields are tested for equality and combined with a logical ‘and.’ */
+/**
+ * A condition to be used against `AnnotationTag` object types. All fields are
+ * tested for equality and combined with a logical ‘and.’
+ */
 export type AnnotationTagCondition = {
   /** Checks for equality with the object’s `annotationId` field. */
   annotationId?: Maybe<Scalars['String']>;
@@ -1131,7 +1143,10 @@ export type PublicationAuthorsOrderBy =
   | 'PRIMARY_KEY_ASC'
   | 'PRIMARY_KEY_DESC';
 
-/** A condition to be used against `PublicationAuthor` object types. All fields are tested for equality and combined with a logical ‘and.’ */
+/**
+ * A condition to be used against `PublicationAuthor` object types. All fields are
+ * tested for equality and combined with a logical ‘and.’
+ */
 export type PublicationAuthorCondition = {
   /** Checks for equality with the object’s `publicationId` field. */
   publicationId?: Maybe<Scalars['String']>;
@@ -1916,7 +1931,10 @@ export type MutationDeleteTagByAccountIdAndTagNameArgs = {
 
 /** All input for the create `Account` mutation. */
 export type CreateAccountInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Account` to be created by this mutation. */
   account: AccountInput;
@@ -3778,7 +3796,10 @@ export type PublicationAccountIdFkeyPublicationCreateInput = {
 /** The output of our create `Account` mutation. */
 export type CreateAccountPayload = {
   __typename?: 'CreateAccountPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Account` that was created by this mutation. */
   account?: Maybe<Account>;
@@ -3796,7 +3817,10 @@ export type CreateAccountPayloadAccountEdgeArgs = {
 
 /** All input for the create `Annotation` mutation. */
 export type CreateAnnotationInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Annotation` to be created by this mutation. */
   annotation: AnnotationInput;
@@ -3826,7 +3850,10 @@ export type AnnotationInput = {
 /** The output of our create `Annotation` mutation. */
 export type CreateAnnotationPayload = {
   __typename?: 'CreateAnnotationPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Annotation` that was created by this mutation. */
   annotation?: Maybe<Annotation>;
@@ -3848,7 +3875,10 @@ export type CreateAnnotationPayloadAnnotationEdgeArgs = {
 
 /** All input for the create `AnnotationTag` mutation. */
 export type CreateAnnotationTagInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `AnnotationTag` to be created by this mutation. */
   annotationTag: AnnotationTagInput;
@@ -3865,7 +3895,10 @@ export type AnnotationTagInput = {
 /** The output of our create `AnnotationTag` mutation. */
 export type CreateAnnotationTagPayload = {
   __typename?: 'CreateAnnotationTagPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `AnnotationTag` that was created by this mutation. */
   annotationTag?: Maybe<AnnotationTag>;
@@ -3887,7 +3920,10 @@ export type CreateAnnotationTagPayloadAnnotationTagEdgeArgs = {
 
 /** All input for the create `Author` mutation. */
 export type CreateAuthorInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Author` to be created by this mutation. */
   author: AuthorInput;
@@ -3905,7 +3941,10 @@ export type AuthorInput = {
 /** The output of our create `Author` mutation. */
 export type CreateAuthorPayload = {
   __typename?: 'CreateAuthorPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Author` that was created by this mutation. */
   author?: Maybe<Author>;
@@ -3925,7 +3964,10 @@ export type CreateAuthorPayloadAuthorEdgeArgs = {
 
 /** All input for the create `Book` mutation. */
 export type CreateBookInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Book` to be created by this mutation. */
   book: BookInput;
@@ -3948,7 +3990,10 @@ export type BookInput = {
 /** The output of our create `Book` mutation. */
 export type CreateBookPayload = {
   __typename?: 'CreateBookPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Book` that was created by this mutation. */
   book?: Maybe<Book>;
@@ -3968,7 +4013,10 @@ export type CreateBookPayloadBookEdgeArgs = {
 
 /** All input for the create `Publication` mutation. */
 export type CreatePublicationInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Publication` to be created by this mutation. */
   publication: PublicationInput;
@@ -3991,7 +4039,10 @@ export type PublicationInput = {
 /** The output of our create `Publication` mutation. */
 export type CreatePublicationPayload = {
   __typename?: 'CreatePublicationPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Publication` that was created by this mutation. */
   publication?: Maybe<Publication>;
@@ -4011,7 +4062,10 @@ export type CreatePublicationPayloadPublicationEdgeArgs = {
 
 /** All input for the create `PublicationAuthor` mutation. */
 export type CreatePublicationAuthorInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `PublicationAuthor` to be created by this mutation. */
   publicationAuthor: PublicationAuthorInput;
@@ -4028,7 +4082,10 @@ export type PublicationAuthorInput = {
 /** The output of our create `PublicationAuthor` mutation. */
 export type CreatePublicationAuthorPayload = {
   __typename?: 'CreatePublicationAuthorPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `PublicationAuthor` that was created by this mutation. */
   publicationAuthor?: Maybe<PublicationAuthor>;
@@ -4050,7 +4107,10 @@ export type CreatePublicationAuthorPayloadPublicationAuthorEdgeArgs = {
 
 /** All input for the create `Tag` mutation. */
 export type CreateTagInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Tag` to be created by this mutation. */
   tag: TagInput;
@@ -4068,7 +4128,10 @@ export type TagInput = {
 /** The output of our create `Tag` mutation. */
 export type CreateTagPayload = {
   __typename?: 'CreateTagPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Tag` that was created by this mutation. */
   tag?: Maybe<Tag>;
@@ -4088,7 +4151,10 @@ export type CreateTagPayloadTagEdgeArgs = {
 
 /** All input for the `updateAccount` mutation. */
 export type UpdateAccountInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The globally unique `ID` which will identify a single `Account` to be updated. */
   id: Scalars['ID'];
@@ -4099,7 +4165,10 @@ export type UpdateAccountInput = {
 /** The output of our update `Account` mutation. */
 export type UpdateAccountPayload = {
   __typename?: 'UpdateAccountPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Account` that was updated by this mutation. */
   account?: Maybe<Account>;
@@ -4117,7 +4186,10 @@ export type UpdateAccountPayloadAccountEdgeArgs = {
 
 /** All input for the `updateAccountByAccountId` mutation. */
 export type UpdateAccountByAccountIdInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** An object where the defined keys will be set on the `Account` being updated. */
   accountPatch: AccountPatch;
@@ -4126,7 +4198,10 @@ export type UpdateAccountByAccountIdInput = {
 
 /** All input for the `updateAccountByEmail` mutation. */
 export type UpdateAccountByEmailInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** An object where the defined keys will be set on the `Account` being updated. */
   accountPatch: AccountPatch;
@@ -4135,7 +4210,10 @@ export type UpdateAccountByEmailInput = {
 
 /** All input for the `updateAnnotation` mutation. */
 export type UpdateAnnotationInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The globally unique `ID` which will identify a single `Annotation` to be updated. */
   id: Scalars['ID'];
@@ -4146,7 +4224,10 @@ export type UpdateAnnotationInput = {
 /** The output of our update `Annotation` mutation. */
 export type UpdateAnnotationPayload = {
   __typename?: 'UpdateAnnotationPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Annotation` that was updated by this mutation. */
   annotation?: Maybe<Annotation>;
@@ -4168,7 +4249,10 @@ export type UpdateAnnotationPayloadAnnotationEdgeArgs = {
 
 /** All input for the `updateAnnotationByAnnotationId` mutation. */
 export type UpdateAnnotationByAnnotationIdInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** An object where the defined keys will be set on the `Annotation` being updated. */
   annotationPatch: AnnotationPatch;
@@ -4177,7 +4261,10 @@ export type UpdateAnnotationByAnnotationIdInput = {
 
 /** All input for the `updateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightText` mutation. */
 export type UpdateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** An object where the defined keys will be set on the `Annotation` being updated. */
   annotationPatch: AnnotationPatch;
@@ -4189,7 +4276,10 @@ export type UpdateAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHi
 
 /** All input for the `updateAnnotationByPublicationIdAndAccountIdAndNoteLocationAndNoteText` mutation. */
 export type UpdateAnnotationByPublicationIdAndAccountIdAndNoteLocationAndNoteTextInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** An object where the defined keys will be set on the `Annotation` being updated. */
   annotationPatch: AnnotationPatch;
@@ -4201,7 +4291,10 @@ export type UpdateAnnotationByPublicationIdAndAccountIdAndNoteLocationAndNoteTex
 
 /** All input for the `updateAnnotationTag` mutation. */
 export type UpdateAnnotationTagInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The globally unique `ID` which will identify a single `AnnotationTag` to be updated. */
   id: Scalars['ID'];
@@ -4212,7 +4305,10 @@ export type UpdateAnnotationTagInput = {
 /** The output of our update `AnnotationTag` mutation. */
 export type UpdateAnnotationTagPayload = {
   __typename?: 'UpdateAnnotationTagPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `AnnotationTag` that was updated by this mutation. */
   annotationTag?: Maybe<AnnotationTag>;
@@ -4234,7 +4330,10 @@ export type UpdateAnnotationTagPayloadAnnotationTagEdgeArgs = {
 
 /** All input for the `updateAnnotationTagByAnnotationIdAndTagId` mutation. */
 export type UpdateAnnotationTagByAnnotationIdAndTagIdInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** An object where the defined keys will be set on the `AnnotationTag` being updated. */
   annotationTagPatch: AnnotationTagPatch;
@@ -4244,7 +4343,10 @@ export type UpdateAnnotationTagByAnnotationIdAndTagIdInput = {
 
 /** All input for the `updateAuthor` mutation. */
 export type UpdateAuthorInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The globally unique `ID` which will identify a single `Author` to be updated. */
   id: Scalars['ID'];
@@ -4255,7 +4357,10 @@ export type UpdateAuthorInput = {
 /** The output of our update `Author` mutation. */
 export type UpdateAuthorPayload = {
   __typename?: 'UpdateAuthorPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Author` that was updated by this mutation. */
   author?: Maybe<Author>;
@@ -4275,7 +4380,10 @@ export type UpdateAuthorPayloadAuthorEdgeArgs = {
 
 /** All input for the `updateAuthorByAuthorId` mutation. */
 export type UpdateAuthorByAuthorIdInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** An object where the defined keys will be set on the `Author` being updated. */
   authorPatch: AuthorPatch;
@@ -4284,7 +4392,10 @@ export type UpdateAuthorByAuthorIdInput = {
 
 /** All input for the `updateAuthorByFullName` mutation. */
 export type UpdateAuthorByFullNameInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** An object where the defined keys will be set on the `Author` being updated. */
   authorPatch: AuthorPatch;
@@ -4293,7 +4404,10 @@ export type UpdateAuthorByFullNameInput = {
 
 /** All input for the `updateAuthorByAccountIdAndFullName` mutation. */
 export type UpdateAuthorByAccountIdAndFullNameInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** An object where the defined keys will be set on the `Author` being updated. */
   authorPatch: AuthorPatch;
@@ -4303,7 +4417,10 @@ export type UpdateAuthorByAccountIdAndFullNameInput = {
 
 /** All input for the `updateBook` mutation. */
 export type UpdateBookInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The globally unique `ID` which will identify a single `Book` to be updated. */
   id: Scalars['ID'];
@@ -4314,7 +4431,10 @@ export type UpdateBookInput = {
 /** The output of our update `Book` mutation. */
 export type UpdateBookPayload = {
   __typename?: 'UpdateBookPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Book` that was updated by this mutation. */
   book?: Maybe<Book>;
@@ -4334,7 +4454,10 @@ export type UpdateBookPayloadBookEdgeArgs = {
 
 /** All input for the `updateBookByPublicationId` mutation. */
 export type UpdateBookByPublicationIdInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** An object where the defined keys will be set on the `Book` being updated. */
   bookPatch: BookPatch;
@@ -4343,7 +4466,10 @@ export type UpdateBookByPublicationIdInput = {
 
 /** All input for the `updatePublication` mutation. */
 export type UpdatePublicationInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The globally unique `ID` which will identify a single `Publication` to be updated. */
   id: Scalars['ID'];
@@ -4354,7 +4480,10 @@ export type UpdatePublicationInput = {
 /** The output of our update `Publication` mutation. */
 export type UpdatePublicationPayload = {
   __typename?: 'UpdatePublicationPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Publication` that was updated by this mutation. */
   publication?: Maybe<Publication>;
@@ -4374,7 +4503,10 @@ export type UpdatePublicationPayloadPublicationEdgeArgs = {
 
 /** All input for the `updatePublicationByPublicationId` mutation. */
 export type UpdatePublicationByPublicationIdInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** An object where the defined keys will be set on the `Publication` being updated. */
   publicationPatch: PublicationPatch;
@@ -4383,7 +4515,10 @@ export type UpdatePublicationByPublicationIdInput = {
 
 /** All input for the `updatePublicationByAccountIdAndTitle` mutation. */
 export type UpdatePublicationByAccountIdAndTitleInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** An object where the defined keys will be set on the `Publication` being updated. */
   publicationPatch: PublicationPatch;
@@ -4393,7 +4528,10 @@ export type UpdatePublicationByAccountIdAndTitleInput = {
 
 /** All input for the `updatePublicationAuthor` mutation. */
 export type UpdatePublicationAuthorInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The globally unique `ID` which will identify a single `PublicationAuthor` to be updated. */
   id: Scalars['ID'];
@@ -4404,7 +4542,10 @@ export type UpdatePublicationAuthorInput = {
 /** The output of our update `PublicationAuthor` mutation. */
 export type UpdatePublicationAuthorPayload = {
   __typename?: 'UpdatePublicationAuthorPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `PublicationAuthor` that was updated by this mutation. */
   publicationAuthor?: Maybe<PublicationAuthor>;
@@ -4426,7 +4567,10 @@ export type UpdatePublicationAuthorPayloadPublicationAuthorEdgeArgs = {
 
 /** All input for the `updatePublicationAuthorByPublicationIdAndAuthorId` mutation. */
 export type UpdatePublicationAuthorByPublicationIdAndAuthorIdInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** An object where the defined keys will be set on the `PublicationAuthor` being updated. */
   publicationAuthorPatch: PublicationAuthorPatch;
@@ -4436,7 +4580,10 @@ export type UpdatePublicationAuthorByPublicationIdAndAuthorIdInput = {
 
 /** All input for the `updateTag` mutation. */
 export type UpdateTagInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The globally unique `ID` which will identify a single `Tag` to be updated. */
   id: Scalars['ID'];
@@ -4447,7 +4594,10 @@ export type UpdateTagInput = {
 /** The output of our update `Tag` mutation. */
 export type UpdateTagPayload = {
   __typename?: 'UpdateTagPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Tag` that was updated by this mutation. */
   tag?: Maybe<Tag>;
@@ -4467,7 +4617,10 @@ export type UpdateTagPayloadTagEdgeArgs = {
 
 /** All input for the `updateTagByTagId` mutation. */
 export type UpdateTagByTagIdInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** An object where the defined keys will be set on the `Tag` being updated. */
   tagPatch: TagPatch;
@@ -4476,7 +4629,10 @@ export type UpdateTagByTagIdInput = {
 
 /** All input for the `updateTagByAccountIdAndTagName` mutation. */
 export type UpdateTagByAccountIdAndTagNameInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** An object where the defined keys will be set on the `Tag` being updated. */
   tagPatch: TagPatch;
@@ -4486,7 +4642,10 @@ export type UpdateTagByAccountIdAndTagNameInput = {
 
 /** All input for the `deleteAccount` mutation. */
 export type DeleteAccountInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The globally unique `ID` which will identify a single `Account` to be deleted. */
   id: Scalars['ID'];
@@ -4495,7 +4654,10 @@ export type DeleteAccountInput = {
 /** The output of our delete `Account` mutation. */
 export type DeleteAccountPayload = {
   __typename?: 'DeleteAccountPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Account` that was deleted by this mutation. */
   account?: Maybe<Account>;
@@ -4514,21 +4676,30 @@ export type DeleteAccountPayloadAccountEdgeArgs = {
 
 /** All input for the `deleteAccountByAccountId` mutation. */
 export type DeleteAccountByAccountIdInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   accountId: Scalars['UUID'];
 };
 
 /** All input for the `deleteAccountByEmail` mutation. */
 export type DeleteAccountByEmailInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   email: Scalars['String'];
 };
 
 /** All input for the `deleteAnnotation` mutation. */
 export type DeleteAnnotationInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The globally unique `ID` which will identify a single `Annotation` to be deleted. */
   id: Scalars['ID'];
@@ -4537,7 +4708,10 @@ export type DeleteAnnotationInput = {
 /** The output of our delete `Annotation` mutation. */
 export type DeleteAnnotationPayload = {
   __typename?: 'DeleteAnnotationPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Annotation` that was deleted by this mutation. */
   annotation?: Maybe<Annotation>;
@@ -4560,14 +4734,20 @@ export type DeleteAnnotationPayloadAnnotationEdgeArgs = {
 
 /** All input for the `deleteAnnotationByAnnotationId` mutation. */
 export type DeleteAnnotationByAnnotationIdInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   annotationId: Scalars['String'];
 };
 
 /** All input for the `deleteAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightText` mutation. */
 export type DeleteAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHighlightTextInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   publicationId: Scalars['String'];
   accountId: Scalars['UUID'];
@@ -4577,7 +4757,10 @@ export type DeleteAnnotationByPublicationIdAndAccountIdAndHighlightLocationAndHi
 
 /** All input for the `deleteAnnotationByPublicationIdAndAccountIdAndNoteLocationAndNoteText` mutation. */
 export type DeleteAnnotationByPublicationIdAndAccountIdAndNoteLocationAndNoteTextInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   publicationId: Scalars['String'];
   accountId: Scalars['UUID'];
@@ -4587,7 +4770,10 @@ export type DeleteAnnotationByPublicationIdAndAccountIdAndNoteLocationAndNoteTex
 
 /** All input for the `deleteAnnotationTag` mutation. */
 export type DeleteAnnotationTagInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The globally unique `ID` which will identify a single `AnnotationTag` to be deleted. */
   id: Scalars['ID'];
@@ -4596,7 +4782,10 @@ export type DeleteAnnotationTagInput = {
 /** The output of our delete `AnnotationTag` mutation. */
 export type DeleteAnnotationTagPayload = {
   __typename?: 'DeleteAnnotationTagPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `AnnotationTag` that was deleted by this mutation. */
   annotationTag?: Maybe<AnnotationTag>;
@@ -4619,7 +4808,10 @@ export type DeleteAnnotationTagPayloadAnnotationTagEdgeArgs = {
 
 /** All input for the `deleteAnnotationTagByAnnotationIdAndTagId` mutation. */
 export type DeleteAnnotationTagByAnnotationIdAndTagIdInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   annotationId: Scalars['String'];
   tagId: Scalars['String'];
@@ -4627,7 +4819,10 @@ export type DeleteAnnotationTagByAnnotationIdAndTagIdInput = {
 
 /** All input for the `deleteAuthor` mutation. */
 export type DeleteAuthorInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The globally unique `ID` which will identify a single `Author` to be deleted. */
   id: Scalars['ID'];
@@ -4636,7 +4831,10 @@ export type DeleteAuthorInput = {
 /** The output of our delete `Author` mutation. */
 export type DeleteAuthorPayload = {
   __typename?: 'DeleteAuthorPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Author` that was deleted by this mutation. */
   author?: Maybe<Author>;
@@ -4657,21 +4855,30 @@ export type DeleteAuthorPayloadAuthorEdgeArgs = {
 
 /** All input for the `deleteAuthorByAuthorId` mutation. */
 export type DeleteAuthorByAuthorIdInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   authorId: Scalars['String'];
 };
 
 /** All input for the `deleteAuthorByFullName` mutation. */
 export type DeleteAuthorByFullNameInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   fullName: Scalars['String'];
 };
 
 /** All input for the `deleteAuthorByAccountIdAndFullName` mutation. */
 export type DeleteAuthorByAccountIdAndFullNameInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   accountId: Scalars['UUID'];
   fullName: Scalars['String'];
@@ -4679,7 +4886,10 @@ export type DeleteAuthorByAccountIdAndFullNameInput = {
 
 /** All input for the `deleteBook` mutation. */
 export type DeleteBookInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The globally unique `ID` which will identify a single `Book` to be deleted. */
   id: Scalars['ID'];
@@ -4688,7 +4898,10 @@ export type DeleteBookInput = {
 /** The output of our delete `Book` mutation. */
 export type DeleteBookPayload = {
   __typename?: 'DeleteBookPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Book` that was deleted by this mutation. */
   book?: Maybe<Book>;
@@ -4709,14 +4922,20 @@ export type DeleteBookPayloadBookEdgeArgs = {
 
 /** All input for the `deleteBookByPublicationId` mutation. */
 export type DeleteBookByPublicationIdInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   publicationId: Scalars['String'];
 };
 
 /** All input for the `deletePublication` mutation. */
 export type DeletePublicationInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The globally unique `ID` which will identify a single `Publication` to be deleted. */
   id: Scalars['ID'];
@@ -4725,7 +4944,10 @@ export type DeletePublicationInput = {
 /** The output of our delete `Publication` mutation. */
 export type DeletePublicationPayload = {
   __typename?: 'DeletePublicationPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Publication` that was deleted by this mutation. */
   publication?: Maybe<Publication>;
@@ -4746,14 +4968,20 @@ export type DeletePublicationPayloadPublicationEdgeArgs = {
 
 /** All input for the `deletePublicationByPublicationId` mutation. */
 export type DeletePublicationByPublicationIdInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   publicationId: Scalars['String'];
 };
 
 /** All input for the `deletePublicationByAccountIdAndTitle` mutation. */
 export type DeletePublicationByAccountIdAndTitleInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   accountId: Scalars['UUID'];
   title: Scalars['String'];
@@ -4761,7 +4989,10 @@ export type DeletePublicationByAccountIdAndTitleInput = {
 
 /** All input for the `deletePublicationAuthor` mutation. */
 export type DeletePublicationAuthorInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The globally unique `ID` which will identify a single `PublicationAuthor` to be deleted. */
   id: Scalars['ID'];
@@ -4770,7 +5001,10 @@ export type DeletePublicationAuthorInput = {
 /** The output of our delete `PublicationAuthor` mutation. */
 export type DeletePublicationAuthorPayload = {
   __typename?: 'DeletePublicationAuthorPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `PublicationAuthor` that was deleted by this mutation. */
   publicationAuthor?: Maybe<PublicationAuthor>;
@@ -4793,7 +5027,10 @@ export type DeletePublicationAuthorPayloadPublicationAuthorEdgeArgs = {
 
 /** All input for the `deletePublicationAuthorByPublicationIdAndAuthorId` mutation. */
 export type DeletePublicationAuthorByPublicationIdAndAuthorIdInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   publicationId: Scalars['String'];
   authorId: Scalars['String'];
@@ -4801,7 +5038,10 @@ export type DeletePublicationAuthorByPublicationIdAndAuthorIdInput = {
 
 /** All input for the `deleteTag` mutation. */
 export type DeleteTagInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The globally unique `ID` which will identify a single `Tag` to be deleted. */
   id: Scalars['ID'];
@@ -4810,7 +5050,10 @@ export type DeleteTagInput = {
 /** The output of our delete `Tag` mutation. */
 export type DeleteTagPayload = {
   __typename?: 'DeleteTagPayload';
-  /** The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations. */
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   /** The `Tag` that was deleted by this mutation. */
   tag?: Maybe<Tag>;
@@ -4831,14 +5074,20 @@ export type DeleteTagPayloadTagEdgeArgs = {
 
 /** All input for the `deleteTagByTagId` mutation. */
 export type DeleteTagByTagIdInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   tagId: Scalars['String'];
 };
 
 /** All input for the `deleteTagByAccountIdAndTagName` mutation. */
 export type DeleteTagByAccountIdAndTagNameInput = {
-  /** An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client. */
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
   clientMutationId?: Maybe<Scalars['String']>;
   accountId: Scalars['UUID'];
   tagName: Scalars['String'];
@@ -4855,7 +5104,7 @@ export type CreateAccountMutation = (
     { __typename: 'CreateAccountPayload' }
     & { account?: Maybe<(
       { __typename?: 'Account' }
-      & Pick<Account, 'accountId' | 'email' | 'createdAt' | 'emailVerified' | 'firstName' | 'fullName' | 'updatedAt' | 'lastName'>
+      & Pick<Account, 'accountId' | 'email' | 'createdAt' | 'emailVerified' | 'firstName' | 'updatedAt' | 'lastName'>
     )> }
   )> }
 );
@@ -4869,7 +5118,7 @@ export type GetAccountByAccountIdQuery = (
   { __typename?: 'Query' }
   & { accountByAccountId?: Maybe<(
     { __typename?: 'Account' }
-    & Pick<Account, 'accountId' | 'email' | 'emailVerified' | 'group' | 'fullName' | 'firstName'>
+    & Pick<Account, 'accountId' | 'email' | 'emailVerified' | 'group'>
   )> }
 );
 
@@ -5106,7 +5355,6 @@ export const CreateAccountDocument = gql`
       createdAt
       emailVerified
       firstName
-      fullName
       updatedAt
       lastName
     }
@@ -5120,8 +5368,6 @@ export const GetAccountByAccountIdDocument = gql`
     email
     emailVerified
     group
-    fullName
-    firstName
   }
 }
     `;
