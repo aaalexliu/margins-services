@@ -65,7 +65,7 @@ const lambdaToken = jwt.sign(
 
 const exportJwt =
 `GRAPHQL_JWT=${token}
-LAMBDA_JWT=${lambdaToken}`;
+LAMBDA_JWT=${lamb}`;
 
 fs.writeFileSync('.env', exportJwt, 'utf8');
 
