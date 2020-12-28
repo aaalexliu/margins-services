@@ -15,7 +15,6 @@ const CREATE_ACCOUNT = graphql_request_1.gql `
         createdAt
         emailVerified
         firstName
-        fullName
         updatedAt
         lastName
       }
@@ -29,8 +28,6 @@ const GET_ACCOUNT_BY_ID = graphql_request_1.gql `
       email
       emailVerified
       group
-      fullName
-      firstName
     }
   }
 `;
@@ -71,9 +68,26 @@ class AccountMapper extends data_mapper_1.default {
     }
     async createAccount(account) {
         const accountInputVar = this.createAccountInput(account);
-        const response = await this.sdk.CreateAccount(accountInputVar);
-        // console.log('create account response', response);
-        return response.createAccount.account;
+        try {
+            const response = await this.sdk.CreateAccount(accountInputVar);
+            return {
+                success: 'success',
+                account: response.createAccount.account
+            };
+        }
+        catch (error) {
+            console.log('catching create account error');
+            const firstError = error.response.errors[0];
+            if (firstError.message === 'duplicate key value violates unique constraint "account_pkey"') {
+                return {
+                    error: 'duplicate'
+                };
+            }
+            console.log('unexpected error', firstError);
+            return {
+                error
+            };
+        }
     }
     createAccountInput(account) {
         return {

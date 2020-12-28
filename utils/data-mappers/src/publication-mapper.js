@@ -83,7 +83,7 @@ class PublicationMapper extends data_mapper_1.default {
         // const bookPublicationId = this.getBookPublicationId(publicationMutationVar);
         const authorResponses = await Promise
             .all(authors.map((author) => this.findOrCreateAuthor(author, publicationId)));
-        console.log('author responses', authorResponses);
+        // console.log('author responses', authorResponses);
         return {
             publicationId,
             authorIds: authorResponses.map(author => author.authorId)
@@ -93,7 +93,7 @@ class PublicationMapper extends data_mapper_1.default {
         const title = publication.title;
         const GetPublicationVar = this.createGetPublicationVar(title);
         const response = await this.sdk.GetPublicationByAccountAndTitle(GetPublicationVar);
-        console.log('get publication response', response);
+        // console.log('get publication response', response);
         return response.publicationByAccountIdAndTitle;
     }
     createGetPublicationVar(title) {
@@ -106,7 +106,7 @@ class PublicationMapper extends data_mapper_1.default {
         const publicationMutationVar = this.createPublicationMutationVars(publication);
         try {
             const publicationResponse = await this.sdk.CreatePublication(publicationMutationVar);
-            console.log('create publication response', publicationResponse);
+            // console.log('create publication response', publicationResponse);
             return publicationResponse.createPublication.publication;
         }
         catch (error) {
@@ -138,7 +138,7 @@ class PublicationMapper extends data_mapper_1.default {
         let author = await this.findAuthor(fullName);
         if (author) {
             const connectAuthorResponse = await this.connectAuthorAndPublication(author.authorId, publicationId);
-            console.log(connectAuthorResponse);
+            // console.log(connectAuthorResponse);
             return author;
         }
         author = await this.createAuthor(fullName, publicationId);
@@ -148,7 +148,7 @@ class PublicationMapper extends data_mapper_1.default {
         const connectAuthorPublicationVar = this.createAuthorPublicationVariables(authorId, publicationId);
         try {
             const response = await this.sdk.ConnectAuthorToPublication(connectAuthorPublicationVar);
-            console.log('connectAuthorAndPublication response', response);
+            // console.log('connectAuthorAndPublication response', response);
             return response;
         }
         catch (error) {
@@ -173,13 +173,13 @@ class PublicationMapper extends data_mapper_1.default {
     }
     async findAuthor(fullName) {
         const authorResponse = await this.sdk.GetAuthorByFullName({ fullName });
-        console.log('find author response', authorResponse);
+        // console.log('find author response', authorResponse);
         return authorResponse.authorByFullName;
     }
     async createAuthor(fullName, publicationId) {
         const createAuthorVar = this.createAuthorVariables(fullName, publicationId);
         const authorResponse = await this.sdk.CreateAuthor(createAuthorVar);
-        console.log('create author response', authorResponse);
+        // console.log('create author response', authorResponse);
         return authorResponse.createAuthor.author;
     }
     createAuthorVariables(fullName, publicationId) {
