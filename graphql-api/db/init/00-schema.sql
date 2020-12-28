@@ -161,16 +161,18 @@ FROM
 --   tag.tag_id;
 
 -- FUNCTIONS
-CREATE FUNCTION account_full_name (account account)
-  RETURNS text
-  AS $$
-  SELECT
-    account.first_name || ' ' || account.last_name
-  FROM account;
-    -- SELECT concat(account.first_name, ' ', account.last_name)
-$$
-LANGUAGE sql
-STABLE;
+
+-- RIGHT NOW BROKEN WILL FIX LATER
+-- CREATE FUNCTION account_full_name (account account)
+--   RETURNS text
+--   AS $$
+--   SELECT
+--     account.first_name || ' ' || account.last_name
+--   FROM account;
+--     -- SELECT concat(account.first_name, ' ', account.last_name)
+-- $$
+-- LANGUAGE sql
+-- STABLE;
 
 -- TRIGGER for created_at column
 
