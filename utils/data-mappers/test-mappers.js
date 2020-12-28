@@ -285,14 +285,14 @@ async function addBookAndAnnotations(testBook, testNotes) {
   let accountRes = await accountMapper.findOrCreateCognitoAccount(mockCognitoPayload);
   console.log(accountRes);
 
-  await addBookAndAnnotations(ONBOARDING_BOOK, ONBOARDING_NOTES);
+  // await addBookAndAnnotations(ONBOARDING_BOOK, ONBOARDING_NOTES);
 
-  // for (let i = 0, n= 10; i < n; i++) {
-  //   await addBookAndAnnotations({
-  //     title: `testPublication${i}`,
-  //     authors: ['testAuthor1', 'testAuthor2', 'Author A. Author']
-  //   }, testNotes);
-  // }
+  for (let i = 11, n= 12; i < n; i++) {
+    await addBookAndAnnotations({
+      title: `testPublication${i}`,
+      authors: ['testAuthor1', 'testAuthor2', 'Author A. Author']
+    }, testNotes);
+  }
   
   // const allAnnotations = await annotationMapper.getAllAnnotationsFromPublication();
   // console.log('get all annotations response:\n', allAnnotations);
