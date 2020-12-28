@@ -1,10 +1,8 @@
-import { GraphQLClient, gql } from 'graphql-request';
+import { gql } from 'graphql-request';
 
 import {
   CreateAccountMutationVariables,
   AccountInput,
-  CreateAccountPayload,
-  GetAccountByEmailDocument
 } from '../__generated__/types';
 
 import DataMapper from './data-mapper';
@@ -19,7 +17,6 @@ const CREATE_ACCOUNT = gql`
         createdAt
         emailVerified
         firstName
-        fullName
         updatedAt
         lastName
       }
@@ -34,11 +31,10 @@ const GET_ACCOUNT_BY_ID = gql`
       email
       emailVerified
       group
-      fullName
-      firstName
     }
   }
 `;
+
 
 const GET_ACCOUNT_BY_EMAIL = gql`
   query GetAccountByEmail($email: String!) {
