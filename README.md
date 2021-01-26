@@ -1,6 +1,6 @@
 # Margins Back End Services
 
-For a deep dive into the architecture decisions (why GraphQL, why serverless, etc.) check out my [Margins Architecture Overview](https://alexliusiqing.com/portfolio/margins/overview)
+For a deep dive into the architecture decisions (why GraphQL, why serverless, etc.) check out [Margins Architecture Overview](https://alexliusiqing.com/portfolio/margins/overview)
 
 ## What's Inside 🧐
 
